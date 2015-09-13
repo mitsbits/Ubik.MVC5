@@ -63,6 +63,9 @@
     <Build Include="Tables\Devices.sql" />
     <Build Include="Tables\Sections.sql" />
     <Build Include="Tables\Slots.sql" />
+    <Build Include="Tables\Components.sql" />
+    <Build Include="Tables\Contents.sql" />
+    <Build Include="Tables\Textuals.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Ubik.Web.MsSql.refactorlog" />

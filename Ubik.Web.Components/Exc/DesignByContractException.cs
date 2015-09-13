@@ -7,7 +7,7 @@ namespace Ubik.Web.Components.Exc
     ///     Catch this exception type if you wish to differentiate between
     ///     any DesignByContract exception and other runtime exceptions.
     /// </summary>
-    internal class DesignByContractException : ApplicationException
+    public class DesignByContractException : ApplicationException
     {
         protected DesignByContractException()
         {

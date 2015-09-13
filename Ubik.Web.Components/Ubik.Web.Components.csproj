@@ -36,6 +36,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasePartialModule.cs" />
+    <Compile Include="ComponentStateFlavor.cs" />
+    <Compile Include="ComponentStateTransitionException.cs" />
+    <Compile Include="Contracts\ICanBeDeleted.cs" />
+    <Compile Include="Contracts\ICanPublishSuspend.cs" />
+    <Compile Include="Contracts\IHtmlMeta.cs" />
+    <Compile Include="Contracts\ITextualInfo.cs" />
+    <Compile Include="Domain\Content.cs" />
+    <Compile Include="Domain\Meta.cs" />
+    <Compile Include="Domain\Textual.cs" />
     <Compile Include="EntityBase.cs" />
     <Compile Include="Contracts\ICatalogued.cs" />
     <Compile Include="Contracts\IEntity.cs" />
@@ -57,9 +66,11 @@
     <Compile Include="DTO\Tidings.cs" />
     <Compile Include="Exc\DesignByContractException.cs" />
     <Compile Include="Exc\InvariantException.cs" />
+    <Compile Include="Ext\ComponentExtensions.cs" />
     <Compile Include="Ext\DictionaryExtensions.cs" />
     <Compile Include="Ext\DtoExtensions.cs" />
     <Compile Include="Guard.cs" />
+    <Compile Include="Contracts\IComponent.cs" />
     <Compile Include="ModuleFlavor.cs" />
     <Compile Include="Domain\PartialAction.cs" />
     <Compile Include="Domain\PartialView.cs" />

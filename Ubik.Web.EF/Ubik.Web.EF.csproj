@@ -54,6 +54,8 @@
   <ItemGroup>
     <Compile Include="Components\ComponentsDbContext.cs" />
     <Compile Include="Components\DeviceRepository.cs" />
+    <Compile Include="Components\Mapper.cs" />
+    <Compile Include="Components\PersistedComponents.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

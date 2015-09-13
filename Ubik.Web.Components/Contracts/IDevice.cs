@@ -12,4 +12,11 @@ namespace Ubik.Web.Components.Contracts
 
         DeviceRenderFlavor Flavor { get; }
     }
+
+    public interface IContent
+    {
+        ITextualInfo Textual { get; }
+        string CanonicalURL { get; }
+        IEnumerable<IHtmlMeta> Metas { get; }
+    }
 }

@@ -6,13 +6,13 @@ namespace Ubik.Web.Cms
     {
         public DeviceHelper Device { get; private set; }
 
-        //public ContentHelper Content { get; private set; }
+        public ContentHelper Content { get; private set; }
 
         public override void InitHelpers()
         {
             base.InitHelpers();
             Device = new DeviceHelper(ViewContext);
-            //Content = new ContentHelper(ViewContext);
+            Content = new ContentHelper(ViewContext);
         }
     }
 
@@ -20,13 +20,13 @@ namespace Ubik.Web.Cms
     {
         public DeviceHelper Device { get; private set; }
 
-        //public ContentHelper Content { get; private set; }
+        public ContentHelper Content { get; private set; }
 
         public override void InitHelpers()
         {
             base.InitHelpers();
             Device = new DeviceHelper(ViewContext);
-            //Content = new ContentHelper(ViewContext);
+            Content = new ContentHelper(ViewContext);
         }
     }
 }

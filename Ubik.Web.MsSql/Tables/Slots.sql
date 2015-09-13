@@ -3,5 +3,7 @@
 	[SectionId] INT NOT NULL, 
     [Enabled] BIT NOT NULL, 
     [Ordinal] INT NOT NULL, 
-    [Module] XML NULL 
+	[Flavor] NCHAR(50) NOT NULL, 
+    [ModuleInfo] XML NULL
+    
 )

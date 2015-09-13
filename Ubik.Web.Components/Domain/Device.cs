@@ -12,13 +12,14 @@ namespace Ubik.Web.Components.Domain
             Sections = new HashSet<Section<TKey>>();
         }
 
-        internal Device(TKey id, string friendlyName, string path)
+        public Device(TKey id, string friendlyName, string path)
             : this()
         {
             Id = id;
             FriendlyName = friendlyName;
             Path = path;
         }
+
 
         public string FriendlyName { get; private set; }
 
@@ -27,6 +28,9 @@ namespace Ubik.Web.Components.Domain
         ICollection<ISection> IDevice.Sections { get { return Sections.Cast<ISection>().ToList(); } }
         public ICollection<Section<TKey>> Sections { get; private set; }
         private DeviceRenderFlavor _flavor = DeviceRenderFlavor.Empty;
+        private int p1;
+        private string p2;
+        private string p3;
 
         public DeviceRenderFlavor Flavor
         {

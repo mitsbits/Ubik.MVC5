@@ -14,4 +14,25 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="Ordinal" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="c73b0d00-39da-4b43-b27a-2d0a61ccfa7e" ChangeDateTime="09/12/2015 12:55:11">
+    <Property Name="ElementName" Value="[dbo].[Slots].[Module]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Slots]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ModuleInfo" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="5e2b7afa-cb36-4ef1-bcd6-3226d8f3421c" ChangeDateTime="09/12/2015 14:33:21">
+    <Property Name="ElementName" Value="[dbo].[Contents].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Contents]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ComponentId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="f13254d8-0347-4697-954a-7cc6573c3e4c" ChangeDateTime="09/12/2015 14:39:43">
+    <Property Name="ElementName" Value="[dbo].[Contents].[C]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Contents]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CanonicalURL" />
+  </Operation>
 </Operations>

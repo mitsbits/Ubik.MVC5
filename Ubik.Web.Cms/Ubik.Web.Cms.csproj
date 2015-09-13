@@ -70,6 +70,7 @@
   <ItemGroup>
     <Compile Include="BasePageHelper.cs" />
     <Compile Include="CmsDevice.cs" />
+    <Compile Include="CmsHtmlMeta.cs" />
     <Compile Include="CmsPage.cs" />
     <Compile Include="CmsPartialAction.cs" />
     <Compile Include="CmsPartialView.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="CmsSlot.cs" />
     <Compile Include="CmsViewComponent.cs" />
     <Compile Include="CmsViewEngine.cs" />
+    <Compile Include="ContentHelper.cs" />
     <Compile Include="Contracts\IDevicePageProvider.cs" />
     <Compile Include="Contracts\IHtmlHelperRendersMe.cs" />
     <Compile Include="Contracts\IRootPageProvider.cs" />

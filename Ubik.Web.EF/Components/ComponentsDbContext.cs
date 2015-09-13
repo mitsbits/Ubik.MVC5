@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Ubik.Web.Components.Domain;
 
 namespace Ubik.Web.EF.Components
 {
     public class ComponentsDbContext : DbContext
     {
-        public DbSet<Device<int>> Devices { get; set; }
+        public DbSet<PersistedDevice> Devices { get; set; }
+        public DbSet<PersistedContent> Contents { get; set; }
+        public DbSet<PersistedTextual> Textuals { get; set; }
         public ComponentsDbContext()
             : base("cmsconnectionstring")
         {
@@ -28,10 +24,12 @@ namespace Ubik.Web.EF.Components
         {
             modelBuilder.Configurations.Add(new DeviceConfig());
             modelBuilder.Configurations.Add(new SectionConfig());
+            modelBuilder.Configurations.Add(new SlotInfoConfig());
+            modelBuilder.Configurations.Add(new ContentConfig());
             base.OnModelCreating(modelBuilder);
         }
 
-        internal class DeviceConfig : EntityTypeConfiguration<Device<int>>
+        internal class DeviceConfig : EntityTypeConfiguration<PersistedDevice>
         {
             public DeviceConfig()
             {
@@ -42,7 +40,7 @@ namespace Ubik.Web.EF.Components
             }
         }
 
-        internal class SectionConfig : EntityTypeConfiguration<Section<int>>
+        internal class SectionConfig : EntityTypeConfiguration<PersistedSection>
         {
             public SectionConfig()
             {
@@ -53,13 +51,33 @@ namespace Ubik.Web.EF.Components
             }
         }
 
-        internal class SlotInfoConfig : EntityTypeConfiguration<SectionSlotInfo>
+        internal class SlotInfoConfig : EntityTypeConfiguration<PersistedSlot>
         {
             public SlotInfoConfig()
             {
-                //ToTable("Slots").
-                //    HasKey(x => new { x.}).
-                //    HasMany(x => x.Slots);
+                ToTable("Slots").
+                    HasKey(x => new {x.SectionId, x.Ordinal});
+              
+            }
+        }
+
+        internal class ContentConfig : EntityTypeConfiguration<PersistedContent>
+        {
+            public ContentConfig()
+            {
+                ToTable("Contents").
+                    HasKey(x => new {x.Id}).
+                    HasRequired(x => x.Textual);
+
+            }
+        }
+        internal class TextualConfig : EntityTypeConfiguration<PersistedTextual>
+        {
+            public TextualConfig()
+            {
+                ToTable("Textuals").
+                    HasKey(x => new { x.Id }).
+                    HasRequired(x => x.Subject);
 
             }
         }

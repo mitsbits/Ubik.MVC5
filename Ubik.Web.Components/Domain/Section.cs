@@ -18,7 +18,7 @@ namespace Ubik.Web.Components.Domain
         {
         }
 
-        internal Section(TKey id, string identifier, string friendlyName, DeviceRenderFlavor flavor)
+        public Section(TKey id, string identifier, string friendlyName, DeviceRenderFlavor flavor)
             : this()
         {
             Id = id;
@@ -42,7 +42,7 @@ namespace Ubik.Web.Components.Domain
             get { return _forFlavor; }
         }
 
-        internal void DefineSlot(SectionSlotInfo info, BasePartialModule module)
+        public void DefineSlot(SectionSlotInfo info, BasePartialModule module)
         {
             var slot = Slots
                 .FirstOrDefault(x => x.SectionSlotInfo.Ordinal == info.Ordinal
@@ -53,7 +53,7 @@ namespace Ubik.Web.Components.Domain
             Slots.Add(new Slot(info, module));
         }
 
-        internal void SetForFlavor(DeviceRenderFlavor newFlavor)
+        public void SetForFlavor(DeviceRenderFlavor newFlavor)
         {
             _forFlavor = newFlavor;
         }

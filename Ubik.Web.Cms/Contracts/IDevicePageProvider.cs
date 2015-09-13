@@ -9,4 +9,9 @@ namespace Ubik.Web.Cms.Contracts
 
         IEnumerable<ISection> ActiveSections { get; }
     }
+
+    internal interface IContentPageProvider
+    {
+        IContent Current { get; }
+    }
 }
