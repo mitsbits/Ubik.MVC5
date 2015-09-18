@@ -63,9 +63,9 @@ namespace Ubik.Web.Components.Domain
             }
         }
 
-        public override ModuleFlavor Flavor
+        public override ModuleType ModuleType
         {
-            get { return ModuleFlavor.PartialAction; }
+            get { return ModuleType.PartialAction; }
         }
     }
 }

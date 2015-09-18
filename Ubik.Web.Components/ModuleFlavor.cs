@@ -3,17 +3,17 @@ using System.Collections.Generic;
 
 namespace Ubik.Web.Components
 {
-    public class ModuleFlavor
+    public class ModuleType
     {
         private readonly string _flavorDescription = String.Empty;
-        private static readonly IDictionary<string, ModuleFlavor> Dict = new Dictionary<string, ModuleFlavor>();
+        private static readonly IDictionary<string, ModuleType> Dict = new Dictionary<string, ModuleType>();
 
-        public static readonly ModuleFlavor Empty         = new ModuleFlavor("Empty");
-        public static readonly ModuleFlavor PartialAction = new ModuleFlavor("Partial Action");
-        public static readonly ModuleFlavor PartialView   = new ModuleFlavor("Partial View");
-        public static readonly ModuleFlavor ViewComponent = new ModuleFlavor("View Component");
+        public static readonly ModuleType Empty         = new ModuleType("Empty");
+        public static readonly ModuleType PartialAction = new ModuleType("Partial Action");
+        public static readonly ModuleType PartialView   = new ModuleType("Partial View");
+        public static readonly ModuleType ViewComponent = new ModuleType("Partial View Component");
 
-        private ModuleFlavor(string flavorDescription)
+        private ModuleType(string flavorDescription)
         {
             _flavorDescription = flavorDescription;
             Dict.Add(flavorDescription, this);
@@ -24,32 +24,32 @@ namespace Ubik.Web.Components
             return _flavorDescription;
         }
 
-        public static ModuleFlavor Parse(string flavorDescription)
+        public static ModuleType Parse(string flavorDescription)
         {
             if (Dict.Keys.Contains(flavorDescription))
             {
                 return Dict[flavorDescription];
             }
-            throw new NotImplementedException("This flavor description is not supported currently.");
+            throw new NotImplementedException("This type description is not supported currently.");
         }
 
-        public static bool TryParse(string heightDescription, out ModuleFlavor flavor)
+        public static bool TryParse(string heightDescription, out ModuleType type)
         {
             try
             {
-                flavor = Parse(heightDescription);
+                type = Parse(heightDescription);
                 return true;
             }
             catch (NotImplementedException ex)
             {
-                flavor = null;
+                type = null;
                 return false;
             }
         }
 
-        public static List<ModuleFlavor> GetMembers()
+        public static List<ModuleType> GetMembers()
         {
-            return new List<ModuleFlavor>(Dict.Values);
+            return new List<ModuleType>(Dict.Values);
         }
     }
 }

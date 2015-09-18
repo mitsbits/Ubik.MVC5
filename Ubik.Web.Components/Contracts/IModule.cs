@@ -9,6 +9,6 @@ namespace Ubik.Web.Components.Contracts
 
         TData Parameters { get; }
 
-        ModuleFlavor Flavor { get; }
+        ModuleType ModuleType { get; }
     }
 }

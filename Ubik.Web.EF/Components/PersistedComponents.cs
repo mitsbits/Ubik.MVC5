@@ -28,9 +28,18 @@ namespace Ubik.Web.EF.Components
     {
         public int TextualId { get; set; }
         public virtual PersistedTextual Textual { get; set; }
+        public virtual PersistedBrowserAddress BrowserAddress { get; set; }
+
+        
+    }
+
+    public class PersistedBrowserAddress 
+    {
+        public int Id { get; set; }
         public string MetasInfo { get; set; }
         public string CanonicalURL { get; set; }
-        
+        public string Slug { get; set; }
+
     }
 
     public class PersistedDevice

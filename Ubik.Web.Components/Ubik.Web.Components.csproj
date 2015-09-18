@@ -36,12 +36,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasePartialModule.cs" />
+    <Compile Include="ComponentBase.cs" />
     <Compile Include="ComponentStateFlavor.cs" />
     <Compile Include="ComponentStateTransitionException.cs" />
+    <Compile Include="Contracts\IBrowserAddress.cs" />
     <Compile Include="Contracts\ICanBeDeleted.cs" />
     <Compile Include="Contracts\ICanPublishSuspend.cs" />
     <Compile Include="Contracts\IHtmlMeta.cs" />
     <Compile Include="Contracts\ITextualInfo.cs" />
+    <Compile Include="Domain\BrowserAddress.cs" />
     <Compile Include="Domain\Content.cs" />
     <Compile Include="Domain\Meta.cs" />
     <Compile Include="Domain\Textual.cs" />
@@ -79,6 +82,7 @@
     <Compile Include="Domain\Section.cs" />
     <Compile Include="Domain\SectionSlotInfo.cs" />
     <Compile Include="Domain\Slot.cs" />
+    <Compile Include="Query\DeviceProjection.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Ubik.Infra\Ubik.Infra.csproj">

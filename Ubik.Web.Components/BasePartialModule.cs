@@ -27,7 +27,7 @@ namespace Ubik.Web.Components
         }
 
         //TODO: find a way so ModuleFlavor can be extended by calling code
-        public abstract ModuleFlavor Flavor { get; }
+        public abstract ModuleType ModuleType { get; }
 
         public string FriendlyName { get; private set; }
 

@@ -9,6 +9,7 @@ using Ubik.EF;
 using Ubik.Infra.Contracts;
 using Ubik.Web.Components.Contracts;
 using Ubik.Web.Components.Domain;
+using Ubik.Web.Components.Query;
 
 namespace Ubik.Web.EF.Components
 {
@@ -31,6 +32,19 @@ namespace Ubik.Web.EF.Components
                 var hit = db.Include(x => x.Sections).Include("Section.Slots").FirstOrDefault(x => x.Id == id);
                 return Mapper.MapToDomain(hit);
             }
+        }
+    }
+
+    public class DeviceQueryRepository :
+        QueryRepository<Device<int>, DeviceProjection<int>, ComponentsQueryDbContext>
+    {
+        public DeviceQueryRepository(IAmbientDbContextLocator ambientDbContextLocator) : base(ambientDbContextLocator)
+        {
+        }
+
+        public override IEnumerable<Device<int>> Map(IEnumerable<DeviceProjection<int>> projections)
+        {
+            return Mapper.Map(projections);
         }
     }
 }

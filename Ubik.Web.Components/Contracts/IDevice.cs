@@ -16,7 +16,6 @@ namespace Ubik.Web.Components.Contracts
     public interface IContent
     {
         ITextualInfo Textual { get; }
-        string CanonicalURL { get; }
-        IEnumerable<IHtmlMeta> Metas { get; }
+        IBrowserAddress BrowserAddress { get; }
     }
 }

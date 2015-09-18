@@ -25,9 +25,9 @@ namespace Ubik.Web.Components.Domain
             get { return GetInternalValue(KeyPrefix, "path").ToString(); }
         }
 
-        public override ModuleFlavor Flavor
+        public override ModuleType ModuleType
         {
-            get { return ModuleFlavor.PartialView; }
+            get { return ModuleType.PartialView; }
         }
 
         public PartialView SetViewPath(string newViewPath)

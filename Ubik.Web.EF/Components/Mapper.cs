@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Ubik.Web.Components;
 using Ubik.Web.Components.Domain;
+using Ubik.Web.Components.Query;
 
 namespace Ubik.Web.EF.Components
 {
@@ -32,14 +33,14 @@ namespace Ubik.Web.EF.Components
 
         public static Content<int> MapToDomain(PersistedContent source)
         {
-            var result = new Content<int>(source.Id, MapToDomain(source.Textual), source.CanonicalURL);
+            var result = new Content<int>(source.Id, MapToDomain(source.Textual), source.BrowserAddress.CanonicalURL);
             result.SetState((ComponentStateFlavor)source.ComponentStateFlavor);
-            var metas = Utility.XmlDeserializeFromString<ICollection<Meta>>(source.MetasInfo);
+            var metas = Utility.XmlDeserializeFromString<ICollection<Meta>>(source.BrowserAddress.MetasInfo);
             if (metas != null && metas.Any())
             {
                 foreach (var meta in metas)
                 {
-                    result.Metas.Add(meta);
+                    result.BrowserAddress.Metas.Add(meta);
                 }
             }
             return result;
@@ -49,6 +50,33 @@ namespace Ubik.Web.EF.Components
         {
             var result = new Textual(source.Subject, source.Summary.ToUTF8(), source.Body.ToUTF8());
             return result;
+        }
+
+        public static IEnumerable<Device<TKey>> Map<TKey>(IEnumerable<DeviceProjection<TKey>> source)
+        {
+            var groups = source.GroupBy(x => x.Id);
+            foreach (var @group in groups)
+            {
+                var head = @group.FirstOrDefault();
+                if (head == null) continue;
+                var device = new Device<TKey>(head.Id, head.FriendlyName, head.Path);
+                device.SetFlavor(head.Flavor);
+                foreach (var sectionGroup in @group.GroupBy(x => x.SectionId))
+                {
+                    var sectionHead = sectionGroup.FirstOrDefault();
+                    if (sectionHead == null) continue;
+                    var section = new Section<TKey>(sectionHead.SectionId, sectionHead.SectionIdentifier,
+                        sectionHead.SectionFriendlyName, sectionHead.SectionForFlavor);
+                    foreach (var slot in sectionGroup.OrderBy(x => x.SlotOrdinal))
+                    {
+                        section.Slots.Add(new Slot(
+                            new SectionSlotInfo(slot.SectionIdentifier, slot.SlotEnabled, slot.SlotOrdinal),
+                            Utility.XmlDeserializeFromString<BasePartialModule>(slot.ModuleInfo)));
+                    }
+                    device.AddSection(section);
+                }
+                yield return device;
+            }
         }
     }
 }

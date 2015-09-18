@@ -8,7 +8,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
     <ProjectGuid>{e0988e93-af00-4f8d-82f4-57b918e2227f}</ProjectGuid>
-    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql120DatabaseSchemaProvider</DSP>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql110DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>
     </RootPath>
@@ -57,17 +57,24 @@
   <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
-    <Folder Include="Tables" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Views\" />
+    <Folder Include="dbo\Tables\" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Tables\Devices.sql" />
-    <Build Include="Tables\Sections.sql" />
-    <Build Include="Tables\Slots.sql" />
-    <Build Include="Tables\Components.sql" />
-    <Build Include="Tables\Contents.sql" />
-    <Build Include="Tables\Textuals.sql" />
+    <Build Include="dbo\Views\DeviceProjections.sql" />
+    <Build Include="dbo\Tables\Textuals.sql" />
+    <Build Include="dbo\Tables\Slots.sql" />
+    <Build Include="dbo\Tables\Sections.sql" />
+    <Build Include="dbo\Tables\Devices.sql" />
+    <Build Include="dbo\Tables\Contents.sql" />
+    <Build Include="dbo\Tables\Components.sql" />
+    <Build Include="dbo\Tables\BrowserAddresses.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Ubik.Web.MsSql.refactorlog" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="LocalSqlSchemaCompare.scmp" />
   </ItemGroup>
 </Project>
