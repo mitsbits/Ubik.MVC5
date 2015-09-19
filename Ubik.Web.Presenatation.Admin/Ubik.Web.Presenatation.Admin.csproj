@@ -45,9 +45,33 @@
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Owin, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.2.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Owin.Security, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -214,13 +238,13 @@
     <Content Include="Areas\BackOffice\Views\Forms\General.cshtml" />
     <Content Include="Areas\BackOffice\Views\Home\Index.cshtml" />
     <Content Include="Areas\BackOffice\Views\Mailbox\Mailbox.cshtml" />
-    <Content Include="Areas\BackOffice\Views\Pages\Empty.cshtml" />
-    <Content Include="Areas\BackOffice\Views\Pages\Error.cshtml" />
-    <Content Include="Areas\BackOffice\Views\Pages\Invoice.cshtml" />
-    <Content Include="Areas\BackOffice\Views\Pages\Lockscreen.cshtml" />
-    <Content Include="Areas\BackOffice\Views\Pages\Login.cshtml" />
-    <Content Include="Areas\BackOffice\Views\Pages\NotFound.cshtml" />
-    <Content Include="Areas\BackOffice\Views\Pages\Register.cshtml" />
+    <Content Include="Views\Pages\Empty.cshtml" />
+    <Content Include="Views\Pages\Error.cshtml" />
+    <Content Include="Views\Pages\Invoice.cshtml" />
+    <Content Include="Views\Pages\Lockscreen.cshtml" />
+    <Content Include="Views\Pages\Login.cshtml" />
+    <Content Include="Views\Pages\NotFound.cshtml" />
+    <Content Include="Views\Pages\Register.cshtml" />
     <Content Include="Areas\BackOffice\Views\Tables\Data.cshtml" />
     <Content Include="Areas\BackOffice\Views\Tables\Simple.cshtml" />
     <Content Include="Areas\BackOffice\Views\UI\Buttons.cshtml" />
@@ -240,6 +264,8 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\web.config" />
+    <Content Include="Views\Account\Login.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -576,23 +602,26 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\BackOffice\BackOfficeAreaRegistration.cs" />
-    <Compile Include="Areas\BackOffice\Controllers\Calendar.cs" />
-    <Compile Include="Areas\BackOffice\Controllers\Charts.cs" />
-    <Compile Include="Areas\BackOffice\Controllers\Forms.cs" />
-    <Compile Include="Areas\BackOffice\Controllers\HomeController.cs" />
-    <Compile Include="Areas\BackOffice\Controllers\Mailbox.cs" />
-    <Compile Include="Areas\BackOffice\Controllers\Pages.cs" />
-    <Compile Include="Areas\BackOffice\Controllers\Tables.cs" />
-    <Compile Include="Areas\BackOffice\Controllers\UI.cs" />
-    <Compile Include="Areas\BackOffice\Controllers\Widgets.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Pages.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\BackOffice\Models\" />
+    <ProjectReference Include="..\Ubik.Web.Auth\Ubik.Web.Auth.csproj">
+      <Project>{78A78FA0-EC82-45B9-824B-F356A046137F}</Project>
+      <Name>Ubik.Web.Auth</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ubik.Web.BackOffice\Ubik.Web.BackOffice.csproj">
+      <Project>{b0bbc9d8-75c5-4887-8f21-abc72e9d4acd}</Project>
+      <Name>Ubik.Web.BackOffice</Name>
+    </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

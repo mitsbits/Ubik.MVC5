@@ -1,8 +1,8 @@
 ﻿using System.Web.Mvc;
 
-namespace Ubik.Web.Presenatation.Admin.Areas.BackOffice.Controllers
+namespace Ubik.Web.BackOffice.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BackOfficeController
     {
         public ActionResult Index()
         {

@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace Ubik.Web.Presenatation.Admin.Areas.BackOffice.Controllers
+namespace Ubik.Web.BackOffice.Controllers
 {
     public class FormsController : Controller
     {

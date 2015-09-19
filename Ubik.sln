@@ -36,6 +36,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{882F31
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ubik.Web.BackOffice", "Ubik.Web.BackOffice\Ubik.Web.BackOffice.csproj", "{B0BBC9D8-75C5-4887-8F21-ABC72E9D4ACD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -84,6 +86,10 @@ Global
 		{B0381DE8-63A5-43BF-A61F-3BA8A68D29A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B0381DE8-63A5-43BF-A61F-3BA8A68D29A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B0381DE8-63A5-43BF-A61F-3BA8A68D29A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0BBC9D8-75C5-4887-8F21-ABC72E9D4ACD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0BBC9D8-75C5-4887-8F21-ABC72E9D4ACD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0BBC9D8-75C5-4887-8F21-ABC72E9D4ACD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0BBC9D8-75C5-4887-8F21-ABC72E9D4ACD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -101,5 +107,6 @@ Global
 		{79096B8A-1722-4954-8713-2BEE52B865EE} = {18A10018-E3B7-46C4-B4BF-CA880F136DDE}
 		{E0988E93-AF00-4F8D-82F4-57B918E2227F} = {18A10018-E3B7-46C4-B4BF-CA880F136DDE}
 		{B0381DE8-63A5-43BF-A61F-3BA8A68D29A3} = {513B8330-F523-4A88-8368-A8062CEA662D}
+		{B0BBC9D8-75C5-4887-8F21-ABC72E9D4ACD} = {18A10018-E3B7-46C4-B4BF-CA880F136DDE}
 	EndGlobalSection
 EndGlobal

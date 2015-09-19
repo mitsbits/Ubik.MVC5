@@ -12,8 +12,8 @@
     
     <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <!-- Theme style -->
-    @Styles.Render("~/Content/css/bootstrap")
-    @Styles.Render("~/Content/css/AdminLTE")
+    @Styles.Render("~/Areas/BackOffice/Content/css/bootstrap")
+    @Styles.Render("~/Areas/BackOffice/Content/css/AdminLTE")
 
 </head>
 <body class="bg-black">
@@ -33,17 +33,17 @@
             </div>
             <div class="footer">
                 <button type="submit" class="btn bg-olive btn-block">Sign me in</button>
-                <p><a href="#">I forgot my password</a></p>
-                <a href="@Url.Action("Register", "Pages")" class="text-center">Register a new membership</a>
+                @*<p><a href="#">I forgot my password</a></p>
+                <a href="@Url.Action("Register", "Pages")" class="text-center">Register a new membership</a>*@
             </div>
         </form>
-        <div class="margin text-center">
+        @*<div class="margin text-center">
             <span>Sign in using social networks</span>
             <br />
             <button class="btn bg-light-blue btn-circle"><i class="fa fa-facebook"></i></button>
             <button class="btn bg-aqua btn-circle"><i class="fa fa-twitter"></i></button>
             <button class="btn bg-red btn-circle"><i class="fa fa-google-plus"></i></button>
-        </div>
+        </div>*@
     </div>
     
     @Scripts.Render("~/bundles/jquery")
