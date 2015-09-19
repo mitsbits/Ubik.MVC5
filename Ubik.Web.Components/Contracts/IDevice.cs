@@ -16,6 +16,11 @@ namespace Ubik.Web.Components.Contracts
     public interface IContent
     {
         ITextualInfo Textual { get; }
-        IBrowserAddress BrowserAddress { get; }
+        IHtmlHeadInfo HtmlHeadInfo { get; }
+    }
+
+    public interface IHasTags
+    {
+        IEnumerable<ITag> Tags { get; } 
     }
 }

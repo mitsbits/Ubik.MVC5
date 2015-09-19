@@ -1,8 +1,9 @@
-﻿using Ubik.Web.Components.Contracts;
+﻿using System.Collections.Generic;
+using Ubik.Web.Components.Contracts;
 
 namespace Ubik.Web.Components.Domain
 {
-    public class Content<TKey> : ComponentBase<TKey>, IContent
+    public class Content<TKey> : ComponentBase<TKey>, IContent, IHasTags
     {
         protected Content()
         {
@@ -12,7 +13,8 @@ namespace Ubik.Web.Components.Domain
             : base(id)
         {
             Textual = textual;
-            BrowserAddress = new BrowserAddress(canonicalUrl);
+            HtmlHead = new HtmlHead(canonicalUrl);
+            Tags = new HashSet<Tag<TKey>>();
         }
 
         ITextualInfo IContent.Textual
@@ -22,11 +24,29 @@ namespace Ubik.Web.Components.Domain
 
         public Textual Textual { get; private set; }
 
-        IBrowserAddress IContent.BrowserAddress
+        IHtmlHeadInfo IContent.HtmlHeadInfo
         {
-            get { return BrowserAddress; }
+            get { return HtmlHead; }
         }
 
-        public BrowserAddress BrowserAddress { get; private set; }
+        public HtmlHead HtmlHead { get; private set; }
+
+        IEnumerable<ITag> IHasTags.Tags
+        {
+            get { return Tags; }
+        }
+
+        public ICollection<Tag<TKey>> Tags { get; private set; } 
+    }
+
+    public class Tag<TKey> : ComponentBase<TKey>, ITag
+    {
+        protected Tag() { }
+
+        public Tag(TKey id, string value) : base(id)
+        {
+            Value = value;
+        } 
+        public string Value { get; private set; }
     }
 }

@@ -32,5 +32,9 @@ namespace Ubik.Web.Cms
                 }
             }
         }
+        public static int RoundOff(this int i, int round = 10)
+        {
+            return ((int)Math.Round(i / (double)round)) * round;
+        }
     }
 }

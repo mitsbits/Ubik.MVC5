@@ -33,14 +33,14 @@ namespace Ubik.Web.EF.Components
 
         public static Content<int> MapToDomain(PersistedContent source)
         {
-            var result = new Content<int>(source.Id, MapToDomain(source.Textual), source.BrowserAddress.CanonicalURL);
+            var result = new Content<int>(source.Id, MapToDomain(source.Textual), source.HtmlHead.CanonicalURL);
             result.SetState((ComponentStateFlavor)source.ComponentStateFlavor);
-            var metas = Utility.XmlDeserializeFromString<ICollection<Meta>>(source.BrowserAddress.MetasInfo);
+            var metas = Utility.XmlDeserializeFromString<ICollection<Meta>>(source.HtmlHead.MetasInfo);
             if (metas != null && metas.Any())
             {
                 foreach (var meta in metas)
                 {
-                    result.BrowserAddress.Metas.Add(meta);
+                    result.HtmlHead.Metas.Add(meta);
                 }
             }
             return result;

@@ -4,6 +4,6 @@
     {
         string SectionIdentifier { get; }
         bool Enabled             { get; }
-        int Ordinal                { get; }
+        int Ordinal              { get; }
     }
 }

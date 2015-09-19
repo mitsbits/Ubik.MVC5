@@ -27,6 +27,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ubik.Web.EF", "Ubik.Web.EF\
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Ubik.Web.MsSql", "Ubik.Web.MsSql\Ubik.Web.MsSql.sqlproj", "{E0988E93-AF00-4F8D-82F4-57B918E2227F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ubik.Web.Presenatation.Admin", "Ubik.Web.Presenatation.Admin\Ubik.Web.Presenatation.Admin.csproj", "{B0381DE8-63A5-43BF-A61F-3BA8A68D29A3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{882F3188-3190-466F-84F3-2DB3CFB3E8CE}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +80,10 @@ Global
 		{E0988E93-AF00-4F8D-82F4-57B918E2227F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E0988E93-AF00-4F8D-82F4-57B918E2227F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E0988E93-AF00-4F8D-82F4-57B918E2227F}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{B0381DE8-63A5-43BF-A61F-3BA8A68D29A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0381DE8-63A5-43BF-A61F-3BA8A68D29A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0381DE8-63A5-43BF-A61F-3BA8A68D29A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0381DE8-63A5-43BF-A61F-3BA8A68D29A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -87,5 +100,6 @@ Global
 		{791FC149-AE57-4DE0-B4DA-12B47216E131} = {0EAC63AC-7511-4196-9E56-5D038A73577E}
 		{79096B8A-1722-4954-8713-2BEE52B865EE} = {18A10018-E3B7-46C4-B4BF-CA880F136DDE}
 		{E0988E93-AF00-4F8D-82F4-57B918E2227F} = {18A10018-E3B7-46C4-B4BF-CA880F136DDE}
+		{B0381DE8-63A5-43BF-A61F-3BA8A68D29A3} = {513B8330-F523-4A88-8368-A8062CEA662D}
 	EndGlobalSection
 EndGlobal

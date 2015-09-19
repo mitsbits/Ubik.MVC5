@@ -1,45 +1,66 @@
-﻿using System;
+﻿using Mehdime.Entity;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Xml.Serialization;
-using Mehdime.Entity;
 using Ubik.EF;
-using Ubik.Web.Components;
-using Ubik.Web.Components.Domain;
 
 namespace Ubik.Web.EF.Components
 {
     public abstract class PersistedComponent
     {
-        public int Id { get; set; }
-        public long ComponentStateFlavor { get; set; }
+        public virtual int Id { get; set; }
+
+        public virtual long ComponentStateFlavor { get; set; }
     }
 
     public class PersistedTextual
     {
-        public int Id { get; set; }
-        public string Subject { get; set; }
-        public byte[] Summary { get; set; }
-        public byte[] Body { get; set; }
+        public virtual int Id { get; set; }
+
+        public virtual string Subject { get; set; }
+
+        public virtual byte[] Summary { get; set; }
+
+        public virtual byte[] Body { get; set; }
     }
 
     public class PersistedContent : PersistedComponent
     {
-        public int TextualId { get; set; }
-        public virtual PersistedTextual Textual { get; set; }
-        public virtual PersistedBrowserAddress BrowserAddress { get; set; }
+        public PersistedContent()
+        {
+            Tags = new HashSet<PersistedTag>();
+        }
 
-        
+        public virtual int TextualId { get; set; }
+
+        public virtual PersistedTextual Textual { get; set; }
+
+        public virtual PersistedHtmlHead HtmlHead { get; set; }
+
+        public virtual ICollection<PersistedTag> Tags { get; set; }
     }
 
-    public class PersistedBrowserAddress 
+    public class PersistedTag : PersistedComponent
     {
-        public int Id { get; set; }
-        public string MetasInfo { get; set; }
-        public string CanonicalURL { get; set; }
-        public string Slug { get; set; }
+        public PersistedTag()
+        {
+            Contents = new HashSet<PersistedContent>();
+        }
+        public virtual string Value { get; set; }
+        public virtual ICollection<PersistedContent> Contents { get; set; } 
+    }
 
+    public class PersistedHtmlHead
+    {
+        public virtual int Id { get; set; }
+
+        public virtual string MetasInfo { get; set; }
+
+        public virtual string CanonicalURL { get; set; }
+
+        public virtual string Slug { get; set; }
     }
 
     public class PersistedDevice
@@ -48,10 +69,14 @@ namespace Ubik.Web.EF.Components
         {
             Sections = new HashSet<PersistedSection>();
         }
-        public int Id { get; set; }
-        public string FriendlyName { get; set; }
-        public string Path { get; set; }
-        public ICollection<PersistedSection> Sections { get; set; }
+
+        public virtual int Id { get; set; }
+
+        public virtual string FriendlyName { get; set; }
+
+        public virtual string Path { get; set; }
+
+        public virtual ICollection<PersistedSection> Sections { get; set; }
     }
 
     public class PersistedSection
@@ -60,21 +85,31 @@ namespace Ubik.Web.EF.Components
         {
             Slots = new HashSet<PersistedSlot>();
         }
-        public int Id { get; set; }
-        public int DeviceId { get; set; }
-        public string Identifier { get; set; }
-        public string FriendlyName { get; set; }
-        public int ForFlavor { get; set; }
-        public ICollection<PersistedSlot> Slots { get; set; }
+
+        public virtual int Id { get; set; }
+
+        public virtual int DeviceId { get; set; }
+
+        public virtual string Identifier { get; set; }
+
+        public virtual string FriendlyName { get; set; }
+
+        public virtual int ForFlavor { get; set; }
+
+        public virtual ICollection<PersistedSlot> Slots { get; set; }
     }
 
     public class PersistedSlot
     {
-        public int SectionId { get; set; }
-        public bool Enabled { get; set; }
-        public int Ordinal { get; set; }
-        public string Flavor { get; set; }
-        public string ModuleInfo { get; set; }
+        public virtual int SectionId { get; set; }
+
+        public virtual bool Enabled { get; set; }
+
+        public virtual int Ordinal { get; set; }
+
+        public virtual string Flavor { get; set; }
+
+        public virtual string ModuleInfo { get; set; }
     }
 
     internal class PersistedContentRepository : ReadWriteRepository<PersistedContent, ComponentsDbContext>
@@ -112,8 +147,6 @@ namespace Ubik.Web.EF.Components
 
             return sb.ToString();
         }
-
-
 
         public static string GetXmlString(object objectInstance, Type[] types)
         {
@@ -170,6 +203,7 @@ namespace Ubik.Web.EF.Components
             if (buffer == null || buffer.Length == 0) return string.Empty;
             return System.Text.Encoding.UTF8.GetString(buffer);
         }
+
         /// <summary>
         /// Converts a string to a binary value
         /// using UTF8 Encoding

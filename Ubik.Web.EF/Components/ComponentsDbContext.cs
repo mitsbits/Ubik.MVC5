@@ -12,7 +12,9 @@ namespace Ubik.Web.EF.Components
 
         public DbSet<PersistedTextual> Textuals { get; set; }
 
-        public DbSet<PersistedBrowserAddress> BrowserAddresses { get; set; }
+        public DbSet<PersistedHtmlHead> HtmlHeads { get; set; }
+
+        public DbSet<PersistedTag> Tags { get; set; }
 
         public ComponentsDbContext()
             : base("cmsconnectionstring")
@@ -30,7 +32,9 @@ namespace Ubik.Web.EF.Components
             modelBuilder.Configurations.Add(new SectionConfig());
             modelBuilder.Configurations.Add(new SlotInfoConfig());
             modelBuilder.Configurations.Add(new ContentConfig());
-            modelBuilder.Configurations.Add(new BrowserAddressConfig());
+            modelBuilder.Configurations.Add(new HtmlHeadConfig());
+            modelBuilder.Configurations.Add(new TagConfig());
+            modelBuilder.Configurations.Add(new TextualConfig());
             base.OnModelCreating(modelBuilder);
         }
 
@@ -63,15 +67,30 @@ namespace Ubik.Web.EF.Components
             }
         }
 
-        private class BrowserAddressConfig : EntityTypeConfiguration<PersistedBrowserAddress>
+        private class HtmlHeadConfig : EntityTypeConfiguration<PersistedHtmlHead>
         {
-            public BrowserAddressConfig()
+            public HtmlHeadConfig()
             {
                 ToTable("BrowserAddresses").
                     HasKey(x => new { x.Id });
             }
         }
-
+        private class TagConfig : EntityTypeConfiguration<PersistedTag>
+        {
+            public TagConfig()
+            {
+                ToTable("Tags").
+                    HasKey(x => new { x.Id });
+                HasMany(x => x.Contents)
+            .WithMany(x => x.Tags)
+               .Map(x =>
+               {
+                   x.ToTable("Contents_Tags");
+                   x.MapLeftKey("TagId");
+                   x.MapRightKey("ContentId");
+               });
+            }
+        }
         private class ContentConfig : EntityTypeConfiguration<PersistedContent>
         {
             public ContentConfig()
@@ -79,7 +98,15 @@ namespace Ubik.Web.EF.Components
                 ToTable("Contents").
                     HasKey(x => new { x.Id });
                 HasRequired(x => x.Textual);
-                HasRequired(x => x.BrowserAddress);
+                HasRequired(x => x.HtmlHead);
+                HasMany(x => x.Tags)
+        .WithMany(x => x.Contents)
+            .Map(x =>
+            {
+                x.ToTable("Contents_Tags"); 
+                x.MapLeftKey("ContentId");
+                x.MapRightKey("TagId");
+            });
             }
         }
 
