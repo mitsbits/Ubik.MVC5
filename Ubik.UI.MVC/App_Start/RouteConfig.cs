@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq.Expressions;
+using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace Ubik.UI.MVC
@@ -12,7 +13,8 @@ namespace Ubik.UI.MVC
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
+                namespaces: new[] { "Ubik.UI.MVC.Controllers" }
             );
         }
     }
