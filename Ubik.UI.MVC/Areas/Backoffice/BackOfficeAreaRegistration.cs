@@ -18,7 +18,7 @@ namespace Ubik.UI.MVC.Areas.Backoffice
                 "Backoffice_default",
                 "Backoffice/{controller}/{action}/{id}",
                 new { action = "Index", controller = "Home", id = UrlParameter.Optional },
-                new[] { "Ubik.Web.BackOffice.Controllers" }
+                new[] { "Ubik.Web.Backoffice.Controllers" }
             );
         }
     }
