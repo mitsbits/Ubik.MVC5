@@ -2,7 +2,7 @@
 
 namespace Ubik.Web.BackOffice.Controllers
 {
-    public class HomeController : BackOfficeController
+    public class HomeController : BackofficeController
     {
         public ActionResult Index()
         {

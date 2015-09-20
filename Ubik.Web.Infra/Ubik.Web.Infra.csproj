@@ -40,9 +40,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contracts\IResident.cs" />
+    <Compile Include="Navigation\BaseNavigationElement.cs" />
+    <Compile Include="Navigation\BaseNavigationElements.cs" />
+    <Compile Include="Navigation\BaseNavigationGroup.cs" />
+    <Compile Include="Navigation\Contracts\IHasParent.cs" />
+    <Compile Include="Navigation\Contracts\INavigationElement.cs" />
+    <Compile Include="Navigation\Contracts\INavigationElements.cs" />
+    <Compile Include="Navigation\Contracts\INavigationGroup.cs" />
+    <Compile Include="Navigation\Extensions.cs" />
+    <Compile Include="Navigation\NavigationElementDTO.cs" />
+    <Compile Include="Navigation\NavigationElementRole.cs" />
+    <Compile Include="Navigation\NavigationGroupDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Ubik.Infra\Ubik.Infra.csproj">
+      <Project>{F7CB1815-5D42-469D-9A35-5C3EF88733E5}</Project>
+      <Name>Ubik.Infra</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

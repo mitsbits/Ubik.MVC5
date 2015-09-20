@@ -1,0 +1,33 @@
+﻿ <!-- Right side column. Contains the navbar and content of the page -->
+<aside class="right-side">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            @Content.Current.Title
+            <small>Control panel</small>
+        </h1>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+
+    </section><!-- /.content -->
+</aside><!-- /.right-side -->
+
+@Scripts.Render("~/bundles/AdminLTE_Dashboard")
+@Scripts.Render("~/bundles/raphael")
+@Scripts.Render("~/bundles/morris")
+@Scripts.Render("~/bundles/sparkline")
+@Scripts.Render("~/bundles/jvectormap")
+@Scripts.Render("~/bundles/jqueryKnob")
+@Scripts.Render("~/bundles/daterangepicker")
+@Scripts.Render("~/bundles/datepicker")
+@Scripts.Render("~/bundles/bootstrap-wysihtml5")
+@Scripts.Render("~/bundles/iCheck")
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("li").removeClass("active");
+        $("#dashboard").addClass("active");
+    });
+</script>

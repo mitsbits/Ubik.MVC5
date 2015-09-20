@@ -9,7 +9,7 @@ using Ubik.Web.Auth.Contracts;
 
 namespace Ubik.Web.Auth.Repositories
 {
-    internal class RoleRepository : ReadWriteRepository<ApplicationRole, AuthDbContext>, IRoleRepository
+    public class RoleRepository : ReadWriteRepository<ApplicationRole, AuthDbContext>, IRoleRepository
     {
         public RoleRepository(IAmbientDbContextLocator ambientDbContextLocator)
             : base(ambientDbContextLocator)

@@ -26,7 +26,7 @@ namespace Ubik.Web.Auth.ViewModels
         public RoleRowViewModel[] AvailableRoles { get; set; }
     }
 
-    internal class UserViewModelBuilder : IViewModelBuilder<ApplicationUser, UserViewModel>
+    public class UserViewModelBuilder : IViewModelBuilder<ApplicationUser, UserViewModel>
     {
         private readonly IResident _resident;
         private readonly IRoleRepository _roleRepo;

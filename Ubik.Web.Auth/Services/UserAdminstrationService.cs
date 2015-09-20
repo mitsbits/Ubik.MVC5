@@ -8,7 +8,7 @@ using Ubik.Web.Auth.Managers;
 
 namespace Ubik.Web.Auth.Services
 {
-    internal class UserAdminstrationService : IUserAdminstrationService
+    public class UserAdminstrationService : IUserAdminstrationService
     {
         private readonly IUserRepository _userRepo;
         private readonly IRoleRepository _roleRepo;

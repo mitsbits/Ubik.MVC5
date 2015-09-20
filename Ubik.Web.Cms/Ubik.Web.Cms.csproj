@@ -94,6 +94,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Ubik.Infra\Ubik.Infra.csproj">
+      <Project>{f7cb1815-5d42-469d-9a35-5c3ef88733e5}</Project>
+      <Name>Ubik.Infra</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Ubik.Web.Components\Ubik.Web.Components.csproj">
       <Project>{8d91a185-358b-4e6e-9d3a-a1cf51da7251}</Project>
       <Name>Ubik.Web.Components</Name>

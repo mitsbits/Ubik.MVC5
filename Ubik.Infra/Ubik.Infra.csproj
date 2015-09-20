@@ -39,8 +39,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\IHierarchicalEnumerable.cs" />
+    <Compile Include="Contracts\IHierarchyData.cs" />
     <Compile Include="Contracts\IQueryRepository.cs" />
     <Compile Include="Contracts\IReadRepository.cs" />
+    <Compile Include="Contracts\IWeighted.cs" />
     <Compile Include="Contracts\IWriteRepository.cs" />
     <Compile Include="DataManagement\Group\GroupElement.cs" />
     <Compile Include="DataManagement\Group\GroupingHelper.cs" />

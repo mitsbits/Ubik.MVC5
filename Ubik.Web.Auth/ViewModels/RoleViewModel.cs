@@ -19,7 +19,8 @@ namespace Ubik.Web.Auth.ViewModels
     {
         public IEnumerable<RoleClaimRowViewModel> AvailableClaims { get; set; } 
     }
-    internal class RoleViewModelBuilder : IViewModelBuilder<ApplicationRole, RoleViewModel>
+
+    public class RoleViewModelBuilder : IViewModelBuilder<ApplicationRole, RoleViewModel>
     {
         private readonly IResident _resident;
         private readonly IRoleRepository _roleRepo;

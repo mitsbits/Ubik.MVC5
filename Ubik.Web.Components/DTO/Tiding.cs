@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Xml.Serialization;
+using Ubik.Infra.Contracts;
 using Ubik.Web.Components.Contracts;
 
 namespace Ubik.Web.Components.DTO

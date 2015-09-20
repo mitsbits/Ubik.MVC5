@@ -61,7 +61,6 @@
     <Compile Include="Contracts\ISection.cs" />
     <Compile Include="Contracts\ISectionSlotInfo.cs" />
     <Compile Include="Contracts\ISlot.cs" />
-    <Compile Include="Contracts\IWeighted.cs" />
     <Compile Include="Domain\Device.cs" />
     <Compile Include="DeviceRenderFlavor.cs" />
     <Compile Include="DTO\Catalogued.cs" />
