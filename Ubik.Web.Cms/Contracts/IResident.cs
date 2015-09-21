@@ -2,7 +2,7 @@
 using System.Security.Claims;
 using Ubik.Web.Infra.Navigation.Contracts;
 
-namespace Ubik.Web.Infra.Contracts
+namespace Ubik.Web.Cms.Contracts
 {
     public interface IResident
     {

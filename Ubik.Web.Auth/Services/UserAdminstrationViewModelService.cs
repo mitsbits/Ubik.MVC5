@@ -4,7 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using Ubik.Web.Auth.Contracts;
 using Ubik.Web.Auth.ViewModels;
-using Ubik.Web.Infra.Contracts;
+using Ubik.Web.Cms.Contracts;
 
 namespace Ubik.Web.Auth.Services
 {

@@ -84,6 +84,7 @@
     <Compile Include="ContentHelper.cs" />
     <Compile Include="Contracts\IDevicePageProvider.cs" />
     <Compile Include="Contracts\IHtmlHelperRendersMe.cs" />
+    <Compile Include="Contracts\IResident.cs" />
     <Compile Include="Contracts\IRootPageProvider.cs" />
     <Compile Include="DeviceHelper.cs" />
     <Compile Include="Ext\Extensions.cs" />
@@ -101,6 +102,10 @@
     <ProjectReference Include="..\Ubik.Web.Components\Ubik.Web.Components.csproj">
       <Project>{8d91a185-358b-4e6e-9d3a-a1cf51da7251}</Project>
       <Name>Ubik.Web.Components</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ubik.Web.Infra\Ubik.Web.Infra.csproj">
+      <Project>{7EACFD79-0D49-43C3-A388-ABC4B0DDFE82}</Project>
+      <Name>Ubik.Web.Infra</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

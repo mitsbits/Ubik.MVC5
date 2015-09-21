@@ -3,21 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Ubik.Web.Auth.Contracts;
-using Ubik.Web.Infra.Contracts;
+using Ubik.Web.Cms.Contracts;
 
 namespace Ubik.Web.Auth.ViewModels
 {
     public class RoleSaveModel
     {
         public string RoleId { get; set; }
+
         public string RoleName { get; set; }
+
         public IEnumerable<RoleClaimRowViewModel> Claims { get; set; }
-        public IEnumerable<UserRowViewModel> Users { get; set; } 
+
+        public IEnumerable<UserRowViewModel> Users { get; set; }
     }
 
     public class RoleViewModel : RoleSaveModel
     {
-        public IEnumerable<RoleClaimRowViewModel> AvailableClaims { get; set; } 
+        public IEnumerable<RoleClaimRowViewModel> AvailableClaims { get; set; }
     }
 
     public class RoleViewModelBuilder : IViewModelBuilder<ApplicationRole, RoleViewModel>
@@ -41,8 +44,8 @@ namespace Ubik.Web.Auth.ViewModels
                 RoleName = entity.Name
             };
 
-         viewModel.Claims = entity.RoleClaims.Select(
-                x => new RoleClaimRowViewModel() {ClaimId = "", Type = x.ClaimType, Value = x.Value}).ToList();
+            viewModel.Claims = entity.RoleClaims.Select(
+                   x => new RoleClaimRowViewModel() { ClaimId = "", Type = x.ClaimType, Value = x.Value }).ToList();
 
             Expression<Func<ApplicationUser, bool>> userPredicate = user => user.Roles.Any(x => x.RoleId == entity.Id);
             viewModel.Users =
@@ -53,7 +56,7 @@ namespace Ubik.Web.Auth.ViewModels
                             {
                                 UserId = x.Id,
                                 UserName = x.UserName,
-                                Roles = new[] {new RoleRowViewModel() {Name = entity.Name, RoleId = entity.Id}}
+                                Roles = new[] { new RoleRowViewModel() { Name = entity.Name, RoleId = entity.Id } }
                             })
                     .Distinct()
                     .ToList();
@@ -65,7 +68,7 @@ namespace Ubik.Web.Auth.ViewModels
         {
             model.AvailableClaims =
                 _resident.Security.SystemRoles.SelectMany(x => _resident.Security.SystemRoleClaims(x.Value))
-                    .Select(x => new RoleClaimRowViewModel() {ClaimId = "", Type = x.Type, Value = x.Value})
+                    .Select(x => new RoleClaimRowViewModel() { ClaimId = "", Type = x.Type, Value = x.Value })
                     .Distinct()
                     .ToList();
         }

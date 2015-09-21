@@ -2,23 +2,28 @@
 using System.Linq;
 using System.Linq.Expressions;
 using Ubik.Web.Auth.Contracts;
-using Ubik.Web.Infra.Contracts;
+using Ubik.Web.Cms.Contracts;
 
 namespace Ubik.Web.Auth.ViewModels
 {
     public class AddUserSaveModel
     {
         public string UserName { get; set; }
+
         public string Email { get; set; }
+
         public string Password { get; set; }
+
         public RoleRowViewModel[] RolesToAdd { get; set; }
     }
+
     public class AddUserViewModel : AddUserSaveModel
     {
         public RoleRowViewModel[] AvailableRoles { get; set; }
     }
 
-    public class AddUserViewModelBuilder : IViewModelBuilder<ApplicationUser, AddUserViewModel> {
+    public class AddUserViewModelBuilder : IViewModelBuilder<ApplicationUser, AddUserViewModel>
+    {
         private readonly IResident _resident;
         private readonly IRoleRepository _roleRepo;
 
@@ -35,7 +40,7 @@ namespace Ubik.Web.Auth.ViewModels
                 UserName = string.Empty,
                 Email = string.Empty,
                 Password = string.Empty,
-                RolesToAdd = new RoleRowViewModel[]{},
+                RolesToAdd = new RoleRowViewModel[] { },
             };
             return viewModel;
         }
