@@ -16,7 +16,7 @@ namespace Ubik.Web.Infra.Navigation
 
         public IEnumerator GetEnumerator()
         {
-            if (Descedants == null) return null;
+            if (Descedants == null) return new List<TData>().GetEnumerator();
 
             var enumurator = Descedants.GetEnumerator();
             return enumurator;

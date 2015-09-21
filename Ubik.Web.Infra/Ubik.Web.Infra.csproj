@@ -44,6 +44,7 @@
     <Compile Include="Navigation\BaseNavigationElements.cs" />
     <Compile Include="Navigation\BaseNavigationGroup.cs" />
     <Compile Include="Navigation\Contracts\IHasParent.cs" />
+    <Compile Include="Navigation\Contracts\IMenuProvider.cs" />
     <Compile Include="Navigation\Contracts\INavigationElement.cs" />
     <Compile Include="Navigation\Contracts\INavigationElements.cs" />
     <Compile Include="Navigation\Contracts\INavigationGroup.cs" />

@@ -7,6 +7,7 @@ using Autofac.Core;
 using Autofac.Integration.Mvc;
 using Mehdime.Entity;
 using Microsoft.AspNet.Identity;
+using Ubik.UI.MVC.Models;
 using Ubik.Web.Auth;
 using Ubik.Web.Auth.Contracts;
 using Ubik.Web.Auth.Managers;
@@ -14,6 +15,8 @@ using Ubik.Web.Auth.Repositories;
 using Ubik.Web.Auth.Services;
 using Ubik.Web.Auth.Stores;
 using Ubik.Web.Auth.ViewModels;
+using Ubik.Web.Backoffice.Contracts;
+using Ubik.Web.Infra.Contracts;
 
 
 namespace Ubik.UI.MVC
@@ -45,7 +48,7 @@ namespace Ubik.UI.MVC
 
             builder.RegisterControllers(Asmbls);
             //builder.RegisterApiControllers(Asmbls);
-            //builder.RegisterSource(new ViewRegistrationSource());
+            builder.RegisterSource(new ViewRegistrationSource());
 
             #endregion Register all controllers for the assembly
 
@@ -135,10 +138,17 @@ namespace Ubik.UI.MVC
 
         private static void WireUpInternals(ContainerBuilder builder)
         {
-            //builder.RegisterType<Resident>().As<IResident>().SingleInstance();
-            //builder.RegisterType<ResidentSecurity>().As<IResidentSecurity>().SingleInstance();
+            builder.RegisterType<Resident>().As<IResident>().SingleInstance();
+            builder.RegisterType<ResidentSecurity>().As<IResidentSecurity>().SingleInstance();
+            var backofficeMenuProvider = XmlBackOfficeMenuProvider.FromInternalConfig();
+            builder.RegisterInstance(backofficeMenuProvider)
+                .As<IBackOfficeMenuProvider>()
+                .SingleInstance();
+            builder.RegisterInstance(new ResidentAdministration(backofficeMenuProvider))
+                .As<IResidentAdministration>()
+                .SingleInstance();
             //builder.RegisterType<ResidentAdministration>().As<IResidentAdministration>().SingleInstance();
-           // builder.RegisterType<ResidentPubSub>().As<IResidentPubSub>().SingleInstance();
+            // builder.RegisterType<ResidentPubSub>().As<IResidentPubSub>().SingleInstance();
         }
 
         private static void WireUpElmahAgents(ContainerBuilder builder)
@@ -152,7 +162,7 @@ namespace Ubik.UI.MVC
             return
                 BuildManager.GetReferencedAssemblies()
                 .Cast<Assembly>()
-                .Where(x => x.FullName.StartsWith("Sarek"))
+                .Where(x => x.FullName.StartsWith("Ubik"))
                 .ToArray();
         }
     }

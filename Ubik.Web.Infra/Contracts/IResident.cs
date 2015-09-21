@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Security.Claims;
+using Ubik.Web.Infra.Navigation.Contracts;
 
 namespace Ubik.Web.Infra.Contracts
 {
     public interface IResident
     {
-        //IResidentAdministration Administration { get; }
+        IResidentAdministration Administration { get; }
         IResidentSecurity Security { get; }
 
         //IResidentPubSub PubSub { get; }
@@ -20,7 +21,7 @@ namespace Ubik.Web.Infra.Contracts
 
     public interface IResidentAdministration
     {
-        //AdminNavigationElements BackOfficeMenu { get; }
+        IMenuProvider<INavigationElements<int>> BackofficeMenu { get; }
     }
 
     //public interface IResidentPubSub : IDomainCommandProcessor, IEventPublisher

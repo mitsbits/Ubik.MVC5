@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<groups>
+  <group key="usrs" display="User Administration">
+    <icon>
+      <cssclass>fa fa-user</cssclass>
+    </icon>
+    <elements>
+      <element display="New User" href="/useradministration/new-user" ></element>
+    </elements>
+  </group>
+</groups>
