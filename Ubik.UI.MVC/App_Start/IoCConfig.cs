@@ -15,6 +15,7 @@ using Ubik.Web.Auth.Repositories;
 using Ubik.Web.Auth.Services;
 using Ubik.Web.Auth.Stores;
 using Ubik.Web.Auth.ViewModels;
+using Ubik.Web.Backoffice;
 using Ubik.Web.Backoffice.Contracts;
 using Ubik.Web.Cms.Contracts;
 

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Ubik.Web.Auth.Contracts;
-using Ubik.Web.BackOffice.Contracts;
+using Ubik.Web.Backoffice.Contracts;
 
-namespace Ubik.Web.BackOffice.Controllers
+namespace Ubik.Web.Backoffice.Controllers
 {
     public class UserAdministrationController : BackofficeController
     {
@@ -24,11 +24,18 @@ namespace Ubik.Web.BackOffice.Controllers
 
         public ActionResult Index()
         {
-            SetContentPage(new BackofficeContent(){Title = "User Administration"});
+            SetContentPage(new BackofficeContent(){Title = "User Administration", Subtitle = "here you can manage memberships"});
             return View();
 
         }
 
+        [ActionName("new-user")]
+        public ActionResult NewUser()
+        {
+            SetContentPage(new BackofficeContent() { Title = "User Administration", Subtitle = "here you can create a new user" });
+            var model = _userService.ViewModels.CreateUser(string.Empty);
+            return View("NewUser",model);
+        }
 
 
     }

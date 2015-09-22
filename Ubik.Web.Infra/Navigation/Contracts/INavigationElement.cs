@@ -33,5 +33,7 @@ namespace Ubik.Web.Infra.Navigation.Contracts
         int Depth { get; }
 
         INavigationGroup Group { get; }
+
+        string IconCssClass { get; }
     }
 }

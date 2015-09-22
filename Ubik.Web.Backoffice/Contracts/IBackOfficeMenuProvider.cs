@@ -35,7 +35,7 @@ namespace Ubik.Web.Backoffice.Contracts
                     var roots =
                         _data.Where(x => x.ParentId == 0)
                             .OrderByDescending(x => x.Weight)
-                            .Select(x => new BackofficeNavigationElement(_data, x.Id))
+                            .Select(x => new BackofficeNavigationElement(_data, x.Id){IconCssClass = x.IconCssClass})
                             .ToList();
                     _menu = new BackofficeNavigationElements(roots);
                 }
@@ -66,6 +66,14 @@ namespace Ubik.Web.Backoffice.Contracts
                 foreach (var xElement in xGroup.Descendants("element"))
                 {
                     var element = NavigationElementDto(xElement, id, @group);
+                    if (xElement.Descendants("icon").Any())
+                    {
+                        var icon = xElement.Descendants("icon").First();
+                        if (icon.Descendants("cssclass").Any())
+                        {
+                            element.IconCssClass = icon.Descendants("cssclass").Single().Value;
+                        }
+                    }
                     _data.Add(element);
                     Traverse(xElement, @group, ref id);
                 }

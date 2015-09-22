@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using Mehdime.Entity;
 using Ubik.Web.Auth.Contracts;
 using Ubik.Web.Auth.ViewModels;
 using Ubik.Web.Cms.Contracts;
@@ -17,22 +18,28 @@ namespace Ubik.Web.Auth.Services
         private readonly IRoleRepository _roleRepo;
         private readonly IResident _resident;
 
-        public UserAdminstrationViewModelService(IViewModelBuilder<ApplicationUser, UserViewModel> userBuilder, IViewModelBuilder<ApplicationRole, RoleViewModel> roleBuilder, IUserRepository userRepo, IRoleRepository roleRepo, IResident resident)
+        private readonly IDbContextScopeFactory _dbContextScopeFactory;
+
+        public UserAdminstrationViewModelService(IViewModelBuilder<ApplicationUser, UserViewModel> userBuilder, IViewModelBuilder<ApplicationRole, RoleViewModel> roleBuilder, IUserRepository userRepo, IRoleRepository roleRepo, IResident resident, IDbContextScopeFactory dbContextScopeFactory)
         {
             _userBuilder = userBuilder;
             _userRepo = userRepo;
             _roleRepo = roleRepo;
             _resident = resident;
+            _dbContextScopeFactory = dbContextScopeFactory;
             _roleBuilder = roleBuilder;
         }
 
         public UserViewModel CreateUser(string id)
         {
-            Expression<Func<ApplicationUser, bool>> predicate = user => user.Id == id;
-            var userEntity = _userRepo.Get(predicate) ?? new ApplicationUser();
-            var model = _userBuilder.CreateFrom(userEntity);
-            _userBuilder.Rebuild(model);
-            return model;
+            using (_dbContextScopeFactory.CreateReadOnly())
+            {
+                Expression<Func<ApplicationUser, bool>> predicate = user => user.Id == id;
+                var userEntity = _userRepo.Get(predicate) ?? new ApplicationUser();
+                var model = _userBuilder.CreateFrom(userEntity);
+                _userBuilder.Rebuild(model);
+                return model;
+            }
         }
 
         public RoleViewModel CreateRole(string id)

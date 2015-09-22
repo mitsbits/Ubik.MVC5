@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Ubik.Web.BackOffice;
+using Ubik.Web.Backoffice;
 
 namespace Ubik.Web.Backoffice
 {
@@ -13,11 +13,11 @@ namespace Ubik.Web.Backoffice
             : base()
         {
         }
-        public BackofficeContentHelper Content { get; private set; }
+        public BackofficeContentHelper PageContent { get; private set; }
         public override void InitHelpers()
         {
             base.InitHelpers();
-            Content = new BackofficeContentHelper(ViewContext);
+            PageContent = new BackofficeContentHelper(ViewContext);
         }
     }
 
@@ -28,11 +28,11 @@ namespace Ubik.Web.Backoffice
         {
         }
 
-        public BackofficeContentHelper Content { get; private set; }
+        public BackofficeContentHelper PageContent { get; private set; }
         public override void InitHelpers()
         {
             base.InitHelpers();
-            Content = new BackofficeContentHelper(ViewContext);
+            PageContent = new BackofficeContentHelper(ViewContext);
         }
     }
 }

@@ -79,6 +79,8 @@ namespace Ubik.Web.Infra.Navigation
             get { return new BaseNavigationGroup(){Description = _proxy.Group.Description, Display = _proxy.Group.Display, Key = _proxy.Group.Key, Weight = _proxy.Group.Weight};  }
         }
 
+        public string IconCssClass { get; set; }
+
         public bool HasChildren
         {
             get { return _data.Any(x => x.ParentId == _proxy.Id); }

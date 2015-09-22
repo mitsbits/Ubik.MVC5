@@ -1,8 +1,8 @@
 ﻿using System.Web.Mvc;
-using Ubik.Web.BackOffice.Contracts;
+using Ubik.Web.Backoffice.Contracts;
 using Ubik.Web.Cms;
 
-namespace Ubik.Web.BackOffice
+namespace Ubik.Web.Backoffice
 {
     public class BackofficeContentHelper : BasePageHelper, IBackofficeContentProvider
     {
