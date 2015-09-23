@@ -114,7 +114,9 @@
     <Compile Include="Services\UserAdminstrationService.cs" />
     <Compile Include="Services\UserAdminstrationViewModelService.cs" />
     <Compile Include="Stores\ApplicationRoleStore.cs" />
+    <Compile Include="SystemClaims.cs" />
     <Compile Include="SystemRoles.cs" />
+    <Compile Include="UserAdministrationClaims.cs" />
     <Compile Include="ViewModels\AddUserViewModel.cs" />
     <Compile Include="ViewModels\RoleRowViewModel.cs" />
     <Compile Include="ViewModels\RoleViewModel.cs" />

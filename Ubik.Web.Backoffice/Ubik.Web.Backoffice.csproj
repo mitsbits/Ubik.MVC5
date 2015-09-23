@@ -89,6 +89,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="AuthorizeOperationToResourceAttribute.cs" />
     <Compile Include="BackofficeContentHelper.cs" />
     <Compile Include="BackofficeNavigationElement.cs" />
     <Compile Include="BackofficePage.cs" />

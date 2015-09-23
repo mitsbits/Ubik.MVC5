@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Ubik.Web.Auth;
 using Ubik.Web.Auth.Contracts;
 using Ubik.Web.Backoffice.Contracts;
 
@@ -30,6 +31,7 @@ namespace Ubik.Web.Backoffice.Controllers
         }
 
         [ActionName("new-user")]
+        [AuthorizeOperationToResource(OperationKey = SystemClaims.Operations.Create, ResourceKey = UserAdministrationClaims.Resources.User)]
         public ActionResult NewUser()
         {
             SetContentPage(new BackofficeContent() { Title = "User Administration", Subtitle = "here you can create a new user" });
