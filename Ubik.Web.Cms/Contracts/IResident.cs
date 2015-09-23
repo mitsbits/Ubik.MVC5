@@ -14,9 +14,9 @@ namespace Ubik.Web.Cms.Contracts
 
     public interface IResidentSecurity
     {
-        IEnumerable<Claim> SystemRoles { get; }
+        IEnumerable<Claim> Roles { get; }
 
-        IEnumerable<Claim> SystemRoleClaims(string role);
+        IEnumerable<Claim> ClaimsForRole(string role);
     }
 
     public interface IResidentAdministration

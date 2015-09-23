@@ -61,7 +61,7 @@ namespace Ubik.Web.Auth.ViewModels
         {
             Expression<Func<ApplicationRole, bool>> predicate = role => true;
             var databaseRoles = _roleRepo.Find(predicate, x => x.Name);//TODO: system roles must be populated from database at this point, no need to hit the database here
-            model.AvailableRoles = _resident.Security.SystemRoles.Select(systemRole => new RoleRowViewModel() { RoleId = databaseRoles.Single(x => x.Name.Equals(systemRole.Value, StringComparison.InvariantCultureIgnoreCase)).Id, Name = systemRole.Value }).ToArray();
+            model.AvailableRoles = _resident.Security.Roles.Select(systemRole => new RoleRowViewModel() { RoleId = databaseRoles.Single(x => x.Name.Equals(systemRole.Value, StringComparison.InvariantCultureIgnoreCase)).Id, Name = systemRole.Value }).ToArray();
         }
     }
 

@@ -67,7 +67,7 @@ namespace Ubik.Web.Auth.ViewModels
         public void Rebuild(RoleViewModel model)
         {
             model.AvailableClaims =
-                _resident.Security.SystemRoles.SelectMany(x => _resident.Security.SystemRoleClaims(x.Value))
+                _resident.Security.Roles.SelectMany(x => _resident.Security.ClaimsForRole(x.Value))
                     .Select(x => new RoleClaimRowViewModel() { ClaimId = "", Type = x.Type, Value = x.Value })
                     .Distinct()
                     .ToList();

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
+using Ubik.Web.Auth.Contracts;
 using Ubik.Web.Cms.Contracts;
 
 namespace Ubik.Web.Auth
@@ -8,18 +10,34 @@ namespace Ubik.Web.Auth
     public class ResidentSecurity : IResidentSecurity
     {
         private readonly ICollection<Claim> _systemRoles;
+        private readonly IEnumerable<IResourceAuthProvider> _providers;
+        private readonly IDictionary<string, IEnumerable<Claim>> _roleToClaims;
 
-        public ResidentSecurity()
+        public ResidentSecurity(IEnumerable<IResourceAuthProvider> providers)
         {
-            var rolesFromSystem = new SystemRoles();
-            _systemRoles = new HashSet<Claim>(rolesFromSystem);
+            _providers = providers;
+            _roleToClaims = new Dictionary<string, IEnumerable<Claim>>();
+            _systemRoles = new HashSet<Claim>(_providers
+                    .SelectMany(x => x.RoleNames)
+                    .Distinct()
+                    .Select(x => new Claim(SystemRoles.RoleClaimType, x)));
+            foreach (var roleClaim in Roles)
+            {
+                _roleToClaims.Add(roleClaim.Value,
+                    _providers
+                    .SelectMany(x => x.Claims(roleClaim.Value)
+                        .Distinct()));
+            }
         }
 
-        public IEnumerable<Claim> SystemRoles { get { return _systemRoles; } }
-
-        public IEnumerable<Claim> SystemRoleClaims(string role)
+        public IEnumerable<Claim> Roles
         {
-            throw new NotImplementedException();
+            get { return _systemRoles; }
+        }
+
+        public IEnumerable<Claim> ClaimsForRole(string role)
+        {
+            return _roleToClaims[role];
         }
     }
 }

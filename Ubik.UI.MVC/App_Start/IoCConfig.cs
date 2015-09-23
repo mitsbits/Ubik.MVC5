@@ -133,12 +133,18 @@ namespace Ubik.UI.MVC
             builder.RegisterType<UserViewModelBuilder>().As<IViewModelBuilder<ApplicationUser, UserViewModel>>().InstancePerRequest();
             builder.RegisterType<RoleViewModelBuilder>().As<IViewModelBuilder<ApplicationRole, RoleViewModel>>().InstancePerRequest();
             builder.RegisterType<AddUserViewModelBuilder>().As<IViewModelBuilder<ApplicationUser, AddUserViewModel>>().InstancePerRequest();
+
+            builder.RegisterAssemblyTypes(Asmbls)
+                   .Where(t => t.GetInterfaces().Any(x => x == typeof(IResourceAuthProvider)) && !t.IsAbstract)
+                   .AsImplementedInterfaces().SingleInstance();
+
+            builder.RegisterType<ResidentSecurity>().As<IResidentSecurity>().SingleInstance();
         }
 
         private static void WireUpInternals(ContainerBuilder builder)
         {
             builder.RegisterType<Resident>().As<IResident>().SingleInstance();
-            builder.RegisterType<ResidentSecurity>().As<IResidentSecurity>().SingleInstance();
+  
             var backofficeMenuProvider = XmlBackOfficeMenuProvider.FromInternalConfig();
             builder.RegisterInstance(backofficeMenuProvider)
                 .As<IBackOfficeMenuProvider>()
