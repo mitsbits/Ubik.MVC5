@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using Ubik.Web.Auth;
 using Ubik.Web.Auth.Contracts;
+using Ubik.Web.Auth.ViewModels;
 using Ubik.Web.Backoffice.Contracts;
 
 namespace Ubik.Web.Backoffice.Controllers
@@ -39,6 +42,30 @@ namespace Ubik.Web.Backoffice.Controllers
             return View("NewUser",model);
         }
 
+        #region Roles
 
+        public ActionResult Roles(string id)
+        {
+            if (string.IsNullOrWhiteSpace(id))
+                return View(_userService.ViewModels.Roles());
+            return View(_userService.ViewModels.Role(id));
+        }
+        [ActionName("new-role")]
+        /*[AuthorizeOperationToResource(OperationKey = SystemClaims.Operations.Create, ResourceKey = UserAdministrationAuth.Resources.Role)]*/
+        public ActionResult NewRole()
+        {
+            SetContentPage(new BackofficeContent() { Title = "Role Administration", Subtitle = "here you can create a new role" });
+            var model = _userService.ViewModels.CreateRole(string.Empty);
+            return View("NewRole", model);
+        }
+
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateRole(RoleViewModel model)
+        {
+            return Redirect("index");
+        }
+
+
+        #endregion Roles
     }
 }

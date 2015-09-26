@@ -65,13 +65,13 @@ namespace Ubik.Web.Auth
                     "Schedule"
                 };
 
-            public const string Create = "Create";
-            public const string Delete = "Delete";
-            public const string Edit = "Edit";
-            public const string Publish = "Publish";
-            public const string Suspend = "Suspend";
-            public const string Approve = "Approve";
-            public const string Submit = "Submit";
+            public const string Create   = "Create";
+            public const string Delete   = "Delete";
+            public const string Edit     = "Edit";
+            public const string Publish  = "Publish";
+            public const string Suspend  = "Suspend";
+            public const string Approve  = "Approve";
+            public const string Submit   = "Submit";
             public const string Schedule = "Schedule";
 
             public IEnumerator<string> GetEnumerator()

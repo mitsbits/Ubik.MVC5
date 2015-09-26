@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Mehdime.Entity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using Mehdime.Entity;
 using Ubik.Web.Auth.Contracts;
 using Ubik.Web.Auth.ViewModels;
 using Ubik.Web.Cms.Contracts;
@@ -16,17 +16,23 @@ namespace Ubik.Web.Auth.Services
 
         private readonly IUserRepository _userRepo;
         private readonly IRoleRepository _roleRepo;
-        private readonly IResident _resident;
 
         private readonly IDbContextScopeFactory _dbContextScopeFactory;
 
-        public UserAdminstrationViewModelService(IViewModelBuilder<ApplicationUser, UserViewModel> userBuilder, IViewModelBuilder<ApplicationRole, RoleViewModel> roleBuilder, IUserRepository userRepo, IRoleRepository roleRepo, IResident resident, IDbContextScopeFactory dbContextScopeFactory)
+        private readonly IEnumerable<IResourceAuthProvider> _authProviders;
+
+        public UserAdminstrationViewModelService(IViewModelBuilder<ApplicationUser, 
+            UserViewModel> userBuilder, 
+            IViewModelBuilder<ApplicationRole, RoleViewModel> roleBuilder, 
+            IUserRepository userRepo, IRoleRepository roleRepo, 
+            IDbContextScopeFactory dbContextScopeFactory, 
+            IEnumerable<IResourceAuthProvider> authProviders)
         {
             _userBuilder = userBuilder;
             _userRepo = userRepo;
             _roleRepo = roleRepo;
-            _resident = resident;
             _dbContextScopeFactory = dbContextScopeFactory;
+            _authProviders = authProviders;
             _roleBuilder = roleBuilder;
         }
 
@@ -44,12 +50,14 @@ namespace Ubik.Web.Auth.Services
 
         public RoleViewModel CreateRole(string id)
         {
-            Expression<Func<ApplicationRole, bool>> predicate = role => role.Id == id;
-            var roleEntity = _roleRepo.Get(predicate);
-            if (roleEntity == null) return null;//TODO: safe guard for null
-            var model = _roleBuilder.CreateFrom(roleEntity);
-            _roleBuilder.Rebuild(model);
-            return model;
+            using (_dbContextScopeFactory.CreateReadOnly())
+            {
+                Expression<Func<ApplicationRole, bool>> predicate = role => role.Id == id;
+                var roleEntity = _roleRepo.Get(predicate)?? new ApplicationRole();
+                var model = _roleBuilder.CreateFrom(roleEntity);
+                _roleBuilder.Rebuild(model);
+                return model;
+            }
         }
 
         public IEnumerable<UserRowViewModel> Users()
@@ -72,21 +80,31 @@ namespace Ubik.Web.Auth.Services
 
         public IEnumerable<RoleRowViewModel> Roles()
         {
-            var dbRoles = _roleRepo.Find(x => true, role => role.Name);
-            return dbRoles.Select(sarekRole => new RoleRowViewModel
+            using (_dbContextScopeFactory.CreateReadOnly())
             {
-                Name = sarekRole.Name,
-                RoleId = sarekRole.Id,
-                Claims =
-                    sarekRole.RoleClaims.Select(
-                        dbClaim =>
-                            new RoleClaimRowViewModel()
-                            {
-                                ClaimId = "",
-                                Type = dbClaim.ClaimType,
-                                Value = dbClaim.Value
-                            }).ToList()
-            }).ToList();
+                var dbRoles = _roleRepo.Find(x => true, role => role.Name);
+                return dbRoles.Select(sarekRole => new RoleRowViewModel
+                {
+                    Name = sarekRole.Name,
+                    RoleId = sarekRole.Id,
+                    Claims =
+                        sarekRole.RoleClaims.Select(
+                            dbClaim =>
+                                new RoleClaimRowViewModel()
+                                {
+                                    ClaimId = "",
+                                    Type = dbClaim.ClaimType,
+                                    Value = dbClaim.Value
+                                }).ToList()
+                }).ToList();
+            }
+        }
+
+        public RoleViewModel Role(string id)
+        {
+            var dbRole = _roleRepo.Get(x => x.Id == id);
+            if (dbRole == null) return null;
+            return new RoleViewModel();
         }
     }
 }

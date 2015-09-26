@@ -9,8 +9,17 @@
         <icon>
           <cssclass>fa fa-user-secret</cssclass>
         </icon>
+
+        <elements>
+          <element display="New Role" href="/useradministration/new-role" role="anchor" target="_self">
+            <icon>
+              <cssclass>fa fa-plus</cssclass>
+            </icon>
+          </element>
+        </elements>
+        
       </element>
-      <element display="Users" href="/useradministration/users" role="label" target="_self">
+      <element display="Users" href="/useradministration/users" role="anchor" target="_self">
         <icon>
           <cssclass>fa fa-users</cssclass>
         </icon>

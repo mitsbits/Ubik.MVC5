@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Linq.Expressions;
 using Ubik.Web.Auth.Contracts;
@@ -11,6 +12,7 @@ namespace Ubik.Web.Auth.ViewModels
     {
         public string RoleId { get; set; }
 
+        [Required]
         public string RoleName { get; set; }
 
         public IEnumerable<RoleClaimRowViewModel> Claims { get; set; }
@@ -20,7 +22,7 @@ namespace Ubik.Web.Auth.ViewModels
 
     public class RoleViewModel : RoleSaveModel
     {
-        public IEnumerable<RoleClaimRowViewModel> AvailableClaims { get; set; }
+        public RoleClaimRowViewModel[] AvailableClaims { get; set; }
     }
 
     public class RoleViewModelBuilder : IViewModelBuilder<ApplicationRole, RoleViewModel>
@@ -68,9 +70,15 @@ namespace Ubik.Web.Auth.ViewModels
         {
             model.AvailableClaims =
                 _resident.Security.Roles.SelectMany(x => _resident.Security.ClaimsForRole(x.Value))
-                    .Select(x => new RoleClaimRowViewModel() { ClaimId = "", Type = x.Type, Value = x.Value })
+                    .Select(x => new RoleClaimRowViewModel() {ClaimId = "", Type = x.Type, Value = x.Value})
                     .Distinct()
-                    .ToList();
+                    .ToArray();
+            foreach (var roleClaimRowViewModel in model.AvailableClaims)
+            {
+                roleClaimRowViewModel.Selected =
+                    model.Claims.Any(x => x.Type == roleClaimRowViewModel.Type 
+                        && x.Value == roleClaimRowViewModel.Value);
+            }
         }
     }
 

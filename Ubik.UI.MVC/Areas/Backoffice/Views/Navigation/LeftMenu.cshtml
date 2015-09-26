@@ -1,6 +1,25 @@
 ﻿@using Ubik.Web.Backoffice
 @using Ubik.Web.Infra.Navigation
 @using Ubik.Web.Infra.Navigation.Contracts
+@{
+    Func<string> getActiveListItemId = () =>
+    {
+        try
+        {
+            var result = string.Empty;
+            var path = Request.RawUrl.Substring(Request.RawUrl.IndexOf("backoffice", StringComparison.Ordinal));
+            var item = Model.Raw.FirstOrDefault(x => path.EndsWith(x.Href));
+            if (item != null) result = string.Format("itm_{0}", item.Id.ToString());
+            return result;
+        }
+        catch (Exception)
+        {
+
+            return string.Empty;
+        }
+
+    };
+}
 @model IMenuProvider<INavigationElements<int>>
 
 @helper RenderChildren(BackofficeNavigationElement item, NavigationGroupDto groupDto)
@@ -62,7 +81,7 @@
         </li>
     }
 
-    @*<li id="dashboard" class="active">
+    <li id="dashboard" class="active">
             <a href="@Url.Action("Index", "Home")">
                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             </a>
@@ -145,5 +164,18 @@
                 <li id="examples_error"><a href="@Url.Action("Error", "Pages")"><i class="fa fa-angle-double-right"></i> 500 Error</a></li>
                 <li id="examples_empty"><a href="@Url.Action("Empty", "Pages")"><i class="fa fa-angle-double-right"></i> Blank Page</a></li>
             </ul>
-        </li>*@
+        </li>
 </ul>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("li").removeClass("active");
+        $("#" + '@getActiveListItemId()').addClass("active");
+        $("#" + '@getActiveListItemId()' + "li").css("display", "block");
+        $("#" + '@getActiveListItemId()' + "li").css("display", "block");
+        $("#" + '@getActiveListItemId()').parents("ul.treeview").addClass("active");
+        $("#" + '@getActiveListItemId()').parents("ul").css("display", "block");
+        //$("#charts_menu").css("display", "block");
+        //$("#charts_flot").addClass("active");
+        //$("#charts_arrow").addClass("fa-angle-down");
+    });
+</script>

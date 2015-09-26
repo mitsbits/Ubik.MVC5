@@ -92,6 +92,10 @@ namespace Ubik.UI.MVC
                "~/Areas/Backoffice/Scripts/plugins/calendar/moment.min.js",
                "~/Areas/Backoffice/Scripts/plugins/calendar/fullcalendar.min.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/validation").Include(
+               "~/Areas/Backoffice/Scripts/jquery.validate.js",
+               "~/Areas/Backoffice/Scripts/jquery.validate.unobtrusive.js"));
+
 
             bundles.Add(new StyleBundle("~/Areas/Backoffice/Content/css/AdminLTE").Include(
                       "~/Areas/Backoffice/Content/css/AdminLTE.css",

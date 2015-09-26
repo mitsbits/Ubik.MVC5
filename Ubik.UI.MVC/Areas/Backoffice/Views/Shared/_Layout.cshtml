@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>@PageContent.Current.Title</title>
-    @*<title>@ViewBag.Title - My ASP.NET Application</title>*@
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
 
     @Styles.Render("~/Areas/Backoffice/Content/css/bootstrap")
@@ -25,6 +24,7 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/validation")
 
     @Scripts.Render("~/bundles/AdminLTE")
 </head>
@@ -34,7 +34,7 @@
     <header class="header">
         <a href="@Url.Action("Index", "Home")" class="logo">
             <!-- Add the class icon to your logo image or logo icon to add the margining -->
-            AdminLTE
+            Ubik 1.0
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top" role="navigation">

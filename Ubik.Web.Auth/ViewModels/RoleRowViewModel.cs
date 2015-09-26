@@ -9,7 +9,7 @@ namespace Ubik.Web.Auth.ViewModels
         public IEnumerable<RoleClaimRowViewModel> Claims { get; set; }
     }
 
-    public class RoleClaimRowViewModel
+    public class RoleClaimRowViewModel : Selectable
     {
         public string ClaimId { get; set; }
         public string Type { get; set; }
