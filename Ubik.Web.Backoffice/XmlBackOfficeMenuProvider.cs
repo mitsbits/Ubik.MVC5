@@ -167,7 +167,7 @@ namespace Ubik.Web.Backoffice
         }
     }
 
-    internal static class ext
+    internal static class Ext
     {
         public static string EmptyIfNull(this XElement element, string attrName)
         {

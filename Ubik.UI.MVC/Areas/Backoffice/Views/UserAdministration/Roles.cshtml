@@ -1,0 +1,19 @@
+﻿@using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder
+@using Ubik.Web.Auth.ViewModels
+@{
+    var isDetail = false;
+    IEnumerable<RoleRowViewModel> rows;
+    RoleViewModel detail;
+    if (Model.GetType() == typeof (RoleViewModel))
+    {
+        isDetail = true;
+        detail = Model as RoleViewModel;
+        Html.RenderPartial("~/Areas/Backoffice/Views/UserAdministration/Partials/RoleDetails.cshtml", detail);
+    }
+    else
+    {
+        rows = Model as IEnumerable<RoleRowViewModel>;
+        Html.RenderPartial("~/Areas/Backoffice/Views/UserAdministration/Partials/RoleList.cshtml", rows);
+    }
+}
+

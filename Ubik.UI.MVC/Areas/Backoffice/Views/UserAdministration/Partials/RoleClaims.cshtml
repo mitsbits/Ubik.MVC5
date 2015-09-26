@@ -1,0 +1,48 @@
+﻿@using Ubik.Web.Auth
+@model Ubik.Web.Auth.ViewModels.RoleViewModel
+
+@{
+    var operations = new SystemClaims.Operations();
+    var resources = Model.AvailableClaims.Where(x => x.Type == SystemClaims.OperationToResourceClaimType).Select(x => x.Value.Split(new[] { '|' }).Last()).Distinct().OrderBy(x => x).ToList();
+}
+
+<div class="box">
+    <div class="box-header">
+        <h3 class="box-title">Operations on Resources</h3>
+    </div>
+    <div class="box-body no-padding">
+        <table class="table table-bordered table-striped">
+            <tr>
+                <th>
+
+                </th>
+                @foreach (var operation in operations)
+                {
+                    <th>
+                        <span>@operation</span>
+                    </th>
+                }
+            </tr>
+
+            @foreach (var resource in resources)
+            {
+                <tr>
+                    <td> <strong> @resource</strong></td>
+                    @foreach (var operation in operations)
+                    {
+                        var claim = Model.AvailableClaims.FirstOrDefault(x => x.Value == string.Format("{0}|{1}", operation, resource));
+                        var index = Array.IndexOf(Model.AvailableClaims, claim);
+                        <td data-id="@Model.AvailableClaims[index].Value">
+                            @Html.HiddenFor(m => m.AvailableClaims[index].Value)
+                            @Html.HiddenFor(m => m.AvailableClaims[index].Type)
+                            @Html.HiddenFor(m => m.AvailableClaims[index].ClaimId)
+                            @Html.EditorFor(m => m.AvailableClaims[index].Selected)
+                        </td>
+                    }
+
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>
