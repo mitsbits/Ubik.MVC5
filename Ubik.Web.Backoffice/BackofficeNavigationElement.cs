@@ -1,23 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Ubik.Infra.Contracts;
 using Ubik.Web.Infra.Navigation;
 
 namespace Ubik.Web.Backoffice
 {
-  public  class BackofficeNavigationElement : BaseNavigationElement
+    public class BackofficeNavigationElement : BaseNavigationElement
     {
-      public BackofficeNavigationElement(IEnumerable<NavigationElementDto> data, int id) : base(data, id)
-      {
-      }
+        public BackofficeNavigationElement(IEnumerable<NavigationElementDto> data, int id)
+            : base(data, id)
+        {
+        }
+
+        public override IHierarchicalEnumerable GetChildren()
+        {
+            var result = new BackofficeNavigationElements(
+                  Data.Where(x => x.ParentId == Proxy.Id)
+                  .OrderBy(x => x.Weight)
+                  .Select(x => new BackofficeNavigationElement(Data, x.Id))
+                  .ToList());
+            return result;
+        }
+
+        public override IHierarchyData GetParent()
+        {
+            return Data.Any(x => x.Id == Proxy.ParentId) 
+                ? new BackofficeNavigationElement(Data, Proxy.ParentId) 
+                : null;
+        }
     }
 
-  public class BackofficeNavigationElements : BaseNavigationElements<BackofficeNavigationElement>
+    public class BackofficeNavigationElements : BaseNavigationElements<BackofficeNavigationElement>
     {
-      public BackofficeNavigationElements(IEnumerable<BackofficeNavigationElement> descedants) : base(descedants)
-      {
-      }
+        public BackofficeNavigationElements(IEnumerable<BackofficeNavigationElement> descedants)
+            : base(descedants)
+        {
+        }
     }
 }

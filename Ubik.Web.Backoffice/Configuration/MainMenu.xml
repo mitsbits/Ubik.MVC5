@@ -5,10 +5,22 @@
       <cssclass>fa fa-user</cssclass>
     </icon>
     <elements>
-      <element display="New User" href="/useradministration/new-user" >
+      <element display="Roles" href="/useradministration/roles" role="anchor" target="_self">
         <icon>
-          <cssclass>fa fa-plus</cssclass>
+          <cssclass>fa fa-user-secret</cssclass>
         </icon>
+      </element>
+      <element display="Users" href="/useradministration/users" role="label" target="_self">
+        <icon>
+          <cssclass>fa fa-users</cssclass>
+        </icon>
+        <elements>
+          <element display="New User" href="/useradministration/new-user" role="anchor" target="_self">
+            <icon>
+              <cssclass>fa fa-user-plus</cssclass>
+            </icon>
+          </element>
+        </elements>
       </element>
     </elements>
   </group>

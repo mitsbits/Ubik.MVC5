@@ -21,5 +21,6 @@
         public double Weight { get; set; }
 
         public string IconCssClass { get; set; }
+
     }
 }

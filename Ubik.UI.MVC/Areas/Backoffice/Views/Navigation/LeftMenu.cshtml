@@ -1,35 +1,68 @@
 ﻿@using Ubik.Web.Backoffice
 @using Ubik.Web.Infra.Navigation
-@model Ubik.Web.Infra.Navigation.Contracts.IMenuProvider<Ubik.Web.Infra.Navigation.Contracts.INavigationElements<int>>
-@{
-    var _model = Model as BackofficeNavigationElements;
-}       
+@using Ubik.Web.Infra.Navigation.Contracts
+@model IMenuProvider<INavigationElements<int>>
+
+@helper RenderChildren(BackofficeNavigationElement item, NavigationGroupDto groupDto)
+{
+    if (!item.HasChildren)
+    {
+        return;
+    }
+    <ul id="grp_@item.Id" class="strip-list-style">
+        @foreach (var child in from object subitem in item.GetChildren() select subitem as BackofficeNavigationElement)
+        {
+            @RenderMenuElement(child, groupDto)
+        }
+    </ul>
+}
+@helper RenderMenuElement(BackofficeNavigationElement child, NavigationGroupDto groupDto)
+{
+    var hasChildernClass = (child.HasChildren && child.Depth == 1) ? "treeview" : string.Empty;
+    <li id="itm_@child.Id.ToString()" class="@hasChildernClass">
+        @switch (child.Role)
+        {
+            case NavigationElementRole.Anchor:
+                <a href="@Url.Content("~/backoffice/" + child.Href)" target="@child.AnchorTarget" >
+                    <i class="@child.IconCssClass"></i>
+                    <span>@child.Display</span>
+                </a>
+                break;
+            case NavigationElementRole.Label:
+            <a href="#">
+                <i class="@child.IconCssClass"></i>
+                <span>@child.Display</span>
+            </a>
+                break;
+            default:
+            <span>@child.Display</span>
+                break;
+        }
+
+        @RenderChildren(child, groupDto)
+    </li>
+}
+
 <ul class="sidebar-menu">
 
     @foreach (var grp in Model.Raw.Select(x => x.Group).Distinct().OrderBy(x => x.Weight))
     {
         <li id="@grp.Key" class="treeview">
             <a href="#">
-                <i class="@grp.IconCssClass"></i> <span>User Administration</span>
-
+                <i class="@grp.IconCssClass"></i>
+                <span>User Administration</span>
                 <i class="fa fa-angle-left pull-right"></i>
             </a>
             <ul class="treeview-menu" id="@grp.Key">
-                @foreach (var menuItem in Model.Menu)
+                @foreach (var item in Model.Menu.Cast<object>().Select(menuItem => menuItem as BackofficeNavigationElement).Where(item => item.Group.Key == grp.Key))
                 {
-
-                    var item = menuItem as BackofficeNavigationElement;
-
-                    if (item.Group.Key == grp.Key)
-                    {
-
-                        <li id="charts_morris"><a href="@Url.Content("~/backoffice/" + item.Href)"><i class="@item.IconCssClass"></i> @item.Display</a></li>}
+                    @RenderMenuElement(item, grp)
                 }
             </ul>
         </li>
     }
 
-        <li id="dashboard" class="active">
+    @*<li id="dashboard" class="active">
             <a href="@Url.Action("Index", "Home")">
                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             </a>
@@ -112,5 +145,5 @@
                 <li id="examples_error"><a href="@Url.Action("Error", "Pages")"><i class="fa fa-angle-double-right"></i> 500 Error</a></li>
                 <li id="examples_empty"><a href="@Url.Action("Empty", "Pages")"><i class="fa fa-angle-double-right"></i> Blank Page</a></li>
             </ul>
-        </li>
-    </ul>
+        </li>*@
+</ul>

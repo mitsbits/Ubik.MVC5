@@ -18,6 +18,7 @@ using Ubik.Web.Auth.ViewModels;
 using Ubik.Web.Backoffice;
 using Ubik.Web.Backoffice.Contracts;
 using Ubik.Web.Cms.Contracts;
+using Ubik.Web.Infra.Navigation.Contracts;
 
 namespace Ubik.UI.MVC
 {
@@ -145,11 +146,11 @@ namespace Ubik.UI.MVC
         {
             builder.RegisterType<Resident>().As<IResident>().SingleInstance();
   
-            var backofficeMenuProvider = XmlBackOfficeMenuProvider.FromInternalConfig();
-            builder.RegisterInstance(backofficeMenuProvider)
+            //var backofficeMenuProvider = XmlBackOfficeMenuProvider.FromInternalConfig();
+            builder.Register((c,p)=> XmlBackOfficeMenuProvider.FromInternalConfig())
                 .As<IBackOfficeMenuProvider>()
                 .SingleInstance();
-            builder.RegisterInstance(new ResidentAdministration(backofficeMenuProvider))
+            builder.Register((c, p) => new ResidentAdministration(c.Resolve<IBackOfficeMenuProvider>() as IMenuProvider<INavigationElements<int>>))
                 .As<IResidentAdministration>()
                 .SingleInstance();
             //builder.RegisterType<ResidentAdministration>().As<IResidentAdministration>().SingleInstance();

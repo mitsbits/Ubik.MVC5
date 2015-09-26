@@ -94,7 +94,8 @@ namespace Ubik.UI.MVC
 
 
             bundles.Add(new StyleBundle("~/Areas/Backoffice/Content/css/AdminLTE").Include(
-                      "~/Areas/Backoffice/Content/css/AdminLTE.css"));    
+                      "~/Areas/Backoffice/Content/css/AdminLTE.css",
+                      "~/Areas/Backoffice/Content/css/AdminLTE_Overrides.css"));    
 
             bundles.Add(new StyleBundle("~/Areas/Backoffice/Content/css/bootstrap").Include(
                       "~/Areas/Backoffice/Content/css/bootstrap.min.css"));

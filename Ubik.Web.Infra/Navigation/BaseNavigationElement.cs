@@ -18,8 +18,8 @@ namespace Ubik.Web.Infra.Navigation
         public BaseNavigationElement(IEnumerable<NavigationElementDto> data, int id)
         {
             _data = data as NavigationElementDto[] ?? data.ToArray();
-            if (_data.All(x => x.Id != id)) throw new NullReferenceException("proxy");
-            _proxy = _data.FirstOrDefault(x => x.Id == id);
+            if (Data.All(x => x.Id != id)) throw new NullReferenceException("proxy");
+            _proxy = Data.FirstOrDefault(x => x.Id == id);
             _depth = CalculateDepth();
             _path = CalculatePath();
 
@@ -27,15 +27,15 @@ namespace Ubik.Web.Infra.Navigation
 
         private string CalculatePath()
         {
-            if (_proxy.ParentId == default (int)) return _proxy.Id.ToString(CultureInfo.InvariantCulture);
+            if (Proxy.ParentId == default (int)) return Proxy.Id.ToString(CultureInfo.InvariantCulture);
             var idBucket = new List<int>();
-            var i = _proxy.Id;
-            var p = _proxy.ParentId;
+            var i = Proxy.Id;
+            var p = Proxy.ParentId;
             while (p > 0)
             {
                 idBucket.Add(i);
-                i = _data.FirstOrDefault(x => x.Id == p).Id;
-                p = _data.FirstOrDefault(x => x.Id == p).ParentId;
+                i = Data.FirstOrDefault(x => x.Id == p).Id;
+                p = Data.FirstOrDefault(x => x.Id == p).ParentId;
             }
             idBucket.Reverse();
             return string.Join(PathSeperator, idBucket.ToArray());
@@ -48,42 +48,42 @@ namespace Ubik.Web.Infra.Navigation
             while ((id > 0))
             {
                 d++;
-                id = Convert.ToInt32(_data.FirstOrDefault(x => x.Id == id).ParentId);
+                id = Convert.ToInt32(Data.FirstOrDefault(x => x.Id == id).ParentId);
             }
             return d;
         }
 
         public NavigationElementRole Role {
-            get { return _proxy.Role; }
+            get { return Proxy.Role; }
         }
 
         public string AnchorTarget
         {
-            get { return _proxy.AnchorTarget; }
+            get { return Proxy.AnchorTarget; }
         }
 
         public string Display
         {
-            get { return _proxy.Display; }
+            get { return Proxy.Display; }
         }
 
         public string Href
         {
-            get { return _proxy.Href; }
+            get { return Proxy.Href; }
         }
 
         public int Depth { get { return _depth; } }
 
         public INavigationGroup Group
         {
-            get { return new BaseNavigationGroup(){Description = _proxy.Group.Description, Display = _proxy.Group.Display, Key = _proxy.Group.Key, Weight = _proxy.Group.Weight};  }
+            get { return new BaseNavigationGroup(){Description = Proxy.Group.Description, Display = Proxy.Group.Display, Key = Proxy.Group.Key, Weight = Proxy.Group.Weight};  }
         }
 
-        public string IconCssClass { get; set; }
+        public string IconCssClass { get { return Proxy.IconCssClass; } }
 
         public bool HasChildren
         {
-            get { return _data.Any(x => x.ParentId == _proxy.Id); }
+            get { return Data.Any(x => x.ParentId == Proxy.Id); }
         }
 
         public string Path
@@ -101,34 +101,44 @@ namespace Ubik.Web.Infra.Navigation
             get { return GetType().FullName; }
         }
 
-        public IHierarchicalEnumerable GetChildren()
+        public virtual IHierarchicalEnumerable GetChildren()
         {
             var result =  new BaseNavigationElements<BaseNavigationElement>(
-                _data.Where(x => x.ParentId == _proxy.Id)
-                .OrderByDescending(x => x.Weight)
-                .Select(x => new BaseNavigationElement(_data, x.Id))
+                Data.Where(x => x.ParentId == Proxy.Id)
+                .OrderBy(x => x.Weight)
+                .Select(x => new BaseNavigationElement(Data, x.Id))
                 .ToList());
             return result;
         }
 
-        public IHierarchyData GetParent()
+        public virtual IHierarchyData GetParent()
         {
-            return _data.Any(x => x.Id == _proxy.ParentId) ? new BaseNavigationElement(_data, _proxy.ParentId) : null;
+            return Data.Any(x => x.Id == Proxy.ParentId) ? new BaseNavigationElement(Data, Proxy.ParentId) : null;
         }
 
         public double Weight
         {
-            get { return _proxy.Weight; }
+            get { return Proxy.Weight; }
         }
 
         public int Id
         {
-            get { return _proxy.Id; }
+            get { return Proxy.Id; }
         }
 
         public int ParentId
         {
-            get { return _proxy.ParentId; }
+            get { return Proxy.ParentId; }
+        }
+
+        protected IEnumerable<NavigationElementDto> Data
+        {
+            get { return _data; }
+        }
+
+        protected NavigationElementDto Proxy
+        {
+            get { return _proxy; }
         }
     }
 }

@@ -97,6 +97,7 @@
     <Compile Include="Contracts\IBackofficeContent.cs" />
     <Compile Include="Contracts\IBackOfficeContentProvider.cs" />
     <Compile Include="Contracts\IBackOfficeMenuProvider.cs" />
+    <Compile Include="XmlBackOfficeMenuProvider.cs" />
     <Compile Include="Controllers\BackOfficeController.cs" />
     <Compile Include="Controllers\Calendar.cs" />
     <Compile Include="Controllers\Charts.cs" />
