@@ -1,39 +1,71 @@
-﻿@model IEnumerable<Ubik.Web.Auth.ViewModels.RoleRowViewModel>
+﻿@using Ubik.Web.Auth.ViewModels
+@model IEnumerable<RoleRowViewModel>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Selected)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RoleId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Selected)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RoleId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-}
+<aside class="right-side">
 
-</table>
+    <section class="content-header">
+        <h1>
+            @PageContent.Current.Title
+            <small>@PageContent.Current.Subtitle</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Implement</a></li>
+            <li><a href="#">the</a></li>
+            <li class="active">breadcrump</li>
+        </ol>
+    </section>
+ 
+    <section class="content">
+        <div class="row">
+
+
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">Quick Example</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">Bordered Table</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th style="width: 10px">#</th>
+                                <th>Name</th>
+                                <th>Name</th>
+                            </tr>
+                            
+                            @for (var i = 0; i < Model.Count(); i++)
+                            {
+                                var role = Model.ToArray()[i];
+                                <tr>
+                                    <td>@((i+1).ToString("000"))</td>
+                                    <td>@role.Name</td>
+                                    <td>@role.Claims.Count().ToString()</td>
+                                </tr>
+                            }
+                        </table>
+                    </div><!-- /.box-body -->
+                    <div class="box-footer clearfix">
+                        <ul class="pagination pagination-sm no-margin pull-right">
+                            <li><a href="#">&laquo;</a></li>
+                            <li><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">&raquo;</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+
+            </div>
+        </div>
+    </section>
+</aside>

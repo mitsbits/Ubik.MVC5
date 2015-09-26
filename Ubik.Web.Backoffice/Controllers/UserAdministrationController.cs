@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Web;
-using System.Web.Helpers;
-using System.Web.Mvc;
-using Ubik.Web.Auth;
+﻿using System.Web.Mvc;
 using Ubik.Web.Auth.Contracts;
 using Ubik.Web.Auth.ViewModels;
-using Ubik.Web.Backoffice.Contracts;
 
 namespace Ubik.Web.Backoffice.Controllers
 {
@@ -28,9 +20,8 @@ namespace Ubik.Web.Backoffice.Controllers
 
         public ActionResult Index()
         {
-            SetContentPage(new BackofficeContent(){Title = "User Administration", Subtitle = "here you can manage memberships"});
+            SetContentPage(new BackofficeContent() { Title = "User Administration", Subtitle = "here you can manage memberships" });
             return View();
-
         }
 
         [ActionName("new-user")]
@@ -39,7 +30,7 @@ namespace Ubik.Web.Backoffice.Controllers
         {
             SetContentPage(new BackofficeContent() { Title = "User Administration", Subtitle = "here you can create a new user" });
             var model = _userService.ViewModels.CreateUser(string.Empty);
-            return View("NewUser",model);
+            return View("NewUser", model);
         }
 
         #region Roles
@@ -50,6 +41,7 @@ namespace Ubik.Web.Backoffice.Controllers
                 return View(_userService.ViewModels.Roles());
             return View(_userService.ViewModels.Role(id));
         }
+
         [ActionName("new-role")]
         /*[AuthorizeOperationToResource(OperationKey = SystemClaims.Operations.Create, ResourceKey = UserAdministrationAuth.Resources.Role)]*/
         public ActionResult NewRole()
@@ -64,7 +56,6 @@ namespace Ubik.Web.Backoffice.Controllers
         {
             return Redirect("index");
         }
-
 
         #endregion Roles
     }
