@@ -44,7 +44,6 @@ namespace Ubik.Web.Auth.ViewModels
                 UserId = entity.Id,
                 UserName = entity.UserName
             };
-            var i = 0;
             var userRoles = _roleRepo.Find(x => x.Users.Any(u => u.UserId == entity.Id), x => x.Name);
             var entityRoles = entity.Roles.ToList();
 

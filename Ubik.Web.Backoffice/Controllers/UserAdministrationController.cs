@@ -39,7 +39,7 @@ namespace Ubik.Web.Backoffice.Controllers
         {
             if (string.IsNullOrWhiteSpace(id))
                 return View(_userService.ViewModels.Roles());
-            return View(_userService.ViewModels.Role(id));
+            return View(_userService.ViewModels.CreateRoleByName(id));
         }
 
         [ActionName("new-role")]

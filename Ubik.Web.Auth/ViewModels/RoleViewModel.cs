@@ -40,14 +40,14 @@ namespace Ubik.Web.Auth.ViewModels
 
         public RoleViewModel CreateFrom(ApplicationRole entity)
         {
-            var viewModel = new RoleViewModel()
+            if (entity == null) return new RoleViewModel();
+            var viewModel = new RoleViewModel
             {
                 RoleId = entity.Id,
-                RoleName = entity.Name
+                RoleName = entity.Name,
+                Claims = entity.RoleClaims.Select(
+                    x => new RoleClaimRowViewModel() {ClaimId = "", Type = x.ClaimType, Value = x.Value}).ToList()
             };
-
-            viewModel.Claims = entity.RoleClaims.Select(
-                   x => new RoleClaimRowViewModel() { ClaimId = "", Type = x.ClaimType, Value = x.Value }).ToList();
 
             Expression<Func<ApplicationUser, bool>> userPredicate = user => user.Roles.Any(x => x.RoleId == entity.Id);
             viewModel.Users =
@@ -68,6 +68,7 @@ namespace Ubik.Web.Auth.ViewModels
 
         public void Rebuild(RoleViewModel model)
         {
+            if (string.IsNullOrWhiteSpace(model.RoleId)) return;
             model.AvailableClaims =
                 _resident.Security.Roles.SelectMany(x => _resident.Security.ClaimsForRole(x.Value))
                     .Select(x => new RoleClaimRowViewModel() {ClaimId = "", Type = x.Type, Value = x.Value})

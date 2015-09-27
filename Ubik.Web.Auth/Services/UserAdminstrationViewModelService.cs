@@ -52,8 +52,28 @@ namespace Ubik.Web.Auth.Services
         {
             using (_dbContextScopeFactory.CreateReadOnly())
             {
-                Expression<Func<ApplicationRole, bool>> predicate = role => role.Id == id;
-                var roleEntity = _roleRepo.Get(predicate) ?? new ApplicationRole();
+                ApplicationRole roleEntity;
+                if (string.IsNullOrWhiteSpace(id)) //creates a new blank transient entity
+                {
+                    roleEntity = new ApplicationRole();
+                }
+                else
+                {
+                    Expression<Func<ApplicationRole, bool>> predicate = role => role.Id == id;
+                    roleEntity = _roleRepo.Get(predicate);
+                }            
+                var model = _roleBuilder.CreateFrom(roleEntity);
+                _roleBuilder.Rebuild(model);
+                return model;
+            }
+        }
+
+        public RoleViewModel CreateRoleByName(string name)
+        {
+            using (_dbContextScopeFactory.CreateReadOnly())
+            {
+                Expression<Func<ApplicationRole, bool>> predicate = role => role.Name == name;
+                var roleEntity = _roleRepo.Get(predicate);
                 var model = _roleBuilder.CreateFrom(roleEntity);
                 _roleBuilder.Rebuild(model);
                 return model;
@@ -128,7 +148,7 @@ namespace Ubik.Web.Auth.Services
          
         }
 
-        public RoleViewModel Role(string id)
+        public RoleViewModel RoleById(string id)
         {
             var dbRole = _roleRepo.Get(x => x.Id == id);
             if (dbRole == null) return null;

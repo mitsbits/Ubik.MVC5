@@ -90,7 +90,7 @@ namespace Ubik.Web.Components.Ext
         public static ComponentStateFlavor DoDelete(this IComponentCanBeDeleted component)
         {
             GuardBeforeDelete(component);
-            var state = ComponentStateFlavor.Deleted;
+            const ComponentStateFlavor state = ComponentStateFlavor.Deleted;
             return state;
         }
 

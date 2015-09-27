@@ -7,7 +7,7 @@ using Ubik.Web.Infra.Navigation.Contracts;
 
 namespace Ubik.Web.Infra.Navigation
 {
-    public class BaseNavigationElement : INavigationElement<int>
+    public class BaseNavigationElement : INavigationElement<int>, ITaxonomy
     {
         private const string PathSeperator = @".";
         private readonly IEnumerable<NavigationElementDto> _data;
