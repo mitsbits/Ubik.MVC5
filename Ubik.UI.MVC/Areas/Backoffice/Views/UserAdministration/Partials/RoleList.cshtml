@@ -38,6 +38,7 @@
                             <tr>
                                 <th style="width: 10px">#</th>
                                 <th>Name</th>
+                                <th></th>
                                 
                             </tr>
                             
@@ -47,6 +48,16 @@
                                 <tr>
                                     <td>@((i+1).ToString("000"))</td>
                                     <td>@Html.ActionLink(role.Name, "Roles", "UserAdministration", new { id = role.Name, area = "Backoffice" }, null)</td>
+                                    <td>
+                                        @if (role.IsSytemRole)
+                                        {
+                                            <i class="fa fa-desktop" rel="tooltip" title="System Role"></i>
+                                        }
+                                        @if (role.IsPersisted)
+                                        {
+                                            <i class="fa fa-database" rel="tooltip" title="Persisted Role"></i>
+                                        }
+                                    </td>
                                 </tr>
                             }
                         </table>

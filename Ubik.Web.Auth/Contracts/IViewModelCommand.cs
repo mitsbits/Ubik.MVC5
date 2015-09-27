@@ -1,6 +1,6 @@
 ﻿namespace Ubik.Web.Auth.Contracts
 {
-    internal interface IViewModelCommand<in TViewModel>
+    public interface IViewModelCommand<in TViewModel>
     {
         void Execute(TViewModel model);
     }

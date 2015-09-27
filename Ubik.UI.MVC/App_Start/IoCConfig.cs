@@ -135,6 +135,8 @@ namespace Ubik.UI.MVC
             builder.RegisterType<RoleViewModelBuilder>().As<IViewModelBuilder<ApplicationRole, RoleViewModel>>().InstancePerRequest();
             builder.RegisterType<AddUserViewModelBuilder>().As<IViewModelBuilder<ApplicationUser, AddUserViewModel>>().InstancePerRequest();
 
+            builder.RegisterType<RoleViewModelCommand>().As <IViewModelCommand<RoleSaveModel>>().InstancePerRequest();
+
             builder.RegisterAssemblyTypes(Asmbls)
                    .Where(t => t.GetInterfaces().Any(x => x == typeof(IResourceAuthProvider)) && !t.IsAbstract)
                    .AsImplementedInterfaces().SingleInstance();

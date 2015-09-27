@@ -7,6 +7,8 @@ namespace Ubik.Web.Auth.ViewModels
         public string RoleId { get; set; }
         public string Name { get; set; }
         public IEnumerable<RoleClaimRowViewModel> Claims { get; set; }
+        public bool IsSytemRole { get; set; }
+        public bool IsPersisted { get; set; }
     }
 
     public class RoleClaimRowViewModel : Selectable

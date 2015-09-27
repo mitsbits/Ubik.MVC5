@@ -10,6 +10,7 @@ namespace Ubik.Web.Auth.Managers
         public ApplicationRoleManager(IRoleStore<ApplicationRole, string> store)
             : base(store)
         {
+            
         }
 
         public static ApplicationRoleManager Create(IdentityFactoryOptions<ApplicationRoleManager> options, IOwinContext context)

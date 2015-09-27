@@ -28,8 +28,8 @@ namespace Ubik.Web.Auth
 
         public ApplicationClaim(string claimType, string value)
         {
-            Value = claimType;
-            ClaimType = value;
+            Value = value;
+            ClaimType = claimType;
         }
 
         public string ClaimType { get; set; }

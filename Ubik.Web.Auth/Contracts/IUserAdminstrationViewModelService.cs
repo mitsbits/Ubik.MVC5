@@ -5,15 +5,17 @@ namespace Ubik.Web.Auth.Contracts
 {
     public interface IUserAdminstrationViewModelService
     {
-        UserViewModel CreateUser(string id);
+        UserViewModel UserModel(string id);
 
-        RoleViewModel CreateRole(string id);
+        RoleViewModel RoleModel(string id);
 
-        RoleViewModel CreateRoleByName(string name);
+        RoleViewModel RoleByNameModel(string name);
 
         IEnumerable<UserRowViewModel> Users();
 
         IEnumerable<RoleRowViewModel> Roles();
+
+        void Execute(RoleViewModel model);
 
         //RoleViewModel RoleById(string id);
 

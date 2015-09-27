@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 using Ubik.Web.Auth.Contracts;
 using Ubik.Web.Auth.ViewModels;
 
@@ -29,7 +31,7 @@ namespace Ubik.Web.Backoffice.Controllers
         public ActionResult NewUser()
         {
             SetContentPage(new BackofficeContent() { Title = "User Administration", Subtitle = "here you can create a new user" });
-            var model = _userService.ViewModels.CreateUser(string.Empty);
+            var model = _userService.ViewModels.UserModel(string.Empty);
             return View("NewUser", model);
         }
 
@@ -43,11 +45,11 @@ namespace Ubik.Web.Backoffice.Controllers
                 SetContentPage(content);
                 return View(_userService.ViewModels.Roles());
             }
-            var model = _userService.ViewModels.CreateRoleByName(id);
+            var model = _userService.ViewModels.RoleByNameModel(id);
             content.Title = model.Name;
             content.Subtitle = "role management";
             SetContentPage(content);
-            return View(_userService.ViewModels.CreateRoleByName(id));
+            return View(_userService.ViewModels.RoleByNameModel(id));
         }
 
         [ActionName("new-role")]
@@ -55,14 +57,18 @@ namespace Ubik.Web.Backoffice.Controllers
         public ActionResult NewRole()
         {
             SetContentPage(new BackofficeContent() { Title = "Role Administration", Subtitle = "here you can create a new role" });
-            var model = _userService.ViewModels.CreateRole(string.Empty);
+            var model = _userService.ViewModels.RoleModel(string.Empty);
             return View("NewRole", model);
         }
 
         [ValidateAntiForgeryToken]
-        public ActionResult CreateRole(RoleViewModel model)
+        public ActionResult UpdateRole(RoleViewModel model)
         {
-            return Redirect("index");
+            if (!ModelState.IsValid) return View("New-Role", model);
+            var currentClaims = model.AvailableClaims.Where(x => x.Selected).ToList();
+            model.Claims = new List<RoleClaimRowViewModel>(currentClaims);
+            _userService.ViewModels.Execute(model);
+            return RedirectToAction("Roles", "UserAdministration", new {id = model.Name});
         }
 
         #endregion Roles

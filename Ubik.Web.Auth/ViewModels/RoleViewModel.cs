@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Linq.Expressions;
+using Microsoft.AspNet.Identity;
 using Ubik.Web.Auth.Contracts;
+using Ubik.Web.Auth.Managers;
 using Ubik.Web.Cms.Contracts;
 
 namespace Ubik.Web.Auth.ViewModels
@@ -83,11 +85,42 @@ namespace Ubik.Web.Auth.ViewModels
         }
     }
 
-    internal class RoleViewModelCommand : IViewModelCommand<RoleSaveModel>
+    public class RoleViewModelCommand : IViewModelCommand<RoleSaveModel>
     {
+
+        private readonly IRoleRepository _roleRepo;
+        private readonly ApplicationRoleManager _roleManager;
+
+        public RoleViewModelCommand(IRoleRepository roleRepo,  ApplicationRoleManager roleManager)
+        {
+            _roleRepo = roleRepo;
+   
+            _roleManager = roleManager;
+        }
+
         public void Execute(RoleSaveModel model)
         {
-            return;
+            IdentityResult result;
+            var dbRole = _roleManager.FindByIdAsync(model.RoleId).Result;
+            if (dbRole == null)
+            {
+                var appRole = new ApplicationRole() {Id = model.RoleId, Name = model.Name};
+                result = _roleManager.CreateAsync(appRole).Result;
+                
+            }
+            else
+            {
+                dbRole.Name = model.Name;
+                result = _roleManager.UpdateAsync(dbRole).Result;
+            }
+            if (!result.Succeeded) return;
+
+            var entityRole = _roleRepo.Get(x => x.Id == model.RoleId);
+            entityRole.RoleClaims.Clear();
+            foreach (var claimViewModel in model.Claims)
+            {
+                entityRole.RoleClaims.Add(new ApplicationClaim(claimViewModel.Type, claimViewModel.Value));
+            }
         }
     }
 }
