@@ -37,8 +37,16 @@ namespace Ubik.Web.Backoffice.Controllers
 
         public ActionResult Roles(string id)
         {
+            BackofficeContent content = new BackofficeContent() { Title = "User Administration", Subtitle = "here you can manage roles" };
             if (string.IsNullOrWhiteSpace(id))
+            {
+                SetContentPage(content);
                 return View(_userService.ViewModels.Roles());
+            }
+            var model = _userService.ViewModels.CreateRoleByName(id);
+            content.Title = model.Name;
+            content.Subtitle = "role management";
+            SetContentPage(content);
             return View(_userService.ViewModels.CreateRoleByName(id));
         }
 

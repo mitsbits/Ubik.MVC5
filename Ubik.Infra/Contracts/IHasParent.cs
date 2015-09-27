@@ -1,13 +1,13 @@
 ﻿namespace Ubik.Infra.Contracts
 {
-    public interface ITaxonomy<out TKey> : ITaxonomy
+    public interface IHasParent<out TKey> : IHasParent
     {
         TKey Id { get; }
 
         TKey ParentId { get; }
     }
 
-    public interface ITaxonomy
+    public interface IHasParent
     {
         int Depth { get; }
     }

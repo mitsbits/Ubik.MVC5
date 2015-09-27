@@ -13,7 +13,7 @@ namespace Ubik.Web.Auth.ViewModels
         public string RoleId { get; set; }
 
         [Required]
-        public string RoleName { get; set; }
+        public string Name { get; set; }
 
         public IEnumerable<RoleClaimRowViewModel> Claims { get; set; }
 
@@ -44,7 +44,7 @@ namespace Ubik.Web.Auth.ViewModels
             var viewModel = new RoleViewModel
             {
                 RoleId = entity.Id,
-                RoleName = entity.Name,
+                Name = entity.Name,
                 Claims = entity.RoleClaims.Select(
                     x => new RoleClaimRowViewModel() {ClaimId = "", Type = x.ClaimType, Value = x.Value}).ToList()
             };

@@ -6,7 +6,7 @@
     var resources = Model.AvailableClaims.Where(x => x.Type == SystemClaims.OperationToResourceClaimType).Select(x => x.Value.Split(new[] { '|' }).Last()).Distinct().OrderBy(x => x).ToList();
 }
 
-<div class="box">
+<div class="box box-solid">
     <div class="box-header">
         <h3 class="box-title">Operations on Resources</h3>
     </div>

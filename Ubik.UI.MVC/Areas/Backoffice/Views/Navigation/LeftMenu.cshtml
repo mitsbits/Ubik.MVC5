@@ -37,7 +37,7 @@
 }
 @helper RenderMenuElement(BackofficeNavigationElement child, NavigationGroupDto groupDto)
 {
-    var hasChildernClass = (child.HasChildren && child.Depth == 1) ? "treeview" : string.Empty;
+    var hasChildernClass = (child.HasChildren && child.Depth == 1 && false) ? "treeview" : string.Empty;
     <li id="itm_@child.Id.ToString()" class="@hasChildernClass">
         @switch (child.Role)
         {

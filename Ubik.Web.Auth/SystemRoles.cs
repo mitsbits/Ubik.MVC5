@@ -12,6 +12,7 @@ namespace Ubik.Web.Auth
         public const string Manager       = "Manager";
         public const string Editor        = "Editor";
         public const string Author        = "Author";
+        public const string Backoffice    = "Backoffice";
         public const string Guest         = "Guest";
 
         private static readonly IEnumerable<Claim> _roles;
@@ -20,12 +21,13 @@ namespace Ubik.Web.Auth
         {
             _roles = new[]
                 {
-                     new Claim( RoleClaimType, SysAdmin ),
-                     new Claim( RoleClaimType, AppAdmin ),
-                     new Claim( RoleClaimType, Manager  ),
-                     new Claim( RoleClaimType, Editor   ),
-                     new Claim( RoleClaimType, Author   ),
-                     new Claim( RoleClaimType, Guest    )
+                     new Claim(RoleClaimType, SysAdmin  ),
+                     new Claim(RoleClaimType, AppAdmin  ),
+                     new Claim(RoleClaimType, Manager   ),
+                     new Claim(RoleClaimType, Editor    ),
+                     new Claim(RoleClaimType, Author    ),
+                     new Claim(RoleClaimType, Backoffice),
+                     new Claim(RoleClaimType, Guest     )
                 };
         }
 

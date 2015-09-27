@@ -61,7 +61,7 @@ namespace Ubik.Web.Auth.Services
                 {
                     Expression<Func<ApplicationRole, bool>> predicate = role => role.Id == id;
                     roleEntity = _roleRepo.Get(predicate);
-                }            
+                }
                 var model = _roleBuilder.CreateFrom(roleEntity);
                 _roleBuilder.Rebuild(model);
                 return model;
@@ -72,9 +72,18 @@ namespace Ubik.Web.Auth.Services
         {
             using (_dbContextScopeFactory.CreateReadOnly())
             {
+                RoleViewModel model;
                 Expression<Func<ApplicationRole, bool>> predicate = role => role.Name == name;
                 var roleEntity = _roleRepo.Get(predicate);
-                var model = _roleBuilder.CreateFrom(roleEntity);
+                if (roleEntity == null && SystemRoleViewModels.Any(x => x.Name == name))
+                {
+                    model = SystemRoleViewModels.First(x => x.Name == name);
+                    model.RoleId = Guid.NewGuid().ToString();
+                }
+                else
+                {
+                    model = _roleBuilder.CreateFrom(roleEntity);
+                }
                 _roleBuilder.Rebuild(model);
                 return model;
             }
@@ -100,12 +109,48 @@ namespace Ubik.Web.Auth.Services
 
         public IEnumerable<RoleRowViewModel> Roles()
         {
-            var systemRoleNames = _authProviders.SelectMany(x => x.RoleNames).Distinct();
-            var list = new List<RoleRowViewModel>();
-            foreach (var systemRoleName in systemRoleNames)
+            var list = new List<RoleRowViewModel>(SystemRoleViewModels
+                .Select(x => new RoleRowViewModel() { Claims = x.Claims, Name = x.Name, RoleId = x.RoleId }));
+
+            using (_dbContextScopeFactory.CreateReadOnly())
             {
-                var name = systemRoleName;
-                var roles = _authProviders.Select(x => new RoleRowViewModel()
+                var dbRoles = _roleRepo.Find(x => true, role => role.Name).ToList();
+                foreach (var existing in dbRoles
+                    .Select(applicationRole => list.FirstOrDefault(x => x.Name == applicationRole.Name))
+                    .Where(existing => existing != null))
+                {
+                    list.Remove(existing);
+                }
+                list.AddRange(dbRoles.Select(appRole => new RoleRowViewModel
+                {
+                    Name = appRole.Name,
+                    RoleId = appRole.Id,
+                    Claims =
+                        appRole.RoleClaims.Select(
+                            dbClaim =>
+                                new RoleClaimRowViewModel()
+                                {
+                                    ClaimId = "",
+                                    Type = dbClaim.ClaimType,
+                                    Value = dbClaim.Value
+                                })
+                }));
+            }
+
+
+            return list.OrderBy(x => x.Name).ToList();
+
+        }
+
+        private List<RoleViewModel> _systemRoleViewModels;
+        private IEnumerable<RoleViewModel> SystemRoleViewModels
+        {
+            get
+            {
+                if (_systemRoleViewModels != null) return _systemRoleViewModels;
+                var systemRoleNames = _authProviders.SelectMany(x => x.RoleNames).Distinct();
+                _systemRoleViewModels = new List<RoleViewModel>();
+                foreach (var roles in systemRoleNames.Select(name => _authProviders.Select(x => new RoleViewModel()
                 {
                     Name = name,
                     RoleId = "",
@@ -115,44 +160,19 @@ namespace Ubik.Web.Auth.Services
                         Type = systemClaim.Type,
                         Value = systemClaim.Value
                     })
-                });
-                list.AddRange(roles);
-            }
-
-            using (_dbContextScopeFactory.CreateReadOnly())
-            {
-                var dbRoles = _roleRepo.Find(x => true, role => role.Name);
-                list.AddRange(dbRoles.Select(sarekRole => new RoleRowViewModel
+                })))
                 {
-                    Name = sarekRole.Name,
-                    RoleId = sarekRole.Id,
-                    Claims =
-                        sarekRole.RoleClaims.Select(
-                            dbClaim =>
-                                new RoleClaimRowViewModel()
-                                {
-                                    ClaimId = "",
-                                    Type = dbClaim.ClaimType,
-                                    Value = dbClaim.Value
-                                }).ToList()
-                }).ToList());
+                    _systemRoleViewModels.AddRange(roles);
+                }
+                return _systemRoleViewModels;
             }
-
-
-            return list.GroupBy(x=>x.Name).Select(roleGroup => new RoleRowViewModel()
-            {
-                Name = roleGroup.Key,
-                RoleId = roleGroup.Max(g => g.RoleId),
-                Claims = roleGroup.SelectMany(x => x.Claims).Distinct().ToList()
-            });
-         
         }
 
-        public RoleViewModel RoleById(string id)
-        {
-            var dbRole = _roleRepo.Get(x => x.Id == id);
-            if (dbRole == null) return null;
-            return new RoleViewModel();
-        }
+        //public RoleViewModel RoleById(string id)
+        //{
+        //    var dbRole = _roleRepo.Get(x => x.Id == id);
+        //    if (dbRole == null) return null;
+        //    return new RoleViewModel();
+        //}
     }
 }
