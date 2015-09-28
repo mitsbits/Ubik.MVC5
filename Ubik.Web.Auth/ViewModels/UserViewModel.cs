@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Ubik.Web.Auth.Contracts;
@@ -18,23 +19,28 @@ namespace Ubik.Web.Auth.ViewModels
 
         public string Password { get; set; }
 
-        public RoleRowViewModel[] Roles { get; set; }
+        public RoleViewModel[] Roles { get; set; }
     }
 
     public class UserViewModel : UserSaveModel
     {
-        public RoleRowViewModel[] AvailableRoles { get; set; }
+        public RoleViewModel[] AvailableRoles { get; set; }
     }
 
     public class UserViewModelBuilder : IViewModelBuilder<ApplicationUser, UserViewModel>
     {
-        private readonly IResident _resident;
+
         private readonly IRoleRepository _roleRepo;
 
-        public UserViewModelBuilder(IResident resident, IRoleRepository roleRepository)
+
+
+        private readonly IEnumerable<RoleViewModel> _roleViewModels;
+
+
+        public UserViewModelBuilder(IRoleRepository roleRepository, IEnumerable<RoleViewModel> roleViewModels)
         {
-            _resident = resident;
             _roleRepo = roleRepository;
+            _roleViewModels = roleViewModels;
         }
 
         public UserViewModel CreateFrom(ApplicationUser entity)
@@ -47,7 +53,7 @@ namespace Ubik.Web.Auth.ViewModels
             var userRoles = _roleRepo.Find(x => x.Users.Any(u => u.UserId == entity.Id), x => x.Name);
             var entityRoles = entity.Roles.ToList();
 
-            viewModel.Roles = entityRoles.Select(role => new RoleRowViewModel()
+            viewModel.Roles = entityRoles.Select(role => new RoleViewModel()
             {
                 RoleId = role.RoleId,
                 Name = userRoles.Single(r => r.Id == role.RoleId).Name
@@ -58,9 +64,12 @@ namespace Ubik.Web.Auth.ViewModels
 
         public void Rebuild(UserViewModel model)
         {
-            Expression<Func<ApplicationRole, bool>> predicate = role => true;
-            var databaseRoles = _roleRepo.Find(predicate, x => x.Name);//TODO: system roles must be populated from database at this point, no need to hit the database here
-            model.AvailableRoles = _resident.Security.Roles.Select(systemRole => new RoleRowViewModel() { RoleId = databaseRoles.Single(x => x.Name.Equals(systemRole.Value, StringComparison.InvariantCultureIgnoreCase)).Id, Name = systemRole.Value }).ToArray();
+            model.AvailableRoles = _roleViewModels.ToArray();
+            foreach (var role in model.AvailableRoles)
+            {
+                role.Selected = model.Roles.Any(x => x.Name == role.Name);
+            }
+
         }
     }
 

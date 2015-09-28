@@ -26,6 +26,9 @@ namespace Ubik.Web.Backoffice.Controllers
             return View();
         }
 
+        #region Users   
+
+
         [ActionName("new-user")]
         /*[AuthorizeOperationToResource(OperationKey = SystemClaims.Operations.Create, ResourceKey = UserAdministrationAuth.Resources.User)]*/
         public ActionResult NewUser()
@@ -35,6 +38,8 @@ namespace Ubik.Web.Backoffice.Controllers
             return View("NewUser", model);
         }
 
+        #endregion Users
+
         #region Roles
 
         public ActionResult Roles(string id)
@@ -42,20 +47,7 @@ namespace Ubik.Web.Backoffice.Controllers
             return string.IsNullOrWhiteSpace(id) ? GetAllRoles() : GetOneRoleByName(id);
         }
 
-        private ActionResult GetOneRoleByName(string id)
-        {
-            var model = _userService.ViewModels.RoleByNameModel(id);
-            var content = new BackofficeContent {Title = model.Name, Subtitle = "role management"};
-            SetContentPage(content);
-            return View(model);
-        }
 
-        private ActionResult GetAllRoles()
-        {
-            var content = new BackofficeContent() {Title = "User Administration", Subtitle = "here you can manage roles"};
-            SetContentPage(content);
-            return View(_userService.ViewModels.Roles());
-        }
 
         [ActionName("new-role")]
         /*[AuthorizeOperationToResource(OperationKey = SystemClaims.Operations.Create, ResourceKey = UserAdministrationAuth.Resources.Role)]*/
@@ -76,6 +68,20 @@ namespace Ubik.Web.Backoffice.Controllers
             return RedirectToAction("Roles", "UserAdministration", new {id = model.Name});
         }
 
+        private ActionResult GetOneRoleByName(string id)
+        {
+            var model = _userService.ViewModels.RoleByNameModel(id);
+            var content = new BackofficeContent { Title = model.Name, Subtitle = "role management" };
+            SetContentPage(content);
+            return View(model);
+        }
+
+        private ActionResult GetAllRoles()
+        {
+            var content = new BackofficeContent() { Title = "User Administration", Subtitle = "here you can manage roles" };
+            SetContentPage(content);
+            return View(_userService.ViewModels.Roles());
+        }
         #endregion Roles
     }
 }

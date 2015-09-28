@@ -1,0 +1,67 @@
+﻿@using Ubik.Web.Auth.ViewModels
+@model UserViewModel
+<div class="box box-solid">
+    <div class="box-header">
+        <h3 class="box-title">User Roles</h3>
+    </div>
+    <div class="box-body">
+        <div class="row">
+            @for (var index = 0; index < Model.AvailableRoles.Count(); index++)
+            {
+                var role = Model.AvailableRoles[index];
+                <div class="col-md-4">
+                    @Html.HiddenFor(m => m.AvailableRoles[index].Name)
+                    @Html.HiddenFor(m => m.AvailableRoles[index].RoleId)
+                    @Html.HiddenFor(m => m.AvailableRoles[index].IsSytemRole)
+                    @Html.EditorFor(m => m.AvailableRoles[index].Selected)
+                    <label for="@Html.IdFor(m => m.AvailableRoles[index].Selected)">
+                        @if (role.IsSytemRole)
+                        {
+                            <i class="fa fa-desktop right text-info" rel="tooltip" title="System Role"></i>
+                        }
+                        @if (role.IsPersisted)
+                        {
+                            <i class="fa fa-database right text-info" rel="tooltip" title="Persisted Role"></i>
+                        }
+                        <span>@role.Name</span>
+                    </label>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="box-body no-padding">
+        @*<table class="table table-bordered table-striped">
+                <tr>
+                    <th>
+
+                    </th>
+                    @foreach (var operation in operations)
+                    {
+                        <th>
+                            <span>@operation</span>
+                        </th>
+                    }
+                </tr>
+
+                @foreach (var resource in resources)
+                {
+                    <tr>
+                        <td> <strong> @resource</strong></td>
+                        @foreach (var operation in operations)
+                        {
+                            var claim = Model.AvailableClaims.FirstOrDefault(x => x.Value == string.Format("{0}|{1}", operation, resource));
+                            var index = Array.IndexOf(Model.AvailableClaims, claim);
+                            <td data-id="@Model.AvailableClaims[index].Value">
+                                @Html.HiddenFor(m => m.AvailableClaims[index].Value)
+                                @Html.HiddenFor(m => m.AvailableClaims[index].Type)
+                                @Html.HiddenFor(m => m.AvailableClaims[index].ClaimId)
+                                @Html.EditorFor(m => m.AvailableClaims[index].Selected)
+                            </td>
+                        }
+
+                    </tr>
+                }
+
+            </table>*@
+    </div>
+</div>

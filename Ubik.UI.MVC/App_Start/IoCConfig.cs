@@ -130,8 +130,8 @@ namespace Ubik.UI.MVC
             builder.RegisterType<UserAdminstrationViewModelService>()
                 .As<IUserAdminstrationViewModelService>()
                 .InstancePerRequest();
-
-            builder.RegisterType<UserViewModelBuilder>().As<IViewModelBuilder<ApplicationUser, UserViewModel>>().InstancePerRequest();
+            //builder.Register((c, p) => new UserViewModelBuilder(c.Resolve<IRoleRepository>(), c.Resolve<IUserAdminstrationViewModelService>().Roles())).As<IViewModelBuilder<ApplicationUser, UserViewModel>>().InstancePerRequest();
+            //builder.RegisterType<UserViewModelBuilder>().As<IViewModelBuilder<ApplicationUser, UserViewModel>>().InstancePerRequest();
             builder.RegisterType<RoleViewModelBuilder>().As<IViewModelBuilder<ApplicationRole, RoleViewModel>>().InstancePerRequest();
             builder.RegisterType<AddUserViewModelBuilder>().As<IViewModelBuilder<ApplicationUser, AddUserViewModel>>().InstancePerRequest();
 

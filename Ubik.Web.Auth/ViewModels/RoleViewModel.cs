@@ -1,9 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Linq.Expressions;
-using Microsoft.AspNet.Identity;
 using Ubik.Web.Auth.Contracts;
 using Ubik.Web.Auth.Managers;
 using Ubik.Web.Cms.Contracts;
@@ -18,13 +16,14 @@ namespace Ubik.Web.Auth.ViewModels
         public string Name { get; set; }
 
         public IEnumerable<RoleClaimRowViewModel> Claims { get; set; }
-
-        public IEnumerable<UserRowViewModel> Users { get; set; }
     }
 
-    public class RoleViewModel : RoleSaveModel
+    public class RoleViewModel : RoleSaveModel, ISelectable
     {
         public RoleClaimRowViewModel[] AvailableClaims { get; set; }
+        public bool IsSytemRole { get; set; }
+        public bool IsPersisted { get; set; }
+        public bool Selected { get; set; }
     }
 
     public class RoleViewModelBuilder : IViewModelBuilder<ApplicationRole, RoleViewModel>
@@ -48,22 +47,8 @@ namespace Ubik.Web.Auth.ViewModels
                 RoleId = entity.Id,
                 Name = entity.Name,
                 Claims = entity.RoleClaims.Select(
-                    x => new RoleClaimRowViewModel() {ClaimId = "", Type = x.ClaimType, Value = x.Value}).ToList()
+                    x => new RoleClaimRowViewModel() { ClaimId = "", Type = x.ClaimType, Value = x.Value }).ToList()
             };
-
-            Expression<Func<ApplicationUser, bool>> userPredicate = user => user.Roles.Any(x => x.RoleId == entity.Id);
-            viewModel.Users =
-                _userRepo.Find(userPredicate, user => user.UserName)
-                    .Select(
-                        x =>
-                            new UserRowViewModel()
-                            {
-                                UserId = x.Id,
-                                UserName = x.UserName,
-                                Roles = new[] { new RoleRowViewModel() { Name = entity.Name, RoleId = entity.Id } }
-                            })
-                    .Distinct()
-                    .ToList();
 
             return viewModel;
         }
@@ -73,13 +58,13 @@ namespace Ubik.Web.Auth.ViewModels
             if (string.IsNullOrWhiteSpace(model.RoleId)) return;
             model.AvailableClaims =
                 _resident.Security.Roles.SelectMany(x => _resident.Security.ClaimsForRole(x.Value))
-                    .Select(x => new RoleClaimRowViewModel() {ClaimId = "", Type = x.Type, Value = x.Value})
+                    .Select(x => new RoleClaimRowViewModel() { ClaimId = "", Type = x.Type, Value = x.Value })
                     .Distinct()
                     .ToArray();
             foreach (var roleClaimRowViewModel in model.AvailableClaims)
             {
                 roleClaimRowViewModel.Selected =
-                    model.Claims.Any(x => x.Type == roleClaimRowViewModel.Type 
+                    model.Claims.Any(x => x.Type == roleClaimRowViewModel.Type
                         && x.Value == roleClaimRowViewModel.Value);
             }
         }
@@ -87,14 +72,13 @@ namespace Ubik.Web.Auth.ViewModels
 
     public class RoleViewModelCommand : IViewModelCommand<RoleSaveModel>
     {
-
         private readonly IRoleRepository _roleRepo;
         private readonly ApplicationRoleManager _roleManager;
 
-        public RoleViewModelCommand(IRoleRepository roleRepo,  ApplicationRoleManager roleManager)
+        public RoleViewModelCommand(IRoleRepository roleRepo, ApplicationRoleManager roleManager)
         {
             _roleRepo = roleRepo;
-   
+
             _roleManager = roleManager;
         }
 
@@ -104,9 +88,8 @@ namespace Ubik.Web.Auth.ViewModels
             var dbRole = _roleManager.FindByIdAsync(model.RoleId).Result;
             if (dbRole == null)
             {
-                var appRole = new ApplicationRole() {Id = model.RoleId, Name = model.Name};
+                var appRole = new ApplicationRole() { Id = model.RoleId, Name = model.Name };
                 result = _roleManager.CreateAsync(appRole).Result;
-                
             }
             else
             {

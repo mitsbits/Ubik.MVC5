@@ -2,7 +2,7 @@
 @using Ubik.Web.Auth.ViewModels
 @{
     var isDetail = false;
-    IEnumerable<RoleRowViewModel> rows;
+    IEnumerable<RoleViewModel> rows;
     RoleViewModel detail;
     if (Model.GetType() == typeof (RoleViewModel))
     {
@@ -12,7 +12,7 @@
     }
     else
     {
-        rows = Model as IEnumerable<RoleRowViewModel>;
+        rows = Model as IEnumerable<RoleViewModel>;
         Html.RenderPartial("~/Areas/Backoffice/Views/UserAdministration/Partials/RoleList.cshtml", rows);
     }
 }

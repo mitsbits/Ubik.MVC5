@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Ubik.Web.Auth.ViewModels
 {
+    [Obsolete("use one view model", true)]
     public class RoleRowViewModel : Selectable
     {
         public string RoleId { get; set; }

@@ -8,6 +8,6 @@ namespace Ubik.Web.Auth.ViewModels
 
         public string UserName { get; set; }
 
-        public IEnumerable<RoleRowViewModel> Roles { get; set; }
+        public IEnumerable<RoleViewModel> Roles { get; set; }
     }
 }

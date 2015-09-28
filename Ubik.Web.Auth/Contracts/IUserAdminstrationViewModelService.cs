@@ -13,7 +13,7 @@ namespace Ubik.Web.Auth.Contracts
 
         IEnumerable<UserRowViewModel> Users();
 
-        IEnumerable<RoleRowViewModel> Roles();
+        IEnumerable<RoleViewModel> Roles();
 
         void Execute(RoleViewModel model);
 

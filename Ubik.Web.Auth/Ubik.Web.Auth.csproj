@@ -102,6 +102,7 @@
     <Compile Include="Contracts\IUserRepository.cs" />
     <Compile Include="Contracts\IViewModelBuilder.cs" />
     <Compile Include="Contracts\IViewModelCommand.cs" />
+    <Compile Include="InternalExtensions.cs" />
     <Compile Include="Managers\ApplicationRoleManager.cs" />
     <Compile Include="Managers\ApplicationSignInManager.cs" />
     <Compile Include="Managers\ApplicationUserManager.cs" />
@@ -140,10 +141,6 @@
     <ProjectReference Include="..\Ubik.Web.Cms\Ubik.Web.Cms.csproj">
       <Project>{54A78BF9-AC25-4E8E-9BCF-0628ED0DB2AF}</Project>
       <Name>Ubik.Web.Cms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Ubik.Web.Infra\Ubik.Web.Infra.csproj">
-      <Project>{7EACFD79-0D49-43C3-A388-ABC4B0DDFE82}</Project>
-      <Name>Ubik.Web.Infra</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
