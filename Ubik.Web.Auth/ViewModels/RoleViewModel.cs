@@ -24,6 +24,7 @@ namespace Ubik.Web.Auth.ViewModels
         public bool IsSytemRole { get; set; }
         public bool IsPersisted { get; set; }
         public bool Selected { get; set; }
+        
     }
 
     public class RoleViewModelBuilder : IViewModelBuilder<ApplicationRole, RoleViewModel>
@@ -104,6 +105,25 @@ namespace Ubik.Web.Auth.ViewModels
             {
                 entityRole.RoleClaims.Add(new ApplicationClaim(claimViewModel.Type, claimViewModel.Value));
             }
+        }
+    }
+
+    public class CopyRoleViewModel : RoleViewModel
+    {
+        [Required]
+        public string Target { get; set; }
+
+        protected CopyRoleViewModel() { }
+
+        public CopyRoleViewModel(RoleViewModel source)
+        {
+           AvailableClaims = source.AvailableClaims;
+           Claims = source.Claims;
+           IsPersisted = source.IsPersisted;
+           IsSytemRole = source.IsSytemRole;
+           Name = source.Name;
+           RoleId = source.RoleId;
+           Selected = source.Selected;
         }
     }
 }

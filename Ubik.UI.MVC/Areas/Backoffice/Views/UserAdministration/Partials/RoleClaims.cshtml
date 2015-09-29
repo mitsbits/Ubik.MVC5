@@ -5,6 +5,7 @@
 @{
     var operations = new SystemClaims.Operations();
     var resources = Model.AvailableClaims.Where(x => x.Type == SystemClaims.OperationToResourceClaimType).Select(x => x.Value.Split(new[] { '|' }).Last()).Distinct().OrderBy(x => x).ToList();
+    var readOnlyClass = Model.IsSytemRole;
 }
 
 <div class="box box-solid">
@@ -37,7 +38,15 @@
                             @Html.HiddenFor(m => m.AvailableClaims[index].Value)
                             @Html.HiddenFor(m => m.AvailableClaims[index].Type)
                             @Html.HiddenFor(m => m.AvailableClaims[index].ClaimId)
-                            @Html.EditorFor(m => m.AvailableClaims[index].Selected)
+                            @if (Model.IsSytemRole)
+                            {
+                                @Html.CheckBoxFor(m => m.AvailableClaims[index].Selected, new { disabled = "disabled" })
+                            }
+                            else
+                            {
+                               @Html.CheckBoxFor(m => m.AvailableClaims[index].Selected)
+                            }
+                            
                         </td>
                     }
 

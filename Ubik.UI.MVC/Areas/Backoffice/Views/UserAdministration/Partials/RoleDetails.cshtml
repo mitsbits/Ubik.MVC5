@@ -1,4 +1,45 @@
-﻿@model Ubik.Web.Auth.ViewModels.RoleViewModel
+﻿@using Ubik.Web.Auth.ViewModels
+@model Ubik.Web.Auth.ViewModels.RoleViewModel
+
+@helper StandardForm()
+{
+    using (Html.BeginForm("UpdateRole", "UserAdministration", FormMethod.Post, new { role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="box-body">
+            <div class="col-md-6">
+                <div class="form-group hidden">
+                    @Html.LabelFor(m => m.RoleId)
+                    @Html.HiddenFor(m => m.RoleId, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.RoleId, "", new { @class = "" })
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon">@Html.LabelFor(m => m.Name)</span>
+
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+
+                    </div>
+                    @Html.ValidationMessageFor(m => m.Name, "", new { @class = "" })
+                </div>
+                <div class="form-group">
+                    @Html.Partial("~/Areas/Backoffice/Views/UserAdministration/Partials/RoleClaims.cshtml", Model)
+                </div>
+            </div>
+            <div class="col-md-6"></div>
+            <div class="box-footer col-md-12">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+
+        </div>
+    }
+}
+
+@helper ReadOnlyForm()
+{
+    Html.RenderPartial("~/Areas/Backoffice/Views/UserAdministration/Partials/RoleCopy.cshtml", new CopyRoleViewModel(Model));
+}
 
 <aside class="right-side">
     <!-- Content Header (Page header) -->
@@ -16,42 +57,7 @@
     <!-- Main content -->
     <section class="content">
         <div class="row">
-
-            <!-- form start -->
-            @using (Html.BeginForm("UpdateRole", "UserAdministration", FormMethod.Post, new { role = "form" }))
-            {
-                @Html.AntiForgeryToken()
-                                <!-- left column -->
-
-                <div class="box-body">
-                    <div class="col-md-6">
-                        <div class="form-group hidden">
-                            @Html.LabelFor(m => m.RoleId)
-                            @Html.HiddenFor(m => m.RoleId, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.RoleId, "", new { @class = "" })
-                        </div>
-                        <div class="form-group">
-                            <div class="input-group">
-                                <span class="input-group-addon">@Html.LabelFor(m => m.Name)</span>
-
-                                @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
-
-                            </div>
-                            @Html.ValidationMessageFor(m => m.Name, "", new { @class = "" })
-                        </div>
-                        <div class="form-group">
-                            @Html.Partial("~/Areas/Backoffice/Views/UserAdministration/Partials/RoleClaims.cshtml", Model)
-                        </div>
-                    </div>
-                    <div class="col-md-6"></div>
-                    <div class="box-footer col-md-12">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
-
-                </div>
-            }
-
-
+            @(Model.IsSytemRole ? ReadOnlyForm() : StandardForm())
         </div>
     </section><!-- /.content -->
 </aside>

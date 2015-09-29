@@ -635,6 +635,7 @@
     <Content Include="Areas\Backoffice\Views\Widgets\Widgets.cshtml" />
     <Content Include="Areas\Backoffice\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Backoffice\Views\UserAdministration\Partials\UserRoles.cshtml" />
+    <Content Include="Areas\Backoffice\Views\UserAdministration\Partials\RoleCopy.cshtml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
