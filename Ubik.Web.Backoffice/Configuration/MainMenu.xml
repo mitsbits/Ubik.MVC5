@@ -33,4 +33,39 @@
       </element>
     </elements>
   </group>
+
+
+  <group key="modls" display="Layouts and Modules">
+    <icon>
+      <cssclass>fa-file-code-o</cssclass>
+    </icon>
+    <elements>
+      <element display="Layouts" href="/devices" role="anchor" target="_self">
+        <icon>
+          <cssclass>fa-file-code-o</cssclass>
+        </icon>
+
+        <elements>
+          <element display="New Layout" href="/devices/new-device" role="anchor" target="_self">
+            <icon>
+              <cssclass>fa fa-plus</cssclass>
+            </icon>
+          </element>
+        </elements>
+
+      </element>
+      <element display="Modules" href="/modules" role="anchor" target="_self">
+        <icon>
+          <cssclass>fa fa-object-group</cssclass>
+        </icon>
+        <!--<elements>
+          <element display="New User" href="/useradministration/new-user" role="anchor" target="_self">
+            <icon>
+              <cssclass>fa fa-user-plus</cssclass>
+            </icon>
+          </element>
+        </elements>-->
+      </element>
+    </elements>
+  </group>
 </groups>

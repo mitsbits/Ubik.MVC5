@@ -120,7 +120,7 @@
     <Compile Include="UserAdministrationAuth.cs" />
     <Compile Include="Contracts\IResourceAuthProvider.cs" />
     <Compile Include="ViewModels\AddUserViewModel.cs" />
-    <Compile Include="ViewModels\RoleRowViewModel.cs" />
+    <Compile Include="ViewModels\RoleClaimRowViewModel.cs" />
     <Compile Include="ViewModels\RoleViewModel.cs" />
     <Compile Include="ViewModels\UserRowViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.Routing;
 using Ubik.Web.Auth.Contracts;
 using Ubik.Web.Auth.ViewModels;
 
@@ -62,10 +63,18 @@ namespace Ubik.Web.Backoffice.Controllers
         public ActionResult UpdateRole(RoleViewModel model)
         {
             if (!ModelState.IsValid) return View("New-Role", model);
-            var currentClaims = model.AvailableClaims.Where(x => x.Selected).ToList();
+            var currentClaims = model.AvailableClaims.Where(x => x.IsSelected).ToList();
             model.Claims = new List<RoleClaimRowViewModel>(currentClaims);
             _userService.ViewModels.Execute(model);
             return RedirectToAction("Roles", "UserAdministration", new {id = model.Name});
+        }
+
+        [ValidateAntiForgeryToken]
+        public ActionResult CopyRole(CopyRoleViewModel model)
+        {
+            if (!ModelState.IsValid) return View("~/Areas/Backoffice/Views/UserAdministration/Roles.cshtml", model);
+             _userService.CopyRole(model.Name, model.Target);
+            return RedirectToAction("Roles", "UserAdministration", new {id = model.Target});
         }
 
         private ActionResult GetOneRoleByName(string id)

@@ -17,8 +17,6 @@ namespace Ubik.Web.Auth.Contracts
 
         void Execute(RoleViewModel model);
 
-        //RoleViewModel RoleById(string id);
-
-        //RoleViewModel RoleByName(string id);
+        IEnumerable<RoleViewModel> SystemRoleViewModels { get; }
     }
 }

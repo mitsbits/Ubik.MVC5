@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ubik.Web.BackOffice.Contracts
+namespace Ubik.Web.Backoffice.Controllers
 {
-    interface IBackofficeContentProvider
+   public class DevicesController : BackofficeController
     {
-        IBackofficeContent Current { get; }
     }
 }

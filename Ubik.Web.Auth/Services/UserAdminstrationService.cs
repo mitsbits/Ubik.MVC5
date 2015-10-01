@@ -1,8 +1,8 @@
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using Microsoft.AspNet.Identity;
 using Ubik.Web.Auth.Contracts;
 using Ubik.Web.Auth.Managers;
 
@@ -25,11 +25,37 @@ namespace Ubik.Web.Auth.Services
             _roleManager = roleManager;
         }
 
-
-
         public IUserAdminstrationViewModelService ViewModels
         {
             get { return _viewModels; }
+        }
+
+        public void CopyRole(string source, string target)
+        {
+            var sourceIsSytemRole = _viewModels.SystemRoleViewModels.Any(x => x.Name == source);
+            ApplicationRole copy;
+            if (sourceIsSytemRole)
+            {
+                var sourceViewModel = _viewModels.Roles().First(x => x.Name == source);
+                copy = new ApplicationRole() { Name = target };
+                foreach (var roleClaimRowViewModel in sourceViewModel.Claims)
+                {
+                    copy.RoleClaims.Add(new ApplicationClaim(roleClaimRowViewModel.Type, roleClaimRowViewModel.Value));
+                }
+            }
+            else
+            {
+                var original = _roleManager.FindByNameAsync(source).Result;
+                if (original == null) throw new ApplicationException("source role not found");
+                copy = new ApplicationRole(target);
+                foreach (var applicationClaim in original.RoleClaims)
+                {
+                    copy.RoleClaims.Add(applicationClaim);
+                }
+            }
+            var result = _roleManager.CreateAsync(copy).Result;
+            if (result.Succeeded) return;
+            throw new ApplicationException(string.Join("\n", result.Errors));
         }
 
         public IEnumerable<ApplicationUser> Find(Expression<Func<ApplicationUser, bool>> predicate, int pageNumber, int pageSize, out int totalRecords)
@@ -41,7 +67,6 @@ namespace Ubik.Web.Auth.Services
         {
             return _roleRepo.Find(predicate, role => (role != null) ? role.Name : string.Empty, false, pageNumber, pageSize, out  totalRecords);
         }
-
 
         public ApplicationUser CreateUser(ApplicationUser user, string password)
         {

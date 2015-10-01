@@ -673,6 +673,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Backoffice\Views\Devices\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

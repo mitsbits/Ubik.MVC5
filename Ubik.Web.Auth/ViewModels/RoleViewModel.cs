@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using Ubik.Infra.Contracts;
 using Ubik.Web.Auth.Contracts;
 using Ubik.Web.Auth.Managers;
 using Ubik.Web.Cms.Contracts;
@@ -23,7 +24,7 @@ namespace Ubik.Web.Auth.ViewModels
         public RoleClaimRowViewModel[] AvailableClaims { get; set; }
         public bool IsSytemRole { get; set; }
         public bool IsPersisted { get; set; }
-        public bool Selected { get; set; }
+        public bool IsSelected { get; set; }
         
     }
 
@@ -64,7 +65,7 @@ namespace Ubik.Web.Auth.ViewModels
                     .ToArray();
             foreach (var roleClaimRowViewModel in model.AvailableClaims)
             {
-                roleClaimRowViewModel.Selected =
+                roleClaimRowViewModel.IsSelected =
                     model.Claims.Any(x => x.Type == roleClaimRowViewModel.Type
                         && x.Value == roleClaimRowViewModel.Value);
             }
@@ -113,7 +114,7 @@ namespace Ubik.Web.Auth.ViewModels
         [Required]
         public string Target { get; set; }
 
-        protected CopyRoleViewModel() { }
+        public CopyRoleViewModel() { }
 
         public CopyRoleViewModel(RoleViewModel source)
         {
@@ -123,7 +124,11 @@ namespace Ubik.Web.Auth.ViewModels
            IsSytemRole = source.IsSytemRole;
            Name = source.Name;
            RoleId = source.RoleId;
-           Selected = source.Selected;
+           IsSelected = source.IsSelected;
         }
     }
+
+
+
+
 }

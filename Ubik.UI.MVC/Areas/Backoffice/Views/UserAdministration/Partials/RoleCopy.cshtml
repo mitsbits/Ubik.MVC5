@@ -26,15 +26,17 @@
 
 
             <div class="box-footer">
-                <div class="input-group">
-                    @Html.TextBoxFor(m => m.Target, new { @class = "form-control" })
-                   
-                    <div class="input-group-btn">
-                        <button type="submit" class="btn btn-primary">Copy to new Role</button>
-                    </div><!-- /btn-group -->
-                   
+                <div class="form-group">
+                    <div class="input-group">
+                        @Html.TextBoxFor(m => m.Target, new { @class = "form-control" })
+
+                        <div class="input-group-btn">
+                            <button type="submit" class="btn btn-primary">Copy to new Role</button>
+                        </div><!-- /btn-group -->
+
+                    </div>
+                    @Html.ValidationMessageFor(m => m.Target, "", new { @class = "" })
                 </div>
-                @Html.ValidationMessageFor(m => m.Name, "", new { @class = "" })
             </div>
         </div>
     </div>

@@ -45,6 +45,7 @@
     <Compile Include="Contracts\IReadRepository.cs" />
     <Compile Include="Contracts\IRequiresInitialization.cs" />
     <Compile Include="Contracts\IHasParent.cs" />
+    <Compile Include="Contracts\ISelectable.cs" />
     <Compile Include="Contracts\IWeighted.cs" />
     <Compile Include="Contracts\IWriteRepository.cs" />
     <Compile Include="DataManagement\Group\GroupElement.cs" />

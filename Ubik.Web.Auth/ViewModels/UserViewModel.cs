@@ -67,7 +67,7 @@ namespace Ubik.Web.Auth.ViewModels
             model.AvailableRoles = _roleViewModels.ToArray();
             foreach (var role in model.AvailableRoles)
             {
-                role.Selected = model.Roles.Any(x => x.Name == role.Name);
+                role.IsSelected = model.Roles.Any(x => x.Name == role.Name);
             }
 
         }

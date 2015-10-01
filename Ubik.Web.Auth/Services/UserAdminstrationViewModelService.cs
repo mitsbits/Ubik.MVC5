@@ -140,7 +140,7 @@ namespace Ubik.Web.Auth.Services
         }
 
         private List<RoleViewModel> _systemRoleViewModels;
-        private IEnumerable<RoleViewModel> SystemRoleViewModels
+        public virtual IEnumerable<RoleViewModel> SystemRoleViewModels
         {
             get
             {

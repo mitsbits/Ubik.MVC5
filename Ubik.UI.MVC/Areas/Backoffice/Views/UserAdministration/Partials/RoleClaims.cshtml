@@ -40,11 +40,11 @@
                             @Html.HiddenFor(m => m.AvailableClaims[index].ClaimId)
                             @if (Model.IsSytemRole)
                             {
-                                @Html.CheckBoxFor(m => m.AvailableClaims[index].Selected, new { disabled = "disabled" })
+                                @Html.CheckBoxFor(m => m.AvailableClaims[index].IsSelected, new { disabled = "disabled" })
                             }
                             else
                             {
-                               @Html.CheckBoxFor(m => m.AvailableClaims[index].Selected)
+                               @Html.CheckBoxFor(m => m.AvailableClaims[index].IsSelected)
                             }
                             
                         </td>

@@ -13,8 +13,8 @@
                     @Html.HiddenFor(m => m.AvailableRoles[index].Name)
                     @Html.HiddenFor(m => m.AvailableRoles[index].RoleId)
                     @Html.HiddenFor(m => m.AvailableRoles[index].IsSytemRole)
-                    @Html.EditorFor(m => m.AvailableRoles[index].Selected)
-                    <label for="@Html.IdFor(m => m.AvailableRoles[index].Selected)">
+                    @Html.EditorFor(m => m.AvailableRoles[index].IsSelected)
+                    <label for="@Html.IdFor(m => m.AvailableRoles[index].IsSelected)">
                         @if (role.IsSytemRole)
                         {
                             <i class="fa fa-desktop right text-info" rel="tooltip" title="System Role"></i>
