@@ -11,3 +11,7 @@
 .form-group span.field-validation-error {
   color: #f56954;
 }
+
+.table-responsive {
+    overflow-x: hidden;
+}

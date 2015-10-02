@@ -400,6 +400,7 @@
     <Content Include="Areas\Backoffice\Scripts\AdminLTE\app.js" />
     <Content Include="Areas\Backoffice\Scripts\AdminLTE\dashboard.js" />
     <Content Include="Areas\Backoffice\Scripts\AdminLTE\demo.js" />
+    <Content Include="Areas\Backoffice\Scripts\framework\UserAdministration\Roles.js" />
     <Content Include="Areas\Backoffice\Scripts\bootstrap.min.js" />
     <Content Include="Areas\Backoffice\Scripts\jquery-ui.min.js" />
     <Content Include="Areas\Backoffice\Scripts\jquery.min.js" />

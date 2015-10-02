@@ -4,11 +4,9 @@
     <meta charset="UTF-8">
     <title>@PageContent.Current.Title</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-
     @Styles.Render("~/Areas/Backoffice/Content/css/bootstrap")
-    @Styles.Render("~/Areas/Backoffice/Content/css/AdminLTE") 
+    @Styles.Render("~/Areas/Backoffice/Content/css/AdminLTE")
     <link href="@Url.Content("~/Areas/Backoffice/Content/fonts/font-awesome/css/font-awesome.min.css")" rel="stylesheet" type="text/css" />
-
     @Styles.Render("~/Areas/Backoffice/Content/css/bootstrap-slider")
     @Styles.Render("~/Areas/Backoffice/Content/css/bootstrap-wysihtml5")
     @Styles.Render("~/Areas/Backoffice/Content/css/colorpicker")
@@ -20,15 +18,15 @@
     @Styles.Render("~/Areas/Backoffice/Content/css/jvectormap")
     @Styles.Render("~/Areas/Backoffice/Content/css/morris")
     @Styles.Render("~/Areas/Backoffice/Content/css/timepicker")
-
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("~/bundles/validation")
-
     @Scripts.Render("~/bundles/AdminLTE")
-</head>
+    @Scripts.Render("~/bundles/datatables")
 
+    @Html.Statics().HeadScripts.Render()
+</head>
 <body class="skin-blue">
     <!-- header logo: style can be found in header.less -->
     <header class="header">
@@ -73,7 +71,7 @@
                                     </li><!-- end message -->
                                     <li>
                                         <a href="#">
-                                            <div class="pull-left"> 
+                                            <div class="pull-left">
                                                 <img src="@Url.Content("~/Areas/BackOffice/Content/img/avatar2.png")" class="img-circle" alt="user image" />
                                             </div>
                                             <h4>
@@ -311,10 +309,12 @@
             </section>
             <!-- /.sidebar -->
         </aside>
-        
+
         @RenderBody()
-       
+
     </div><!-- ./wrapper -->
-   
+    @Html.Statics().FooterScripts.Render()
+    @Html.Statics().InlineScripts.Render()
+
 </body>
 </html>
