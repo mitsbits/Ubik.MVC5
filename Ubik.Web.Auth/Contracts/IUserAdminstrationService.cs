@@ -17,5 +17,7 @@ namespace Ubik.Web.Auth.Contracts
         IUserAdminstrationViewModelService ViewModels { get; }
 
         void CopyRole(string source, string target);
+
+        void DeleteRole(string name);
     }
 }

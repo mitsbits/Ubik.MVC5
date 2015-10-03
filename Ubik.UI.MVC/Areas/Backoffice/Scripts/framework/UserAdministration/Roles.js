@@ -17,9 +17,8 @@
         "bAutoWidth": true
     });
 
-    jQuery('#copy-role-form').validate();
-    // Add a custom class to your name mangled input and add rules like this
-    jQuery('#Target').rules('add', {
+    $('#copy-role-form').validate();
+    $('#Target').rules('add', {
         required: true,
         messages: {
             required: 'Some custom message for the username required field'

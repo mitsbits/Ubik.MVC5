@@ -58,6 +58,17 @@ namespace Ubik.Web.Auth.Services
             throw new ApplicationException(string.Join("\n", result.Errors));
         }
 
+        public void DeleteRole(string name)
+        {
+            var sourceIsSytemRole = _viewModels.SystemRoleViewModels.Any(x => x.Name == name);
+            if (sourceIsSytemRole) throw new ApplicationException("can not delete a system role");
+            var role = _roleManager.FindByName(name);
+            if (role == null) throw new ApplicationException("role to delete not found");
+            var result = _roleManager.DeleteAsync(role).Result;
+            if (result.Succeeded) return;
+            throw new ApplicationException(string.Join("\n", result.Errors));
+        }
+
         public IEnumerable<ApplicationUser> Find(Expression<Func<ApplicationUser, bool>> predicate, int pageNumber, int pageSize, out int totalRecords)
         {
             return _userRepo.Find(predicate, user => user.UserName, false, pageNumber, pageSize, out  totalRecords);

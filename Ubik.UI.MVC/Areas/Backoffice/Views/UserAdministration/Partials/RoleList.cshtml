@@ -65,6 +65,11 @@
                                         </td>
                                         <td>
                                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#copy-role-modal" data-source="@role.Name">Copy</button>
+                                            @if (role.IsPersisted)
+                                            {
+                                                <a href="@Url.Action("DeleteRole", "UserAdministration", new {id = @role.Name})" class="btn btn-warning">Delete</a>
+
+                                            }
                                         </td>
                                     </tr>
                                 }

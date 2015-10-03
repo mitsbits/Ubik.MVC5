@@ -77,6 +77,15 @@ namespace Ubik.Web.Backoffice.Controllers
             return RedirectToAction("Roles", "UserAdministration", new {id = model.Target});
         }
 
+        public ActionResult DeleteRole(string id)
+        {
+            if (!string.IsNullOrWhiteSpace(id))
+            {
+                _userService.DeleteRole(id);
+            }
+            return RedirectToAction("Roles", "UserAdministration");
+        }
+
         private ActionResult GetOneRoleByName(string id)
         {
             var model = _userService.ViewModels.RoleByNameModel(id);
