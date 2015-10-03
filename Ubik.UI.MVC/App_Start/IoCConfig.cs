@@ -7,6 +7,8 @@ using System;
 using System.Linq;
 using System.Reflection;
 using System.Web.Compilation;
+using Ubik.Cache.Runtime;
+using Ubik.Infra.Contracts;
 using Ubik.UI.MVC.Models;
 using Ubik.Web.Auth;
 using Ubik.Web.Auth.Contracts;
@@ -127,15 +129,14 @@ namespace Ubik.UI.MVC
             builder.RegisterType<RoleRepository>().As<IRoleRepository>().InstancePerRequest();
 
             builder.RegisterType<UserAdminstrationService>().As<IUserAdminstrationService>().InstancePerRequest();
-            builder.RegisterType<UserAdminstrationViewModelService>()
-                .As<IUserAdminstrationViewModelService>()
-                .InstancePerRequest();
+            builder.RegisterType<UserAdminstrationService>().As<IUserAdminstrationViewModelService>().InstancePerRequest();
             //builder.Register((c, p) => new UserViewModelBuilder(c.Resolve<IRoleRepository>(), c.Resolve<IUserAdminstrationViewModelService>().Roles())).As<IViewModelBuilder<ApplicationUser, UserViewModel>>().InstancePerRequest();
             //builder.RegisterType<UserViewModelBuilder>().As<IViewModelBuilder<ApplicationUser, UserViewModel>>().InstancePerRequest();
             builder.RegisterType<RoleViewModelBuilder>().As<IViewModelBuilder<ApplicationRole, RoleViewModel>>().InstancePerRequest();
             builder.RegisterType<AddUserViewModelBuilder>().As<IViewModelBuilder<ApplicationUser, AddUserViewModel>>().InstancePerRequest();
 
-            builder.RegisterType<RoleViewModelCommand>().As <IViewModelCommand<RoleSaveModel>>().InstancePerRequest();
+            builder.RegisterType<RoleViewModelCommand>().As<IViewModelCommand<RoleSaveModel>>().InstancePerRequest();
+            builder.RegisterType<NewUserViewModelCommand>().As<IViewModelCommand<NewUserSaveModel>>().InstancePerRequest();
 
             builder.RegisterAssemblyTypes(Asmbls)
                    .Where(t => t.GetInterfaces().Any(x => x == typeof(IResourceAuthProvider)) && !t.IsAbstract)
@@ -146,10 +147,12 @@ namespace Ubik.UI.MVC
 
         private static void WireUpInternals(ContainerBuilder builder)
         {
+            builder.RegisterType<MemoryDefaultCacheProvider>().As<ICacheProvider>().SingleInstance();
+
             builder.RegisterType<Resident>().As<IResident>().SingleInstance();
-  
+
             //var backofficeMenuProvider = XmlBackOfficeMenuProvider.FromInternalConfig();
-            builder.Register((c,p)=> XmlBackOfficeMenuProvider.FromInternalConfig())
+            builder.Register((c, p) => XmlBackOfficeMenuProvider.FromInternalConfig())
                 .As<IBackOfficeMenuProvider>()
                 .SingleInstance();
             builder.Register((c, p) => new ResidentAdministration(c.Resolve<IBackOfficeMenuProvider>() as IMenuProvider<INavigationElements<int>>))

@@ -51,6 +51,11 @@ namespace Ubik.Web.Auth
                     IsPersisted = true, IsSytemRole = false
                 });
 
+            foreach (var dbRole in dbRoles)
+            {
+                var found = roleViewModels.FirstOrDefault(x => x.Name == dbRole.Name && x.IsSytemRole);
+                if (found != null) found.RoleId = dbRole.Id;
+            }
 
             return roleViewModels;
         }

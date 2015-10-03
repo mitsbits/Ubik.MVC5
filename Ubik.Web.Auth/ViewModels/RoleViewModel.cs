@@ -31,14 +31,12 @@ namespace Ubik.Web.Auth.ViewModels
     public class RoleViewModelBuilder : IViewModelBuilder<ApplicationRole, RoleViewModel>
     {
         private readonly IResident _resident;
-        private readonly IRoleRepository _roleRepo;
-        private readonly IUserRepository _userRepo;
 
-        public RoleViewModelBuilder(IResident resident, IRoleRepository roleRepository, IUserRepository userRepository)
+
+        public RoleViewModelBuilder(IResident resident)
         {
             _resident = resident;
-            _roleRepo = roleRepository;
-            _userRepo = userRepository;
+
         }
 
         public RoleViewModel CreateFrom(ApplicationRole entity)

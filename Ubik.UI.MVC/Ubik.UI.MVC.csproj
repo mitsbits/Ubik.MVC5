@@ -639,6 +639,10 @@
     <Content Include="Areas\Backoffice\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Backoffice\Views\UserAdministration\Partials\UserRoles.cshtml" />
     <Content Include="Areas\Backoffice\Views\UserAdministration\Partials\RoleCopy.cshtml" />
+    <Content Include="Areas\Backoffice\Views\UserAdministration\Partials\RoleCopyModal.cshtml" />
+    <Content Include="Areas\Backoffice\Views\UserAdministration\Users.cshtml" />
+    <Content Include="Areas\Backoffice\Views\UserAdministration\Partials\UserDetails.cshtml" />
+    <Content Include="Areas\Backoffice\Views\UserAdministration\Partials\UserList.cshtml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -683,6 +687,10 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Ubik.Cache\Ubik.Cache.csproj">
+      <Project>{C5E7659F-0F0A-4A57-83C1-6F797767C04A}</Project>
+      <Name>Ubik.Cache</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Ubik.EF\Ubik.EF.csproj">
       <Project>{791FC149-AE57-4DE0-B4DA-12B47216E131}</Project>
       <Name>Ubik.EF</Name>

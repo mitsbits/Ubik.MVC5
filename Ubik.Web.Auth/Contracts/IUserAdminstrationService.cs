@@ -14,8 +14,6 @@ namespace Ubik.Web.Auth.Contracts
 
         void SetRoles(ApplicationUser user, string[] newRoles);
 
-        IUserAdminstrationViewModelService ViewModels { get; }
-
         void CopyRole(string source, string target);
 
         void DeleteRole(string name);

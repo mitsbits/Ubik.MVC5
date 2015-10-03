@@ -4,20 +4,24 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using Ubik.Infra.Contracts;
 using Ubik.Web.Auth.Contracts;
 using Ubik.Web.Auth.ViewModels;
 
 namespace Ubik.Web.Auth.Services
 {
+
     public class UserAdminstrationViewModelService : IUserAdminstrationViewModelService
     {
         private readonly IViewModelBuilder<ApplicationUser, UserViewModel> _userBuilder;
+        private readonly IViewModelBuilder<ApplicationUser, NewUserViewModel> _newUserBuilder;
         private readonly IViewModelBuilder<ApplicationRole, RoleViewModel> _roleBuilder;
 
         private readonly IUserRepository _userRepo;
         private readonly IRoleRepository _roleRepo;
 
         private readonly IViewModelCommand<RoleSaveModel> _roleCommand;
+        private readonly IViewModelCommand<NewUserSaveModel> _newUserCommand;
 
         private readonly IDbContextScopeFactory _dbContextScopeFactory;
 
@@ -25,12 +29,18 @@ namespace Ubik.Web.Auth.Services
 
 
 
+        private readonly ICacheProvider _cache;
+
+        private const string _roleViewModelsCacheKey = "UserAdminstrationViewModelService_RoleViewModels";
+
         public UserAdminstrationViewModelService(
             IViewModelBuilder<ApplicationRole, RoleViewModel> roleBuilder,
             IUserRepository userRepo, IRoleRepository roleRepo,
             IDbContextScopeFactory dbContextScopeFactory,
             IEnumerable<IResourceAuthProvider> authProviders,
-            IViewModelCommand<RoleSaveModel> roleCommand)
+            IViewModelCommand<RoleSaveModel> roleCommand,
+            IViewModelCommand<NewUserSaveModel> newUserCommand, 
+            ICacheProvider cache)
         {
         
             _userRepo = userRepo;
@@ -39,14 +49,17 @@ namespace Ubik.Web.Auth.Services
             _authProviders = authProviders;
             _roleCommand = roleCommand;
             _roleBuilder = roleBuilder;
+            _newUserCommand = newUserCommand;
+            _cache = cache;
             _userBuilder = new UserViewModelBuilder(_roleRepo, RoleViewModels);
+            _newUserBuilder = new NewUserViewModelBuilder(RoleViewModels);
         }
 
         public UserViewModel UserModel(string id)
         {
             using (_dbContextScopeFactory.CreateReadOnly())
             {
-                ApplicationUser entity;
+                ApplicationUser entity; 
                 if (string.IsNullOrWhiteSpace(id))
                 {
                     entity = new ApplicationUser();
@@ -60,6 +73,14 @@ namespace Ubik.Web.Auth.Services
                 _userBuilder.Rebuild(model);
                 return model;
             }
+        }
+
+        public NewUserViewModel NewUserModel()
+        {
+            var entity = new ApplicationUser();
+            var model = _newUserBuilder.CreateFrom(entity);
+            _newUserBuilder.Rebuild(model);
+            return model;
         }
 
         public RoleViewModel RoleModel(string id)
@@ -89,17 +110,18 @@ namespace Ubik.Web.Auth.Services
                 RoleViewModel model;
                 Expression<Func<ApplicationRole, bool>> predicate = role => role.Name == name;
                 var roleEntity = _roleRepo.Get(predicate);
-                if (roleEntity == null && SystemRoleViewModels.Any(x => x.Name == name))
+                if (roleEntity == null  && SystemRoleViewModels.Any(x => x.Name == name))
                 {
-                    model = SystemRoleViewModels.First(x => x.Name == name);
-                    model.RoleId = Guid.NewGuid().ToString();
+                        model = SystemRoleViewModels.First(x => x.Name == name);
+                        model.RoleId = Guid.NewGuid().ToString();
                 }
-                else {
+                else
+                {
+                 
                     model = _roleBuilder.CreateFrom(roleEntity);
                 }
                 _roleBuilder.Rebuild(model);
-
-
+                model.IsSytemRole = SystemRoleViewModels.Any(x => x.Name == name);
                 return model;
             }
         }
@@ -134,9 +156,19 @@ namespace Ubik.Web.Auth.Services
             {
                 _roleCommand.Execute(model);
                 tran.SaveChanges();
-                _roleViewModels = null; // force cache to invalidate
+                _cache.RemoveItem(_roleViewModelsCacheKey); // force cache to invalidate
+                //TODO: publish message for new role
             }
+        }
 
+        public void Execute(NewUserViewModel model)
+        {
+            using (var tran = _dbContextScopeFactory.CreateWithTransaction(IsolationLevel.Serializable))
+            {
+                _newUserCommand.Execute(model);
+                tran.SaveChanges();
+                //TODO: publish message for new role
+            }
         }
 
         private List<RoleViewModel> _systemRoleViewModels;
@@ -150,25 +182,20 @@ namespace Ubik.Web.Auth.Services
             }
         }
 
-
-        private List<RoleViewModel> _roleViewModels;
         private IEnumerable<RoleViewModel> RoleViewModels
         {
-            get{
-                if (_roleViewModels != null) return _roleViewModels;
+            get
+            {
+
+                if (_cache.GetItem(_roleViewModelsCacheKey) as IEnumerable<RoleViewModel> != null) return _cache.GetItem(_roleViewModelsCacheKey) as IEnumerable<RoleViewModel>;
                 using (_dbContextScopeFactory.CreateReadOnly())
                 {
-                    _roleViewModels = new List<RoleViewModel>(_authProviders.RoleModelsCheckDB(_roleRepo));
-                    return _roleViewModels;
+                    _cache.SetItem(_roleViewModelsCacheKey, new List<RoleViewModel>(_authProviders.RoleModelsCheckDB(_roleRepo)));
+                    return _cache.GetItem(_roleViewModelsCacheKey) as IEnumerable<RoleViewModel>;
                 }
         }
     }   
 
-        //public RoleViewModel RoleById(string id)
-        //{
-        //    var dbRole = _roleRepo.Get(x => x.Id == id);
-        //    if (dbRole == null) return null;
-        //    return new RoleViewModel();
-        //}
+
     }
 }

@@ -1,7 +1,7 @@
 ﻿@using Ubik.Web.Auth.ViewModels
-@model IEnumerable<RoleViewModel>
+@model IEnumerable<UserRowViewModel>
 @{
-    AddBackofficeBottom("UserAdministration/roles");
+    AddBackofficeBottom("UserAdministration/users");
 }
 
 <aside class="right-side">
@@ -24,10 +24,10 @@
                 <div class="box box-primary">
                     <div class="box-header">
                         <h3 class="box-title">
-                            Roles
+                            Users
                         </h3>
                         <div class="pull-right">
-                            <a href="@Url.Action("new-role", "UserAdministration")" class="btn btn-primary">Create a new Role</a>
+                            <a href="@Url.Action("new-user", "UserAdministration")" class="btn btn-primary">Create a new User</a>
                         </div>
                     </div><!-- /.box-header -->
                     <div class="box-body table-responsive">
@@ -41,21 +41,21 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @for (var i = 0; i < Model.Count(); i++)
+                                @*@for (var i = 0; i < Model.Count(); i++)
                                 {
                                     var role = Model.ToArray()[i];
                                     <tr>
                                         <td>
                                             @if (role.IsSytemRole)
                                             {
-                                                <i class="fa fa-desktop text-info" rel="tooltip" title="System Role"></i>
+                                                <i class="fa fa-desktop text-primary" rel="tooltip" title="System Role"></i>
                                             }
                                             @if (role.IsPersisted)
                                             {
-                                                <i class="fa fa-database text-info" rel="tooltip" title="Persisted Role"></i>
+                                                <i class="fa fa-database text-primary" rel="tooltip" title="Persisted Role"></i>
 
                                             }
-                                            <span class="text-info">   @((i + 1).ToString("000"))</span>
+                                            <span class="text-primary">   @((i + 1).ToString("000"))</span>
                                         </td>
                                         <td>@Html.ActionLink(role.Name, "Roles", "UserAdministration", new { id = role.Name, area = "Backoffice" }, null)</td>
                                         <td>
@@ -67,7 +67,7 @@
                                             }
                                         </td>
                                     </tr>
-                                }
+                                }*@
                             </tbody>
                         </table>
                     </div><!-- /.box-body -->
@@ -78,4 +78,3 @@
         </div>
     </section>
 </aside>
-@Html.Partial("~/Areas/Backoffice/Views/UserAdministration/Partials/RoleCopyModal.cshtml")

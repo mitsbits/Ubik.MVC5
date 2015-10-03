@@ -1,0 +1,16 @@
+﻿@using Ubik.Web.Auth.ViewModels
+@{
+    var isDetail = false;
+    if (Model.GetType() == typeof(UserViewModel))
+    {
+        isDetail = true;
+        var detail = Model as UserViewModel;
+        Html.RenderPartial("~/Areas/Backoffice/Views/UserAdministration/Partials/UserDetails.cshtml", detail);
+    }
+    else
+    {
+        var rows = Model as IEnumerable<UserRowViewModel>;
+        Html.RenderPartial("~/Areas/Backoffice/Views/UserAdministration/Partials/UserList.cshtml", rows);
+    }
+}
+

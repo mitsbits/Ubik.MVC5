@@ -39,8 +39,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\ICacheProvider.cs" />
     <Compile Include="Contracts\IHierarchicalEnumerable.cs" />
     <Compile Include="Contracts\IHierarchyData.cs" />
+    <Compile Include="Contracts\IKeyAdjuster.cs" />
+    <Compile Include="Contracts\IKeyAdjusterProvider.cs" />
     <Compile Include="Contracts\IQueryRepository.cs" />
     <Compile Include="Contracts\IReadRepository.cs" />
     <Compile Include="Contracts\IRequiresInitialization.cs" />

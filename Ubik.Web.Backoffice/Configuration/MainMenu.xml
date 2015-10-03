@@ -2,12 +2,12 @@
 <groups>
   <group key="usrs" display="User Administration">
     <icon>
-      <cssclass>fa fa-user</cssclass>
+      <cssclass>fa fa-users</cssclass>
     </icon>
     <elements>
       <element display="Roles" href="/useradministration/roles" role="anchor" target="_self">
         <icon>
-          <cssclass>fa fa-user-secret</cssclass>
+          <cssclass>fa fa fa-angle-double-right</cssclass>
         </icon>
 
         <!--<elements>
@@ -21,15 +21,15 @@
       </element>
       <element display="Users" href="/useradministration/users" role="anchor" target="_self">
         <icon>
-          <cssclass>fa fa-users</cssclass>
+          <cssclass>fa fa fa-angle-double-right</cssclass>
         </icon>
-        <elements>
+        <!--<elements>
           <element display="New User" href="/useradministration/new-user" role="anchor" target="_self">
             <icon>
-              <cssclass>fa fa-user-plus</cssclass>
+              <cssclass>fa</cssclass>
             </icon>
           </element>
-        </elements>
+        </elements>-->
       </element>
     </elements>
   </group>
