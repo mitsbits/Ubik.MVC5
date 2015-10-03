@@ -5,7 +5,7 @@
         var modal = $(this);
         modal.find('span#roleTitleName').text(data);
         modal.find('input#Name').val(data);
-        modal.find('input#Target').val('');
+        modal.find('input#Target').val('').focus();
     });
 
     $("#roles-table").dataTable({
@@ -24,6 +24,4 @@
             required: 'Some custom message for the username required field'
         }
     });
-
-
 });

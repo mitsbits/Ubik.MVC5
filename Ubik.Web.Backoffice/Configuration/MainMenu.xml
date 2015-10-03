@@ -10,13 +10,13 @@
           <cssclass>fa fa-user-secret</cssclass>
         </icon>
 
-        <elements>
+        <!--<elements>
           <element display="New Role" href="/useradministration/new-role" role="anchor" target="_self">
             <icon>
               <cssclass>fa fa-plus</cssclass>
             </icon>
           </element>
-        </elements>
+        </elements>-->
         
       </element>
       <element display="Users" href="/useradministration/users" role="anchor" target="_self">

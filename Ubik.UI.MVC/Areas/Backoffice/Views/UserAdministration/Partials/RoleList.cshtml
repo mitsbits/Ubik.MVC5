@@ -17,32 +17,27 @@
             <li class="active">breadcrump</li>
         </ol>
     </section>
- 
+
     <section class="content">
         <div class="row">
-
-
-            @*<div class="col-md-12">
-                <div class="box box-primary">
-                    <div class="box-header">
-                        <h3 class="box-title">Quick Example</h3>
-                    </div>
-                </div>
-            </div>*@
-
             <div class="col-md-6">
                 <div class="box box-primary">
                     <div class="box-header">
-                        <h3 class="box-title">Roles</h3>
+                        <h3 class="box-title">
+                            Roles
+                        </h3>
+                        <div class="pull-right">
+                            <a href="@Url.Action("new-role", "UserAdministration")" c class="btn btn-primary">Create a new Role</a>
+                        </div>
                     </div><!-- /.box-header -->
                     <div class="box-body table-responsive">
                         <table class="table table-bordered table-hover" id="roles-table">
                             <thead>
                                 <tr>
-                                    <th style="width: 10px">#</th>
+                                    <th style="width: 40px">#</th>
                                     <th>Name</th>
                                     <th></th>
-                                    <th></th>
+                                   
                                 </tr>
                             </thead>
                             <tbody>
@@ -50,8 +45,6 @@
                                 {
                                     var role = Model.ToArray()[i];
                                     <tr>
-                                        <td>@((i + 1).ToString("000"))</td>
-                                        <td>@Html.ActionLink(role.Name, "Roles", "UserAdministration", new { id = role.Name, area = "Backoffice" }, null)</td>
                                         <td>
                                             @if (role.IsSytemRole)
                                             {
@@ -62,7 +55,9 @@
                                                 <i class="fa fa-database" rel="tooltip" title="Persisted Role"></i>
 
                                             }
+                                            @((i + 1).ToString("000"))
                                         </td>
+                                        <td>@Html.ActionLink(role.Name, "Roles", "UserAdministration", new { id = role.Name, area = "Backoffice" }, null)</td>
                                         <td>
                                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#copy-role-modal" data-source="@role.Name">Copy</button>
                                             @if (role.IsPersisted)
@@ -73,14 +68,12 @@
                                         </td>
                                     </tr>
                                 }
-                                </tbody>
-</table>
+                            </tbody>
+                        </table>
                     </div><!-- /.box-body -->
-                    
                 </div>
             </div>
             <div class="col-md-6">
-
             </div>
         </div>
     </section>
@@ -90,46 +83,36 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" >Source: <span id="roleTitleName" ></span></h4>
+                <h4 class="modal-title">Source: <span id="roleTitleName"></span></h4>
             </div>
             <div class="modal-body">
                 <!--form start-->
-@using (Html.BeginForm("CopyRole", "UserAdministration", FormMethod.Post, new { role = "form", id = "copy-role-form" }))
-{
-    @Html.AntiForgeryToken()
-    <!-- left column -->
+                @using (Html.BeginForm("CopyRole", "UserAdministration", FormMethod.Post, new { role = "form", id = "copy-role-form" }))
+                {
+                    @Html.AntiForgeryToken()
 
-    <div class="box-body">
-     
-            <div class="form-group hidden">
-                <input type="hidden" id="Name" name="Name"/>
-            </div>
+                    <div class="box-body">
 
+                        <div class="form-group hidden">
+                            <input type="hidden" id="Name" name="Name" />
+                        </div>
 
+                        <div class="box-footer">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" id="Target" name="Target" class="form-control" />
 
-            <div class="box-footer">
-                <div class="form-group">
-                    <div class="input-group">
-                        <input type="text" id="Target" name="Target" class="form-control"/>
- 
-
-                        <div class="input-group-btn">
-                            <button type="submit" class="btn btn-primary">Copy to new Role</button>
-                        </div><!-- /btn-group -->
-
+                                    <div class="input-group-btn">
+                                        <button type="submit" class="btn btn-primary">Copy to new Role</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
-                </div>
-            </div>
-      
-    </div>
-}
+                }
                 <!--form end-->
-
             </div>
             <div class="modal-footer clearfix">
-                
-           
             </div>
         </div>
     </div>
