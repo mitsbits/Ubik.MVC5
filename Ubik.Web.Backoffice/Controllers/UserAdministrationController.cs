@@ -38,7 +38,7 @@ namespace Ubik.Web.Backoffice.Controllers
 
         public ActionResult Users(string id)
         {
-            return string.IsNullOrWhiteSpace(id) ? GetNoUser() : GetOneUserById(id);
+            return string.IsNullOrWhiteSpace(id) ? GetAllUsers() : GetOneUserById(id);
         }
 
         [ActionName("new-user")]
@@ -56,7 +56,19 @@ namespace Ubik.Web.Backoffice.Controllers
             if (!ModelState.IsValid) return View("NewUser", model);
             model.Roles = model.AvailableRoles.Where(x => x.IsSelected).ToArray();
             ViewModelsService.Execute(model);
-            return RedirectToAction("Users", "UserAdministration", new { id = model.UserId }) ;
+            return RedirectToAction("Users", "UserAdministration", new { id = model.UserId });
+        }
+
+        public async Task<ActionResult> LockUser(string id)
+        {
+            await _userService.LockUser(id, 5);
+            return RedirectToAction("Users", "UserAdministration");
+        }
+
+        public async Task<ActionResult> UnlockUser(string id)
+        {
+            await _userService.UnockUser(id);
+            return RedirectToAction("Users", "UserAdministration");
         }
 
         private ActionResult GetOneUserById(string id)
@@ -70,6 +82,12 @@ namespace Ubik.Web.Backoffice.Controllers
             var content = new BackofficeContent() { Title = "User Administration", Subtitle = "here you can manage users" };
             SetContentPage(content);
             return View(new List<UserRowViewModel>());
+        }
+
+        private ActionResult GetAllUsers()
+        {
+            SetContentPage(new BackofficeContent() { Title = "User Administration", Subtitle = "here you can manage users" });
+            return View(_viewModelsService.Users());
         }
 
         #endregion Users

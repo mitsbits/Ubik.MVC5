@@ -1,4 +1,5 @@
 using System.Data;
+using System.Threading.Tasks;
 using Mehdime.Entity;
 using Microsoft.AspNet.Identity;
 using System;
@@ -38,7 +39,7 @@ namespace Ubik.Web.Auth.Services
 
         private const string _roleViewModelsCacheKey = "UserAdminstrationService_RoleViewModels";
 
-        public UserAdminstrationService(IUserRepository userRepository, IRoleRepository roleRepository,  ApplicationUserManager userManager, ApplicationRoleManager roleManager, IViewModelCommand<RoleSaveModel> roleCommand, IViewModelCommand<NewUserSaveModel> newUserCommand, IDbContextScopeFactory dbContextScopeFactory, IEnumerable<IResourceAuthProvider> authProviders, ICacheProvider cache, IViewModelBuilder<ApplicationRole, RoleViewModel> roleBuilder)
+        public UserAdminstrationService(IUserRepository userRepository, IRoleRepository roleRepository, ApplicationUserManager userManager, ApplicationRoleManager roleManager, IViewModelCommand<RoleSaveModel> roleCommand, IViewModelCommand<NewUserSaveModel> newUserCommand, IDbContextScopeFactory dbContextScopeFactory, IEnumerable<IResourceAuthProvider> authProviders, ICacheProvider cache, IViewModelBuilder<ApplicationRole, RoleViewModel> roleBuilder)
         {
             _userRepo = userRepository;
             _roleRepo = roleRepository;
@@ -94,6 +95,27 @@ namespace Ubik.Web.Auth.Services
             var result = _roleManager.DeleteAsync(role).Result;
             if (!result.Succeeded) throw new ApplicationException(string.Join("\n", result.Errors));
             _cache.RemoveItem(_roleViewModelsCacheKey);
+        }
+
+        public async Task LockUser(string userId, int days)
+        {
+            var results = new List<IdentityResult>
+            {
+              await  _userManager.SetLockoutEnabledAsync(userId, true),
+              await   _userManager.SetLockoutEndDateAsync(userId, DateTime.UtcNow.AddDays(days)),
+              await  _userManager.ResetAccessFailedCountAsync(userId)
+            };
+            if (!results.All(x => x.Succeeded)) throw new ApplicationException(string.Join("\n", results.SelectMany(x => x.Errors)));
+        }
+
+        public async Task UnockUser(string userId)
+        {
+            var results = new List<IdentityResult>
+            {
+              await _userManager.SetLockoutEnabledAsync(userId, false),
+              await _userManager.ResetAccessFailedCountAsync(userId)
+            };
+            if (!results.All(x => x.Succeeded)) throw new ApplicationException(string.Join("\n", results.SelectMany(x => x.Errors)));
         }
 
         public IEnumerable<ApplicationUser> Find(Expression<Func<ApplicationUser, bool>> predicate, int pageNumber, int pageSize, out int totalRecords)
@@ -196,20 +218,21 @@ namespace Ubik.Web.Auth.Services
 
         public IEnumerable<UserRowViewModel> Users()
         {
-            var dbCollection = _userRepo.Find(x => true, user => user.UserName);
-            var dbRoles = _roleRepo.Find(x => true, role => role.Name);
-            return dbCollection.Select(sarekUser => new UserRowViewModel
+
+
+            var dbCollection = _userManager.Users.ToList();
+            return dbCollection.Select(appUser => new UserRowViewModel
             {
-                UserId = sarekUser.Id,
-                UserName = sarekUser.UserName,
-                Roles = sarekUser.Roles.Select(
-                    role =>
-                        new RoleViewModel()
-                        {
-                            Name = dbRoles.Single(x => x.Id == role.RoleId).Name,
-                            RoleId = role.RoleId
-                        }).ToList()
+                UserId = appUser.Id,
+                UserName = appUser.UserName,
+                Email = appUser.Email,
+                IsLockedOut = appUser.LockoutEnabled,
+                LockedOutEndUtc = appUser.LockoutEndDateUtc,
+                Roles = appUser.Roles.Select(
+                    role => RoleViewModels.FirstOrDefault(x => x.RoleId == role.RoleId)
+                       ).ToList()
             }).ToList();
+
         }
 
         public IEnumerable<RoleViewModel> Roles()
@@ -262,6 +285,6 @@ namespace Ubik.Web.Auth.Services
                     return _cache.GetItem(_roleViewModelsCacheKey) as IEnumerable<RoleViewModel>;
                 }
             }
-        }   
+        }
     }
 }

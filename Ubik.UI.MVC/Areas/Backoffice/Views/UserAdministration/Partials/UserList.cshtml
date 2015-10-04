@@ -2,6 +2,7 @@
 @model IEnumerable<UserRowViewModel>
 @{
     AddBackofficeBottom("UserAdministration/users");
+    var _model = Model.OrderBy(x => x.UserName).ToArray();
 }
 
 <aside class="right-side">
@@ -36,38 +37,35 @@
                                 <tr>
                                     <th style="width: 40px">#</th>
                                     <th>Name</th>
+                                    <th>Locked - until</th>
                                     <th></th>
-
                                 </tr>
                             </thead>
                             <tbody>
-                                @*@for (var i = 0; i < Model.Count(); i++)
+                                @for (var i = 0; i < _model.Count(); i++)
                                 {
-                                    var role = Model.ToArray()[i];
+                                    var user = _model[i];
                                     <tr>
                                         <td>
-                                            @if (role.IsSytemRole)
-                                            {
-                                                <i class="fa fa-desktop text-primary" rel="tooltip" title="System Role"></i>
-                                            }
-                                            @if (role.IsPersisted)
-                                            {
-                                                <i class="fa fa-database text-primary" rel="tooltip" title="Persisted Role"></i>
 
-                                            }
-                                            <span class="text-primary">   @((i + 1).ToString("000"))</span>
+                                            <span class="text-primary">@((i + 1).ToString("000"))</span>
                                         </td>
-                                        <td>@Html.ActionLink(role.Name, "Roles", "UserAdministration", new { id = role.Name, area = "Backoffice" }, null)</td>
+                                        <td>@Html.ActionLink(user.UserName, "Users", "UserAdministration", new { id = user.UserId, area = "Backoffice" }, null)</td>
                                         <td>
-                                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#copy-role-modal" data-source="@role.Name">Copy</button>
-                                            @if (role.IsPersisted)
+                                          
+                                            @if (user.IsLockedOut)
                                             {
-                                                <a href="@Url.Action("DeleteRole", "UserAdministration", new {id = @role.Name})" class="btn btn-warning btn-sm">Delete</a>
-
+                                                @Html.ActionLink("Unlock", "UnlockUser", "UserAdministration", new { id = user.UserId, area = "Backoffice" }, new { @class = "btn btn-sm btn-success" })
+                                            }
+                                            else
+                                            {
+                                                @Html.ActionLink("Lock", "LockUser", "UserAdministration", new { id = user.UserId, area = "Backoffice" }, new {@class="btn btn-sm btn-warning"})
                                             }
                                         </td>
+                                        <td></td>
+                                        <td></td>
                                     </tr>
-                                }*@
+                                }
                             </tbody>
                         </table>
                     </div><!-- /.box-body -->

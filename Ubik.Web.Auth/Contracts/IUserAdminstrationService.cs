@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace Ubik.Web.Auth.Contracts
 {
@@ -17,5 +18,9 @@ namespace Ubik.Web.Auth.Contracts
         void CopyRole(string source, string target);
 
         void DeleteRole(string name);
+
+        Task LockUser(string userId, int days);
+
+        Task UnockUser(string userId);
     }
 }
