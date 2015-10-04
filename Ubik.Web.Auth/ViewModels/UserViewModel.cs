@@ -1,16 +1,14 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
 using Ubik.Web.Auth.Contracts;
-using Ubik.Web.Auth;
 using Ubik.Web.Auth.Managers;
 using Ubik.Web.Cms.Contracts;
 
 namespace Ubik.Web.Auth.ViewModels
 {
+    #region Edit User
     public class UserSaveModel
     {
         public bool IsTransient { get; set; }
@@ -20,8 +18,6 @@ namespace Ubik.Web.Auth.ViewModels
         public string UserName { get; set; }
 
         public string Email { get; set; }
-
-        public string Password { get; set; }
 
         public RoleViewModel[] Roles { get; set; }
     }
@@ -83,7 +79,8 @@ namespace Ubik.Web.Auth.ViewModels
         {
             return;
         }
-    }
+    } 
+    #endregion
 
     #region Create User
 
@@ -196,9 +193,13 @@ namespace Ubik.Web.Auth.ViewModels
     }
     #endregion
 
+#region Change Password
 
-    public interface IHasRolesToSelect
+    public class UserChangPasswordViewModel
     {
-        RoleViewModel[] AvailableRoles { get; }
+        public string RedirectURL { get; set; }
+        public string UserId { get; set; }
+        public string NewPassword { get; set; }
     }
+#endregion
 }

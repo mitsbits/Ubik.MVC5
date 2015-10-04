@@ -643,6 +643,7 @@
     <Content Include="Areas\Backoffice\Views\UserAdministration\Users.cshtml" />
     <Content Include="Areas\Backoffice\Views\UserAdministration\Partials\UserDetails.cshtml" />
     <Content Include="Areas\Backoffice\Views\UserAdministration\Partials\UserList.cshtml" />
+    <Content Include="Areas\Backoffice\Views\UserAdministration\Partials\UserChangePassword.cshtml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

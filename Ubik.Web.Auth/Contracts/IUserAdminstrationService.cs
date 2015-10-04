@@ -22,5 +22,7 @@ namespace Ubik.Web.Auth.Contracts
         Task LockUser(string userId, int days);
 
         Task UnockUser(string userId);
+
+        Task SetPassword(string userId, string newPassword);
     }
 }

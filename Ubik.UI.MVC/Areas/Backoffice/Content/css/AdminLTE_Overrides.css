@@ -1,4 +1,8 @@
-﻿ul .strip-list-style {
+﻿form {
+    margin-bottom: 10px;
+}
+
+ul .strip-list-style {
     list-style: none !important;
 }
 

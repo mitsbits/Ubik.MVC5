@@ -71,9 +71,19 @@ namespace Ubik.Web.Backoffice.Controllers
             return RedirectToAction("Users", "UserAdministration");
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ChangUserPassword(UserChangPasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+                await _userService.SetPassword(model.UserId, model.NewPassword);
+            return Redirect(model.RedirectURL);
+        }
+
         private ActionResult GetOneUserById(string id)
         {
             var model = _viewModelsService.UserModel(id);
+            SetContentPage(new BackofficeContent() { Title = "Manage: " + model.UserName, Subtitle = "here you can manage this user" });
             return View(model);
         }
 

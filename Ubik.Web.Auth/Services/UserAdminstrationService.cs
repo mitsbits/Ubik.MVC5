@@ -118,6 +118,13 @@ namespace Ubik.Web.Auth.Services
             if (!results.All(x => x.Succeeded)) throw new ApplicationException(string.Join("\n", results.SelectMany(x => x.Errors)));
         }
 
+        public async Task SetPassword(string userId, string newPassword)
+        {
+            var resetToken = await _userManager.GeneratePasswordResetTokenAsync(userId);
+            var result = await _userManager.ResetPasswordAsync(userId, resetToken, newPassword);
+            if (!result.Succeeded) throw new ApplicationException(string.Join("\n", result.Errors));
+        }
+
         public IEnumerable<ApplicationUser> Find(Expression<Func<ApplicationUser, bool>> predicate, int pageNumber, int pageSize, out int totalRecords)
         {
             return _userRepo.Find(predicate, user => user.UserName, false, pageNumber, pageSize, out  totalRecords);
