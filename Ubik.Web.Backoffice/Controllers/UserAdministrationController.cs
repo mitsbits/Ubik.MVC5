@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using Ubik.Web.Auth.Contracts;
 using Ubik.Web.Auth.ViewModels;
@@ -60,7 +61,8 @@ namespace Ubik.Web.Backoffice.Controllers
 
         private ActionResult GetOneUserById(string id)
         {
-            throw new System.NotImplementedException();
+            var model = _viewModelsService.UserModel(id);
+            return View(model);
         }
 
         private ActionResult GetNoUser()

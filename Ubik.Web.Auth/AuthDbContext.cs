@@ -9,6 +9,7 @@ namespace Ubik.Web.Auth
         public AuthDbContext()
             : base("authconnectionstring", false)
         {
+            
         }
 
         public DbSet<ApplicationClaim> RoleClaims { get; set; }

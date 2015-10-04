@@ -171,11 +171,13 @@ namespace Ubik.Web.Auth.ViewModels
 
         private void SaveNonPersistedRoles(NewUserSaveModel model)
         {
-            var tasks = new List<Task<IdentityResult>>();
+            var results = new List<IdentityResult>();
+            var exesistingRoleNames = _roleManager.Roles.Select(x => x.Name).ToList();
             foreach (var roleViewModel in model.Roles)
             {
                 var viewModel = roleViewModel;
-                if (!_roleManager.Roles.Any(x => x.Name == viewModel.Name))
+
+                if (!exesistingRoleNames.Contains(viewModel.Name))
                 {
                     var role = new ApplicationRole(viewModel.Name);
 
@@ -183,12 +185,12 @@ namespace Ubik.Web.Auth.ViewModels
                     {
                         role.RoleClaims.Add(new ApplicationClaim(roleClaimRowViewModel.Type, roleClaimRowViewModel.Value));
                     }
-                    tasks.Add(_roleManager.CreateAsync(role));
+                    results.Add(_roleManager.CreateAsync(role).Result);
                 }
             }
-            var result = Task.WhenAll(tasks.ToArray()).Result;
-            if (result.All(x => x.Succeeded)) return;
-            throw new ApplicationException(string.Join("\n", result.SelectMany(x => x.Errors)));
+
+            if (results.All(x => x.Succeeded)) return;
+            throw new ApplicationException(string.Join("\n", results.SelectMany(x => x.Errors)));
 
         }
     }

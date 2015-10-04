@@ -98,6 +98,7 @@
     <Compile Include="Contracts\IClaimRepository.cs" />
     <Compile Include="Contracts\IRoleRepository.cs" />
     <Compile Include="Contracts\IUserAdminstrationService.cs" />
+    <Compile Include="Contracts\IUserAdminstrationViewModelService.cs" />
     <Compile Include="Contracts\IUserRepository.cs" />
     <Compile Include="Contracts\IViewModelBuilder.cs" />
     <Compile Include="Contracts\IViewModelCommand.cs" />
@@ -112,7 +113,6 @@
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="ResidentSecurity.cs" />
     <Compile Include="Services\UserAdminstrationService.cs" />
-    <Compile Include="Services\UserAdminstrationViewModelService.cs" />
     <Compile Include="Stores\ApplicationRoleStore.cs" />
     <Compile Include="SystemClaims.cs" />
     <Compile Include="SystemRoles.cs" />
