@@ -59,16 +59,34 @@ namespace Ubik.Web.Backoffice.Controllers
             return RedirectToAction("Users", "UserAdministration", new { id = model.UserId });
         }
 
-        public async Task<ActionResult> LockUser(string id)
+        public async Task<ActionResult> LockUser(string id, string redirectUrl)
         {
             await _userService.LockUser(id, 5);
-            return RedirectToAction("Users", "UserAdministration");
+            if (string.IsNullOrWhiteSpace(redirectUrl))
+                return RedirectToAction("Users", "UserAdministration");
+            return Redirect(redirectUrl);
         }
 
-        public async Task<ActionResult> UnlockUser(string id)
+        public async Task<ActionResult> UnlockUser(string id, string redirectUrl)
         {
             await _userService.UnockUser(id);
-            return RedirectToAction("Users", "UserAdministration");
+            if (string.IsNullOrWhiteSpace(redirectUrl))
+                return RedirectToAction("Users", "UserAdministration");
+            return Redirect(redirectUrl);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> LockUser(UserLockedStateViewModel model)
+        {
+            await _userService.LockUser(model.UserId, 5);
+            return Redirect(model.RedirectURL);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> UnlockUser(UserLockedStateViewModel model)
+        {
+            await _userService.UnockUser(model.UserId);
+            return Redirect(model.RedirectURL);
         }
 
         [HttpPost]

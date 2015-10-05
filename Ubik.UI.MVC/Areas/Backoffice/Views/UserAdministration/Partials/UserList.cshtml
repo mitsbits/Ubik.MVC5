@@ -50,7 +50,17 @@
 
                                             <span class="text-primary">@((i + 1).ToString("000"))</span>
                                         </td>
-                                        <td>@Html.ActionLink(user.UserName, "Users", "UserAdministration", new { id = user.UserId, area = "Backoffice" }, null)</td>
+                                        <td>
+                                            @{
+                                    var lockStateClass = (user.IsLockedOut) ? "text-red" : "text-green";
+                                    var lockStateClassIcon = (user.IsLockedOut) ? "fa fa-lock" : "fa fa-unlock";
+                                            }
+                                            <i class="@lockStateClassIcon @lockStateClass"></i>
+                                            <span class="@lockStateClass">
+                                               @Html.ActionLink(user.UserName, "Users", "UserAdministration", new { id = user.UserId, area = "Backoffice" }, null)
+                                            </span>
+                                            
+                                        </td>
                                         <td>
                                           
                                             @if (user.IsLockedOut)

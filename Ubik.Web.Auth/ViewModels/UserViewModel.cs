@@ -20,6 +20,8 @@ namespace Ubik.Web.Auth.ViewModels
         public string Email { get; set; }
 
         public RoleViewModel[] Roles { get; set; }
+
+        public bool IsLockedOut { get; set; }
     }
 
     public class UserViewModel : UserSaveModel, IHasRolesToSelect
@@ -48,7 +50,8 @@ namespace Ubik.Web.Auth.ViewModels
             var viewModel = new UserViewModel()
             {
                 UserId = entity.Id,
-                UserName = entity.UserName
+                UserName = entity.UserName, 
+                IsLockedOut = entity.LockoutEnabled
             };
             var userRoles = _roleRepo.Find(x => x.Users.Any(u => u.UserId == entity.Id), x => x.Name);
             var entityRoles = entity.Roles.ToList();
@@ -200,6 +203,13 @@ namespace Ubik.Web.Auth.ViewModels
         public string RedirectURL { get; set; }
         public string UserId { get; set; }
         public string NewPassword { get; set; }
+    }
+
+    public class UserLockedStateViewModel
+    {
+        public string RedirectURL { get; set; }
+        public string UserId { get; set; }
+        public bool IsLocked { get; set; }
     }
 #endregion
 }

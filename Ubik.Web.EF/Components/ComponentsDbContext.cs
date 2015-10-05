@@ -28,9 +28,11 @@ namespace Ubik.Web.EF.Components
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            #region Device
             modelBuilder.Configurations.Add(new DeviceConfig());
             modelBuilder.Configurations.Add(new SectionConfig());
-            modelBuilder.Configurations.Add(new SlotInfoConfig());
+            modelBuilder.Configurations.Add(new SlotInfoConfig()); 
+            #endregion
             modelBuilder.Configurations.Add(new ContentConfig());
             modelBuilder.Configurations.Add(new HtmlHeadConfig());
             modelBuilder.Configurations.Add(new TagConfig());
@@ -38,6 +40,7 @@ namespace Ubik.Web.EF.Components
             base.OnModelCreating(modelBuilder);
         }
 
+        #region Device
         private class DeviceConfig : EntityTypeConfiguration<PersistedDevice>
         {
             public DeviceConfig()
@@ -65,7 +68,8 @@ namespace Ubik.Web.EF.Components
                 ToTable("Slots").
                     HasKey(x => new { x.SectionId, x.Ordinal });
             }
-        }
+        } 
+        #endregion
 
         private class HtmlHeadConfig : EntityTypeConfiguration<PersistedHtmlHead>
         {
