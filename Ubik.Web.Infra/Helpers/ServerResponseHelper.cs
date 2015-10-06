@@ -10,7 +10,7 @@ namespace Ubik.Web.Infra.Helpers
         private readonly IServerResponseProvider _provider;
         public ServerResponseHelper(ViewContext viewContext) : base(viewContext)
         {
-            _provider = TempDataResponseProvider.Create(ViewContext);
+            _provider = TempDataResponseProvider.Create(viewContext);
         }
 
         public ICollection<IServerResponse> Messages {

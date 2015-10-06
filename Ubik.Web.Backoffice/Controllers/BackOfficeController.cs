@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.SessionState;
 using Ubik.Web.Backoffice.Contracts;
+using Ubik.Web.Infra;
 
 namespace Ubik.Web.Backoffice.Controllers
 {
@@ -46,6 +47,10 @@ namespace Ubik.Web.Backoffice.Controllers
             public int RowCount { get; set; }
         }
 
-   
+        protected override void OnException(ExceptionContext filterContext)
+        {
+            this.AddRedirectMessages(new ServerResponse(filterContext.Exception));
+            base.OnException(filterContext);
+        }
     }
 }

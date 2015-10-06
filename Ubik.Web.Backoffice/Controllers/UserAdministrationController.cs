@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -33,6 +34,7 @@ namespace Ubik.Web.Backoffice.Controllers
         public ActionResult Index()
         {
             SetContentPage(new BackofficeContent() { Title = "User Administration", Subtitle = "here you can manage memberships" });
+            this.AddRedirectMessages( new ServerResponse(ServerResponseStatus.PENDING, "message", DateTime.UtcNow.ToLongTimeString()));
             return View();
         }
 
@@ -97,7 +99,7 @@ namespace Ubik.Web.Backoffice.Controllers
         {
             if (ModelState.IsValid)
                 await _userService.SetPassword(model.UserId, model.NewPassword);
-            this.AddRedirectMessages( new ServerResponse(){Status = ServerResponseStatus.INFO, Message = "sdfsfsdfs"});
+            this.AddRedirectMessages(new ServerResponse(ServerResponseStatus.INFO, "title", "message") );
             return Redirect(model.RedirectURL);
         }
 

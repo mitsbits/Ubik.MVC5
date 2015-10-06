@@ -1,4 +1,5 @@
-﻿using Ubik.Infra;
+﻿using System;
+using Ubik.Infra;
 using Ubik.Infra.Contracts;
 
 namespace Ubik.Web.Infra
@@ -8,6 +9,21 @@ namespace Ubik.Web.Infra
        public ServerResponseStatus Status { get; set; }
        public string Title { get; set; }
        public string Message { get; set; }
-       public object Data { get; set; }
+
+       protected ServerResponse() { }
+
+       public ServerResponse(ServerResponseStatus status, string title, string message)
+       {
+           Status = status;
+           Title = title;
+           Message = message;
+       }
+
+       public ServerResponse( Exception exc)
+       {
+           Status = ServerResponseStatus.ERROR;
+           Title = exc.GetType().ToString();
+           Message = exc.Message;
+       }
     }
 }

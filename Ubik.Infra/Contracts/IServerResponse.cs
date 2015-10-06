@@ -32,12 +32,5 @@ namespace Ubik.Infra.Contracts
         /// </value>
         string Message { get; set; }
 
-        /// <summary>
-        /// Gets or sets the data object.
-        /// </summary>
-        /// <value>
-        /// The responce data object for the client.
-        /// </value>
-        object Data { get; set; }
     }
 }
