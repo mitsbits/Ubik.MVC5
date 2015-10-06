@@ -70,7 +70,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BasePageHelper.cs" />
     <Compile Include="CmsDevice.cs" />
     <Compile Include="CmsHtmlMeta.cs" />
     <Compile Include="CmsPage.cs" />
@@ -85,7 +84,6 @@
     <Compile Include="Contracts\IDevicePageProvider.cs" />
     <Compile Include="Contracts\IHtmlHelperRendersMe.cs" />
     <Compile Include="Contracts\IResident.cs" />
-    <Compile Include="Contracts\IRootPageProvider.cs" />
     <Compile Include="DeviceHelper.cs" />
     <Compile Include="Ext\Extensions.cs" />
     <Compile Include="Folder.cs" />

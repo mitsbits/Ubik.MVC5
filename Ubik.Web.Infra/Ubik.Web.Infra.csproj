@@ -70,7 +70,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BasePageHelper.cs" />
+    <Compile Include="Helpers\ServerResponseHelper.cs" />
     <Compile Include="Helpers\StaticsHelper.cs" />
+    <Compile Include="Contracts\IRootPageProvider.cs" />
+    <Compile Include="Contracts\IServerResponseProvider.cs" />
     <Compile Include="Navigation\BaseNavigationElement.cs" />
     <Compile Include="Navigation\BaseNavigationElements.cs" />
     <Compile Include="Navigation\BaseNavigationGroup.cs" />
@@ -84,6 +88,9 @@
     <Compile Include="Navigation\NavigationElementRole.cs" />
     <Compile Include="Navigation\NavigationGroupDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServerResponse.cs" />
+    <Compile Include="TempDataResponseProvider.cs" />
+    <Compile Include="TempDataResponseProviderExtentions.cs" />
     <Compile Include="ViewModels\RedirectViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

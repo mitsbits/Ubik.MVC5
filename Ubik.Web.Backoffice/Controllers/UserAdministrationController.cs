@@ -2,8 +2,10 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Ubik.Infra;
 using Ubik.Web.Auth.Contracts;
 using Ubik.Web.Auth.ViewModels;
+using Ubik.Web.Infra;
 
 namespace Ubik.Web.Backoffice.Controllers
 {
@@ -95,6 +97,7 @@ namespace Ubik.Web.Backoffice.Controllers
         {
             if (ModelState.IsValid)
                 await _userService.SetPassword(model.UserId, model.NewPassword);
+            this.AddRedirectMessages( new ServerResponse(){Status = ServerResponseStatus.INFO, Message = "sdfsfsdfs"});
             return Redirect(model.RedirectURL);
         }
 

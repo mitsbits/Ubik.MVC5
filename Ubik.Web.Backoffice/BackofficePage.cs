@@ -7,6 +7,7 @@ using System.Web.Hosting;
 using System.Web.Mvc;
 using Ubik.Web.Backoffice;
 using Ubik.Web;
+using Ubik.Web.Infra.Helpers;
 
 namespace Ubik.Web.Backoffice
 {
@@ -34,10 +35,12 @@ namespace Ubik.Web.Backoffice
         }
 
         public BackofficeContentHelper PageContent { get; private set; }
+        public  ServerResponseHelper Feedback { get; private set; }
         public override void InitHelpers()
         {
             base.InitHelpers();
             PageContent = new BackofficeContentHelper(ViewContext);
+            Feedback = new ServerResponseHelper(ViewContext);
         }
         public void AddBackofficeBottom(string url)
         {

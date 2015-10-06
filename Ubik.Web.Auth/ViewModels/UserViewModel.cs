@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -202,6 +203,7 @@ namespace Ubik.Web.Auth.ViewModels
     {
         public string RedirectURL { get; set; }
         public string UserId { get; set; }
+        [Required]
         public string NewPassword { get; set; }
     }
 

@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using Ubik.Web.Backoffice.Contracts;
 using Ubik.Web.Cms;
+using Ubik.Web.Infra;
 
 namespace Ubik.Web.Backoffice
 {

@@ -1,19 +1,22 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using Ubik.Web.Cms.Contracts;
+using Ubik.Web.Infra.Contracts;
 
-namespace Ubik.Web.Cms
+namespace Ubik.Web.Infra
 {
     public abstract class BasePageHelper : IRootPageProvider
     {
         protected readonly ViewContext ViewContext;
+        protected readonly TempDataDictionary TempData;
         private dynamic _viewBag;
         private IDictionary<string, object> _routeData;
+
 
         protected BasePageHelper(ViewContext viewContext)
         {
             ViewContext = viewContext;
+            TempData = viewContext.TempData;
         }
 
         public virtual dynamic RootViewBag

@@ -7,6 +7,7 @@ using System;
 using System.Linq;
 using System.Reflection;
 using System.Web.Compilation;
+using Microsoft.Owin.Security.DataProtection;
 using Ubik.Cache.Runtime;
 using Ubik.Infra.Contracts;
 using Ubik.UI.MVC.Models;
@@ -112,7 +113,7 @@ namespace Ubik.UI.MVC
         private static void WireUpSso(ContainerBuilder builder)
         {
             builder.Register(c => new ApplicationUserManager(new ApplicationUserStore(new AuthDbContext())))
-    .Named<ApplicationUserManager>("transient");
+                    .Named<ApplicationUserManager>("transient");
             builder.Register(c => new ApplicationRoleManager(new ApplicationRoleStore(new AuthDbContext())))
                 .Named<ApplicationRoleManager>("transient");
 
@@ -121,6 +122,7 @@ namespace Ubik.UI.MVC
             builder.RegisterType<ApplicationRoleStore>().As<IRoleStore<ApplicationRole, string>>().InstancePerRequest();
             builder.RegisterType<ApplicationUserManager>().InstancePerRequest();
             builder.RegisterType<ApplicationRoleManager>().InstancePerRequest();
+            builder.Register<IDataProtectionProvider>(c => Startup.DataProtectionProvider).InstancePerRequest();
 
             builder.RegisterType<DbContextScopeFactory>().As<IDbContextScopeFactory>().SingleInstance();
             builder.RegisterType<AmbientDbContextLocator>().As<IAmbientDbContextLocator>().SingleInstance();

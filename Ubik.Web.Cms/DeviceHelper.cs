@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using Ubik.Web.Cms.Contracts;
 using Ubik.Web.Components;
 using Ubik.Web.Components.Contracts;
+using Ubik.Web.Infra;
 
 namespace Ubik.Web.Cms
 {

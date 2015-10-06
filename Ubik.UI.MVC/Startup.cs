@@ -2,6 +2,7 @@
 using Autofac;
 using Autofac.Integration.Mvc;
 using Microsoft.Owin;
+using Microsoft.Owin.Security.DataProtection;
 using Owin;
 using Ubik.Web.Auth;
 
@@ -10,6 +11,7 @@ namespace Ubik.UI.MVC
 {
     public class Startup
     {
+        public static IDataProtectionProvider DataProtectionProvider { get; private set; }
         protected IContainer _container;
         public void Configuration(IAppBuilder app)
         {
@@ -19,6 +21,8 @@ namespace Ubik.UI.MVC
             app.UseAutofacMiddleware(_container);
             app.UseAutofacMvc();
             app.ConfigureUbikAuth();
+
+            DataProtectionProvider = app.GetDataProtectionProvider();
         }
     }
 }
