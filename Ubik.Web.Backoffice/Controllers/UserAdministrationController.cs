@@ -15,6 +15,8 @@ namespace Ubik.Web.Backoffice.Controllers
         private readonly IUserAdminstrationService _userService;
         private readonly IUserAdminstrationViewModelService _viewModelsService;
 
+        private const int daysToLock = 365*200;
+
         public UserAdministrationController(IUserAdminstrationService userService, IUserAdminstrationViewModelService viewModelsService)
         {
             _userService = userService;
@@ -34,11 +36,6 @@ namespace Ubik.Web.Backoffice.Controllers
         public ActionResult Index()
         {
             SetContentPage(new BackofficeContent() { Title = "User Administration", Subtitle = "here you can manage memberships" });
-            this.AddRedirectMessage(ServerResponseStatus.PENDING, "message - " + ServerResponseStatus.PENDING, DateTime.UtcNow.ToString("HH:mm:ss tt zz"));
-            this.AddRedirectMessages(new ServerResponse(ServerResponseStatus.ERROR, "message - " + ServerResponseStatus.ERROR, DateTime.UtcNow.ToString("HH:mm:ss tt zz")));
-            this.AddRedirectMessages(new ServerResponse(ServerResponseStatus.INFO, "message - " + ServerResponseStatus.INFO, DateTime.UtcNow.ToString("HH:mm:ss tt zz")));
-            this.AddRedirectMessages(new ServerResponse(ServerResponseStatus.SUCCESS, "message - " + ServerResponseStatus.SUCCESS, DateTime.UtcNow.ToString("HH:mm:ss tt zz")));
-            this.AddRedirectMessages(new ServerResponse(ServerResponseStatus.WARNING, "message - " + ServerResponseStatus.WARNING, DateTime.UtcNow.ToString("HH:mm:ss tt zz")));
             return View();
         }
 
@@ -60,33 +57,62 @@ namespace Ubik.Web.Backoffice.Controllers
 
         public ActionResult CreateUser(NewUserViewModel model)
         {
-            model.Email = model.UserName;
-            if (!ModelState.IsValid) return View("NewUser", model);
-            model.Roles = model.AvailableRoles.Where(x => x.IsSelected).ToArray();
-            ViewModelsService.Execute(model);
-            return RedirectToAction("Users", "UserAdministration", new { id = model.UserId });
+            try
+            {
+                model.Email = model.UserName;
+                if (!ModelState.IsValid) return View("NewUser", model);
+                model.Roles = model.AvailableRoles.Where(x => x.IsSelected).ToArray();
+                ViewModelsService.Execute(model);
+                AddRedirectMessage(ServerResponseStatus.SUCCESS, string.Format("User '{0}' created!", model.UserName));
+                return RedirectToAction("Users", "UserAdministration", new { id = model.UserId });
+            }
+            catch (Exception ex)
+            {
+                AddRedirectMessage(ex);
+                return RedirectToAction("Users", "UserAdministration");
+            }
         }
 
         public async Task<ActionResult> LockUser(string id, string redirectUrl)
         {
-            await _userService.LockUser(id, 5);
-            if (string.IsNullOrWhiteSpace(redirectUrl))
+            try
+            {
+                await _userService.LockUser(id, daysToLock);
+                AddRedirectMessage(ServerResponseStatus.SUCCESS,"User locked!");
+                if (string.IsNullOrWhiteSpace(redirectUrl))
+                    return RedirectToAction("Users", "UserAdministration");
+                return Redirect(redirectUrl);
+            }
+            catch (Exception ex)
+            {
+                AddRedirectMessage(ex);
                 return RedirectToAction("Users", "UserAdministration");
-            return Redirect(redirectUrl);
+            }
+
         }
 
         public async Task<ActionResult> UnlockUser(string id, string redirectUrl)
         {
-            await _userService.UnockUser(id);
-            if (string.IsNullOrWhiteSpace(redirectUrl))
+            try
+            {
+                await _userService.UnockUser(id);
+                AddRedirectMessage(ServerResponseStatus.SUCCESS, "User unlocked!");
+                if (string.IsNullOrWhiteSpace(redirectUrl))
+                    return RedirectToAction("Users", "UserAdministration");
+                return Redirect(redirectUrl);
+            }
+            catch (Exception ex)
+            {
+                AddRedirectMessage(ex);
                 return RedirectToAction("Users", "UserAdministration");
-            return Redirect(redirectUrl);
+            }
+
         }
 
         [HttpPost]
         public async Task<ActionResult> LockUser(UserLockedStateViewModel model)
         {
-            await _userService.LockUser(model.UserId, 5);
+            await _userService.LockUser(model.UserId, daysToLock);
             return Redirect(model.RedirectURL);
         }
 

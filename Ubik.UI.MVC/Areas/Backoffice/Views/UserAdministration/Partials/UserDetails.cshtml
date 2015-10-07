@@ -46,8 +46,8 @@
                                 <div class="input-group ">
                                     <span class="input-group-addon">
                                         @{
-                                            var lockStateClass = (Model.IsLockedOut) ? "text-red" : "text-green";
-                                            var lockStateClassIcon = (Model.IsLockedOut) ? "fa fa-lock" : "fa fa-unlock";
+                        var lockStateClass = (Model.IsLockedOut) ? "text-red" : "text-green";
+                        var lockStateClassIcon = (Model.IsLockedOut) ? "fa fa-lock" : "fa fa-unlock";
                                         }
                                         <i class="@lockStateClassIcon @lockStateClass"></i>
                                         <span class="@lockStateClass">
@@ -64,14 +64,14 @@
                                 </div>
                                 @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "" })
                             </div>
-
-
                             <div class="form-group">
                                 @Html.Partial("~/Areas/Backoffice/Views/UserAdministration/Partials/UserRoles.cshtml", Model)
                             </div>
                         </div>
-                        <div class="box-footer">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                        <div class="box-footer clearfix">
+                            <div class="form-group ">
+                                <button type="submit" class="btn btn-primary pull-right">Submit</button>
+                            </div>
                         </div>
                     }
                 </div>
