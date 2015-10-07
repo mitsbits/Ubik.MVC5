@@ -64,7 +64,7 @@ namespace Ubik.Web.Auth.Services
             ApplicationRole copy;
             if (sourceIsSytemRole)
             {
-                var sourceViewModel = Roles().First(x => x.Name == source);
+                var sourceViewModel = RoleModels().First(x => x.Name == source);
                 copy = new ApplicationRole() { Name = target };
                 foreach (var roleClaimRowViewModel in sourceViewModel.Claims)
                 {
@@ -223,7 +223,7 @@ namespace Ubik.Web.Auth.Services
             }
         }
 
-        public IEnumerable<UserRowViewModel> Users()
+        public IEnumerable<UserRowViewModel> UserModels()
         {
 
 
@@ -242,7 +242,7 @@ namespace Ubik.Web.Auth.Services
 
         }
 
-        public IEnumerable<RoleViewModel> Roles()
+        public IEnumerable<RoleViewModel> RoleModels()
         {
             return RoleViewModels;
 

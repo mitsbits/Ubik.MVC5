@@ -157,7 +157,7 @@ namespace Ubik.Web.Backoffice.Controllers
         private ActionResult GetAllUsers()
         {
             SetContentPage(new BackofficeContent() { Title = "User Administration", Subtitle = "here you can manage users" });
-            return View(_viewModelsService.Users());
+            return View(_viewModelsService.UserModels());
         }
 
         #endregion Users
@@ -217,7 +217,7 @@ namespace Ubik.Web.Backoffice.Controllers
         {
             var content = new BackofficeContent() { Title = "User Administration", Subtitle = "here you can manage roles" };
             SetContentPage(content);
-            return View(ViewModelsService.Roles());
+            return View(ViewModelsService.RoleModels());
         }
 
         #endregion Roles
