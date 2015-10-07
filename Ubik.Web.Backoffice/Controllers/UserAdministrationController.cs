@@ -34,7 +34,11 @@ namespace Ubik.Web.Backoffice.Controllers
         public ActionResult Index()
         {
             SetContentPage(new BackofficeContent() { Title = "User Administration", Subtitle = "here you can manage memberships" });
-            this.AddRedirectMessages( new ServerResponse(ServerResponseStatus.PENDING, "message", DateTime.UtcNow.ToLongTimeString()));
+            this.AddRedirectMessage(ServerResponseStatus.PENDING, "message - " + ServerResponseStatus.PENDING, DateTime.UtcNow.ToString("HH:mm:ss tt zz"));
+            this.AddRedirectMessages(new ServerResponse(ServerResponseStatus.ERROR, "message - " + ServerResponseStatus.ERROR, DateTime.UtcNow.ToString("HH:mm:ss tt zz")));
+            this.AddRedirectMessages(new ServerResponse(ServerResponseStatus.INFO, "message - " + ServerResponseStatus.INFO, DateTime.UtcNow.ToString("HH:mm:ss tt zz")));
+            this.AddRedirectMessages(new ServerResponse(ServerResponseStatus.SUCCESS, "message - " + ServerResponseStatus.SUCCESS, DateTime.UtcNow.ToString("HH:mm:ss tt zz")));
+            this.AddRedirectMessages(new ServerResponse(ServerResponseStatus.WARNING, "message - " + ServerResponseStatus.WARNING, DateTime.UtcNow.ToString("HH:mm:ss tt zz")));
             return View();
         }
 
@@ -97,9 +101,16 @@ namespace Ubik.Web.Backoffice.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ChangUserPassword(UserChangPasswordViewModel model)
         {
-            if (ModelState.IsValid)
-                await _userService.SetPassword(model.UserId, model.NewPassword);
-            this.AddRedirectMessages(new ServerResponse(ServerResponseStatus.INFO, "title", "message") );
+            try
+            {
+                if (ModelState.IsValid)
+                    await _userService.SetPassword(model.UserId, model.NewPassword);
+                AddRedirectMessage(ServerResponseStatus.SUCCESS, "New password set!");
+            }
+            catch (Exception ex)
+            {
+                AddRedirectMessage(ex);
+            }
             return Redirect(model.RedirectURL);
         }
 

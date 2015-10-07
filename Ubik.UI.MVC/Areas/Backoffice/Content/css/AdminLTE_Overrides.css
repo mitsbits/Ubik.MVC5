@@ -26,3 +26,11 @@ ul .strip-list-style {
 .box .box-header .btn-primary {
     color: #fff;
 }
+
+.alert-pending {
+    background-color: #f9f9f9;
+    border-color: #f9f9f9;
+    color: #333;
+}
+
+#feedbackModal div.modal-header{ border: none;}

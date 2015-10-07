@@ -1,13 +1,19 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using System.Web.SessionState;
+using Ubik.Infra;
 using Ubik.Web.Backoffice.Contracts;
 using Ubik.Web.Infra;
 
 namespace Ubik.Web.Backoffice.Controllers
 {
-    /*[Authorize]*/[SessionState(SessionStateBehavior.Required)]
+    /*[Authorize]*/
+
+    [SessionState(SessionStateBehavior.Required)]
     public abstract class BackofficeController : Controller
     {
+        #region Pager
+
         private const string pageNumerVariableName = "p";
         private const string rowCountVariableName = "r";
 
@@ -21,9 +27,17 @@ namespace Ubik.Web.Backoffice.Controllers
                 var r = 10;
                 if (ControllerContext.RouteData.Values[rowCountVariableName] != null)
                     int.TryParse(ControllerContext.RouteData.Values[rowCountVariableName].ToString(), out r);
-                return new RequestPager(){ Current = p, RowCount = r};
+                return new RequestPager() { Current = p, RowCount = r };
             }
         }
+
+        protected struct RequestPager
+        {
+            public int Current { get; set; }
+            public int RowCount { get; set; }
+        }
+
+        #endregion Pager
 
         protected void SetContentPage(IBackofficeContent content)
         {
@@ -41,16 +55,18 @@ namespace Ubik.Web.Backoffice.Controllers
             return context.Controller.ViewBag;
         }
 
-        protected struct RequestPager
+        #region Redirect Messages
+
+        protected void AddRedirectMessage(ServerResponseStatus status, string title, string message = "")
         {
-            public int Current { get; set; }
-            public int RowCount { get; set; }
+            this.AddRedirectMessages(new ServerResponse(status, title, message));
         }
 
-        protected override void OnException(ExceptionContext filterContext)
+        protected void AddRedirectMessage(Exception exception)
         {
-            this.AddRedirectMessages(new ServerResponse(filterContext.Exception));
-            base.OnException(filterContext);
+            this.AddRedirectMessages(new ServerResponse(exception));
         }
+
+        #endregion Redirect Messages
     }
 }
