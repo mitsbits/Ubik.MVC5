@@ -17,24 +17,15 @@
     <!-- Main content -->
     <section class="content">
         <div class="row">
-
-            <!-- general form elements -->
-            @*<div class="col-md-12">
-                    <div class="box box-primary">
-                        <div class="box-header">
-                            <h3 class="box-title">Quick Example</h3>
-                        </div>
-                    </div>
-                </div>*@<!-- /.box-header -->
-            <div class="box box-primary">
-                <!-- form start -->
-                @using (Html.BeginForm("CreateUser", "UserAdministration", FormMethod.Post, new { role = "form" }))
-                {
-                    @Html.AntiForgeryToken()
+            <div class="col-md-6">
+                <div class="box box-primary">
+                    @using (Html.BeginForm("CreateUser", "UserAdministration", FormMethod.Post, new { role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
                                 <!-- left column -->
 
-                    <div class="box-body">
-                        <div class="col-md-6">
+                        <div class="box-body">
+
                             <div class="form-group hidden">
                                 @Html.LabelFor(m => m.UserId)
                                 @Html.HiddenFor(m => m.UserId, new { @class = "form-control" })
@@ -60,29 +51,29 @@
                             <div class="form-group">
                                 @Html.Partial("~/Areas/Backoffice/Views/UserAdministration/Partials/UserRoles.cshtml", Model)
                             </div>
-                        </div>
-                        <div class="col-md-6"></div>
-                        <div class="box-footer col-md-12">
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
 
-                    </div>
-                }
+                            <div class="box-footer clearfix">
+                                <div class="form-group ">
+                                    <button type="submit" class="btn btn-primary pull-right">Submit</button>
+                                </div>
+                            </div>
 
+                        </div>
+                    }
+                </div>
             </div>
-            </div>
+        </div>
     </section><!-- /.content -->
 </aside><!-- /.right-side -->
-
 @*@Scripts.Render("~/bundles/AdminLTE_Dashboard")
-@Scripts.Render("~/bundles/raphael")
-@Scripts.Render("~/bundles/morris")
-@Scripts.Render("~/bundles/sparkline")
-@Scripts.Render("~/bundles/jvectormap")
-@Scripts.Render("~/bundles/jqueryKnob")
-@Scripts.Render("~/bundles/daterangepicker")
-@Scripts.Render("~/bundles/datepicker")
-@Scripts.Render("~/bundles/bootstrap-wysihtml5")
-@Scripts.Render("~/bundles/iCheck")*@
+    @Scripts.Render("~/bundles/raphael")
+    @Scripts.Render("~/bundles/morris")
+    @Scripts.Render("~/bundles/sparkline")
+    @Scripts.Render("~/bundles/jvectormap")
+    @Scripts.Render("~/bundles/jqueryKnob")
+    @Scripts.Render("~/bundles/daterangepicker")
+    @Scripts.Render("~/bundles/datepicker")
+    @Scripts.Render("~/bundles/bootstrap-wysihtml5")
+    @Scripts.Render("~/bundles/iCheck")*@
 
 

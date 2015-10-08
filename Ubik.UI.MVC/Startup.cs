@@ -11,18 +11,18 @@ namespace Ubik.UI.MVC
 {
     public class Startup
     {
-        public static IDataProtectionProvider DataProtectionProvider { get; private set; }
+
         protected IContainer _container;
         public void Configuration(IAppBuilder app)
         {
             // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=316888
-            _container = IoCConfig.RegisterDependencies();
+            _container = IoCConfig.RegisterDependencies(app);
             DependencyResolver.SetResolver(new AutofacDependencyResolver(_container));
             app.UseAutofacMiddleware(_container);
             app.UseAutofacMvc();
             app.ConfigureUbikAuth();
 
-            DataProtectionProvider = app.GetDataProtectionProvider();
+ 
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Ubik.Web.Auth.ViewModels;
 
 namespace Ubik.Web.Auth.Contracts
@@ -20,7 +21,8 @@ namespace Ubik.Web.Auth.Contracts
         void Execute(RoleSaveModel model);
 
         void Execute(NewUserSaveModel model);
-
+        Task Execute(UserSaveModel model);
         IEnumerable<RoleViewModel> SystemRoleViewModels { get; }
+        
     }
 }

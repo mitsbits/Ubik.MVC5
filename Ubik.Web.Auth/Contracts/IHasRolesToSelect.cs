@@ -6,4 +6,9 @@ namespace Ubik.Web.Auth.Contracts
     {
         RoleViewModel[] AvailableRoles { get; }
     }
+
+    public interface IHasRoles
+    {
+        RoleViewModel[] Roles { get; }
+    }
 }

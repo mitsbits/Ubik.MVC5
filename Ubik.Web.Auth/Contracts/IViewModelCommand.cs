@@ -1,7 +1,9 @@
-﻿namespace Ubik.Web.Auth.Contracts
+﻿using System.Threading.Tasks;
+
+namespace Ubik.Web.Auth.Contracts
 {
     public interface IViewModelCommand<in TViewModel>
     {
-        void Execute(TViewModel model);
+        Task Execute(TViewModel model);
     }
 }

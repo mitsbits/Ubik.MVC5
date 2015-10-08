@@ -15,7 +15,7 @@ namespace Ubik.Web.Backoffice.Controllers
         private readonly IUserAdminstrationService _userService;
         private readonly IUserAdminstrationViewModelService _viewModelsService;
 
-        private const int daysToLock = 365*200;
+        private const int daysToLock = 365 * 200;
 
         public UserAdministrationController(IUserAdminstrationService userService, IUserAdminstrationViewModelService viewModelsService)
         {
@@ -59,11 +59,36 @@ namespace Ubik.Web.Backoffice.Controllers
         {
             try
             {
-                model.Email = model.UserName;
-                if (!ModelState.IsValid) return View("NewUser", model);
+                //model.Email = model.UserName;
+                if (!ModelState.IsValid)
+                {
+                    AddRedirectMessage(ModelState);
+                    return View("NewUser", model);
+                }
                 model.Roles = model.AvailableRoles.Where(x => x.IsSelected).ToArray();
                 ViewModelsService.Execute(model);
                 AddRedirectMessage(ServerResponseStatus.SUCCESS, string.Format("User '{0}' created!", model.UserName));
+                return RedirectToAction("Users", "UserAdministration", new { id = model.UserId });
+            }
+            catch (Exception ex)
+            {
+                AddRedirectMessage(ex);
+                return RedirectToAction("Users", "UserAdministration");
+            }
+        }
+
+        public async Task<ActionResult> UpdateUser(UserViewModel model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    AddRedirectMessage(ModelState);
+                    return View("NewUser", model);
+                }
+                model.Roles = model.AvailableRoles.Where(x => x.IsSelected).ToArray();
+                await ViewModelsService.Execute(model);
+                AddRedirectMessage(ServerResponseStatus.SUCCESS, string.Format("User '{0}' updated!", model.UserName));
                 return RedirectToAction("Users", "UserAdministration", new { id = model.UserId });
             }
             catch (Exception ex)
@@ -78,7 +103,7 @@ namespace Ubik.Web.Backoffice.Controllers
             try
             {
                 await _userService.LockUser(id, daysToLock);
-                AddRedirectMessage(ServerResponseStatus.SUCCESS,"User locked!");
+                AddRedirectMessage(ServerResponseStatus.SUCCESS, "User locked!");
                 if (string.IsNullOrWhiteSpace(redirectUrl))
                     return RedirectToAction("Users", "UserAdministration");
                 return Redirect(redirectUrl);

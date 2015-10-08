@@ -1,4 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
+using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -10,7 +13,7 @@ using Ubik.Web.Cms.Contracts;
 namespace Ubik.Web.Auth.ViewModels
 {
     #region Edit User
-    public class UserSaveModel
+    public class UserSaveModel : IHasRoles
     {
         public bool IsTransient { get; set; }
 
@@ -51,7 +54,7 @@ namespace Ubik.Web.Auth.ViewModels
             var viewModel = new UserViewModel()
             {
                 UserId = entity.Id,
-                UserName = entity.UserName, 
+                UserName = entity.UserName,
                 IsLockedOut = entity.LockoutEnabled
             };
             var userRoles = _roleRepo.Find(x => x.Users.Any(u => u.UserId == entity.Id), x => x.Name);
@@ -77,18 +80,56 @@ namespace Ubik.Web.Auth.ViewModels
         }
     }
 
-    internal class UserViewModelCommand : IViewModelCommand<UserSaveModel>
+    public class UserViewModelCommand : IViewModelCommand<UserSaveModel>
     {
-        public void Execute(UserSaveModel model)
+        private readonly ApplicationUserManager _userManager;
+        private readonly ApplicationRoleManager _roleManager;
+        private readonly IResident _resident;
+
+        public UserViewModelCommand(ApplicationUserManager userManager, ApplicationRoleManager roleManager, IResident resident)
         {
-            return;
+            _userManager = userManager;
+            _roleManager = roleManager;
+            _resident = resident;
         }
-    } 
+
+        public async Task Execute(UserSaveModel model)
+        {
+            SaveNonPersistedRoles(model);
+            var user = await _userManager.FindByIdAsync(model.UserId);
+            _userManager.AddToRoles(user.Id, model.Roles.Select(x => x.Name).ToArray());
+        }
+
+        private void SaveNonPersistedRoles(IHasRoles model)
+        {
+            var results = new List<IdentityResult>();
+            var exesistingRoleNames = _roleManager.Roles.Select(x => x.Name).ToList();
+            foreach (var roleViewModel in model.Roles)
+            {
+                var viewModel = roleViewModel;
+
+                if (!exesistingRoleNames.Contains(viewModel.Name))
+                {
+                    var role = new ApplicationRole(viewModel.Name);
+
+                    foreach (var roleClaimRowViewModel in _resident.Security.ClaimsForRole(viewModel.Name))
+                    {
+                        role.RoleClaims.Add(new ApplicationClaim(roleClaimRowViewModel.Type, roleClaimRowViewModel.Value));
+                    }
+                    results.Add(_roleManager.CreateAsync(role).Result);
+                }
+            }
+
+            if (results.All(x => x.Succeeded)) return;
+            throw new ApplicationException(string.Join("\n", results.SelectMany(x => x.Errors)));
+
+        }
+    }
     #endregion
 
     #region Create User
 
-    public class NewUserSaveModel
+    public class NewUserSaveModel : IHasRoles
     {
         public NewUserSaveModel()
         {
@@ -96,11 +137,11 @@ namespace Ubik.Web.Auth.ViewModels
         }
 
         public string UserId { get; set; }
-
+        [Required]
         public string UserName { get; set; }
 
         public string Email { get; set; }
-
+        [Required]
         public string Password { get; set; }
 
         public RoleViewModel[] Roles { get; set; }
@@ -151,26 +192,26 @@ namespace Ubik.Web.Auth.ViewModels
     {
         private readonly ApplicationUserManager _userManager;
         private readonly ApplicationRoleManager _roleManager;
-        private readonly IRoleRepository _roleRepo;
+  
         private readonly IResident _resident;
-        public NewUserViewModelCommand(ApplicationUserManager userManager, ApplicationRoleManager roleManager, IRoleRepository roleRepo, IResident resident)
+        public NewUserViewModelCommand(ApplicationUserManager userManager, ApplicationRoleManager roleManager, IResident resident)
         {
             _userManager = userManager;
             _roleManager = roleManager;
-            _roleRepo = roleRepo;
+    
             _resident = resident;
         }
 
-        public void Execute(NewUserSaveModel model)
+        public Task Execute(NewUserSaveModel model)
         {
             var entity = new ApplicationUser() { Id = model.UserId, Email = model.UserName, UserName = model.UserName };
             SaveNonPersistedRoles(model);
             var result = _userManager.CreateAsync(entity, model.Password).Result;
-            if (result.Succeeded) return;
+            if (result.Succeeded) return Task.FromResult<object>(null);
             throw new ApplicationException(string.Join("\n", result.Errors));
         }
 
-        private void SaveNonPersistedRoles(NewUserSaveModel model)
+        private void SaveNonPersistedRoles(IHasRoles model)
         {
             var results = new List<IdentityResult>();
             var exesistingRoleNames = _roleManager.Roles.Select(x => x.Name).ToList();
@@ -197,11 +238,12 @@ namespace Ubik.Web.Auth.ViewModels
     }
     #endregion
 
-#region Change Password
+    #region Change Password
 
     public class UserChangPasswordViewModel
     {
         public string RedirectURL { get; set; }
+        [Required]
         public string UserId { get; set; }
         [Required]
         public string NewPassword { get; set; }
@@ -210,8 +252,10 @@ namespace Ubik.Web.Auth.ViewModels
     public class UserLockedStateViewModel
     {
         public string RedirectURL { get; set; }
+        [Required]
         public string UserId { get; set; }
+        [Required]
         public bool IsLocked { get; set; }
     }
-#endregion
+    #endregion
 }

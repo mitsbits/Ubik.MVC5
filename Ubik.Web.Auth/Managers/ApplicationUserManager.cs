@@ -16,7 +16,7 @@ namespace Ubik.Web.Auth.Managers
 
         public ApplicationUserManager(IUserStore<ApplicationUser> store) : base(store) { }
 
-        public ApplicationUserManager(IUserStore<ApplicationUser> store, IDataProtectionProvider dataProtectionProvider, IOwinContext context)
+        public ApplicationUserManager(IOwinContext context, IUserStore<ApplicationUser> store, IDataProtectionProvider dataProtectionProvider)
             : base(store)
         {
 

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Reflection;
 using System.Web.Compilation;
 using Microsoft.Owin.Security.DataProtection;
+using Owin;
 using Ubik.Cache.Runtime;
 using Ubik.Infra.Contracts;
 using Ubik.UI.MVC.Models;
@@ -34,13 +35,13 @@ namespace Ubik.UI.MVC
             Asmbls = ScopedAssemblies();
         }
 
-        public static IContainer RegisterDependencies()
+        public static IContainer RegisterDependencies(IAppBuilder app)
         {
             var builder = new ContainerBuilder();
 
             WireUpInternals(builder);
             WireUpPubSub(builder);
-            WireUpSso(builder);
+            WireUpSso(builder, app);
             WireUpCms(builder);
             WireUpElmahAgents(builder);
 
@@ -110,7 +111,7 @@ namespace Ubik.UI.MVC
         {
         }
 
-        private static void WireUpSso(ContainerBuilder builder)
+        private static void WireUpSso(ContainerBuilder builder, IAppBuilder app)
         {
             builder.Register(c => new ApplicationUserManager(new ApplicationUserStore(new AuthDbContext())))
                     .Named<ApplicationUserManager>("transient");
@@ -122,7 +123,7 @@ namespace Ubik.UI.MVC
             builder.RegisterType<ApplicationRoleStore>().As<IRoleStore<ApplicationRole, string>>().InstancePerRequest();
             builder.RegisterType<ApplicationUserManager>().InstancePerRequest();
             builder.RegisterType<ApplicationRoleManager>().InstancePerRequest();
-            builder.Register<IDataProtectionProvider>(c => Startup.DataProtectionProvider).InstancePerRequest();
+            builder.Register<IDataProtectionProvider>(c => app.GetDataProtectionProvider()).InstancePerRequest();
 
             builder.RegisterType<DbContextScopeFactory>().As<IDbContextScopeFactory>().SingleInstance();
             builder.RegisterType<AmbientDbContextLocator>().As<IAmbientDbContextLocator>().SingleInstance();
@@ -139,6 +140,7 @@ namespace Ubik.UI.MVC
 
             builder.RegisterType<RoleViewModelCommand>().As<IViewModelCommand<RoleSaveModel>>().InstancePerRequest();
             builder.RegisterType<NewUserViewModelCommand>().As<IViewModelCommand<NewUserSaveModel>>().InstancePerRequest();
+            builder.RegisterType<UserViewModelCommand>().As<IViewModelCommand<UserSaveModel>>().InstancePerRequest();
 
             builder.RegisterAssemblyTypes(Asmbls)
                    .Where(t => t.GetInterfaces().Any(x => x == typeof(IResourceAuthProvider)) && !t.IsAbstract)

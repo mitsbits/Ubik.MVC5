@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using System.Web.SessionState;
 using Ubik.Infra;
@@ -65,6 +66,17 @@ namespace Ubik.Web.Backoffice.Controllers
         protected void AddRedirectMessage(Exception exception)
         {
             this.AddRedirectMessages(new ServerResponse(exception));
+        }
+
+        protected void AddRedirectMessage(ModelStateDictionary state)
+        {
+            foreach (var stm in state.Where(stm => stm.Value.Errors != null))
+            {
+                this.AddRedirectMessages(
+                    stm.Value.Errors.Select(
+                        e => new ServerResponse(ServerResponseStatus.ERROR, e.ErrorMessage, e.Exception.Message))
+                        .ToArray());
+            }
         }
 
         #endregion Redirect Messages

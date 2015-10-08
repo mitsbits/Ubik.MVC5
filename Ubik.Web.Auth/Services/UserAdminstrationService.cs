@@ -1,4 +1,5 @@
 using System.Data;
+using System.Data.Entity;
 using System.Threading.Tasks;
 using Mehdime.Entity;
 using Microsoft.AspNet.Identity;
@@ -28,6 +29,8 @@ namespace Ubik.Web.Auth.Services
 
         private readonly IViewModelCommand<RoleSaveModel> _roleCommand;
         private readonly IViewModelCommand<NewUserSaveModel> _newUserCommand;
+        private readonly IViewModelCommand<UserSaveModel> _userCommand;
+
 
         private readonly IDbContextScopeFactory _dbContextScopeFactory;
 
@@ -39,7 +42,7 @@ namespace Ubik.Web.Auth.Services
 
         private const string _roleViewModelsCacheKey = "UserAdminstrationService_RoleViewModels";
 
-        public UserAdminstrationService(IUserRepository userRepository, IRoleRepository roleRepository, ApplicationUserManager userManager, ApplicationRoleManager roleManager, IViewModelCommand<RoleSaveModel> roleCommand, IViewModelCommand<NewUserSaveModel> newUserCommand, IDbContextScopeFactory dbContextScopeFactory, IEnumerable<IResourceAuthProvider> authProviders, ICacheProvider cache, IViewModelBuilder<ApplicationRole, RoleViewModel> roleBuilder)
+        public UserAdminstrationService(IUserRepository userRepository, IRoleRepository roleRepository, ApplicationUserManager userManager, ApplicationRoleManager roleManager, IViewModelCommand<RoleSaveModel> roleCommand, IViewModelCommand<NewUserSaveModel> newUserCommand, IDbContextScopeFactory dbContextScopeFactory, IEnumerable<IResourceAuthProvider> authProviders, ICacheProvider cache, IViewModelBuilder<ApplicationRole, RoleViewModel> roleBuilder, IViewModelCommand<UserSaveModel> userCommand)
         {
             _userRepo = userRepository;
             _roleRepo = roleRepository;
@@ -51,6 +54,7 @@ namespace Ubik.Web.Auth.Services
             _authProviders = authProviders;
             _cache = cache;
             _roleBuilder = roleBuilder;
+            _userCommand = userCommand;
 
             _userBuilder = new UserViewModelBuilder(_roleRepo, RoleViewModels);
             _newUserBuilder = new NewUserViewModelBuilder(RoleViewModels);
@@ -144,11 +148,7 @@ namespace Ubik.Web.Auth.Services
 
         public void SetRoles(ApplicationUser user, string[] newRoles)
         {
-            var roles = _roleManager.Roles.ToList();
-            foreach (var sarekRole in roles)
-            {
-                _userManager.RemoveFromRole(user.Id, sarekRole.Name);
-            }
+            user.Roles.Clear();
             _userManager.AddToRoles(user.Id, newRoles);
         }
 
@@ -248,22 +248,23 @@ namespace Ubik.Web.Auth.Services
 
         }
 
-        public void Execute(RoleViewModel model)
-        {
-            using (var tran = _dbContextScopeFactory.CreateWithTransaction(IsolationLevel.Serializable))
-            {
-                _roleCommand.Execute(model);
-                tran.SaveChanges();
-                _cache.RemoveItem(_roleViewModelsCacheKey); // force cache to invalidate
-                //TODO: publish message for new role
-            }
-        }
 
-        public void Execute(NewUserViewModel model)
+
+        public void Execute(NewUserSaveModel model)
         {
             using (var tran = _dbContextScopeFactory.CreateWithTransaction(IsolationLevel.Serializable))
             {
                 _newUserCommand.Execute(model);
+                tran.SaveChanges();
+                //TODO: publish message for new role
+            }
+        }
+
+        public async Task Execute(UserSaveModel model)
+        {
+            using (var tran = _dbContextScopeFactory.CreateWithTransaction(IsolationLevel.Serializable))
+            {
+              await  _userCommand.Execute(model);
                 tran.SaveChanges();
                 //TODO: publish message for new role
             }
@@ -293,5 +294,20 @@ namespace Ubik.Web.Auth.Services
                 }
             }
         }
+
+
+
+
+        public void Execute(RoleSaveModel model)
+        {
+            using (var tran = _dbContextScopeFactory.CreateWithTransaction(IsolationLevel.Serializable))
+            {
+                _roleCommand.Execute(model);
+                tran.SaveChanges();
+                _cache.RemoveItem(_roleViewModelsCacheKey); // force cache to invalidate
+                //TODO: publish message for new role
+            }
+        }
+
     }
 }

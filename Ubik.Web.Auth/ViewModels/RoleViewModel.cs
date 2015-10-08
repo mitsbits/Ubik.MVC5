@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -82,7 +83,7 @@ namespace Ubik.Web.Auth.ViewModels
             _roleManager = roleManager;
         }
 
-        public void Execute(RoleSaveModel model)
+        public Task Execute(RoleSaveModel model)
         {
             IdentityResult result;
             var dbRole = _roleManager.FindByIdAsync(model.RoleId).Result;
@@ -96,7 +97,7 @@ namespace Ubik.Web.Auth.ViewModels
                 dbRole.Name = model.Name;
                 result = _roleManager.UpdateAsync(dbRole).Result;
             }
-            if (!result.Succeeded) return;
+            if (!result.Succeeded) return Task.FromResult<object>(null);
 
             var entityRole = _roleRepo.Get(x => x.Id == model.RoleId);
             entityRole.RoleClaims.Clear();
@@ -104,6 +105,7 @@ namespace Ubik.Web.Auth.ViewModels
             {
                 entityRole.RoleClaims.Add(new ApplicationClaim(claimViewModel.Type, claimViewModel.Value));
             }
+            return Task.FromResult(true);
         }
     }
 
