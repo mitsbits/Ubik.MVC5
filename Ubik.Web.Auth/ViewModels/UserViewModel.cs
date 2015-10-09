@@ -192,29 +192,34 @@ namespace Ubik.Web.Auth.ViewModels
     {
         private readonly ApplicationUserManager _userManager;
         private readonly ApplicationRoleManager _roleManager;
-  
+
         private readonly IResident _resident;
         public NewUserViewModelCommand(ApplicationUserManager userManager, ApplicationRoleManager roleManager, IResident resident)
         {
             _userManager = userManager;
             _roleManager = roleManager;
-    
+
             _resident = resident;
         }
 
-        public Task Execute(NewUserSaveModel model)
+        public async Task Execute(NewUserSaveModel model)
         {
             var entity = new ApplicationUser() { Id = model.UserId, Email = model.UserName, UserName = model.UserName };
-            SaveNonPersistedRoles(model);
-            var result = _userManager.CreateAsync(entity, model.Password).Result;
-            if (result.Succeeded) return Task.FromResult<object>(null);
-            throw new ApplicationException(string.Join("\n", result.Errors));
+            await SaveNonPersistedRoles(model);
+            var results = new List<IdentityResult>
+            {
+                await _userManager.CreateAsync(entity, model.Password),
+                await _userManager.AddToRolesAsync(entity.Id, model.Roles.Select(x => x.Name).ToArray())
+            };
+
+            if (results.All(x=>x.Succeeded)) return;
+            throw new ApplicationException(string.Join("\n", results.SelectMany(x=>x.Errors)));
         }
 
-        private void SaveNonPersistedRoles(IHasRoles model)
+        private async Task SaveNonPersistedRoles(IHasRoles model)
         {
             var results = new List<IdentityResult>();
-            var exesistingRoleNames = _roleManager.Roles.Select(x => x.Name).ToList();
+            var exesistingRoleNames = await _roleManager.Roles.Select(x => x.Name).ToListAsync();
             foreach (var roleViewModel in model.Roles)
             {
                 var viewModel = roleViewModel;
@@ -227,7 +232,7 @@ namespace Ubik.Web.Auth.ViewModels
                     {
                         role.RoleClaims.Add(new ApplicationClaim(roleClaimRowViewModel.Type, roleClaimRowViewModel.Value));
                     }
-                    results.Add(_roleManager.CreateAsync(role).Result);
+                    results.Add(await _roleManager.CreateAsync(role));
                 }
             }
 

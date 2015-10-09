@@ -83,29 +83,30 @@ namespace Ubik.Web.Auth.ViewModels
             _roleManager = roleManager;
         }
 
-        public Task Execute(RoleSaveModel model)
+        public async Task Execute(RoleSaveModel model)
         {
             IdentityResult result;
-            var dbRole = _roleManager.FindByIdAsync(model.RoleId).Result;
+            var dbRole = await _roleManager.FindByIdAsync(model.RoleId);
             if (dbRole == null)
             {
                 var appRole = new ApplicationRole() { Id = model.RoleId, Name = model.Name };
-                result = _roleManager.CreateAsync(appRole).Result;
+                result = await _roleManager.CreateAsync(appRole);
             }
             else
             {
                 dbRole.Name = model.Name;
-                result = _roleManager.UpdateAsync(dbRole).Result;
+                result = await _roleManager.UpdateAsync(dbRole);
             }
-            if (!result.Succeeded) return Task.FromResult<object>(null);
+            if (!result.Succeeded) return;
 
-            var entityRole = _roleRepo.Get(x => x.Id == model.RoleId);
-            entityRole.RoleClaims.Clear();
+            dbRole.RoleClaims.Clear();
+
+            dbRole.RoleClaims.Clear();
             foreach (var claimViewModel in model.Claims)
             {
-                entityRole.RoleClaims.Add(new ApplicationClaim(claimViewModel.Type, claimViewModel.Value));
+                dbRole.RoleClaims.Add(new ApplicationClaim(claimViewModel.Type, claimViewModel.Value));
             }
-            return Task.FromResult(true);
+            await _roleManager.UpdateAsync(dbRole);
         }
     }
 

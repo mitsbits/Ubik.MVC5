@@ -55,7 +55,7 @@ namespace Ubik.Web.Backoffice.Controllers
             return View("NewUser", model);
         }
 
-        public ActionResult CreateUser(NewUserViewModel model)
+        public async Task<ActionResult> CreateUser(NewUserViewModel model)
         {
             try
             {
@@ -63,10 +63,10 @@ namespace Ubik.Web.Backoffice.Controllers
                 if (!ModelState.IsValid)
                 {
                     AddRedirectMessage(ModelState);
-                    return View("NewUser", model);
+                    return View("Users", model);
                 }
                 model.Roles = model.AvailableRoles.Where(x => x.IsSelected).ToArray();
-                ViewModelsService.Execute(model);
+                await ViewModelsService.Execute(model);
                 AddRedirectMessage(ServerResponseStatus.SUCCESS, string.Format("User '{0}' created!", model.UserName));
                 return RedirectToAction("Users", "UserAdministration", new { id = model.UserId });
             }
@@ -167,9 +167,21 @@ namespace Ubik.Web.Backoffice.Controllers
 
         private ActionResult GetOneUserById(string id)
         {
-            var model = _viewModelsService.UserModel(id);
-            SetContentPage(new BackofficeContent() { Title = "Manage: " + model.UserName, Subtitle = "here you can manage this user" });
-            return View(model);
+            try
+            {
+                var model = _viewModelsService.UserModel(id);
+                SetContentPage(new BackofficeContent()
+                {
+                    Title = "Manage: " + model.UserName,
+                    Subtitle = "here you can manage this user"
+                });
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                AddRedirectMessage(ex);
+                return RedirectToAction("Users");
+            }
         }
 
         private ActionResult GetNoUser()
@@ -182,7 +194,17 @@ namespace Ubik.Web.Backoffice.Controllers
         private ActionResult GetAllUsers()
         {
             SetContentPage(new BackofficeContent() { Title = "User Administration", Subtitle = "here you can manage users" });
-            return View(_viewModelsService.UserModels());
+            try
+            {
+                return View(_viewModelsService.UserModels());
+            }
+            catch (Exception ex)
+            {
+
+                AddRedirectMessage(ex);
+                return Redirect(Url.Content("~/backoffice"));
+            }
+
         }
 
         #endregion Users

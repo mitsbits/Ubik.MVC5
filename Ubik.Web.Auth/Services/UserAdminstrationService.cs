@@ -250,24 +250,19 @@ namespace Ubik.Web.Auth.Services
 
 
 
-        public void Execute(NewUserSaveModel model)
+        public async Task Execute(NewUserSaveModel model)
         {
-            using (var tran = _dbContextScopeFactory.CreateWithTransaction(IsolationLevel.Serializable))
-            {
-                _newUserCommand.Execute(model);
-                tran.SaveChanges();
+                await _newUserCommand.Execute(model);
                 //TODO: publish message for new role
-            }
         }
 
         public async Task Execute(UserSaveModel model)
         {
-            using (var tran = _dbContextScopeFactory.CreateWithTransaction(IsolationLevel.Serializable))
-            {
-              await  _userCommand.Execute(model);
-                tran.SaveChanges();
+
+                await _userCommand.Execute(model);
+
                 //TODO: publish message for new role
-            }
+      
         }
 
         private List<RoleViewModel> _systemRoleViewModels;
@@ -298,15 +293,14 @@ namespace Ubik.Web.Auth.Services
 
 
 
-        public void Execute(RoleSaveModel model)
+        public async Task Execute(RoleSaveModel model)
         {
-            using (var tran = _dbContextScopeFactory.CreateWithTransaction(IsolationLevel.Serializable))
-            {
-                _roleCommand.Execute(model);
-                tran.SaveChanges();
-                _cache.RemoveItem(_roleViewModelsCacheKey); // force cache to invalidate
-                //TODO: publish message for new role
-            }
+
+            await _roleCommand.Execute(model);
+
+            _cache.RemoveItem(_roleViewModelsCacheKey); // force cache to invalidate
+            //TODO: publish message for new role
+
         }
 
     }
