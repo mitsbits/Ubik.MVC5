@@ -5,11 +5,14 @@ using System.Data.Entity.Core.Metadata.Edm;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using Ubik.Infra.Contracts;
+using Ubik.Infra.DataManagement;
 using Ubik.Infra.Ext;
+
 namespace Ubik.EF
 {
-    public abstract class BaseReadRepository<T, TDbContext> : IReadRepository<T>
+    public abstract class BaseReadRepository<T, TDbContext> : IReadRepository<T>, IReadAsyncRepository<T>
         where T : class
         where TDbContext : DbContext
     {
@@ -31,7 +34,7 @@ namespace Ubik.EF
             var t = Get(predicate);
 
             object originalItem;
-            var entitySet = this.GetEntitySetName(typeof(T));
+            var entitySet = GetEntitySetName(typeof(T));
             var key = ((IObjectContextAdapter)DbContext).ObjectContext.CreateEntityKey(entitySet, t);
 
             if (((IObjectContextAdapter)DbContext).ObjectContext.TryGetObjectByKey(key, out originalItem))
@@ -99,5 +102,88 @@ namespace Ubik.EF
                     where meta.ElementType.Name == type.Name
                     select meta.Name).First();
         }
+
+        #region Async
+
+        public async Task<T> GetAsync(Expression<Func<T, bool>> predicate)
+        {
+            return await DbContext.Set<T>().FirstOrDefaultAsync(predicate);
+        }
+
+        public async Task<T> GetAsync(Expression<Func<T, bool>> predicate, params Expression<Func<T, dynamic>>[] paths)
+        {
+            var query = DbContext.Set<T>();
+            foreach (var path in paths)
+            {
+                query.Include(path);
+            }
+            return await query.FirstOrDefaultAsync(predicate);
+        }
+
+        public async Task<PagedResult<T>> FindAsync(Expression<Func<T, bool>> predicate,
+            IEnumerable<OrderByInfo<T>> orderBy, int pageNumber, int pageSize)
+        {
+            return await FindAsync(predicate, orderBy, pageNumber, pageSize, null);
+        }
+
+        public async Task<PagedResult<T>> FindAsync(Expression<Func<T, bool>> predicate,
+            IEnumerable<OrderByInfo<T>> orderBy, int pageNumber, int pageSize, params Expression<Func<T, dynamic>>[] paths)
+        {
+            var query = DbContext.Set<T>().Where(predicate);
+            var totalRecords = await query.CountAsync();
+            var totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
+            if (pageNumber > totalPages) { pageNumber = totalPages; }
+            if (totalRecords == 0)
+                return new PagedResult<T>
+                {
+                    Data = new List<T>(),
+                    PageNumber = pageNumber,
+                    PageSize = pageSize,
+                    TotalPages = 0,
+                    TotalRecords = 0
+                };
+
+            if (paths != null && paths.Any())
+            {
+                query = paths.Aggregate(query, (current, path) => current.Include(path));
+            }
+
+            IOrderedQueryable<T> orderedQuaQueryable = null;
+            var orderByInfos = orderBy as OrderByInfo<T>[] ?? orderBy.ToArray();
+            for (var i = 0; i < orderByInfos.Count(); i++)
+            {
+                var info = orderByInfos[i];
+                if (i == 0)
+                {
+                    orderedQuaQueryable = info.Ascending ? query.OrderBy(info.Property) : query.OrderByDescending(info.Property);
+                }
+                else
+                {
+                    if (orderedQuaQueryable != null)
+                    {
+                        orderedQuaQueryable = info.Ascending ? orderedQuaQueryable.ThenBy(info.Property) : orderedQuaQueryable.OrderByDescending(info.Property);
+                    }
+                }
+            }
+            if (orderedQuaQueryable == null)
+                return new PagedResult<T>
+                {
+                        Data = new List<T>(),
+                        PageNumber = pageNumber,
+                        PageSize = pageSize,
+                        TotalPages = 0,
+                        TotalRecords = 0
+                    };
+            return new PagedResult<T>
+            {
+                Data = await orderedQuaQueryable.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync(),
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                TotalPages = totalPages,
+                TotalRecords = totalRecords
+            };
+        }
+
+        #endregion Async
     }
 }
