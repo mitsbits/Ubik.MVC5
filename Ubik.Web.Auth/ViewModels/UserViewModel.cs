@@ -95,15 +95,28 @@ namespace Ubik.Web.Auth.ViewModels
 
         public async Task Execute(UserSaveModel model)
         {
-            SaveNonPersistedRoles(model);
-            var user = await _userManager.FindByIdAsync(model.UserId);
-            _userManager.AddToRoles(user.Id, model.Roles.Select(x => x.Name).ToArray());
+            await SaveNonPersistedRoles(model);
+
+
+            var existingRoles = _userManager.GetRoles(model.UserId);
+            var results = new List<IdentityResult>
+            {
+               
+                await
+                    _userManager.RemoveFromRolesAsync(model.UserId,
+                        existingRoles.ToArray()),
+                _userManager.AddToRoles(model.UserId, model.Roles.Select(x => x.Name).ToArray())
+            };
+
+
+            if (results.All(x => x.Succeeded)) return;
+            throw new ApplicationException(string.Join("\n", results.SelectMany(x => x.Errors)));
         }
 
-        private void SaveNonPersistedRoles(IHasRoles model)
+        private async Task SaveNonPersistedRoles(IHasRoles model)
         {
             var results = new List<IdentityResult>();
-            var exesistingRoleNames = _roleManager.Roles.Select(x => x.Name).ToList();
+            var exesistingRoleNames = await _roleManager.Roles.Select(x => x.Name).ToListAsync();
             foreach (var roleViewModel in model.Roles)
             {
                 var viewModel = roleViewModel;
@@ -116,7 +129,7 @@ namespace Ubik.Web.Auth.ViewModels
                     {
                         role.RoleClaims.Add(new ApplicationClaim(roleClaimRowViewModel.Type, roleClaimRowViewModel.Value));
                     }
-                    results.Add(_roleManager.CreateAsync(role).Result);
+                    results.Add(await _roleManager.CreateAsync(role));
                 }
             }
 
@@ -212,8 +225,8 @@ namespace Ubik.Web.Auth.ViewModels
                 await _userManager.AddToRolesAsync(entity.Id, model.Roles.Select(x => x.Name).ToArray())
             };
 
-            if (results.All(x=>x.Succeeded)) return;
-            throw new ApplicationException(string.Join("\n", results.SelectMany(x=>x.Errors)));
+            if (results.All(x => x.Succeeded)) return;
+            throw new ApplicationException(string.Join("\n", results.SelectMany(x => x.Errors)));
         }
 
         private async Task SaveNonPersistedRoles(IHasRoles model)

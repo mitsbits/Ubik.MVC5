@@ -119,7 +119,7 @@ namespace Ubik.EF
                 // Datatime validation
                 if (item.Property.PropertyType == typeof(DateTime))
                 {
-                    DateTime propValue = (DateTime)entityTypeClass.GetProperty(item.Property.Name).GetValue(entity, null);
+                    var propValue = (DateTime)entityTypeClass.GetProperty(item.Property.Name).GetValue(entity, null);
                     if (propValue == DateTime.MinValue)
                     {
                         this.AddErrorMessage(item.Property.Name + ": " + string.Format("date is not valid"));

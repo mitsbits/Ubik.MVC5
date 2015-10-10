@@ -1,12 +1,4 @@
 ﻿$(function () {
-    $('#copy-role-modal').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget);
-        var data = button.data('source');
-        var modal = $(this);
-        modal.find('span#roleTitleName').text(data);
-        modal.find('input#Name').val(data);
-        modal.find('input#Target').val('').focus();
-    });
 
     $("#roles-table").dataTable({
         "bPaginate": true,
@@ -15,6 +7,15 @@
         "bSort": false,
         "bInfo": false,
         "bAutoWidth": true
+    });
+
+    $('#copy-role-modal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var data = button.data('source');
+        var modal = $(this);
+        modal.find('span#roleTitleName').text(data);
+        modal.find('input#Name').val(data);
+        modal.find('input#Target').val('').focus();
     });
 
     $('#copy-role-form').validate();

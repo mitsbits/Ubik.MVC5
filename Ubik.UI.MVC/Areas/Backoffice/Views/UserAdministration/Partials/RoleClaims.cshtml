@@ -5,7 +5,6 @@
 @{
     var operations = new SystemClaims.Operations();
     var resources = Model.AvailableClaims.Where(x => x.Type == SystemClaims.OperationToResourceClaimType).Select(x => x.Value.Split(new[] { '|' }).Last()).Distinct().OrderBy(x => x).ToList();
-    var readOnlyClass = Model.IsSytemRole;
 }
 
 <div class="box box-solid">
