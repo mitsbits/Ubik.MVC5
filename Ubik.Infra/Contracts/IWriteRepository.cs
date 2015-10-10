@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace Ubik.Infra.Contracts
 {
@@ -22,5 +23,12 @@ namespace Ubik.Infra.Contracts
         /// </summary>
         /// <param name="predicate">The predicate expression for filtering results</param>
         void Delete(Expression<Func<T, bool>> predicate);
+    }
+
+    public interface IWriteAsyncRepository<T> where T : class
+    {
+        Task<T> CreateAsync(T entity);
+        Task<T> UpdateAsync(T entity);
+        Task DeleteAsync(Expression<Func<T, bool>> predicate);
     }
 }

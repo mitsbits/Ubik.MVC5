@@ -13,7 +13,8 @@ using Ubik.Infra.Contracts;
 
 namespace Ubik.EF
 {
-    public abstract class BaseReadWriteRepository<T, TDbContext> : BaseReadRepository<T, TDbContext>, IWriteRepository<T>
+    public abstract class BaseReadWriteRepository<T, TDbContext> : BaseReadRepository<T, TDbContext>, 
+        IWriteRepository<T>, IWriteAsyncRepository<T> 
         where TDbContext :
         DbContext
         where T : class
@@ -145,5 +146,32 @@ namespace Ubik.EF
 
             return null;
         }
+
+        #region Async
+        public Task<T> CreateAsync(T entity)
+        {
+            DbContext.Set<T>().Add(entity);
+            return Task.FromResult(entity);
+        }
+
+        public Task<T> UpdateAsync(T entity)
+        {
+            var entitySet = GetEntitySetName(typeof(T));
+            var key = ((IObjectContextAdapter)DbContext).ObjectContext.CreateEntityKey(entitySet, entity);
+            object originalItem;
+            if (((IObjectContextAdapter)DbContext).ObjectContext.TryGetObjectByKey(key, out originalItem))
+            {
+                // Call the ApplyCurrentValues method to apply changes.
+                DbContext.Entry(originalItem).CurrentValues.SetValues(entity);
+            }
+            return Task.FromResult(entity);
+        }
+
+        public async Task DeleteAsync(Expression<Func<T, bool>> predicate)
+        {
+            var item = await DbContext.Set<T>().FirstOrDefaultAsync(predicate);
+            if (item != null) DbContext.Set<T>().Remove(item);
+        } 
+        #endregion
     }
 }
