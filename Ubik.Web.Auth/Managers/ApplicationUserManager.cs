@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.DataProtection;
+using System;
+using System.Collections.Generic;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using Ubik.Web.Auth.Stores;
 
 namespace Ubik.Web.Auth.Managers
@@ -14,20 +14,22 @@ namespace Ubik.Web.Auth.Managers
     {
         public ApplicationRoleManager RoleManager { get; set; }
 
-        public ApplicationUserManager(IUserStore<ApplicationUser> store) : base(store) { }
+        public ApplicationUserManager(IUserStore<ApplicationUser> store)
+            : base(store)
+        {
+        }
 
         public ApplicationUserManager(IOwinContext context, IUserStore<ApplicationUser> store, IDataProtectionProvider dataProtectionProvider)
             : base(store)
         {
-
             RoleManager = context.GetUserManager<ApplicationRoleManager>();
-         
+
             // Configure validation logic for usernames
-          UserValidator = new UserValidator<ApplicationUser>(this)
-            {
-                AllowOnlyAlphanumericUserNames = false,
-                RequireUniqueEmail = true
-            };
+            UserValidator = new UserValidator<ApplicationUser>(this)
+              {
+                  AllowOnlyAlphanumericUserNames = false,
+                  RequireUniqueEmail = true
+              };
 
             // Configure validation logic for passwords
             PasswordValidator = new PasswordValidator
@@ -57,7 +59,7 @@ namespace Ubik.Web.Auth.Managers
             });
             EmailService = new EmailService();
             SmsService = new SmsService();
-   
+
             if (dataProtectionProvider != null)
             {
                 UserTokenProvider =
@@ -128,6 +130,7 @@ namespace Ubik.Web.Auth.Managers
     {
         IEnumerable<Claim> RoleRelatedClaims(string userId);
     }
+
     public class EmailService : IIdentityMessageService
     {
         public Task SendAsync(IdentityMessage message)

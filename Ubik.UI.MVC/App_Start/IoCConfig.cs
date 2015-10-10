@@ -1,14 +1,15 @@
 ﻿using Autofac;
 using Autofac.Core;
 using Autofac.Integration.Mvc;
+using Autofac.Integration.WebApi;
 using Mehdime.Entity;
 using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security.DataProtection;
+using Owin;
 using System;
 using System.Linq;
 using System.Reflection;
 using System.Web.Compilation;
-using Microsoft.Owin.Security.DataProtection;
-using Owin;
 using Ubik.Cache.Runtime;
 using Ubik.Infra.Contracts;
 using Ubik.UI.MVC.Models;
@@ -52,7 +53,7 @@ namespace Ubik.UI.MVC
             // ASP.NET MVC will throw an exception if you try to reuse a controller instance for multiple requests.
 
             builder.RegisterControllers(Asmbls);
-            //builder.RegisterApiControllers(Asmbls);
+            builder.RegisterApiControllers(Asmbls);
             builder.RegisterSource(new ViewRegistrationSource());
 
             #endregion Register all controllers for the assembly
@@ -136,7 +137,6 @@ namespace Ubik.UI.MVC
             //builder.Register((c, p) => new UserViewModelBuilder(c.Resolve<IRoleRepository>(), c.Resolve<IUserAdminstrationViewModelService>().Roles())).As<IViewModelBuilder<ApplicationUser, UserViewModel>>().InstancePerRequest();
             //builder.RegisterType<UserViewModelBuilder>().As<IViewModelBuilder<ApplicationUser, UserViewModel>>().InstancePerRequest();
             builder.RegisterType<RoleViewModelBuilder>().As<IViewModelBuilder<ApplicationRole, RoleViewModel>>().InstancePerRequest();
-            builder.RegisterType<AddUserViewModelBuilder>().As<IViewModelBuilder<ApplicationUser, AddUserViewModel>>().InstancePerRequest();
 
             builder.RegisterType<RoleViewModelCommand>().As<IViewModelCommand<RoleSaveModel>>().InstancePerRequest();
             builder.RegisterType<NewUserViewModelCommand>().As<IViewModelCommand<NewUserSaveModel>>().InstancePerRequest();

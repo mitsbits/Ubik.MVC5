@@ -62,7 +62,7 @@ namespace Ubik.Web.Auth.Services
 
 
 
-        public void CopyRole(string source, string target)
+        public async Task CopyRole(string source, string target)
         {
             var sourceIsSytemRole = SystemRoleViewModels.Any(x => x.Name == source);
             ApplicationRole copy;
@@ -77,7 +77,7 @@ namespace Ubik.Web.Auth.Services
             }
             else
             {
-                var original = _roleManager.FindByNameAsync(source).Result;
+                var original = await _roleManager.FindByNameAsync(source);
                 if (original == null) throw new ApplicationException("source role not found");
                 copy = new ApplicationRole(target);
                 foreach (var applicationClaim in original.RoleClaims)
@@ -85,18 +85,18 @@ namespace Ubik.Web.Auth.Services
                     copy.RoleClaims.Add(applicationClaim);
                 }
             }
-            var result = _roleManager.CreateAsync(copy).Result;
+            var result = await _roleManager.CreateAsync(copy);
             if (!result.Succeeded) throw new ApplicationException(string.Join("\n", result.Errors));
             _cache.RemoveItem(_roleViewModelsCacheKey);
         }
 
-        public void DeleteRole(string name)
+        public async Task DeleteRole(string name)
         {
             var sourceIsSytemRole = SystemRoleViewModels.Any(x => x.Name == name);
             if (sourceIsSytemRole) throw new ApplicationException("can not delete a system role");
             var role = _roleManager.FindByName(name);
             if (role == null) throw new ApplicationException("role to delete not found");
-            var result = _roleManager.DeleteAsync(role).Result;
+            var result = await _roleManager.DeleteAsync(role);
             if (!result.Succeeded) throw new ApplicationException(string.Join("\n", result.Errors));
             _cache.RemoveItem(_roleViewModelsCacheKey);
         }
@@ -154,22 +154,13 @@ namespace Ubik.Web.Auth.Services
 
         public UserViewModel UserModel(string id)
         {
-            using (_dbContextScopeFactory.CreateReadOnly())
-            {
+
                 ApplicationUser entity;
-                if (string.IsNullOrWhiteSpace(id))
-                {
-                    entity = new ApplicationUser();
-                }
-                else
-                {
-                    Expression<Func<ApplicationUser, bool>> predicate = user => user.Id == id;
-                    entity = _userRepo.Get(predicate);
-                }
+                entity = string.IsNullOrWhiteSpace(id) ? new ApplicationUser() : _userManager.FindById(id);
                 var model = _userBuilder.CreateFrom(entity);
                 _userBuilder.Rebuild(model);
                 return model;
-            }
+          
         }
 
         public NewUserViewModel NewUserModel()
@@ -206,7 +197,7 @@ namespace Ubik.Web.Auth.Services
             {
                 RoleViewModel model;
                 Expression<Func<ApplicationRole, bool>> predicate = role => role.Name == name;
-                var roleEntity = _roleRepo.Get(predicate);
+                var roleEntity = _roleManager.Roles.Include(x => x.RoleClaims).FirstOrDefault(x => x.Name == name);
                 if (roleEntity == null && SystemRoleViewModels.Any(x => x.Name == name))
                 {
                     model = SystemRoleViewModels.First(x => x.Name == name);
@@ -214,7 +205,6 @@ namespace Ubik.Web.Auth.Services
                 }
                 else
                 {
-
                     model = _roleBuilder.CreateFrom(roleEntity);
                 }
                 _roleBuilder.Rebuild(model);
@@ -282,11 +272,10 @@ namespace Ubik.Web.Auth.Services
             {
 
                 if (_cache.GetItem(_roleViewModelsCacheKey) as IEnumerable<RoleViewModel> != null) return _cache.GetItem(_roleViewModelsCacheKey) as IEnumerable<RoleViewModel>;
-                using (_dbContextScopeFactory.CreateReadOnly())
-                {
-                    _cache.SetItem(_roleViewModelsCacheKey, new List<RoleViewModel>(_authProviders.RoleModelsCheckDB(_roleRepo)));
+
+                    _cache.SetItem(_roleViewModelsCacheKey, new List<RoleViewModel>(_authProviders.RoleModelsCheckDB(_roleManager)));
                     return _cache.GetItem(_roleViewModelsCacheKey) as IEnumerable<RoleViewModel>;
-                }
+            
             }
         }
 

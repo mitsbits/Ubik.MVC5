@@ -6,7 +6,6 @@ using System.Web.Mvc;
 using Ubik.Infra;
 using Ubik.Web.Auth.Contracts;
 using Ubik.Web.Auth.ViewModels;
-using Ubik.Web.Infra;
 
 namespace Ubik.Web.Backoffice.Controllers
 {
@@ -113,7 +112,6 @@ namespace Ubik.Web.Backoffice.Controllers
                 AddRedirectMessage(ex);
                 return RedirectToAction("Users", "UserAdministration");
             }
-
         }
 
         public async Task<ActionResult> UnlockUser(string id, string redirectUrl)
@@ -131,7 +129,6 @@ namespace Ubik.Web.Backoffice.Controllers
                 AddRedirectMessage(ex);
                 return RedirectToAction("Users", "UserAdministration");
             }
-
         }
 
         [HttpPost]
@@ -200,11 +197,9 @@ namespace Ubik.Web.Backoffice.Controllers
             }
             catch (Exception ex)
             {
-
                 AddRedirectMessage(ex);
                 return Redirect(Url.Content("~/backoffice"));
             }
-
         }
 
         #endregion Users
@@ -226,28 +221,51 @@ namespace Ubik.Web.Backoffice.Controllers
         }
 
         [ValidateAntiForgeryToken]
-        public ActionResult UpdateRole(RoleViewModel model)
+        [HttpPost]
+        public async Task<ActionResult> UpdateRole(RoleViewModel model)
         {
             if (!ModelState.IsValid) return View("NewRole", model);
             var currentClaims = model.AvailableClaims.Where(x => x.IsSelected).ToList();
             model.Claims = new List<RoleClaimRowViewModel>(currentClaims);
-            ViewModelsService.Execute(model);
+            await ViewModelsService.Execute(model);
             return RedirectToAction("Roles", "UserAdministration", new { id = model.Name });
         }
 
         [ValidateAntiForgeryToken]
-        public ActionResult CopyRole(CopyRoleViewModel model)
+        [HttpPost]
+        public async Task<ActionResult> CopyRole(CopyRoleViewModel model)
         {
-            if (!ModelState.IsValid) return View("~/Areas/Backoffice/Views/UserAdministration/Roles.cshtml", model);
-            UserService.CopyRole(model.Name, model.Target);
-            return RedirectToAction("Roles", "UserAdministration", new { id = model.Target });
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    AddRedirectMessage(ModelState);
+                    return View("~/Areas/Backoffice/Views/UserAdministration/Roles.cshtml", model);
+                }
+                await UserService.CopyRole(model.Name, model.Target);
+                return RedirectToAction("Roles", "UserAdministration", new { id = model.Target });
+            }
+            catch (Exception ex)
+            {
+                AddRedirectMessage(ex);
+                return RedirectToAction("Roles", "UserAdministration", new { id = "" });
+            }
+
         }
 
-        public ActionResult DeleteRole(string id)
+        public async Task<ActionResult> DeleteRole(string id)
         {
             if (!string.IsNullOrWhiteSpace(id))
             {
-                UserService.DeleteRole(id);
+                try
+                {
+                    await UserService.DeleteRole(id);
+                    AddRedirectMessage(ServerResponseStatus.SUCCESS, string.Format("Role {0} deleted!", id));
+                }
+                catch (Exception ex)
+                {
+                    AddRedirectMessage(ex);
+                }
             }
             return RedirectToAction("Roles", "UserAdministration");
         }

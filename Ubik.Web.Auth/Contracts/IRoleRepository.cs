@@ -2,7 +2,7 @@
 
 namespace Ubik.Web.Auth.Contracts
 {
-    public interface IRoleRepository : IReadRepository<ApplicationRole>, IWriteRepository<ApplicationRole>
+    public interface IRoleRepository : IReadRepository<ApplicationRole>, IWriteRepository<ApplicationRole>, IReadAsyncRepository<ApplicationRole>
     {
     }
 }

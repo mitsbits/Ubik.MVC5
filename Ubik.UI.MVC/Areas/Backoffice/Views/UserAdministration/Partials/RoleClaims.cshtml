@@ -36,7 +36,6 @@
                         <td data-id="@Model.AvailableClaims[index].Value">
                             @Html.HiddenFor(m => m.AvailableClaims[index].Value)
                             @Html.HiddenFor(m => m.AvailableClaims[index].Type)
-                            @Html.HiddenFor(m => m.AvailableClaims[index].ClaimId)
                             @if (Model.IsSytemRole)
                             {
                                 @Html.CheckBoxFor(m => m.AvailableClaims[index].IsSelected, new { disabled = "disabled" })

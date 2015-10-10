@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using Ubik.Web.Auth.Contracts;
+using Ubik.Web.Auth.Managers;
 using Ubik.Web.Auth.ViewModels;
 
 namespace Ubik.Web.Auth
@@ -9,47 +12,69 @@ namespace Ubik.Web.Auth
     {
         public static IEnumerable<RoleViewModel> RoleModels(this IEnumerable<IResourceAuthProvider> authProviders)
         {
-            var resourceAuthProviders  = authProviders as IResourceAuthProvider[] ?? authProviders.ToArray();
+            var resourceAuthProviders = authProviders as IResourceAuthProvider[] ?? authProviders.ToArray();
             var systemRoleNames = resourceAuthProviders.SelectMany(x => x.RoleNames).Distinct();
-            var systemRoleViewModels = new List<RoleViewModel>();
-            foreach (var roles in systemRoleNames.Select(name => resourceAuthProviders.Select(x => new RoleViewModel()
+
+            foreach (var role in systemRoleNames)
             {
-                Name = name,
-                RoleId = "",
-                IsSytemRole = true,
-                IsPersisted = false,
-                Claims = x.Claims(name).Select(systemClaim => new RoleClaimRowViewModel()
+                var model = new RoleViewModel()
                 {
-                    ClaimId = "",
-                    Type = systemClaim.Type,
-                    Value = systemClaim.Value
-                })
-            })))
-            {
-                systemRoleViewModels.AddRange(roles);
+                    Name = role,
+                    IsSytemRole = true,
+                    IsPersisted = false,
+                    RoleId = string.Empty,
+                    IsSelected = false,
+                };
+                var claims = resourceAuthProviders.SelectMany(x => x.Claims(model.Name)).ToList();
+                if (claims.Any())
+                {
+                    model.Claims =
+                        claims.Select(
+                            x => new RoleClaimRowViewModel() { Type = x.Type, Value = x.Value, IsSelected = true });
+                }
+                else
+                {
+                    model.Claims = new List<RoleClaimRowViewModel>();
+                }
+
+                var avalableClaims = authProviders.AvailableSystemClaims();
+                foreach (var roleClaimRowViewModel in avalableClaims)
+                {
+                    roleClaimRowViewModel.IsSelected =
+                        model.Claims.Any(x => x.Type == roleClaimRowViewModel.Type && x.Value == roleClaimRowViewModel.Value);
+                }
+                model.AvailableClaims = avalableClaims.ToArray();
+
+                yield return model;
             }
-            return systemRoleViewModels;
+
+
         }
 
-
+        [Obsolete("Use other overload", true)]
         public static IEnumerable<RoleViewModel> RoleModelsCheckDB(
             this IEnumerable<IResourceAuthProvider> authProviders, IRoleRepository roleRepo)
         {
-            var systemRoleViewModels = authProviders.RoleModels().ToList();
+            var resourceAuthProviders = authProviders as IResourceAuthProvider[] ?? authProviders.ToArray();
+            var systemRoleViewModels = resourceAuthProviders.RoleModels().ToList();
             var roleViewModels = new List<RoleViewModel>(systemRoleViewModels);
 
             var dbRoles = roleRepo.Find(x => true, role => role.Name).ToList();
 
             roleViewModels.AddRange(from applicationRole in dbRoles
-                where systemRoleViewModels.All(x => x.Name != applicationRole.Name)
-                select new RoleViewModel
-                {
-                    Name = applicationRole.Name, RoleId = applicationRole.Id, Claims = applicationRole.RoleClaims.Select(dbClaim => new RoleClaimRowViewModel()
-                    {
-                        ClaimId = "", Type = dbClaim.ClaimType, Value = dbClaim.Value
-                    }),
-                    IsPersisted = true, IsSytemRole = false
-                });
+                                    where systemRoleViewModels.All(x => x.Name != applicationRole.Name)
+                                    select new RoleViewModel
+                                    {
+                                        Name = applicationRole.Name,
+                                        RoleId = applicationRole.Id,
+                                        Claims = applicationRole.RoleClaims.Select(dbClaim => new RoleClaimRowViewModel()
+                                            {
+                                                Type = dbClaim.ClaimType,
+                                                Value = dbClaim.Value
+                                            }),
+                                        IsPersisted = true,
+                                        IsSytemRole = false
+                                    });
 
             foreach (var dbRole in dbRoles)
             {
@@ -57,7 +82,92 @@ namespace Ubik.Web.Auth
                 if (found != null) found.RoleId = dbRole.Id;
             }
 
+            //var availableClaims = resourceAuthProviders.AvailableSystemClaims().ToArray();
+
+
+            //foreach (var roleViewModel in roleViewModels)
+            //{
+            //    foreach (var roleClaimRowViewModel in availableClaims)
+            //    {
+            //        roleClaimRowViewModel.IsSelected =
+            //            roleViewModel.Claims.Any(
+            //                x =>
+            //                    x.Type == roleClaimRowViewModel.Type && x.Type == roleClaimRowViewModel.Value);
+            //    }
+            //    roleViewModel.AvailableClaims = availableClaims.ToArray();
+            //}
+
             return roleViewModels;
+        }
+
+
+        public static IEnumerable<RoleViewModel> RoleModelsCheckDB(
+            this IEnumerable<IResourceAuthProvider> authProviders, ApplicationRoleManager roleManager)
+        {
+            var resourceAuthProviders = authProviders as IResourceAuthProvider[] ?? authProviders.ToArray();
+            var systemRoleViewModels = resourceAuthProviders.RoleModels().ToList();
+            var roleViewModels = new List<RoleViewModel>(systemRoleViewModels);
+
+            var dbRoles = roleManager.Roles.Include(x => x.RoleClaims).ToList();
+
+            roleViewModels.AddRange(from applicationRole in dbRoles
+                                    where systemRoleViewModels.All(x => x.Name != applicationRole.Name)
+                                    select new RoleViewModel
+                                    {
+                                        Name = applicationRole.Name,
+                                        RoleId = applicationRole.Id,
+                                        Claims = applicationRole.RoleClaims.Select(dbClaim => new RoleClaimRowViewModel()
+                                        {
+                                            Type = dbClaim.ClaimType,
+                                            Value = dbClaim.Value
+                                        }),
+                                        IsPersisted = true,
+                                        IsSytemRole = false
+                                    });
+
+            foreach (var dbRole in dbRoles)
+            {
+                var found = roleViewModels.FirstOrDefault(x => x.Name == dbRole.Name && x.IsSytemRole);
+                if (found != null) found.RoleId = dbRole.Id;
+            }
+
+            foreach (var roleViewModel in roleViewModels)
+            {
+
+                if (roleViewModel.AvailableClaims == null)
+                {
+                    var avalableClaims = authProviders.AvailableSystemClaims();
+                    foreach (var roleClaimRowViewModel in avalableClaims)
+                    {
+                        roleClaimRowViewModel.IsSelected =
+                            roleViewModel.Claims.Any(x => x.Type == roleClaimRowViewModel.Type && x.Value == roleClaimRowViewModel.Value);
+                    }
+                    roleViewModel.AvailableClaims = avalableClaims.ToArray();
+                }
+            }
+
+
+            return roleViewModels;
+        }
+
+
+        public static IEnumerable<RoleClaimRowViewModel> AvailableSystemClaims(this IEnumerable<IResourceAuthProvider> authProviders)
+        {
+            var result = new List<RoleClaimRowViewModel>();
+            foreach (var systemRole in new SystemRoles())
+            {
+                foreach (var resourceAuthProvider in authProviders)
+                {
+                    foreach (var claim in resourceAuthProvider.Claims(systemRole.Value))
+                    {
+                        if (!result.Any(x => x.Type == claim.Type && x.Value == claim.Value))
+                        {
+                            result.Add(new RoleClaimRowViewModel() { Type = claim.Type, Value = claim.Value });
+                        }
+                    }
+                }
+            }
+            return result.Distinct();
         }
     }
 }

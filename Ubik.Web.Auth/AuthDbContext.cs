@@ -9,7 +9,6 @@ namespace Ubik.Web.Auth
         public AuthDbContext()
             : base("authconnectionstring", false)
         {
-            
         }
 
         public DbSet<ApplicationClaim> RoleClaims { get; set; }
@@ -33,7 +32,7 @@ namespace Ubik.Web.Auth
                 HasKey(x => new { x.ApplicationRoleId, x.ClaimType, x.Value });
                 HasRequired(x => x.Role)
                     .WithMany(r => r.RoleClaims)
-                    .HasForeignKey(x => x.ApplicationRoleId); 
+                    .HasForeignKey(x => x.ApplicationRoleId);
             }
         }
     }

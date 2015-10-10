@@ -118,7 +118,6 @@
     <Compile Include="SystemRoles.cs" />
     <Compile Include="UserAdministrationAuth.cs" />
     <Compile Include="Contracts\IResourceAuthProvider.cs" />
-    <Compile Include="ViewModels\AddUserViewModel.cs" />
     <Compile Include="Contracts\IHasRolesToSelect.cs" />
     <Compile Include="ViewModels\RoleClaimRowViewModel.cs" />
     <Compile Include="ViewModels\RoleViewModel.cs" />

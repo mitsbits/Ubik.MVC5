@@ -15,9 +15,9 @@ namespace Ubik.Web.Auth.Contracts
 
         void SetRoles(ApplicationUser user, string[] newRoles);
 
-        void CopyRole(string source, string target);
+        Task CopyRole(string source, string target);
 
-        void DeleteRole(string name);
+        Task DeleteRole(string name);
 
         Task LockUser(string userId, int days);
 

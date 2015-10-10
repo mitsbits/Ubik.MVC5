@@ -57,13 +57,15 @@ namespace Ubik.Web.Auth.ViewModels
                 UserName = entity.UserName,
                 IsLockedOut = entity.LockoutEnabled
             };
-            var userRoles = _roleRepo.Find(x => x.Users.Any(u => u.UserId == entity.Id), x => x.Name);
+
             var entityRoles = entity.Roles.ToList();
 
             viewModel.Roles = entityRoles.Select(role => new RoleViewModel()
             {
                 RoleId = role.RoleId,
-                Name = userRoles.Single(r => r.Id == role.RoleId).Name
+                Name = _roleViewModels.Single(x => x.RoleId == role.RoleId).Name,
+                Claims = _roleViewModels.Single(x => x.RoleId == role.RoleId).Claims,
+                AvailableClaims = _roleViewModels.Single(x => x.RoleId == role.RoleId).AvailableClaims
             }).ToArray();
 
             return viewModel;
@@ -71,12 +73,16 @@ namespace Ubik.Web.Auth.ViewModels
 
         public void Rebuild(UserViewModel model)
         {
-            model.AvailableRoles = _roleViewModels.ToArray();
-            foreach (var role in model.AvailableRoles)
+
+            foreach (var role in _roleViewModels)
             {
                 role.IsSelected = model.Roles.Any(x => x.Name == role.Name);
+                foreach (var claim in role.AvailableClaims)
+                {
+                    claim.IsSelected = role.Claims.Any(c => c.Type == claim.Type && c.Value == claim.Value);
+                }
             }
-
+            model.AvailableRoles = _roleViewModels.ToArray();
         }
     }
 
