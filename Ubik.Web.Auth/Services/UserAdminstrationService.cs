@@ -217,7 +217,7 @@ namespace Ubik.Web.Auth.Services
         {
 
 
-            var dbCollection = _userManager.Users.ToList();
+            var dbCollection = _userManager.Users.Include(x=>x.Roles).ToList();
             return dbCollection.Select(appUser => new UserRowViewModel
             {
                 UserId = appUser.Id,
