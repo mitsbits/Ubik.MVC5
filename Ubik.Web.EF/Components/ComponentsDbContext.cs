@@ -8,13 +8,13 @@ namespace Ubik.Web.EF.Components
     {
         public DbSet<PersistedDevice> Devices { get; set; }
 
-        public DbSet<PersistedContent> Contents { get; set; }
+        //public DbSet<PersistedContent> Contents { get; set; }
 
-        public DbSet<PersistedTextual> Textuals { get; set; }
+        //public DbSet<PersistedTextual> Textuals { get; set; }
 
-        public DbSet<PersistedHtmlHead> HtmlHeads { get; set; }
+        //public DbSet<PersistedHtmlHead> HtmlHeads { get; set; }
 
-        public DbSet<PersistedTag> Tags { get; set; }
+        //public DbSet<PersistedTag> Tags { get; set; }
 
         public ComponentsDbContext()
             : base("cmsconnectionstring")
@@ -119,8 +119,8 @@ namespace Ubik.Web.EF.Components
             public TextualConfig()
             {
                 ToTable("Textuals").
-                    HasKey(x => new { x.Id }).
-                    HasRequired(x => x.Subject);
+                    HasKey(x => new {x.Id}).
+                    Property(x => x.Subject).IsRequired();
             }
         }
     }

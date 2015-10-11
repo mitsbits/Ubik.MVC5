@@ -6,7 +6,7 @@ using Ubik.Web.Components.Query;
 
 namespace Ubik.Web.EF.Components
 {
-    internal static class Mapper
+    public static class Mapper
     {
         public static Device<int> MapToDomain(PersistedDevice source)
         {

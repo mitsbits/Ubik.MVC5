@@ -5,6 +5,7 @@ using System.IO;
 using System.Text;
 using System.Xml.Serialization;
 using Ubik.EF;
+using Ubik.Infra.Contracts;
 
 namespace Ubik.Web.EF.Components
 {
@@ -120,7 +121,7 @@ namespace Ubik.Web.EF.Components
         }
     }
 
-    internal class PersistedDeviceRepository : ReadWriteRepository<PersistedDevice, ComponentsDbContext>
+    public class PersistedDeviceRepository : ReadWriteRepository<PersistedDevice, ComponentsDbContext>, ICRUDRespoditory<PersistedDevice>
     {
         public PersistedDeviceRepository(IAmbientDbContextLocator ambientDbContextLocator)
             : base(ambientDbContextLocator)

@@ -13,6 +13,7 @@ using System.Linq;
 using System.Reflection;
 using System.Web.Compilation;
 using Ubik.Cache.Runtime;
+using Ubik.EF;
 using Ubik.Infra.Contracts;
 using Ubik.UI.MVC.Models;
 using Ubik.Web.Auth;
@@ -25,6 +26,9 @@ using Ubik.Web.Auth.ViewModels;
 using Ubik.Web.Backoffice;
 using Ubik.Web.Backoffice.Contracts;
 using Ubik.Web.Cms.Contracts;
+using Ubik.Web.Components.AntiCorruption.Services;
+using Ubik.Web.Components.Contracts;
+using Ubik.Web.EF.Components;
 using Ubik.Web.Infra.Navigation.Contracts;
 
 namespace Ubik.UI.MVC
@@ -112,6 +116,8 @@ namespace Ubik.UI.MVC
 
         private static void WireUpCms(ContainerBuilder builder)
         {
+            builder.RegisterType<PersistedDeviceRepository>().As<ICRUDRespoditory<PersistedDevice>>();
+            builder.RegisterType<DeviceAdministrationService>().As<IDeviceAdministrationService<int>>();
         }
 
         private static void WireUpSso(ContainerBuilder builder, IAppBuilder app)
@@ -122,6 +128,7 @@ namespace Ubik.UI.MVC
                 .Named<ApplicationRoleManager>("transient");
 
             builder.RegisterType<AuthDbContext>().As<AuthDbContext>().InstancePerRequest();
+               builder.RegisterType<ComponentsDbContext>().As<ComponentsDbContext>().InstancePerRequest();
             builder.RegisterType<ApplicationUserStore>().As<IUserStore<ApplicationUser>>().InstancePerRequest();
             builder.RegisterType<ApplicationRoleStore>().As<IRoleStore<ApplicationRole, string>>().InstancePerRequest();
             builder.RegisterType<ApplicationUserManager>().InstancePerRequest();
@@ -139,13 +146,12 @@ namespace Ubik.UI.MVC
 
             builder.RegisterType<UserAdminstrationService>().As<IUserAdminstrationService>().InstancePerRequest();
             builder.RegisterType<UserAdminstrationService>().As<IUserAdminstrationViewModelService>().InstancePerRequest();
-            //builder.Register((c, p) => new UserViewModelBuilder(c.Resolve<IRoleRepository>(), c.Resolve<IUserAdminstrationViewModelService>().Roles())).As<IViewModelBuilder<ApplicationUser, UserViewModel>>().InstancePerRequest();
-            //builder.RegisterType<UserViewModelBuilder>().As<IViewModelBuilder<ApplicationUser, UserViewModel>>().InstancePerRequest();
-            //builder.RegisterType<RoleViewModelBuilder>().As<IViewModelBuilder<ApplicationRole, RoleViewModel>>().InstancePerRequest();
 
             builder.RegisterType<RoleViewModelCommand>().As<IViewModelCommand<RoleSaveModel>>().InstancePerRequest();
             builder.RegisterType<NewUserViewModelCommand>().As<IViewModelCommand<NewUserSaveModel>>().InstancePerRequest();
             builder.RegisterType<UserViewModelCommand>().As<IViewModelCommand<UserSaveModel>>().InstancePerRequest();
+
+
 
             builder.RegisterAssemblyTypes(Asmbls)
                    .Where(t => t.GetInterfaces().Any(x => x == typeof(IResourceAuthProvider)) && !t.IsAbstract)

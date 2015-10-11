@@ -29,6 +29,7 @@ namespace Ubik.Web.Auth
             }
         }
 
+        //TODO : this is not implemented correctly, see user view model service
         public IEnumerable<Claim> Roles
         {
             get { return _systemRoles; }

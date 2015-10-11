@@ -10,7 +10,7 @@ namespace Ubik.Web.Components.AntiCorruption
     public class DeviceAdministrationAuth : SystemClaims, IResourceAuthProvider
     {
         private readonly Dictionary<string, List<Claim>> _rolesToClaims;
-        private const string _adminRoleName = "UserAdmin";
+        private const string _adminRoleName = SystemRoles.AppAdmin;
         private const string _recourseGroup = "Devices";
 
         public DeviceAdministrationAuth()

@@ -753,6 +753,14 @@
       <Project>{099656f4-bff4-44b6-8528-3b294380dffe}</Project>
       <Name>Ubik.Web.Components.AntiCorruption</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ubik.Web.Components\Ubik.Web.Components.csproj">
+      <Project>{8D91A185-358B-4E6E-9D3A-A1CF51DA7251}</Project>
+      <Name>Ubik.Web.Components</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ubik.Web.EF\Ubik.Web.EF.csproj">
+      <Project>{79096B8A-1722-4954-8713-2BEE52B865EE}</Project>
+      <Name>Ubik.Web.EF</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Ubik.Web.Infra\Ubik.Web.Infra.csproj">
       <Project>{7EACFD79-0D49-43C3-A388-ABC4B0DDFE82}</Project>
       <Name>Ubik.Web.Infra</Name>
