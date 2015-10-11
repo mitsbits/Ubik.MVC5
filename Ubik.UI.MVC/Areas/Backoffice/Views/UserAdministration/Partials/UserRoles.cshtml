@@ -1,5 +1,6 @@
 ﻿@using Ubik.Web.Auth
 @using Ubik.Web.Auth.Contracts
+@using Ubik.Web.Auth.ViewModels
 @model IHasRolesToSelect
 @{
     var operations = new SystemClaims.Operations();
@@ -7,6 +8,12 @@
     var resources = availableClaims.Where(x => x.Type == SystemClaims.OperationToResourceClaimType).Select(x => x.Value.Split(new[] { '|' }).Last()).Distinct().OrderBy(x => x).ToList();
 
     AddBackofficeBottom("UserAdministration/users");
+
+    var isCreateNewUser = Model as NewUserViewModel != null;
+    if (isCreateNewUser)
+    {
+        Model.AvailableRoles.Single(x => x.Name == SystemRoles.Backoffice).IsSelected = true;
+    }
     
 }
 <div class="box box-solid">

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using System.Data.Entity;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
@@ -8,21 +9,21 @@ using System.Threading.Tasks;
 
 namespace Ubik.Web.Auth.Stores
 {
-    public class ApplicationRoleStore : RoleStore<ApplicationRole>, IUserStoreWithCustomClaims<string>, IRoleStoreWithCustomClaims<string>
+    public class ApplicationRoleStore : RoleStore<ApplicationRole>, IUserStoreWithCustomClaims<string>, IRoleStoreWithCustomClaims
     {
         public ApplicationRoleStore(AuthDbContext context)
             : base(context)
         {
         }
 
-        public IEnumerable<Claim> RoleRelatedClaims(string userId)
+        public async Task<IEnumerable<Claim>> RoleRelatedClaims(string userId)
         {
             return
-                Roles.Where(x => x.Users.Any(user => user.UserId == userId))
+             await Roles.Where(x => x.Users.Any(user => user.UserId == userId))
                     .SelectMany(role => role.RoleClaims)
                     .Distinct()
                     .Select(appClaim => new Claim(appClaim.ClaimType, appClaim.Value))
-                    .ToList();
+                    .ToListAsync();
         }
 
         public async Task<IdentityResult> ClearAllRoleClaims(string role)
@@ -52,22 +53,22 @@ namespace Ubik.Web.Auth.Stores
         {
         }
 
-        public IEnumerable<Claim> RoleRelatedClaims(string userId)
+        public async Task<IEnumerable<Claim>> RoleRelatedClaims(string userId)
         {
-            return Users.Single(u => u.Id == userId)
-                      .Roles.Cast<ApplicationRole>().SelectMany(role => role.RoleClaims)
-                      .Distinct()
-                      .Select(appClaim => new Claim(appClaim.ClaimType, appClaim.Value))
-                      .ToList();
+            var db = Context as AuthDbContext;
+            var roles  =await  db.Roles.Where(x => x.Users.Any(u => u.UserId == userId)).Select(x=>x.Id).ToListAsync();
+            var claims = await db.RoleClaims.Where(x => roles.Any(r => r == x.ApplicationRoleId)).Distinct().ToListAsync();
+            return claims.Select(appClaim => new Claim(appClaim.ClaimType, appClaim.Value));
+
         }
     }
 
     public interface IUserStoreWithCustomClaims<in TUserKey>
     {
-        IEnumerable<Claim> RoleRelatedClaims(TUserKey userId);
+        Task<IEnumerable<Claim>> RoleRelatedClaims(TUserKey userId);
     }
 
-    public interface IRoleStoreWithCustomClaims<in TUserKey>
+    public interface IRoleStoreWithCustomClaims
     {
         Task<IdentityResult> ClearAllRoleClaims(string role);
     }

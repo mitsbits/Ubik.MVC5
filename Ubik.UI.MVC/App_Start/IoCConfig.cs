@@ -1,9 +1,11 @@
-﻿using Autofac;
+﻿using System.Web;
+using Autofac;
 using Autofac.Core;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
 using Mehdime.Entity;
 using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.DataProtection;
 using Owin;
 using System;
@@ -125,6 +127,9 @@ namespace Ubik.UI.MVC
             builder.RegisterType<ApplicationUserManager>().InstancePerRequest();
             builder.RegisterType<ApplicationRoleManager>().InstancePerRequest();
             builder.Register<IDataProtectionProvider>(c => app.GetDataProtectionProvider()).InstancePerRequest();
+            builder.RegisterType<ApplicationSignInManager>().InstancePerRequest();
+            builder.RegisterType<SignInHelper>().InstancePerRequest();
+            builder.Register<IAuthenticationManager>(c => HttpContext.Current.GetOwinContext().Authentication).InstancePerRequest();
 
             builder.RegisterType<DbContextScopeFactory>().As<IDbContextScopeFactory>().SingleInstance();
             builder.RegisterType<AmbientDbContextLocator>().As<IAmbientDbContextLocator>().SingleInstance();

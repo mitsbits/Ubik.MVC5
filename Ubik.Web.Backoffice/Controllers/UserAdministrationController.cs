@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Ubik.Infra;
+using Ubik.Web.Auth;
 using Ubik.Web.Auth.Contracts;
 using Ubik.Web.Auth.ViewModels;
 
@@ -46,7 +47,7 @@ namespace Ubik.Web.Backoffice.Controllers
         }
 
         [ActionName("new-user")]
-        /*[AuthorizeOperationToResource(OperationKey = SystemClaims.Operations.Create, ResourceKey = UserAdministrationAuth.Resources.User)]*/
+        [AuthorizeOperationToResource(OperationKey = SystemClaims.Operations.Create, ResourceKey = UserAdministrationAuth.Resources.User)]
         public ActionResult NewUser()
         {
             SetContentPage(new BackofficeContent() { Title = "User Administration", Subtitle = "here you can create a new user" });

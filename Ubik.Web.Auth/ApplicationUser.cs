@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using System.Linq;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -13,7 +14,11 @@ namespace Ubik.Web.Auth
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             var claimsManager = manager as IAuthenticatedUserManager;
             if (claimsManager != null)
-                userIdentity.AddClaims(claimsManager.RoleRelatedClaims(userIdentity.GetUserId()));
+            {
+                var customClaims = await claimsManager.RoleRelatedClaims(userIdentity.GetUserId());
+                userIdentity.AddClaims(customClaims.ToList());
+            }
+        
             return userIdentity;
         }
     }

@@ -10,21 +10,14 @@
         "bAutoWidth": true
     });
 
-    $('input.option-role').on('ifChanged', function (event) {
-      
+    $('input.option-role').on('ifChanged', function (event) {    
         setSelectedClaims();
     });
 
-    $('input.option-claim').on('ifClicked', function (event) {
-
-        return false;
-    });
 
     function getSelectedRoles() {
-
         var bucket = new Array();
         $('input.option-role').each(function (index, element) {
-
             if ($(element).prop('checked')) {
                 bucket.push($(element).data("id"));
             }

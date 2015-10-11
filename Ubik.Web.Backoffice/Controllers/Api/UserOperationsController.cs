@@ -9,7 +9,7 @@ using Ubik.Web.Auth.ViewModels;
 
 namespace Ubik.Web.Backoffice.Controllers.Api
 {
-    public class UserOperationsController : ApiController
+    public class UserOperationsController : BackofficeOperationsController
     {
         private readonly IUserAdminstrationViewModelService _viewModelService;
 
@@ -33,5 +33,8 @@ namespace Ubik.Web.Backoffice.Controllers.Api
                    .ToArray());
 
         }
+
+
+
     }
 }

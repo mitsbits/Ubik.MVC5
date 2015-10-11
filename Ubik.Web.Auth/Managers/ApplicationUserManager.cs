@@ -119,16 +119,16 @@ namespace Ubik.Web.Auth.Managers
             return manager;
         }
 
-        public IEnumerable<Claim> RoleRelatedClaims(string userId)
+        public async Task<IEnumerable<Claim>> RoleRelatedClaims(string userId)
         {
             var claimsStore = Store as IUserStoreWithCustomClaims<string>;
-            return claimsStore != null ? claimsStore.RoleRelatedClaims(userId) : new Claim[] { };
+            return await claimsStore.RoleRelatedClaims(userId);
         }
     }
 
     internal interface IAuthenticatedUserManager
     {
-        IEnumerable<Claim> RoleRelatedClaims(string userId);
+        Task<IEnumerable<Claim>> RoleRelatedClaims(string userId);
     }
 
     public class EmailService : IIdentityMessageService

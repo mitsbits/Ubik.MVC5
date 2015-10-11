@@ -20,7 +20,7 @@ namespace Ubik.Web.Auth.Managers
 
         public async Task<IdentityResult> ClearClaims(string role)
         {
-            var store = Store as IRoleStoreWithCustomClaims<string>;
+            var store = Store as IRoleStoreWithCustomClaims;
             if (store == null) throw new ApplicationException("IRoleStoreWithCustomClaims missing");
             return await store.ClearAllRoleClaims(role);
         }

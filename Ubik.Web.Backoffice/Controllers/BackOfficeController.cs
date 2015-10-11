@@ -3,13 +3,14 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Web.SessionState;
 using Ubik.Infra;
+using Ubik.Web.Auth;
 using Ubik.Web.Backoffice.Contracts;
 using Ubik.Web.Infra;
 
 namespace Ubik.Web.Backoffice.Controllers
 {
     /*[Authorize]*/
-
+    [AuthorizeRole(RoleName = SystemRoles.Backoffice)]
     [SessionState(SessionStateBehavior.Required)]
     public abstract class BackofficeController : Controller
     {
