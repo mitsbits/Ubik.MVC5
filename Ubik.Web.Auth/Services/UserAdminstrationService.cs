@@ -155,12 +155,12 @@ namespace Ubik.Web.Auth.Services
         public UserViewModel UserModel(string id)
         {
 
-                ApplicationUser entity;
-                entity = string.IsNullOrWhiteSpace(id) ? new ApplicationUser() : _userManager.FindById(id);
-                var model = _userBuilder.CreateFrom(entity);
-                _userBuilder.Rebuild(model);
-                return model;
-          
+            ApplicationUser entity;
+            entity = string.IsNullOrWhiteSpace(id) ? new ApplicationUser() : _userManager.FindById(id);
+            var model = _userBuilder.CreateFrom(entity);
+            _userBuilder.Rebuild(model);
+            return model;
+
         }
 
         public NewUserViewModel NewUserModel()
@@ -205,6 +205,19 @@ namespace Ubik.Web.Auth.Services
                 }
                 else
                 {
+                    if (
+                        SystemRoleViewModels.Any(
+                            x => x.Name.Equals(roleEntity.Name, StringComparison.InvariantCultureIgnoreCase)))
+                    {
+                        var systemClaims =
+                            SystemRoleViewModels.Single(
+                                x => x.Name.Equals(roleEntity.Name, StringComparison.InvariantCultureIgnoreCase)).Claims;
+                        foreach (var roleClaimRowViewModel in systemClaims.Where(roleClaimRowViewModel => !roleEntity.RoleClaims.Any( x =>
+                            x.ClaimType == roleClaimRowViewModel.Type && x.Value == roleClaimRowViewModel.Value)))
+                        {
+                            roleEntity.RoleClaims.Add(new ApplicationClaim(roleClaimRowViewModel.Type, roleClaimRowViewModel.Value));
+                        }
+                    }
                     model = _roleBuilder.CreateFrom(roleEntity);
                 }
                 _roleBuilder.Rebuild(model);
@@ -217,7 +230,7 @@ namespace Ubik.Web.Auth.Services
         {
 
 
-            var dbCollection = _userManager.Users.Include(x=>x.Roles).ToList();
+            var dbCollection = _userManager.Users.Include(x => x.Roles).ToList();
             return dbCollection.Select(appUser => new UserRowViewModel
             {
                 UserId = appUser.Id,
@@ -242,17 +255,17 @@ namespace Ubik.Web.Auth.Services
 
         public async Task Execute(NewUserSaveModel model)
         {
-                await _newUserCommand.Execute(model);
-                //TODO: publish message for new role
+            await _newUserCommand.Execute(model);
+            //TODO: publish message for new role
         }
 
         public async Task Execute(UserSaveModel model)
         {
 
-                await _userCommand.Execute(model);
+            await _userCommand.Execute(model);
 
-                //TODO: publish message for new role
-      
+            //TODO: publish message for new role
+
         }
 
         private List<RoleViewModel> _systemRoleViewModels;
@@ -273,9 +286,9 @@ namespace Ubik.Web.Auth.Services
 
                 if (_cache.GetItem(_roleViewModelsCacheKey) as IEnumerable<RoleViewModel> != null) return _cache.GetItem(_roleViewModelsCacheKey) as IEnumerable<RoleViewModel>;
 
-                    _cache.SetItem(_roleViewModelsCacheKey, new List<RoleViewModel>(_authProviders.RoleModelsCheckDB(_roleManager)));
-                    return _cache.GetItem(_roleViewModelsCacheKey) as IEnumerable<RoleViewModel>;
-            
+                _cache.SetItem(_roleViewModelsCacheKey, new List<RoleViewModel>(_authProviders.RoleModelsCheckDB(_roleManager)));
+                return _cache.GetItem(_roleViewModelsCacheKey) as IEnumerable<RoleViewModel>;
+
             }
         }
 

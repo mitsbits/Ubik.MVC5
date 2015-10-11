@@ -37,6 +37,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test.UI", "test.UI", "{7DEF
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ubik.Cache", "Ubik.Cache\Ubik.Cache.csproj", "{C5E7659F-0F0A-4A57-83C1-6F797767C04A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ubik.Web.Components.AntiCorruption", "Ubik.Web.Components.AntiCorruption\Ubik.Web.Components.AntiCorruption.csproj", "{099656F4-BFF4-44B6-8528-3B294380DFFE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -93,6 +95,10 @@ Global
 		{C5E7659F-0F0A-4A57-83C1-6F797767C04A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5E7659F-0F0A-4A57-83C1-6F797767C04A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5E7659F-0F0A-4A57-83C1-6F797767C04A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{099656F4-BFF4-44B6-8528-3B294380DFFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{099656F4-BFF4-44B6-8528-3B294380DFFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{099656F4-BFF4-44B6-8528-3B294380DFFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{099656F4-BFF4-44B6-8528-3B294380DFFE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -114,5 +120,6 @@ Global
 		{04B503F1-B2FB-42BE-8F18-C39AED9C7747} = {513B8330-F523-4A88-8368-A8062CEA662D}
 		{7DEFFF9A-CAE4-4D33-A092-44CBAAD30530} = {513B8330-F523-4A88-8368-A8062CEA662D}
 		{C5E7659F-0F0A-4A57-83C1-6F797767C04A} = {0EAC63AC-7511-4196-9E56-5D038A73577E}
+		{099656F4-BFF4-44B6-8528-3B294380DFFE} = {18A10018-E3B7-46C4-B4BF-CA880F136DDE}
 	EndGlobalSection
 EndGlobal
