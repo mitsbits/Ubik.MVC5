@@ -227,7 +227,7 @@ namespace Ubik.Web.Backoffice.Controllers
         {
             if (!ModelState.IsValid) return View("NewRole", model);
             var currentClaims = model.AvailableClaims.Where(x => x.IsSelected).ToList();
-            model.Claims = new List<RoleClaimRowViewModel>(currentClaims);
+            model.Claims = new List<RoleClaimViewModel>(currentClaims);
             await ViewModelsService.Execute(model);
             return RedirectToAction("Roles", "UserAdministration", new { id = model.Name });
         }

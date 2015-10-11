@@ -10,7 +10,7 @@ namespace Ubik.Web.Auth
     {
         private readonly Dictionary<string, List<Claim>> _rolesToClaims;
         private const string _adminRoleName = "UserAdmin";
-
+        private const string _recourseGroup = "Users";
         public UserAdministrationAuth()
             : base()
         {
@@ -54,6 +54,11 @@ namespace Ubik.Web.Auth
         protected override string[] ResourceNames
         {
             get { return new Resources().ToArray(); }
+        }
+
+        public override string ResourceGroup
+        {
+            get { return _recourseGroup; }
         }
 
         public class Resources : IEnumerable<string>

@@ -7,5 +7,7 @@ namespace Ubik.Web.Auth.Contracts
     {
         string[] RoleNames { get; }
         IEnumerable<Claim> Claims(string role);
+        string ResourceGroup { get; }
+        bool ContainsClaim(Claim claim);
     }
 }

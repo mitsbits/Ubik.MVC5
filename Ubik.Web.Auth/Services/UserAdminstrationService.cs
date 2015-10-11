@@ -42,7 +42,7 @@ namespace Ubik.Web.Auth.Services
 
         private const string _roleViewModelsCacheKey = "UserAdminstrationService_RoleViewModels";
 
-        public UserAdminstrationService(IUserRepository userRepository, IRoleRepository roleRepository, ApplicationUserManager userManager, ApplicationRoleManager roleManager, IViewModelCommand<RoleSaveModel> roleCommand, IViewModelCommand<NewUserSaveModel> newUserCommand, IDbContextScopeFactory dbContextScopeFactory, IEnumerable<IResourceAuthProvider> authProviders, ICacheProvider cache, IViewModelBuilder<ApplicationRole, RoleViewModel> roleBuilder, IViewModelCommand<UserSaveModel> userCommand)
+        public UserAdminstrationService(IUserRepository userRepository, IRoleRepository roleRepository, ApplicationUserManager userManager, ApplicationRoleManager roleManager, IViewModelCommand<RoleSaveModel> roleCommand, IViewModelCommand<NewUserSaveModel> newUserCommand, IDbContextScopeFactory dbContextScopeFactory, IEnumerable<IResourceAuthProvider> authProviders, ICacheProvider cache,  IViewModelCommand<UserSaveModel> userCommand)
         {
             _userRepo = userRepository;
             _roleRepo = roleRepository;
@@ -53,11 +53,11 @@ namespace Ubik.Web.Auth.Services
             _dbContextScopeFactory = dbContextScopeFactory;
             _authProviders = authProviders;
             _cache = cache;
-            _roleBuilder = roleBuilder;
             _userCommand = userCommand;
 
             _userBuilder = new UserViewModelBuilder(_roleRepo, RoleViewModels);
             _newUserBuilder = new NewUserViewModelBuilder(RoleViewModels);
+            _roleBuilder = new RoleViewModelBuilder(RoleViewModels);
         }
 
 
@@ -173,8 +173,7 @@ namespace Ubik.Web.Auth.Services
 
         public RoleViewModel RoleModel(string id)
         {
-            using (_dbContextScopeFactory.CreateReadOnly())
-            {
+
                 ApplicationRole roleEntity;
                 if (string.IsNullOrWhiteSpace(id)) //creates a new blank transient entity
                 {
@@ -183,12 +182,13 @@ namespace Ubik.Web.Auth.Services
                 else
                 {
                     Expression<Func<ApplicationRole, bool>> predicate = role => role.Id == id;
-                    roleEntity = _roleRepo.Get(predicate);
+                    roleEntity = _roleManager.Roles.Include(x=>x.RoleClaims).Single(predicate);
                 }
+
                 var model = _roleBuilder.CreateFrom(roleEntity);
                 _roleBuilder.Rebuild(model);
                 return model;
-            }
+         
         }
 
         public RoleViewModel RoleByNameModel(string name)

@@ -18,12 +18,12 @@ namespace Ubik.Web.Auth.ViewModels
         [Required]
         public string Name { get; set; }
 
-        public IEnumerable<RoleClaimRowViewModel> Claims { get; set; }
+        public IEnumerable<RoleClaimViewModel> Claims { get; set; }
     }
 
     public class RoleViewModel : RoleSaveModel, ISelectable
     {
-        public RoleClaimRowViewModel[] AvailableClaims { get; set; }
+        public RoleClaimViewModel[] AvailableClaims { get; set; }
         public bool IsSytemRole { get; set; }
         public bool IsPersisted { get; set; }
         public bool IsSelected { get; set; }
@@ -31,11 +31,11 @@ namespace Ubik.Web.Auth.ViewModels
 
     public class RoleViewModelBuilder : IViewModelBuilder<ApplicationRole, RoleViewModel>
     {
-        private readonly IResident _resident;
+        private readonly IEnumerable<RoleViewModel> _roleViewModels;
 
-        public RoleViewModelBuilder(IResident resident)
+        public RoleViewModelBuilder(IEnumerable<RoleViewModel> roleViewModels)
         {
-            _resident = resident;
+            _roleViewModels = roleViewModels;
         }
 
         public RoleViewModel CreateFrom(ApplicationRole entity)
@@ -46,7 +46,7 @@ namespace Ubik.Web.Auth.ViewModels
                 RoleId = entity.Id,
                 Name = entity.Name,
                 Claims = entity.RoleClaims.Select(
-                    x => new RoleClaimRowViewModel() { Type = x.ClaimType, Value = x.Value }).ToList()
+                    x => new RoleClaimViewModel() { Type = x.ClaimType, Value = x.Value }).ToList()
             };
 
             return viewModel;
@@ -55,11 +55,8 @@ namespace Ubik.Web.Auth.ViewModels
         public void Rebuild(RoleViewModel model)
         {
             if (string.IsNullOrWhiteSpace(model.RoleId)) return;
-            model.AvailableClaims =
-                _resident.Security.Roles.SelectMany(x => _resident.Security.ClaimsForRole(x.Value))
-                    .Select(x => new RoleClaimRowViewModel() { Type = x.Type, Value = x.Value })
-                    .Distinct()
-                    .ToArray();
+            model.AvailableClaims = new List<RoleClaimViewModel>(_roleViewModels.First().AvailableClaims).ToArray();
+
             foreach (var roleClaimRowViewModel in model.AvailableClaims)
             {
                 roleClaimRowViewModel.IsSelected =

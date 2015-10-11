@@ -5,13 +5,22 @@
 @{
     var operations = new SystemClaims.Operations();
     var resources = Model.AvailableClaims.Where(x => x.Type == SystemClaims.OperationToResourceClaimType).Select(x => x.Value.Split(new[] { '|' }).Last()).Distinct().OrderBy(x => x).ToList();
+    Func<string, IEnumerable<RoleClaimViewModel>> claimsForGroup = (@group) => Model.AvailableClaims.Where(x => string.Join(" - ", x.ResourceGroups) == @group).ToList();
+    Func<string, IEnumerable<string>> resourcesForGroup = (@group) => Model.AvailableClaims.Where(x => x.Type == SystemClaims.OperationToResourceClaimType && string.Join(" - ", x.ResourceGroups) == @group).Select(x => x.Value.Split(new[] { '|' }).Last()).Distinct().OrderBy(x => x).ToList();
+    var claimGroups = Model.AvailableClaims.Select(c => string.Join(" - ", c.ResourceGroups)).Distinct().ToList();
 }
 
 <div class="box box-solid">
     <div class="box-header">
         <h3 class="box-title">Operations on Resources</h3>
     </div>
+@foreach (var @group in claimGroups)
+{
+
     <div class="box-body no-padding">
+        <div class="box-header">
+            <h3 class="box-title">@group</h3>
+        </div>
         <table class="table table-bordered table-striped">
             <tr>
                 <th>
@@ -25,7 +34,7 @@
                 }
             </tr>
 
-            @foreach (var resource in resources)
+            @foreach (var resource in resourcesForGroup(@group))
             {
                 <tr>
                     <td> <strong> @resource</strong></td>
@@ -38,11 +47,11 @@
                             @Html.HiddenFor(m => m.AvailableClaims[index].Type)
                             @if (Model.IsSytemRole)
                             {
-                                @Html.CheckBoxFor(m => m.AvailableClaims[index].IsSelected, new { disabled = "disabled" })
+                                @Html.CheckBoxFor(m => m.AvailableClaims[index].IsSelected, new {disabled = "disabled"})
                             }
                             else
                             {
-                               @Html.CheckBoxFor(m => m.AvailableClaims[index].IsSelected)
+                                @Html.CheckBoxFor(m => m.AvailableClaims[index].IsSelected)
                             }
                         </td>
                     }
@@ -52,4 +61,5 @@
 
         </table>
     </div>
+}
 </div>

@@ -30,11 +30,12 @@ namespace Ubik.Web.Auth
                 {
                     model.Claims =
                         claims.Select(
-                            x => new RoleClaimRowViewModel() { Type = x.Type, Value = x.Value, IsSelected = true });
+                            x => new RoleClaimViewModel() { Type = x.Type, Value = x.Value, IsSelected = true, 
+                                ResourceGroups = resourceAuthProviders.Where(p=>p.ContainsClaim(x)).Select(r=>r.ResourceGroup).Distinct().ToArray()});             
                 }
                 else
                 {
-                    model.Claims = new List<RoleClaimRowViewModel>();
+                    model.Claims = new List<RoleClaimViewModel>();
                 }
 
                 var avalableClaims = authProviders.AvailableSystemClaims();
@@ -67,7 +68,7 @@ namespace Ubik.Web.Auth
                                     {
                                         Name = applicationRole.Name,
                                         RoleId = applicationRole.Id,
-                                        Claims = applicationRole.RoleClaims.Select(dbClaim => new RoleClaimRowViewModel()
+                                        Claims = applicationRole.RoleClaims.Select(dbClaim => new RoleClaimViewModel()
                                             {
                                                 Type = dbClaim.ClaimType,
                                                 Value = dbClaim.Value
@@ -116,7 +117,7 @@ namespace Ubik.Web.Auth
                                     {
                                         Name = applicationRole.Name,
                                         RoleId = applicationRole.Id,
-                                        Claims = applicationRole.RoleClaims.Select(dbClaim => new RoleClaimRowViewModel()
+                                        Claims = applicationRole.RoleClaims.Select(dbClaim => new RoleClaimViewModel()
                                         {
                                             Type = dbClaim.ClaimType,
                                             Value = dbClaim.Value
@@ -151,9 +152,9 @@ namespace Ubik.Web.Auth
         }
 
 
-        public static IEnumerable<RoleClaimRowViewModel> AvailableSystemClaims(this IEnumerable<IResourceAuthProvider> authProviders)
+        public static IEnumerable<RoleClaimViewModel> AvailableSystemClaims(this IEnumerable<IResourceAuthProvider> authProviders)
         {
-            var result = new List<RoleClaimRowViewModel>();
+            var result = new List<RoleClaimViewModel>();
             foreach (var systemRole in new SystemRoles())
             {
                 foreach (var resourceAuthProvider in authProviders)
@@ -162,7 +163,7 @@ namespace Ubik.Web.Auth
                     {
                         if (!result.Any(x => x.Type == claim.Type && x.Value == claim.Value))
                         {
-                            result.Add(new RoleClaimRowViewModel() { Type = claim.Type, Value = claim.Value });
+                            result.Add(new RoleClaimViewModel() { Type = claim.Type, Value = claim.Value, ResourceGroups = authProviders.Where(p => p.ContainsClaim(claim)).Select(r => r.ResourceGroup).Distinct().ToArray() });
                         }
                     }
                 }

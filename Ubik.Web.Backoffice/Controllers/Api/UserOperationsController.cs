@@ -22,7 +22,7 @@ namespace Ubik.Web.Backoffice.Controllers.Api
         [HttpGet]
         public IHttpActionResult ClaimsForRoles(string id = "")
         {
-            if (string.IsNullOrWhiteSpace(id)) return Ok(new List<RoleClaimRowViewModel>().ToArray());
+            if (string.IsNullOrWhiteSpace(id)) return Ok(new List<RoleClaimViewModel>().ToArray());
 
             var names = id.Split(';');
 

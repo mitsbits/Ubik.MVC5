@@ -11,6 +11,7 @@ namespace Ubik.Web.Components.AntiCorruption
     {
         private readonly Dictionary<string, List<Claim>> _rolesToClaims;
         private const string _adminRoleName = "UserAdmin";
+        private const string _recourseGroup = "Devices";
 
         public DeviceAdministrationAuth()
             : base()
@@ -44,6 +45,11 @@ namespace Ubik.Web.Components.AntiCorruption
                         .Distinct()
                         .ToArray();
             }
+        }
+
+        public override string ResourceGroup
+        {
+            get { return _recourseGroup; }
         }
 
         public override IEnumerable<Claim> Claims(string role)

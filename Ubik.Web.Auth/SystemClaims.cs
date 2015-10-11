@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 
 namespace Ubik.Web.Auth
@@ -39,6 +40,13 @@ namespace Ubik.Web.Auth
         public abstract string[] RoleNames { get; }
 
         protected abstract string[] ResourceNames { get; }
+
+        public abstract string ResourceGroup { get; }
+
+        public virtual bool ContainsClaim(Claim claim)
+        {
+            return InternalList.Any(x => x.Type == claim.Type && x.Value == claim.Value);
+        }
 
         public abstract IEnumerable<Claim> Claims(string role);
 
