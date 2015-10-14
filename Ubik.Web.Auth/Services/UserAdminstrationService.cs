@@ -55,7 +55,7 @@ namespace Ubik.Web.Auth.Services
             _cache = cache;
             _userCommand = userCommand;
 
-            _userBuilder = new UserViewModelBuilder(_roleRepo, RoleViewModels);
+            _userBuilder = new UserViewModelBuilder(RoleViewModels);
             _newUserBuilder = new NewUserViewModelBuilder(RoleViewModels);
             _roleBuilder = new RoleViewModelBuilder(RoleViewModels);
         }

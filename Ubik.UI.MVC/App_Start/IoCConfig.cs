@@ -118,6 +118,7 @@ namespace Ubik.UI.MVC
         {
             builder.RegisterType<PersistedDeviceRepository>().As<ICRUDRespoditory<PersistedDevice>>();
             builder.RegisterType<DeviceAdministrationService>().As<IDeviceAdministrationService<int>>();
+            builder.RegisterType<DeviceAdministrationService>().As<IDeviceAdministrationViewModelService>();
         }
 
         private static void WireUpSso(ContainerBuilder builder, IAppBuilder app)

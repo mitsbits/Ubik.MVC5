@@ -100,8 +100,6 @@
     <Compile Include="Contracts\IUserAdminstrationService.cs" />
     <Compile Include="Contracts\IUserAdminstrationViewModelService.cs" />
     <Compile Include="Contracts\IUserRepository.cs" />
-    <Compile Include="Contracts\IViewModelBuilder.cs" />
-    <Compile Include="Contracts\IViewModelCommand.cs" />
     <Compile Include="InternalExtensions.cs" />
     <Compile Include="Managers\ApplicationRoleManager.cs" />
     <Compile Include="Managers\ApplicationSignInManager.cs" />

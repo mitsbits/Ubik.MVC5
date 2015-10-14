@@ -105,12 +105,12 @@ namespace Ubik.EF
 
         #region Async
 
-        public async Task<T> GetAsync(Expression<Func<T, bool>> predicate)
+        public virtual async Task<T> GetAsync(Expression<Func<T, bool>> predicate)
         {
             return await DbContext.Set<T>().FirstOrDefaultAsync(predicate);
         }
 
-        public async Task<T> GetAsync(Expression<Func<T, bool>> predicate, params Expression<Func<T, dynamic>>[] paths)
+        public virtual async Task<T> GetAsync(Expression<Func<T, bool>> predicate, params Expression<Func<T, dynamic>>[] paths)
         {
             var query = DbContext.Set<T>();
             foreach (var path in paths)

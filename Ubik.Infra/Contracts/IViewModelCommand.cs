@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Ubik.Web.Auth.Contracts
+namespace Ubik.Infra.Contracts
 {
     public interface IViewModelCommand<in TViewModel>
     {

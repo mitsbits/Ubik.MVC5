@@ -1,4 +1,8 @@
-﻿using Mehdime.Entity;
+﻿using System.Data.Entity;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
+using System.Xml.Schema;
+using Mehdime.Entity;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,6 +10,7 @@ using System.Text;
 using System.Xml.Serialization;
 using Ubik.EF;
 using Ubik.Infra.Contracts;
+using System.Linq;
 
 namespace Ubik.Web.EF.Components
 {
@@ -108,7 +113,7 @@ namespace Ubik.Web.EF.Components
 
         public virtual int Ordinal { get; set; }
 
-        public virtual string Flavor { get; set; }
+        public virtual string ModuleType { get; set; }
 
         public virtual string ModuleInfo { get; set; }
     }
@@ -126,6 +131,12 @@ namespace Ubik.Web.EF.Components
         public PersistedDeviceRepository(IAmbientDbContextLocator ambientDbContextLocator)
             : base(ambientDbContextLocator)
         {
+        }
+
+        public override async Task<PersistedDevice> GetAsync(Expression<Func<PersistedDevice, bool>> predicate)
+        {
+            var db = DbContext.Set<PersistedDevice>();
+            return await db.Include("Sections").Include("Sections.Slots").FirstOrDefaultAsync(predicate);
         }
     }
 

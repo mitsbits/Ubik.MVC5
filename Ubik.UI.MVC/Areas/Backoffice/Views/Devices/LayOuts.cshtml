@@ -1,0 +1,16 @@
+﻿@using Ubik.Web.Components.ViewModels
+@{
+    var isDetail = false;
+    if (Model.GetType() == typeof (DeviceViewModel))
+    {
+        isDetail = true;
+        var detail = Model as DeviceViewModel;
+        Html.RenderPartial("~/Areas/Backoffice/Views/Devices/Partials/DeviceDetails.cshtml", detail);
+    }
+    else
+    {
+        var rows = Model as IEnumerable<DeviceViewModel>;
+        Html.RenderPartial("~/Areas/Backoffice/Views/Devices/Partials/DeviceList.cshtml", rows);
+    }
+}
+

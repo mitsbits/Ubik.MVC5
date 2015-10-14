@@ -1,4 +1,4 @@
-﻿namespace Ubik.Web.Auth.Contracts
+﻿namespace Ubik.Infra.Contracts
 {
     public interface IViewModelBuilder<in TEntity, TViewModel>
     {

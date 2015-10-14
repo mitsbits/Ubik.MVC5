@@ -31,7 +31,7 @@ namespace Ubik.Web.EF.Components
             #region Device
             modelBuilder.Configurations.Add(new DeviceConfig());
             modelBuilder.Configurations.Add(new SectionConfig());
-            modelBuilder.Configurations.Add(new SlotInfoConfig()); 
+            modelBuilder.Configurations.Add(new SlotInfoConfig());
             #endregion
             modelBuilder.Configurations.Add(new ContentConfig());
             modelBuilder.Configurations.Add(new HtmlHeadConfig());
@@ -46,8 +46,10 @@ namespace Ubik.Web.EF.Components
             public DeviceConfig()
             {
                 ToTable("Devices").
-                    HasKey(x => new { x.Id }).
-                    HasMany(x => x.Sections);
+                    HasKey(x => new { x.Id })
+                    .HasMany(x => x.Sections)
+                    .WithOptional()
+                    .HasForeignKey(s => s.DeviceId);
             }
         }
 
@@ -56,8 +58,10 @@ namespace Ubik.Web.EF.Components
             public SectionConfig()
             {
                 ToTable("Sections").
-                    HasKey(x => new { x.Id }).
-                    HasMany(x => x.Slots);
+                    HasKey(x => new { x.Id })
+                    .HasMany(x => x.Slots)
+                    .WithOptional()
+                    .HasForeignKey(s => new { s.SectionId });
             }
         }
 
@@ -66,9 +70,9 @@ namespace Ubik.Web.EF.Components
             public SlotInfoConfig()
             {
                 ToTable("Slots").
-                    HasKey(x => new { x.SectionId, x.Ordinal });
+                    HasKey(x => new {x.SectionId, x.Ordinal});
             }
-        } 
+        }
         #endregion
 
         private class HtmlHeadConfig : EntityTypeConfiguration<PersistedHtmlHead>
@@ -107,7 +111,7 @@ namespace Ubik.Web.EF.Components
         .WithMany(x => x.Contents)
             .Map(x =>
             {
-                x.ToTable("Contents_Tags"); 
+                x.ToTable("Contents_Tags");
                 x.MapLeftKey("ContentId");
                 x.MapRightKey("TagId");
             });
@@ -119,7 +123,7 @@ namespace Ubik.Web.EF.Components
             public TextualConfig()
             {
                 ToTable("Textuals").
-                    HasKey(x => new {x.Id}).
+                    HasKey(x => new { x.Id }).
                     Property(x => x.Subject).IsRequired();
             }
         }

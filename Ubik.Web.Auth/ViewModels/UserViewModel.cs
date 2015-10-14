@@ -1,11 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Data.Entity;
-using System.Runtime.InteropServices;
-using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
+using Ubik.Infra.Contracts;
 using Ubik.Web.Auth.Contracts;
 using Ubik.Web.Auth.Managers;
 using Ubik.Web.Cms.Contracts;
@@ -13,6 +13,7 @@ using Ubik.Web.Cms.Contracts;
 namespace Ubik.Web.Auth.ViewModels
 {
     #region Edit User
+
     public class UserSaveModel : IHasRoles
     {
         public bool IsTransient { get; set; }
@@ -35,17 +36,10 @@ namespace Ubik.Web.Auth.ViewModels
 
     public class UserViewModelBuilder : IViewModelBuilder<ApplicationUser, UserViewModel>
     {
-
-        private readonly IRoleRepository _roleRepo;
-
-
-
         private readonly IEnumerable<RoleViewModel> _roleViewModels;
 
-
-        public UserViewModelBuilder(IRoleRepository roleRepository, IEnumerable<RoleViewModel> roleViewModels)
+        public UserViewModelBuilder(IEnumerable<RoleViewModel> roleViewModels)
         {
-            _roleRepo = roleRepository;
             _roleViewModels = roleViewModels;
         }
 
@@ -73,7 +67,6 @@ namespace Ubik.Web.Auth.ViewModels
 
         public void Rebuild(UserViewModel model)
         {
-
             foreach (var role in _roleViewModels)
             {
                 role.IsSelected = model.Roles.Any(x => x.Name == role.Name);
@@ -103,17 +96,14 @@ namespace Ubik.Web.Auth.ViewModels
         {
             await SaveNonPersistedRoles(model);
 
-
             var existingRoles = _userManager.GetRoles(model.UserId);
             var results = new List<IdentityResult>
             {
-               
                 await
                     _userManager.RemoveFromRolesAsync(model.UserId,
                         existingRoles.ToArray()),
                 _userManager.AddToRoles(model.UserId, model.Roles.Select(x => x.Name).ToArray())
             };
-
 
             if (results.All(x => x.Succeeded)) return;
             throw new ApplicationException(string.Join("\n", results.SelectMany(x => x.Errors)));
@@ -141,10 +131,10 @@ namespace Ubik.Web.Auth.ViewModels
 
             if (results.All(x => x.Succeeded)) return;
             throw new ApplicationException(string.Join("\n", results.SelectMany(x => x.Errors)));
-
         }
     }
-    #endregion
+
+    #endregion Edit User
 
     #region Create User
 
@@ -156,15 +146,16 @@ namespace Ubik.Web.Auth.ViewModels
         }
 
         public string UserId { get; set; }
+
         [Required]
         public string UserName { get; set; }
 
         public string Email { get; set; }
+
         [Required]
         public string Password { get; set; }
 
         public RoleViewModel[] Roles { get; set; }
-
     }
 
     public class NewUserViewModel : NewUserSaveModel, IHasRolesToSelect
@@ -174,14 +165,11 @@ namespace Ubik.Web.Auth.ViewModels
 
     public class NewUserViewModelBuilder : IViewModelBuilder<ApplicationUser, NewUserViewModel>
     {
-
         private readonly IEnumerable<RoleViewModel> _roleViewModels;
-
 
         public NewUserViewModelBuilder(IEnumerable<RoleViewModel> roleViewModels)
         {
             _roleViewModels = roleViewModels;
-
         }
 
         public NewUserViewModel CreateFrom(ApplicationUser entity)
@@ -202,10 +190,8 @@ namespace Ubik.Web.Auth.ViewModels
             {
                 role.IsSelected = model.Roles.Any(x => x.Name == role.Name);
             }
-
         }
     }
-
 
     public class NewUserViewModelCommand : IViewModelCommand<NewUserSaveModel>
     {
@@ -213,6 +199,7 @@ namespace Ubik.Web.Auth.ViewModels
         private readonly ApplicationRoleManager _roleManager;
 
         private readonly IResident _resident;
+
         public NewUserViewModelCommand(ApplicationUserManager userManager, ApplicationRoleManager roleManager, IResident resident)
         {
             _userManager = userManager;
@@ -257,18 +244,20 @@ namespace Ubik.Web.Auth.ViewModels
 
             if (results.All(x => x.Succeeded)) return;
             throw new ApplicationException(string.Join("\n", results.SelectMany(x => x.Errors)));
-
         }
     }
-    #endregion
+
+    #endregion Create User
 
     #region Change Password
 
     public class UserChangPasswordViewModel
     {
         public string RedirectURL { get; set; }
+
         [Required]
         public string UserId { get; set; }
+
         [Required]
         public string NewPassword { get; set; }
     }
@@ -276,10 +265,13 @@ namespace Ubik.Web.Auth.ViewModels
     public class UserLockedStateViewModel
     {
         public string RedirectURL { get; set; }
+
         [Required]
         public string UserId { get; set; }
+
         [Required]
         public bool IsLocked { get; set; }
     }
-    #endregion
+
+    #endregion Change Password
 }
