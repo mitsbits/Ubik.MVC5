@@ -1,13 +1,15 @@
-﻿using Mehdime.Entity;
+﻿using System.Data;
+using Mehdime.Entity;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using Ubik.Infra.Contracts;
 using Ubik.Infra.DataManagement;
+using Ubik.Web.Components.AntiCorruption.Contracts;
+using Ubik.Web.Components.AntiCorruption.ViewModels;
 using Ubik.Web.Components.Contracts;
 using Ubik.Web.Components.Domain;
-using Ubik.Web.Components.ViewModels;
 using Ubik.Web.EF.Components;
 
 namespace Ubik.Web.Components.AntiCorruption.Services
@@ -17,14 +19,21 @@ namespace Ubik.Web.Components.AntiCorruption.Services
         private readonly IDbContextScopeFactory _dbContextScopeFactory;
         private readonly ICRUDRespoditory<PersistedDevice> _persistedDeviceRepo;
 
-        private readonly IViewModelBuilder<Device<int>, DeviceViewModel> _deviceBuilder;
+        private readonly IViewModelBuilder<PersistedDevice, DeviceViewModel> _deviceBuilder;
+        private readonly IViewModelCommand<DeviceSaveModel> _deviceCommand;
 
-        public DeviceAdministrationService(IDbContextScopeFactory dbContextScopeFactory, ICRUDRespoditory<PersistedDevice> persistedDeviceRepo)
+        private readonly IViewModelBuilder<PersistedSection, SectionViewModel> _sectionBuilder;
+        private readonly IViewModelCommand<SectionSaveModel> _sectionCommand;
+
+        public DeviceAdministrationService(IDbContextScopeFactory dbContextScopeFactory, ICRUDRespoditory<PersistedDevice> persistedDeviceRepo, IViewModelCommand<DeviceSaveModel> deviceCommand, IViewModelCommand<SectionSaveModel> sectionCommand)
         {
             _dbContextScopeFactory = dbContextScopeFactory;
             _persistedDeviceRepo = persistedDeviceRepo;
+            _deviceCommand = deviceCommand;
+            _sectionCommand = sectionCommand;
 
             _deviceBuilder = new DeviceViewModelBuilder();
+            _sectionBuilder = new SectionViewModelBuilder();
         }
 
         #region IDeviceAdministrationService
@@ -67,8 +76,7 @@ namespace Ubik.Web.Components.AntiCorruption.Services
             using (_dbContextScopeFactory.CreateReadOnly())
             {
                 var data = await _persistedDeviceRepo.GetAsync(x => x.Id == id) ?? new PersistedDevice();
-                var entity = Mapper.MapToDomain(data);
-                var model = _deviceBuilder.CreateFrom(entity);
+                var model = _deviceBuilder.CreateFrom(data);
                 _deviceBuilder.Rebuild(model);
                 return model;
             }
@@ -80,15 +88,30 @@ namespace Ubik.Web.Components.AntiCorruption.Services
             {
                 var data = await _persistedDeviceRepo.GetQuery().Include(x => x.Sections).ToListAsync();
                 var bucket = new List<DeviceViewModel>();
-                foreach (var persistedDevice in data)
+                foreach (var model in data.Select(persistedDevice => _deviceBuilder.CreateFrom(persistedDevice)))
                 {
-                    var entity = Mapper.MapToDomain(persistedDevice);
-                    var model = _deviceBuilder.CreateFrom(entity);
                     _deviceBuilder.Rebuild(model);
                     bucket.Add(model);
-                    ;
                 }
                 return bucket;
+            }
+        }
+
+        public async Task Execute(DeviceSaveModel model)
+        {
+            using (var db = _dbContextScopeFactory.CreateWithTransaction(IsolationLevel.ReadCommitted))
+            {
+                await _deviceCommand.Execute(model);
+                await db.SaveChangesAsync();
+            }
+        }
+
+        public async Task Execute(SectionSaveModel model)
+        {
+            using (var db = _dbContextScopeFactory.CreateWithTransaction(IsolationLevel.ReadCommitted))
+            {
+                await _sectionCommand.Execute(model);
+                await db.SaveChangesAsync();
             }
         }
 

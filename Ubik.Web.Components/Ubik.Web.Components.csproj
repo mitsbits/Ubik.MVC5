@@ -30,15 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v12.2, Version=12.2.16.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.Xpo.v12.2, Version=12.2.16.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml" />
-    <Reference Include="Ubik.Web.EF">
-      <HintPath>..\Ubik.UI.MVC\Bin\Ubik.Web.EF.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasePartialModule.cs" />
@@ -46,7 +41,6 @@
     <Compile Include="ComponentStateFlavor.cs" />
     <Compile Include="ComponentStateTransitionException.cs" />
     <Compile Include="Contracts\IDeviceAdministrationService.cs" />
-    <Compile Include="Contracts\IDeviceAdministrationViewModelService.cs" />
     <Compile Include="Contracts\IHtmlHeadInfo.cs" />
     <Compile Include="Contracts\ICanBeDeleted.cs" />
     <Compile Include="Contracts\ICanPublishSuspend.cs" />
@@ -91,9 +85,6 @@
     <Compile Include="Domain\SectionSlotInfo.cs" />
     <Compile Include="Domain\Slot.cs" />
     <Compile Include="Query\DeviceProjection.cs" />
-    <Compile Include="ViewModels\DeviceViewModel.cs" />
-    <Compile Include="ViewModels\SectionViewModel.cs" />
-    <Compile Include="ViewModels\SlotViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Ubik.Infra\Ubik.Infra.csproj">

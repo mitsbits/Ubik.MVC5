@@ -11,6 +11,7 @@ namespace Ubik.Web.EF.Components
         public static Device<int> MapToDomain(PersistedDevice source)
         {
             var result = new Device<int>(source.Id, source.FriendlyName, source.Path);
+            result.SetFlavor(source.Flavor);
             foreach (var persistedSection in source.Sections)
             {
                 result.AddSection(MapToDomain(persistedSection));

@@ -190,6 +190,10 @@
       <Project>{54A78BF9-AC25-4E8E-9BCF-0628ED0DB2AF}</Project>
       <Name>Ubik.Web.Cms</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ubik.Web.Components.AntiCorruption\Ubik.Web.Components.AntiCorruption.csproj">
+      <Project>{099656f4-bff4-44b6-8528-3b294380dffe}</Project>
+      <Name>Ubik.Web.Components.AntiCorruption</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Ubik.Web.Components\Ubik.Web.Components.csproj">
       <Project>{8D91A185-358B-4E6E-9D3A-A1CF51DA7251}</Project>
       <Name>Ubik.Web.Components</Name>

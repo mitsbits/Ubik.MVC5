@@ -68,9 +68,7 @@ namespace Ubik.Web.Components.Domain
 
         public void SetFlavor(DeviceRenderFlavor flavor)
         {
-            if (Flavor == flavor) throw new InvariantException(
-                 string.Format("Device:{0} flavor already has value of {1}. Set flavor fails.",
-                 Id, flavor));
+            if (Flavor != flavor) 
             _flavor = flavor;
         }
 

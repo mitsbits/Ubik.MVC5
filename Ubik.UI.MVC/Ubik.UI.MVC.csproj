@@ -684,6 +684,7 @@
     <Content Include="Areas\Backoffice\Views\Devices\LayOuts.cshtml" />
     <Content Include="Areas\Backoffice\Views\Devices\Partials\DeviceDetails.cshtml" />
     <Content Include="Areas\Backoffice\Views\Devices\Partials\DeviceList.cshtml" />
+    <Content Include="Areas\Backoffice\Views\Devices\Partials\SectionCreate.cshtml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

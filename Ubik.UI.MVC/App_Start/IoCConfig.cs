@@ -26,7 +26,9 @@ using Ubik.Web.Auth.ViewModels;
 using Ubik.Web.Backoffice;
 using Ubik.Web.Backoffice.Contracts;
 using Ubik.Web.Cms.Contracts;
+using Ubik.Web.Components.AntiCorruption.Contracts;
 using Ubik.Web.Components.AntiCorruption.Services;
+using Ubik.Web.Components.AntiCorruption.ViewModels;
 using Ubik.Web.Components.Contracts;
 using Ubik.Web.EF.Components;
 using Ubik.Web.Infra.Navigation.Contracts;
@@ -116,9 +118,13 @@ namespace Ubik.UI.MVC
 
         private static void WireUpCms(ContainerBuilder builder)
         {
-            builder.RegisterType<PersistedDeviceRepository>().As<ICRUDRespoditory<PersistedDevice>>();
-            builder.RegisterType<DeviceAdministrationService>().As<IDeviceAdministrationService<int>>();
-            builder.RegisterType<DeviceAdministrationService>().As<IDeviceAdministrationViewModelService>();
+            builder.RegisterType<PersistedDeviceRepository>().As<ICRUDRespoditory<PersistedDevice>>().InstancePerRequest();
+            builder.RegisterType<PersistedSectionRepository>().As<ICRUDRespoditory<PersistedSection>>().InstancePerRequest();
+            builder.RegisterType<DeviceAdministrationService>().As<IDeviceAdministrationService<int>>().InstancePerRequest();
+            builder.RegisterType<DeviceAdministrationService>().As<IDeviceAdministrationViewModelService>().InstancePerRequest();
+
+            builder.RegisterType<DeviceViewModelCommand>().As<IViewModelCommand<DeviceSaveModel>>().InstancePerRequest();
+            builder.RegisterType<SectionViewModelCommand>().As<IViewModelCommand<SectionSaveModel>>().InstancePerRequest();
         }
 
         private static void WireUpSso(ContainerBuilder builder, IAppBuilder app)

@@ -11,6 +11,7 @@ using System.Xml.Serialization;
 using Ubik.EF;
 using Ubik.Infra.Contracts;
 using System.Linq;
+using Ubik.Web.Components;
 
 namespace Ubik.Web.EF.Components
 {
@@ -74,6 +75,7 @@ namespace Ubik.Web.EF.Components
         public PersistedDevice()
         {
             Sections = new HashSet<PersistedSection>();
+            Flavor = DeviceRenderFlavor.Empty;
         }
 
         public virtual int Id { get; set; }
@@ -82,7 +84,9 @@ namespace Ubik.Web.EF.Components
 
         public virtual string Path { get; set; }
 
-        public virtual ICollection<PersistedSection> Sections { get; set; }
+        public virtual DeviceRenderFlavor Flavor { get; set; }
+
+        public  ICollection<PersistedSection> Sections { get; set; }
     }
 
     public class PersistedSection
@@ -100,9 +104,9 @@ namespace Ubik.Web.EF.Components
 
         public virtual string FriendlyName { get; set; }
 
-        public virtual int ForFlavor { get; set; }
+        public virtual DeviceRenderFlavor ForFlavor { get; set; }
 
-        public virtual ICollection<PersistedSlot> Slots { get; set; }
+        public  ICollection<PersistedSlot> Slots { get; set; }
     }
 
     public class PersistedSlot
@@ -137,6 +141,20 @@ namespace Ubik.Web.EF.Components
         {
             var db = DbContext.Set<PersistedDevice>();
             return await db.Include("Sections").Include("Sections.Slots").FirstOrDefaultAsync(predicate);
+        }
+    }
+
+    public class PersistedSectionRepository : ReadWriteRepository<PersistedSection, ComponentsDbContext>, ICRUDRespoditory<PersistedSection>
+    {
+        public PersistedSectionRepository(IAmbientDbContextLocator ambientDbContextLocator)
+            : base(ambientDbContextLocator)
+        {
+        }
+
+        public override async Task<PersistedSection> GetAsync(Expression<Func<PersistedSection, bool>> predicate)
+        {
+            var db = DbContext.Set<PersistedSection>();
+            return await db.Include("Slots").FirstOrDefaultAsync(predicate);
         }
     }
 

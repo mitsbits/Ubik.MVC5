@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration;
 using Ubik.Web.Components.Query;
 
@@ -50,6 +51,7 @@ namespace Ubik.Web.EF.Components
                     .HasMany(x => x.Sections)
                     .WithOptional()
                     .HasForeignKey(s => s.DeviceId);
+                Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             }
         }
 
@@ -62,6 +64,7 @@ namespace Ubik.Web.EF.Components
                     .HasMany(x => x.Slots)
                     .WithOptional()
                     .HasForeignKey(s => new { s.SectionId });
+                Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             }
         }
 

@@ -1,0 +1,58 @@
+﻿@using Ubik.Web.Components
+@using Ubik.Web.Components.AntiCorruption.ViewModels
+@model SectionViewModel
+<div class="box box-primary">
+    @using (Html.BeginForm("CreateSection", "Devices", FormMethod.Post, new { role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+                               
+
+        <div class="box-body">
+
+            <div class="form-group hidden">
+                @Html.LabelFor(m => m.SectionId)
+                @Html.HiddenFor(m => m.SectionId, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.SectionId, "", new { @class = "" })
+            </div>
+            <div class="form-group hidden">
+                @Html.LabelFor(m => m.DeviceId)
+                @Html.HiddenFor(m => m.DeviceId, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.DeviceId, "", new { @class = "" })
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon">@Html.LabelFor(m => m.FriendlyName)</span>
+                    @Html.TextBoxFor(m => m.FriendlyName, new { @class = "form-control" })
+                </div>
+                @Html.ValidationMessageFor(m => m.FriendlyName, "", new { @class = "" })
+            </div>
+            
+            
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon">@Html.LabelFor(m => m.Identifier)</span>
+                    @Html.TextBoxFor(m => m.Identifier, new { @class = "form-control" })
+                </div>
+                @Html.ValidationMessageFor(m => m.Identifier, "", new { @class = "" })
+            </div>
+
+
+            <div class="form-control">
+                @foreach (DeviceRenderFlavor option in Enum.GetValues(typeof(DeviceRenderFlavor)))
+                {
+                    <div class="radio-inline">
+                        <label>
+                            @Html.RadioButtonFor(m => m.ForFlavor, option) @option.ToString()
+                        </label>
+                    </div>
+                }
+            </div>
+            <div class="box-footer clearfix">
+                <div class="form-group ">
+                    <button type="submit" class="btn btn-primary pull-right">Submit</button>
+                </div>
+            </div>
+
+        </div>
+    }
+</div>
