@@ -1,0 +1,62 @@
+﻿@using Ubik.Web.Components.AntiCorruption.ViewModels
+@model IEnumerable<SectionViewModel>
+@{
+    var _model = Model.ToArray();
+    var selectedSection = (Request.QueryString["section"] != null) ? int.Parse(Request.QueryString["section"]) : 0;
+}
+<div class="panel box box-primary">
+    <div class="box-header">
+        <h3 class="box-title">
+
+            Sections
+
+        </h3>
+    </div>
+    <div class="box-body table-responsive">
+        <table class="table table-condensed" id="sections-table">
+            <thead>
+                <tr>
+                    <th style="width: 40px">#</th>
+                    <th>Name</th>
+                    <th>Identifier</th>
+                    <th>For Flavor</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (var i = 0; i < _model.Count(); i++)
+                {
+                    var sct = _model[i];
+                    var trClass = (selectedSection == sct.SectionId) ? "active" : "";
+                    <tr data-id="@sct.SectionId" class="@trClass">
+                        <td>
+
+                            <a >@((i + 1).ToString("000"))</a>
+                        </td>
+                        <td>
+
+                            <span class="">
+                                @Html.ActionLink(sct.FriendlyName, "Layouts", "Devices", new { id = sct.DeviceId, section = sct.SectionId, area = "Backoffice" }, null)
+                            </span>
+
+                        </td>
+                        <td>
+                            <span class="">
+                                @sct.Identifier  
+                            </span>
+                        </td>
+                        <td>
+                            <span class="">
+                                @sct.ForFlavor.ToString()
+                            </span>
+                        </td>
+                        <td>
+                            @Html.ActionLink("Delete", "RemoveSection", "Devices", new { id = sct.SectionId, area = "Backoffice" }, new { @class = "btn btn-sm btn-danger btn-flat" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>

@@ -49,7 +49,9 @@ namespace Ubik.Web.Components.AntiCorruption.ViewModels
                 {
                     ForFlavor = s.ForFlavor,
                     FriendlyName = s.FriendlyName,
-                    SectionId = s.Id
+                    SectionId = s.Id,
+                    DeviceId = entity.Id,
+                    Identifier = s.Identifier
                 }).ToList(),
             };
 
@@ -84,7 +86,7 @@ namespace Ubik.Web.Components.AntiCorruption.ViewModels
             }
             else
             {
-                data = new PersistedDevice(){FriendlyName = model.FriendlyName, Flavor = model.Flavor, Path = model.Path};
+                data = new PersistedDevice() { FriendlyName = model.FriendlyName, Flavor = model.Flavor, Path = model.Path };
                 await _persistedDeviceRepo.CreateAsync(data);
             }
         }

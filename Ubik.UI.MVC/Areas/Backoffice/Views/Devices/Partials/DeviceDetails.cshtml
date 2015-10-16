@@ -80,8 +80,6 @@
                                 @Html.ValidationMessageFor(m => m.Path, "", new { @class = "" })
                             </div>
 
-                            <div class="form-group">
-                            </div>
                         </div>
                         <div class="box-footer clearfix">
                             <div class="form-group ">
@@ -92,7 +90,8 @@
                 </div>
                 @if (Model.Id != default(int))
                 {
-                    @Html.Partial("Partials/SectionCreate", new SectionViewModel() { DeviceId = Model.Id, SectionId = default(int)})
+                    @Html.Partial("Partials/SectionCreate", new SectionViewModel() { DeviceId = Model.Id, SectionId = default(int), ForFlavor = Model.Flavor })
+                    @Html.Partial("Partials/DeviceSectionList", Model.Sections)
                 }
             </div>
         </div>

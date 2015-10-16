@@ -436,6 +436,7 @@
     <Content Include="Areas\Backoffice\Scripts\AdminLTE\app.js" />
     <Content Include="Areas\Backoffice\Scripts\AdminLTE\dashboard.js" />
     <Content Include="Areas\Backoffice\Scripts\AdminLTE\demo.js" />
+    <Content Include="Areas\Backoffice\Scripts\framework\Devices\layouts.js" />
     <Content Include="Areas\Backoffice\Scripts\framework\UserAdministration\Users.js" />
     <Content Include="Areas\Backoffice\Scripts\framework\UserAdministration\Roles.js" />
     <Content Include="Areas\Backoffice\Scripts\bootstrap.min.js" />
@@ -685,6 +686,7 @@
     <Content Include="Areas\Backoffice\Views\Devices\Partials\DeviceDetails.cshtml" />
     <Content Include="Areas\Backoffice\Views\Devices\Partials\DeviceList.cshtml" />
     <Content Include="Areas\Backoffice\Views\Devices\Partials\SectionCreate.cshtml" />
+    <Content Include="Areas\Backoffice\Views\Devices\Partials\DeviceSectionList.cshtml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

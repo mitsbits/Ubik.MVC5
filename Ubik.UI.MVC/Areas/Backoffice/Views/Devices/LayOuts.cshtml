@@ -13,5 +13,6 @@
         var rows = Model as IEnumerable<DeviceViewModel>;
         Html.RenderPartial("~/Areas/Backoffice/Views/Devices/Partials/DeviceList.cshtml", rows);
     }
+    AddBackofficeBottom("devices/layouts");
 }
 
