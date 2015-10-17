@@ -3,6 +3,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Ubik.Infra.Contracts;
+using Ubik.Web.Cms.Contracts;
+using Ubik.Web.Components.Contracts;
 using Ubik.Web.Components.Domain;
 using Ubik.Web.EF.Components;
 
@@ -24,6 +26,8 @@ namespace Ubik.Web.Components.AntiCorruption.ViewModels
         public DeviceRenderFlavor Flavor { get; set; }
 
         public ICollection<SectionViewModel> Sections { get; set; }
+
+        
     }
 
     public class DeviceViewModel : DeviceSaveModel
@@ -33,10 +37,19 @@ namespace Ubik.Web.Components.AntiCorruption.ViewModels
         {
 
         }
+
+        public IEnumerable<IModuleDescriptor> AvailableModules { get; set; } 
     }
 
     public class DeviceViewModelBuilder : IViewModelBuilder<PersistedDevice, DeviceViewModel>
     {
+        private readonly IResident _resident;
+
+        public DeviceViewModelBuilder(IResident resident)
+        {
+            _resident = resident;
+        }
+
         public DeviceViewModel CreateFrom(PersistedDevice entity)
         {
             var model = new DeviceViewModel
@@ -54,7 +67,7 @@ namespace Ubik.Web.Components.AntiCorruption.ViewModels
                     Identifier = s.Identifier
                 }).ToList(),
             };
-
+            model.AvailableModules = _resident.Modules.Installed;
             return model;
         }
 

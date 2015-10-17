@@ -105,7 +105,7 @@
                     var slotModel =
                         (selectedSlotOrdinal > 0 && modelSection.Slots.Any(x => x.Ordinal == selectedSlotOrdinal))
                         ? modelSection.Slots.Single(x => x.Ordinal == selectedSlotOrdinal)
-                        : new SlotViewModel() { Enabled = false, Ordinal = ((modelSection.Slots.Any()) ? modelSection.Slots.Max(x => x.Ordinal) : 0) + 1, SectionId = modelSection.SectionId, SectionIdentifier = modelSection.Identifier };
+                        : new SlotViewModel() { Enabled = false, Ordinal = ((modelSection.Slots.Any()) ? modelSection.Slots.Max(x => x.Ordinal) : 0) + 1, SectionId = modelSection.SectionId, SectionIdentifier = modelSection.Identifier, ModuleType = ModuleType.Empty.ToString(), AvailableModules = Model.AvailableModules};
                     @Html.Partial("Partials/DeviceSectionSlotDetail", slotModel)
                 }
             </div>

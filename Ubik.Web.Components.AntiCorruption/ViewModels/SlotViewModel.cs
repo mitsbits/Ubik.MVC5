@@ -26,6 +26,8 @@ namespace Ubik.Web.Components.AntiCorruption.ViewModels
     {
         public string SectionIdentifier { get; set; }
         public IEnumerable<IModuleDescriptor> AvailableModules { get; set; } 
+         
+
     }
     public class SlotViewModelBuilder : IViewModelBuilder<PersistedSlot, SlotViewModel>
     {

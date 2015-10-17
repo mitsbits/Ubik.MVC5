@@ -43,7 +43,7 @@ namespace Ubik.Web.Components.AntiCorruption.Services
             _persistedSectionRepo = persistedSectionRepo;
             _resident = resident;
 
-            _deviceBuilder = new DeviceViewModelBuilder();
+            _deviceBuilder = new DeviceViewModelBuilder(_resident);
             _sectionBuilder = new SectionViewModelBuilder();
             _slotBuilder = new SlotViewModelBuilder(_resident);
         }
