@@ -79,6 +79,10 @@
       <Project>{79096B8A-1722-4954-8713-2BEE52B865EE}</Project>
       <Name>Ubik.Web.EF</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ubik.Web.Infra\Ubik.Web.Infra.csproj">
+      <Project>{7EACFD79-0D49-43C3-A388-ABC4B0DDFE82}</Project>
+      <Name>Ubik.Web.Infra</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

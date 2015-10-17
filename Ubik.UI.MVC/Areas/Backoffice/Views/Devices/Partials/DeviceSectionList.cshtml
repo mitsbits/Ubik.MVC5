@@ -12,7 +12,7 @@
 
         </h3>
     </div>
-    <div class="box-body table-responsive">
+    <div class="box-body table-responsive table-hover">
         <table class="table table-condensed" id="sections-table">
             <thead>
                 <tr>
@@ -51,7 +51,7 @@
                             </span>
                         </td>
                         <td>
-                            @Html.ActionLink("Delete", "RemoveSection", "Devices", new { id = sct.SectionId, area = "Backoffice" }, new { @class = "btn btn-sm btn-danger btn-flat" })
+                            @Html.ActionLink("Delete", "RemoveSection", "Devices", new { id = sct.SectionId, deviceId = sct.DeviceId, sectionName = sct.FriendlyName, area = "Backoffice" }, new { @class = "btn btn-sm btn-danger btn-flat" })
                         </td>
                     </tr>
                 }

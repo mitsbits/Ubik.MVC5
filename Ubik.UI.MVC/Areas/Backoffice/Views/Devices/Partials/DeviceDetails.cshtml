@@ -1,7 +1,10 @@
 ﻿@using Ubik.Web.Components
 @using Ubik.Web.Components.AntiCorruption.ViewModels
 @model DeviceViewModel
-
+@{
+    var selectedSection = (Request.QueryString["section"] != null) ? int.Parse(Request.QueryString["section"]) : 0;
+    var selectedSlotOrdinal = (Request.QueryString["slot"] != null) ? int.Parse(Request.QueryString["slot"]) : 0;
+}
 <aside class="right-side">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -24,7 +27,7 @@
                     @using (Html.BeginForm("UpdateLayout", "Devices", FormMethod.Post, new { role = "form" }))
                     {
                         @Html.AntiForgeryToken()
-                    <!-- left column -->
+                        <!-- left column -->
 
                         <div class="box-body">
 
@@ -90,8 +93,20 @@
                 </div>
                 @if (Model.Id != default(int))
                 {
-                    @Html.Partial("Partials/SectionCreate", new SectionViewModel() { DeviceId = Model.Id, SectionId = default(int), ForFlavor = Model.Flavor })
+                    var modelSection = (selectedSection == 0) ? new SectionViewModel() { DeviceId = Model.Id, SectionId = default(int), ForFlavor = Model.Flavor } : Model.Sections.Single(x => x.SectionId == selectedSection);
+                    @Html.Partial("Partials/DeviceSectionDetail", modelSection)
                     @Html.Partial("Partials/DeviceSectionList", Model.Sections)
+                }
+            </div>
+            <div class="col-md-6">
+                @if (Model.Id != default(int) && selectedSection > 0)
+                {
+                    var modelSection = Model.Sections.Single(x => x.SectionId == selectedSection);
+                    var slotModel =
+                        (selectedSlotOrdinal > 0 && modelSection.Slots.Any(x => x.Ordinal == selectedSlotOrdinal))
+                        ? modelSection.Slots.Single(x => x.Ordinal == selectedSlotOrdinal)
+                        : new SlotViewModel() { Enabled = false, Ordinal = ((modelSection.Slots.Any()) ? modelSection.Slots.Max(x => x.Ordinal) : 0) + 1, SectionId = modelSection.SectionId, SectionIdentifier = modelSection.Identifier };
+                    @Html.Partial("Partials/DeviceSectionSlotDetail", slotModel)
                 }
             </div>
         </div>

@@ -1,9 +1,11 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using Mehdime.Entity;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
+using Ubik.Infra;
 using Ubik.Infra.Contracts;
 using Ubik.Infra.DataManagement;
 using Ubik.Web.Components.AntiCorruption.Contracts;
@@ -11,6 +13,7 @@ using Ubik.Web.Components.AntiCorruption.ViewModels;
 using Ubik.Web.Components.Contracts;
 using Ubik.Web.Components.Domain;
 using Ubik.Web.EF.Components;
+using Ubik.Web.Infra;
 
 namespace Ubik.Web.Components.AntiCorruption.Services
 {
@@ -18,6 +21,7 @@ namespace Ubik.Web.Components.AntiCorruption.Services
     {
         private readonly IDbContextScopeFactory _dbContextScopeFactory;
         private readonly ICRUDRespoditory<PersistedDevice> _persistedDeviceRepo;
+        private readonly ICRUDRespoditory<PersistedSection> _persistedSectionRepo;
 
         private readonly IViewModelBuilder<PersistedDevice, DeviceViewModel> _deviceBuilder;
         private readonly IViewModelCommand<DeviceSaveModel> _deviceCommand;
@@ -25,15 +29,19 @@ namespace Ubik.Web.Components.AntiCorruption.Services
         private readonly IViewModelBuilder<PersistedSection, SectionViewModel> _sectionBuilder;
         private readonly IViewModelCommand<SectionSaveModel> _sectionCommand;
 
-        public DeviceAdministrationService(IDbContextScopeFactory dbContextScopeFactory, ICRUDRespoditory<PersistedDevice> persistedDeviceRepo, IViewModelCommand<DeviceSaveModel> deviceCommand, IViewModelCommand<SectionSaveModel> sectionCommand)
+        private readonly IViewModelBuilder<PersistedSlot, SlotViewModel> _slotBuilder;
+
+        public DeviceAdministrationService(IDbContextScopeFactory dbContextScopeFactory, ICRUDRespoditory<PersistedDevice> persistedDeviceRepo, IViewModelCommand<DeviceSaveModel> deviceCommand, IViewModelCommand<SectionSaveModel> sectionCommand, ICRUDRespoditory<PersistedSection> persistedSectionRepo)
         {
             _dbContextScopeFactory = dbContextScopeFactory;
             _persistedDeviceRepo = persistedDeviceRepo;
             _deviceCommand = deviceCommand;
             _sectionCommand = sectionCommand;
+            _persistedSectionRepo = persistedSectionRepo;
 
             _deviceBuilder = new DeviceViewModelBuilder();
             _sectionBuilder = new SectionViewModelBuilder();
+            _slotBuilder = new SlotViewModelBuilder();
         }
 
         #region IDeviceAdministrationService
@@ -67,6 +75,25 @@ namespace Ubik.Web.Components.AntiCorruption.Services
             }
         }
 
+        public async Task<IServerResponse> DeleteSection(int id)
+        {
+            ServerResponse response;
+            try
+            {
+                using (var db = _dbContextScopeFactory.CreateWithTransaction(IsolationLevel.ReadCommitted))
+                {
+                    await _persistedSectionRepo.DeleteAsync(x => x.Id == id);
+                    await db.SaveChangesAsync();
+                    response = new ServerResponse(ServerResponseStatus.SUCCESS, "Persisted Section deleted", "");
+                }
+            }
+            catch (Exception ex)
+            {
+                response = new ServerResponse(ex);
+            }
+            return response;
+        }
+
         #endregion IDeviceAdministrationService
 
         #region IDeviceAdministrationViewModelService
@@ -78,6 +105,20 @@ namespace Ubik.Web.Components.AntiCorruption.Services
                 var data = await _persistedDeviceRepo.GetAsync(x => x.Id == id) ?? new PersistedDevice();
                 var model = _deviceBuilder.CreateFrom(data);
                 _deviceBuilder.Rebuild(model);
+                model.Sections.Clear();
+                foreach (var persistedSection in data.Sections)
+                {
+                    var section = _sectionBuilder.CreateFrom(persistedSection);
+                    _sectionBuilder.Rebuild(section);
+                    section.Slots.Clear();
+                    foreach (var persistedSlot in persistedSection.Slots)
+                    {
+                        var slot = _slotBuilder.CreateFrom(persistedSlot);
+                        _slotBuilder.Rebuild(slot);
+                        section.Slots.Add(slot);
+                    }
+                    model.Sections.Add(section);
+                }
                 return model;
             }
         }

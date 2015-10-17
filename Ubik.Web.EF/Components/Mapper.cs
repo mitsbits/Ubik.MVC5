@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Ubik.Infra.Ext;
 using Ubik.Web.Components;
 using Ubik.Web.Components.Domain;
 using Ubik.Web.Components.Query;
@@ -25,7 +26,7 @@ namespace Ubik.Web.EF.Components
 
             foreach (var persistedSlot in source.Slots)
             {
-                var module = Utility.XmlDeserializeFromString<BasePartialModule>(persistedSlot.ModuleInfo);
+                var module = persistedSlot.ModuleInfo.XmlDeserializeFromString<BasePartialModule>();
                 result.DefineSlot(new SectionSlotInfo(source.Identifier, persistedSlot.Enabled, persistedSlot.Ordinal),
                     module);
             }
@@ -36,7 +37,7 @@ namespace Ubik.Web.EF.Components
         {
             var result = new Content<int>(source.Id, MapToDomain(source.Textual), source.HtmlHead.CanonicalURL);
             result.SetState((ComponentStateFlavor)source.ComponentStateFlavor);
-            var metas = Utility.XmlDeserializeFromString<ICollection<Meta>>(source.HtmlHead.MetasInfo);
+            var metas = source.HtmlHead.MetasInfo.XmlDeserializeFromString<ICollection<Meta>>();
             if (metas != null && metas.Any())
             {
                 foreach (var meta in metas)
@@ -72,7 +73,7 @@ namespace Ubik.Web.EF.Components
                     {
                         section.Slots.Add(new Slot(
                             new SectionSlotInfo(slot.SectionIdentifier, slot.SlotEnabled, slot.SlotOrdinal),
-                            Utility.XmlDeserializeFromString<BasePartialModule>(slot.ModuleInfo)));
+                            slot.ModuleInfo.XmlDeserializeFromString<BasePartialModule>()));
                     }
                     device.AddSection(section);
                 }

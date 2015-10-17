@@ -73,7 +73,7 @@ namespace Ubik.Web.Backoffice.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task< ActionResult> CreateSection(SectionSaveModel model)
+        public async Task<ActionResult> CreateSection(SectionSaveModel model)
         {
             try
             {
@@ -81,7 +81,7 @@ namespace Ubik.Web.Backoffice.Controllers
                 if (!ModelState.IsValid)
                 {
                     AddRedirectMessage(ModelState);
-                    return RedirectToAction("LayOuts", "Devices", new {id = model.DeviceId});
+                    return RedirectToAction("LayOuts", "Devices", new { id = model.DeviceId });
                 }
                 await _deviceViewModels.Execute(model);
                 AddRedirectMessage(ServerResponseStatus.SUCCESS, string.Format("Section '{0}' {1}!", model.FriendlyName, (isNew) ? "created" : "updated"));
@@ -91,6 +91,29 @@ namespace Ubik.Web.Backoffice.Controllers
             {
                 AddRedirectMessage(ex);
                 return RedirectToAction("Layouts", "Devices", null);
+            }
+        }
+
+        public async Task<ActionResult> RemoveSection(int id, int deviceId, string sectionName)
+        {
+            try
+            {
+                var response = await _deviceService.DeleteSection(id);
+                if (response.Status == ServerResponseStatus.SUCCESS)
+                {
+                    AddRedirectMessage(ServerResponseStatus.SUCCESS,
+                        string.Format("Section '{0}' deleted!", sectionName));
+                }
+                else
+                {
+                    AddRedirectMessage(response.Status, response.Title, response.Message);
+                }
+                return RedirectToAction("Layouts", "Devices", new { id = deviceId });
+            }
+            catch (Exception ex)
+            {
+                AddRedirectMessage(ex);
+                return RedirectToAction("Layouts", "Devices", new { id = deviceId });
             }
         }
     }

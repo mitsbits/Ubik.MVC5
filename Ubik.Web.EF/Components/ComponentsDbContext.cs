@@ -74,6 +74,7 @@ namespace Ubik.Web.EF.Components
             {
                 ToTable("Slots").
                     HasKey(x => new {x.SectionId, x.Ordinal});
+                
             }
         }
         #endregion

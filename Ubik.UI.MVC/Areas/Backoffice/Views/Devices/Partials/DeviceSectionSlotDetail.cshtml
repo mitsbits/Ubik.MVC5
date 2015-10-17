@@ -1,0 +1,51 @@
+﻿@using Ubik.Web.Components.AntiCorruption.ViewModels
+@model SlotViewModel
+@{
+    var title = (Model.Ordinal == 0 || Model.Module == null) ? "New Slot" : Model.Module.FriendlyName;
+}
+<div class="panel box box-primary">
+    <div class="box-header">
+        <h3 class="box-title">
+            <a data-toggle="collapse" href="#new-slot-form" class="collapsed btn btn-primary">
+                @title
+            </a>
+        </h3>
+    </div>
+    @using (Html.BeginForm("UpdateSlot", "Devices", FormMethod.Post, new { role = "form", }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="panel-collapse collapse" id="new-slot-form">
+
+            <div class="box-body">
+
+                <div class="form-group hidden">
+                    @Html.LabelFor(m => m.SectionId)
+                    @Html.HiddenFor(m => m.SectionId, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.SectionId, "", new { @class = "" })
+                </div>
+                <div class="form-group hidden">
+                    @Html.LabelFor(m => m.SectionIdentifier)
+                    @Html.HiddenFor(m => m.SectionIdentifier, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.SectionIdentifier, "", new { @class = "" })
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon">@Html.LabelFor(m => m.Ordinal)</span>
+                        @Html.TextBoxFor(m => m.Ordinal, new { @class = "form-control" })
+
+                        <span class="input-group-addon">
+                            @Html.CheckBoxFor(m => m.Enabled, null) @Html.LabelFor(m => m.Enabled)
+                        </span>
+                        @Html.ValidationMessageFor(m => m.Ordinal, "", new { @class = "" })
+                    </div>
+                </div>
+
+            </div>
+            <div class="box-footer clearfix">
+                <div class="form-group ">
+                    <button type="submit" class="btn btn-primary pull-right">Submit</button>
+                </div>
+            </div>
+        </div>
+    }
+</div>
