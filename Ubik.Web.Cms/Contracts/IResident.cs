@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Security.Claims;
+using Ubik.Web.Components.Contracts;
 using Ubik.Web.Infra.Navigation.Contracts;
 
 namespace Ubik.Web.Cms.Contracts
@@ -8,7 +9,7 @@ namespace Ubik.Web.Cms.Contracts
     {
         IResidentAdministration Administration { get; }
         IResidentSecurity Security { get; }
-
+        IModuleDescovery Modules { get; }
         //IResidentPubSub PubSub { get; }
     }
 
@@ -22,6 +23,11 @@ namespace Ubik.Web.Cms.Contracts
     public interface IResidentAdministration
     {
         IMenuProvider<INavigationElements<int>> BackofficeMenu { get; }
+    }
+
+    public interface IModuleDescovery
+    {
+        IReadOnlyCollection<IModuleDescriptor> Installed { get; }
     }
 
     //public interface IResidentPubSub : IDomainCommandProcessor, IEventPublisher

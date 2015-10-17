@@ -1,5 +1,9 @@
-﻿using Ubik.Infra.Contracts;
+﻿using System.Collections.Generic;
+using System.Runtime.InteropServices.ComTypes;
+using Ubik.Infra.Contracts;
 using Ubik.Infra.Ext;
+using Ubik.Web.Cms.Contracts;
+using Ubik.Web.Components.Contracts;
 using Ubik.Web.Components.Domain;
 using Ubik.Web.EF.Components;
 
@@ -21,9 +25,17 @@ namespace Ubik.Web.Components.AntiCorruption.ViewModels
     public class SlotViewModel : SlotSaveModel
     {
         public string SectionIdentifier { get; set; }
+        public IEnumerable<IModuleDescriptor> AvailableModules { get; set; } 
     }
     public class SlotViewModelBuilder : IViewModelBuilder<PersistedSlot, SlotViewModel>
     {
+        private readonly IResident _resident;
+
+        public SlotViewModelBuilder(IResident resident)
+        {
+            _resident = resident;
+        }
+
         public SlotViewModel CreateFrom(PersistedSlot entity)
         {
             var model = new SlotViewModel()
@@ -37,6 +49,7 @@ namespace Ubik.Web.Components.AntiCorruption.ViewModels
             {
                 model.Module = entity.ModuleInfo.XmlDeserializeFromString<BasePartialModule>();
             }
+            model.AvailableModules = _resident.Modules.Installed;
             return model;
         }
 

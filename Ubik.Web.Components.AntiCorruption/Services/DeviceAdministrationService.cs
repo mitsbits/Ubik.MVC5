@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Ubik.Infra;
 using Ubik.Infra.Contracts;
 using Ubik.Infra.DataManagement;
+using Ubik.Web.Cms.Contracts;
 using Ubik.Web.Components.AntiCorruption.Contracts;
 using Ubik.Web.Components.AntiCorruption.ViewModels;
 using Ubik.Web.Components.Contracts;
@@ -31,17 +32,20 @@ namespace Ubik.Web.Components.AntiCorruption.Services
 
         private readonly IViewModelBuilder<PersistedSlot, SlotViewModel> _slotBuilder;
 
-        public DeviceAdministrationService(IDbContextScopeFactory dbContextScopeFactory, ICRUDRespoditory<PersistedDevice> persistedDeviceRepo, IViewModelCommand<DeviceSaveModel> deviceCommand, IViewModelCommand<SectionSaveModel> sectionCommand, ICRUDRespoditory<PersistedSection> persistedSectionRepo)
+        private readonly IResident _resident;
+
+        public DeviceAdministrationService(IDbContextScopeFactory dbContextScopeFactory, ICRUDRespoditory<PersistedDevice> persistedDeviceRepo, IViewModelCommand<DeviceSaveModel> deviceCommand, IViewModelCommand<SectionSaveModel> sectionCommand, ICRUDRespoditory<PersistedSection> persistedSectionRepo, IResident resident)
         {
             _dbContextScopeFactory = dbContextScopeFactory;
             _persistedDeviceRepo = persistedDeviceRepo;
             _deviceCommand = deviceCommand;
             _sectionCommand = sectionCommand;
             _persistedSectionRepo = persistedSectionRepo;
+            _resident = resident;
 
             _deviceBuilder = new DeviceViewModelBuilder();
             _sectionBuilder = new SectionViewModelBuilder();
-            _slotBuilder = new SlotViewModelBuilder();
+            _slotBuilder = new SlotViewModelBuilder(_resident);
         }
 
         #region IDeviceAdministrationService

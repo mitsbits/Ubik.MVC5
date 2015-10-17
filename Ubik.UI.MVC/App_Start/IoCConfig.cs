@@ -180,8 +180,11 @@ namespace Ubik.UI.MVC
             builder.Register((c, p) => new ResidentAdministration(c.Resolve<IBackOfficeMenuProvider>() as IMenuProvider<INavigationElements<int>>))
                 .As<IResidentAdministration>()
                 .SingleInstance();
-            //builder.RegisterType<ResidentAdministration>().As<IResidentAdministration>().SingleInstance();
-            // builder.RegisterType<ResidentPubSub>().As<IResidentPubSub>().SingleInstance();
+            builder.RegisterType<ModuleDescovery>().As<IModuleDescovery>().SingleInstance();
+
+            builder.RegisterAssemblyTypes(ScopedAssemblies())
+                .Where(t => t.GetInterfaces().Any(i=>i == typeof (IModuleDescriptor)) && !t.IsAbstract)
+                .As<IModuleDescriptor>();
         }
 
         private static void WireUpElmahAgents(ContainerBuilder builder)

@@ -751,6 +751,10 @@
       <Project>{d67e5cd5-3070-4fed-8fa3-60dea4337732}</Project>
       <Name>Ubik.Web.Backoffice</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ubik.Web.Client.System\Ubik.Web.Client.System.csproj">
+      <Project>{bda64df9-5c62-40d1-b368-a74cdd5107e0}</Project>
+      <Name>Ubik.Web.Client.System</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Ubik.Web.Cms\Ubik.Web.Cms.csproj">
       <Project>{54a78bf9-ac25-4e8e-9bcf-0628ed0db2af}</Project>
       <Name>Ubik.Web.Cms</Name>

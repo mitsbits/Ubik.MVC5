@@ -26,7 +26,6 @@ namespace Ubik.Web.Components
             Parameters = new Tidings();
         }
 
-        //TODO: find a way so ModuleFlavor can be extended by calling code
         public abstract ModuleType ModuleType { get; }
 
         public string FriendlyName { get; private set; }
