@@ -63,7 +63,7 @@ namespace Ubik.Web.Backoffice.Controllers
                 }
                 await _deviceViewModels.Execute(model);
                 AddRedirectMessage(ServerResponseStatus.SUCCESS, string.Format("Device '{0}' {1}!", model.FriendlyName, (isNew) ? "created" : "updated"));
-                return RedirectToAction("Layouts", "Devices", new { id = model.Id });
+                return RedirectToAction("Layouts", "Devices", new { id = model.Id});
             }
             catch (Exception ex)
             {
