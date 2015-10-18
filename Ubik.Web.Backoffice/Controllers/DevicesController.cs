@@ -21,10 +21,7 @@ namespace Ubik.Web.Backoffice.Controllers
             _deviceViewModels = deviceViewModels;
         }
 
-        public async Task<ActionResult> Index()
-        {
-            return View(await _deviceService.All(1, 10000));
-        }
+
 
         public Task<ActionResult> LayOuts(int? id)
         {
@@ -73,7 +70,7 @@ namespace Ubik.Web.Backoffice.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateSection(SectionSaveModel model)
+        public async Task<ActionResult> UpdateSection(SectionSaveModel model)
         {
             try
             {

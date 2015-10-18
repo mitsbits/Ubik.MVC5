@@ -2,7 +2,7 @@
 
 namespace Ubik.Infra.DataManagement
 {
-    public struct PagedResult<T> where T : class
+    public struct PagedResult<T> 
     {
         public IEnumerable<T> Data;
         public int PageNumber;

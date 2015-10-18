@@ -75,8 +75,6 @@
     <Build Include="dbo\Tables\HtmlHeads.sql" />
     <Build Include="dbo\Tables\ELMAH_Error.sql" />
     <Build Include="dbo\Tables\Contents_Tags.sql" />
-    <Build Include="Security\ubikuser.sql" />
-    <Build Include="Security\RoleMemberships.sql" />
     <Build Include="dbo\Stored Procedures\ELMAH_LogError.sql" />
     <Build Include="dbo\Stored Procedures\ELMAH_GetErrorXml.sql" />
     <Build Include="dbo\Stored Procedures\ELMAH_GetErrorsXml.sql" />

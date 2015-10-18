@@ -58,6 +58,7 @@
     <Compile Include="Components\DeviceRepository.cs" />
     <Compile Include="Components\Mapper.cs" />
     <Compile Include="Components\PersistedComponents.cs" />
+    <Compile Include="ElmahDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

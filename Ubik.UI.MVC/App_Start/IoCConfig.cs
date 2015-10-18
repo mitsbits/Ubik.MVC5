@@ -1,5 +1,4 @@
-﻿using System.Web;
-using Autofac;
+﻿using Autofac;
 using Autofac.Core;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
@@ -11,9 +10,9 @@ using Owin;
 using System;
 using System.Linq;
 using System.Reflection;
+using System.Web;
 using System.Web.Compilation;
 using Ubik.Cache.Runtime;
-using Ubik.EF;
 using Ubik.Infra.Contracts;
 using Ubik.UI.MVC.Models;
 using Ubik.Web.Auth;
@@ -30,7 +29,9 @@ using Ubik.Web.Components.AntiCorruption.Contracts;
 using Ubik.Web.Components.AntiCorruption.Services;
 using Ubik.Web.Components.AntiCorruption.ViewModels;
 using Ubik.Web.Components.Contracts;
+using Ubik.Web.EF;
 using Ubik.Web.EF.Components;
+using Ubik.Web.Infra.Contracts;
 using Ubik.Web.Infra.Navigation.Contracts;
 
 namespace Ubik.UI.MVC
@@ -135,7 +136,7 @@ namespace Ubik.UI.MVC
                 .Named<ApplicationRoleManager>("transient");
 
             builder.RegisterType<AuthDbContext>().As<AuthDbContext>().InstancePerRequest();
-               builder.RegisterType<ComponentsDbContext>().As<ComponentsDbContext>().InstancePerRequest();
+            builder.RegisterType<ComponentsDbContext>().As<ComponentsDbContext>().InstancePerRequest();
             builder.RegisterType<ApplicationUserStore>().As<IUserStore<ApplicationUser>>().InstancePerRequest();
             builder.RegisterType<ApplicationRoleStore>().As<IRoleStore<ApplicationRole, string>>().InstancePerRequest();
             builder.RegisterType<ApplicationUserManager>().InstancePerRequest();
@@ -157,8 +158,6 @@ namespace Ubik.UI.MVC
             builder.RegisterType<RoleViewModelCommand>().As<IViewModelCommand<RoleSaveModel>>().InstancePerRequest();
             builder.RegisterType<NewUserViewModelCommand>().As<IViewModelCommand<NewUserSaveModel>>().InstancePerRequest();
             builder.RegisterType<UserViewModelCommand>().As<IViewModelCommand<UserSaveModel>>().InstancePerRequest();
-
-
 
             builder.RegisterAssemblyTypes(Asmbls)
                    .Where(t => t.GetInterfaces().Any(x => x == typeof(IResourceAuthProvider)) && !t.IsAbstract)
@@ -183,8 +182,11 @@ namespace Ubik.UI.MVC
             builder.RegisterType<ModuleDescovery>().As<IModuleDescovery>().SingleInstance();
 
             builder.RegisterAssemblyTypes(ScopedAssemblies())
-                .Where(t => t.GetInterfaces().Any(i=>i == typeof (IModuleDescriptor)) && !t.IsAbstract)
+                .Where(t => t.GetInterfaces().Any(i => i == typeof(IModuleDescriptor)) && !t.IsAbstract)
                 .As<IModuleDescriptor>();
+
+            builder.RegisterType<ElmahDbContext>().As<ElmahDbContext>().InstancePerRequest();
+            builder.RegisterType<ErrorLogManager>().As<IErrorLogManager>().InstancePerRequest();
         }
 
         private static void WireUpElmahAgents(ContainerBuilder builder)

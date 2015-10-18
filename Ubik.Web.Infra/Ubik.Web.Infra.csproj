@@ -71,6 +71,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasePageHelper.cs" />
+    <Compile Include="Contracts\IErrorLogManager.cs" />
+    <Compile Include="ErrorLog.cs" />
     <Compile Include="Helpers\ServerResponseHelper.cs" />
     <Compile Include="Helpers\StaticsHelper.cs" />
     <Compile Include="Contracts\IRootPageProvider.cs" />

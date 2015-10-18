@@ -120,7 +120,7 @@ namespace Ubik.EF
             return await query.FirstOrDefaultAsync(predicate);
         }
 
-        public async Task<PagedResult<T>> FindAsync(Expression<Func<T, bool>> predicate,
+        public virtual async Task<PagedResult<T>> FindAsync(Expression<Func<T, bool>> predicate,
             IEnumerable<OrderByInfo<T>> orderBy, int pageNumber, int pageSize)
         {
             return await FindAsync(predicate, orderBy, pageNumber, pageSize, null);

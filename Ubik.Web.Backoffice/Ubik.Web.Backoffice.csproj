@@ -56,6 +56,22 @@
       <HintPath>..\packages\Autofac.WebApi2.3.4.0\lib\net45\Autofac.Integration.WebApi.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Elmah, Version=1.2.13605.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\elmah.corelibrary.1.2\lib\Elmah.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Mehdime.Entity, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mehdime.Entity.1.0.0\lib\Mehdime.Entity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
       <Private>True</Private>
@@ -81,6 +97,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -158,6 +175,8 @@
     <Compile Include="Controllers\Api\BackofficeOperationsController.cs" />
     <Compile Include="Controllers\Api\UserOperationsController.cs" />
     <Compile Include="Controllers\DevicesController.cs" />
+    <Compile Include="Controllers\ErrorLogsController.cs" />
+    <Compile Include="ErrorLogManager.cs" />
     <Compile Include="XmlBackOfficeMenuProvider.cs" />
     <Compile Include="Controllers\BackOfficeController.cs" />
     <Compile Include="Controllers\Calendar.cs" />
@@ -197,6 +216,10 @@
     <ProjectReference Include="..\Ubik.Web.Components\Ubik.Web.Components.csproj">
       <Project>{8D91A185-358B-4E6E-9D3A-A1CF51DA7251}</Project>
       <Name>Ubik.Web.Components</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ubik.Web.EF\Ubik.Web.EF.csproj">
+      <Project>{79096B8A-1722-4954-8713-2BEE52B865EE}</Project>
+      <Name>Ubik.Web.EF</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ubik.Web.Infra\Ubik.Web.Infra.csproj">
       <Project>{7EACFD79-0D49-43C3-A388-ABC4B0DDFE82}</Project>
