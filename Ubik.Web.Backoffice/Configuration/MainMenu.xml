@@ -9,31 +9,14 @@
         <icon>
           <cssclass>fa fa fa-angle-double-right</cssclass>
         </icon>
-
-        <!--<elements>
-          <element display="New Role" href="/useradministration/new-role" role="anchor" target="_self">
-            <icon>
-              <cssclass>fa fa-plus</cssclass>
-            </icon>
-          </element>
-        </elements>-->
-        
       </element>
       <element display="Users" href="/useradministration/users" role="anchor" target="_self">
         <icon>
           <cssclass>fa fa fa-angle-double-right</cssclass>
         </icon>
-        <!--<elements>
-          <element display="New User" href="/useradministration/new-user" role="anchor" target="_self">
-            <icon>
-              <cssclass>fa</cssclass>
-            </icon>
-          </element>
-        </elements>-->
       </element>
     </elements>
   </group>
-
 
   <group key="modls" display="Layouts and Modules">
     <icon>
@@ -44,7 +27,6 @@
         <icon>
           <cssclass>fa-file-code-o</cssclass>
         </icon>
-
         <elements>
           <element display="New Layout" href="/devices/new-device" role="anchor" target="_self">
             <icon>
@@ -52,19 +34,24 @@
             </icon>
           </element>
         </elements>
-
       </element>
       <element display="Modules" href="/modules" role="anchor" target="_self">
         <icon>
           <cssclass>fa fa-object-group</cssclass>
         </icon>
-        <!--<elements>
-          <element display="New User" href="/useradministration/new-user" role="anchor" target="_self">
-            <icon>
-              <cssclass>fa fa-user-plus</cssclass>
-            </icon>
-          </element>
-        </elements>-->
+      </element>
+    </elements>
+  </group>
+
+  <group key="mntns" display="Maintenance">
+    <icon>
+      <cssclass></cssclass>
+    </icon>
+    <elements>
+      <element display="Error Logs" href="/errorlogs" role="anchor" target="_self">
+        <icon>
+          <cssclass></cssclass>
+        </icon>
       </element>
     </elements>
   </group>

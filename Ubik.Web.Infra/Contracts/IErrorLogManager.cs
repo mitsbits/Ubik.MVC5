@@ -10,6 +10,8 @@ namespace Ubik.Web.Infra.Contracts
 
         Task<int> ClearLogs(DateTime startUtc, DateTime endUtc);
 
+        Task<int> ClearLog(string id);
+
         Task<PagedResult<ErrorLog>> GetLogs(int pageNumer, int pageSize);
     }
 }

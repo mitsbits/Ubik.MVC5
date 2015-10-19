@@ -24,11 +24,11 @@ namespace Ubik.Web.Backoffice.Controllers
             get
             {
                 var p = 1;
-                if (ControllerContext.RouteData.Values[pageNumerVariableName] != null)
-                    int.TryParse(ControllerContext.RouteData.Values[pageNumerVariableName].ToString(), out p);
+                if (Request.QueryString[pageNumerVariableName] != null)
+                    int.TryParse(Request.QueryString[pageNumerVariableName], out p);
                 var r = 10;
-                if (ControllerContext.RouteData.Values[rowCountVariableName] != null)
-                    int.TryParse(ControllerContext.RouteData.Values[rowCountVariableName].ToString(), out r);
+                if (Request.QueryString[rowCountVariableName] != null)
+                    int.TryParse(Request.QueryString[rowCountVariableName], out r);
                 return new RequestPager() { Current = p, RowCount = r };
             }
         }

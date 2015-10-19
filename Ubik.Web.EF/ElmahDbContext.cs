@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -19,6 +20,23 @@ namespace Ubik.Web.EF
 
         public DbSet<PersistedExceptionLog> Logs { get; set; }
 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+
+            modelBuilder.Configurations.Add(new PersistedExceptionLogConfig());
+            base.OnModelCreating(modelBuilder);
+        }
+
+
+
+        private class PersistedExceptionLogConfig : EntityTypeConfiguration<PersistedExceptionLog>
+        {
+            public PersistedExceptionLogConfig()
+            {
+                ToTable("ELMAH_Error").
+                    HasKey(x => new {x.ErrorId});
+            }
+        }
     }
 
     public class PersistedExceptionLog
@@ -90,7 +108,7 @@ namespace Ubik.Web.EF
                 };
             return new PagedResult<PersistedExceptionLog>
             {
-                Data = await orderedQuaQueryable.Skip((pageNumber - 1) * pageSize).Take(pageSize).Select(x => new PersistedExceptionLog()
+                Data =  orderedQuaQueryable.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList().Select(x => new PersistedExceptionLog()
                 {
                     AllXml = string.Empty,
                     ErrorId = x.ErrorId,
@@ -103,7 +121,7 @@ namespace Ubik.Web.EF
                     TimeUtc = x.TimeUtc,
                     Type = x.Type,
                     User = x.User
-                }).ToListAsync(),
+                }),
                 PageNumber = pageNumber,
                 PageSize = pageSize,
                 TotalPages = totalPages,

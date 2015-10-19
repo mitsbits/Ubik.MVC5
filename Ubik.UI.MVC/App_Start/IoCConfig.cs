@@ -185,6 +185,9 @@ namespace Ubik.UI.MVC
                 .Where(t => t.GetInterfaces().Any(i => i == typeof(IModuleDescriptor)) && !t.IsAbstract)
                 .As<IModuleDescriptor>();
 
+            builder.RegisterType<PersistedExceptionLogRepository>()
+                .As<ICRUDRespoditory<PersistedExceptionLog>>()
+                .InstancePerRequest();
             builder.RegisterType<ElmahDbContext>().As<ElmahDbContext>().InstancePerRequest();
             builder.RegisterType<ErrorLogManager>().As<IErrorLogManager>().InstancePerRequest();
         }

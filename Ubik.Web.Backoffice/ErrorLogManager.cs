@@ -39,12 +39,23 @@ namespace Ubik.Web.Backoffice
             }
         }
 
+        public async Task<int> ClearLog(string id)
+        {
+            using (var db = _dbContextScopeFactory.CreateWithTransaction(IsolationLevel.ReadCommitted))
+            {
+
+                await _repo.DeleteAsync(x => x.ErrorId == Guid.Parse(id));
+
+                return await db.SaveChangesAsync();
+            }
+        }
+
         public async Task<PagedResult<ErrorLog>> GetLogs(int pageNumer, int pageSize)
         {
             using (_dbContextScopeFactory.CreateReadOnly())
             {
                 var data = await _repo.FindAsync(x => true,
-                    new[] { new OrderByInfo<PersistedExceptionLog>() { Ascending = false, Property = l => l.TimeUtc } },
+                    new[] { new OrderByInfo<PersistedExceptionLog>() { Ascending = false, Property = l => new { l.TimeUtc } } },
                     pageNumer, pageSize);
                 return new PagedResult<ErrorLog>()
                 {
