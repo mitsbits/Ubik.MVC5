@@ -16,7 +16,7 @@
         }
         var redirectUrl = window.location.href;
         var url = "/api/backoffice/errorlogs/clearlogs/";
-        $.post(url, JSON.stringify(selectdIds()))
+        $.post(url, {'' :selectdIds()})
             .done(function (data) {
                 window.location.href = redirectUrl;
             });

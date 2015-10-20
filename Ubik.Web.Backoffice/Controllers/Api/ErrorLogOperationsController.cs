@@ -18,12 +18,12 @@ namespace Ubik.Web.Backoffice.Controllers.Api
         [HttpPost]
         public async Task<IHttpActionResult> ClaimsForRoles([FromBody]IEnumerable<string> ids)
         {
-            var tasks = new List<Task<int>>();
+     
             foreach (var id in ids)
             {
-                tasks.Add(_manager.ClearLog(id));
+                await _manager.ClearLog(id);
             }
-            await Task.WhenAll(tasks.ToArray());
+
             return Ok();
         }
     }

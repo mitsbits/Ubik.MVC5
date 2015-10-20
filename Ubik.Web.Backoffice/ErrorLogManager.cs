@@ -43,8 +43,9 @@ namespace Ubik.Web.Backoffice
         {
             using (var db = _dbContextScopeFactory.CreateWithTransaction(IsolationLevel.ReadCommitted))
             {
+                var errorId = Guid.Parse(id);
 
-                await _repo.DeleteAsync(x => x.ErrorId == Guid.Parse(id));
+                await _repo.DeleteAsync(x => x.ErrorId == errorId);
 
                 return await db.SaveChangesAsync();
             }
