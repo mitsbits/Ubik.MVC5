@@ -34,4 +34,23 @@
         });
         return ids;
     }
+
+
+    $('#deletelogs-range').daterangepicker(
+        {
+            format: 'DD/MM/YYYY',
+            showDropdowns : true
+            //startDate: moment().subtract('days', 29),
+            //endDate: moment()
+        },
+        function (start, end) {
+            $('input#RangeStart').val(start.format());
+            $('input#RangeEnd').val(end.format());
+
+        });
+    $('#deletelogs-range').on('cancel.daterangepicker', function (ev, picker) {
+        $('input#rangeStart').val('');
+        $('input#rangeEnd').val('');
+        $('#deletelogs-range').val('');
+    });
 });

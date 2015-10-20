@@ -1,0 +1,16 @@
+﻿@using (Html.BeginForm("ClearLogsForRange", "ErrorLogs", FormMethod.Post, new { role = "form" }))
+{
+    <input name="rangeStart" id="RangeStart" type="hidden" />
+    <input name="rangeEnd" id="RangeEnd" type="hidden" />
+    <input name="redirectUrl" id="RedirectUrl" type="hidden" value="@Request.RawUrl" />
+    <div class="input-group">
+        <div class="input-group-addon">
+            <i class="fa fa-calendar"></i>
+            <label>Delete date range</label>
+        </div>
+        <input type="text" class="form-control" id="deletelogs-range" />
+        <div class="input-group-btn">
+            <button type="submit" class="btn btn-warning btn-flat">Delete</button>
+        </div>
+    </div>
+}

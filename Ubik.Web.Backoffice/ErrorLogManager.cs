@@ -29,12 +29,16 @@ namespace Ubik.Web.Backoffice
         {
             using (var db = _dbContextScopeFactory.CreateWithTransaction(IsolationLevel.ReadCommitted))
             {
-                var data = await _repo.FindAsync(x => x.TimeUtc >= startUtc && x.TimeUtc <= endUtc, null, 1, 1000000);
-                foreach (var persistedExceptionLog in data.Data.Select(x => x.ErrorId).ToList())
-                {
-                    var log = persistedExceptionLog;
-                    await _repo.DeleteAsync(x => x.ErrorId == log);
-                }
+                await _repo.DeleteAsync(x => x.TimeUtc >= startUtc && x.TimeUtc <= endUtc);
+                return await db.SaveChangesAsync();
+            }
+        }
+
+        public async Task<int> ClearLogs(IEnumerable<string> ids)
+        {
+            using (var db = _dbContextScopeFactory.CreateWithTransaction(IsolationLevel.ReadCommitted))
+            {
+                await _repo.DeleteAsync(x => ids.Contains(x.ErrorId.ToString()));
                 return await db.SaveChangesAsync();
             }
         }

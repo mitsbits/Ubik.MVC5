@@ -169,8 +169,11 @@ namespace Ubik.EF
 
         public async Task DeleteAsync(Expression<Func<T, bool>> predicate)
         {
-            var item = await DbContext.Set<T>().FirstOrDefaultAsync(predicate);
-            if (item != null) DbContext.Set<T>().Remove(item);
+            var items = await DbContext.Set<T>().Where(predicate).ToListAsync();
+            foreach (var item in items)
+            {
+                DbContext.Set<T>().Remove(item);
+            }
         } 
         #endregion
     }

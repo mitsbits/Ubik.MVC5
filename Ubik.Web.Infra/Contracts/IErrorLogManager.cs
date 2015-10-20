@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Ubik.Infra.DataManagement;
 
@@ -9,6 +10,8 @@ namespace Ubik.Web.Infra.Contracts
         Task LogException(Exception ex);
 
         Task<int> ClearLogs(DateTime startUtc, DateTime endUtc);
+
+        Task<int> ClearLogs(IEnumerable<string> ids);
 
         Task<int> ClearLog(string id);
 

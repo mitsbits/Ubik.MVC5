@@ -12,4 +12,6 @@ namespace Ubik.Web.Infra
         public string User { get; set; }
         public DateTime ErrorDatetTimeUtc { get; set; }
     }
+
+
 }

@@ -29,33 +29,41 @@
                         <h3 class="box-title">
                             Error Log
                         </h3>
-                        <div class="pull-right">
-                            <button class="btn btn-warning" id="btn-delete-selectd">Delete selected logs</button>
-                        </div>
+
+
                     </div>
+                    <div class="box-body clearfix">
+                        <div class="col-md-2">
+                            <button class="btn btn-warning" id="btn-delete-selectd">Delete selected logs</button>
 
-                        <div class="box-body table-responsive table-condensed table-hover">
-                            <table class="table table-hover table-condensed" id="devices-table">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 40px"><input type="checkbox" id="row-selector"></th>
-                                        <th>Name</th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
+                        </div>
+                        <div class="col-md-6">
+                            @Html.Partial("Partials/ClearErrorLogsForTimeRange")
+                        </div>
 
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @for (var i = 0; i < _model.Count(); i++)
-                                    {
-                                        var errorlog = _model[i];
-                                        <tr data-id="@errorlog.Id">
-                                            <td>
-                                                <input type="checkbox" id="row-selector-@i" data-id="@errorlog.Id" class="selector">
-                                                @*@using (Html.BeginForm("DeleteErrorLog", "ErrorLogs", FormMethod.Post, new { role = "form" }))
+                    </div>
+                    <div class=" box-body table-responsive table-condensed table-hover">
+                        <table class="table table-hover table-condensed" id="devices-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 40px"><input type="checkbox" id="row-selector"></th>
+                                    <th>Name</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (var i = 0; i < _model.Count(); i++)
+                                {
+                                    var errorlog = _model[i];
+                                    <tr data-id="@errorlog.Id">
+                                        <td>
+                                            <input type="checkbox" id="row-selector-@i" data-id="@errorlog.Id" class="selector">
+                                            @*@using (Html.BeginForm("DeleteErrorLog", "ErrorLogs", FormMethod.Post, new { role = "form" }))
                                                 {
                                                     <input type="hidden" name="ErrorId" value="@errorlog.Id" />
                                                     <input type="hidden" name="RedirectUrl" value="@Request.RawUrl" />
@@ -63,21 +71,21 @@
                                                         <i class="fa fa-trash-o text-warning"></i>
                                                     </button>
                                                 }*@
-                                            </td>
-                                            <td>@errorlog.Host</td>
-                                            <td>@errorlog.ErrorType</td>
-                                            <td>@errorlog.ErrorCode</td>
-                                            <td>@errorlog.ErrorDatetTimeUtc.ToLocalTime().ToString("d/M/yy HH:mm:ss")</td>
-                                            <td>@errorlog.ErrorMessage</td>
-                                            <td>@errorlog.User</td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="box-footer clearfix">
+                                        </td>
+                                        <td>@errorlog.Host</td>
+                                        <td>@errorlog.ErrorType</td>
+                                        <td>@errorlog.ErrorCode</td>
+                                        <td>@errorlog.ErrorDatetTimeUtc.ToLocalTime().ToString("d/M/yy HH:mm:ss")</td>
+                                        <td>@errorlog.ErrorMessage</td>
+                                        <td>@errorlog.User</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="box-footer clearfix">
 
-                        </div>
+                    </div>
                 </div>
             </div>
         </div>
