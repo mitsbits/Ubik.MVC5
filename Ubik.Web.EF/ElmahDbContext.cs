@@ -69,14 +69,7 @@ namespace Ubik.Web.EF
             var totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
             if (pageNumber > totalPages) { pageNumber = totalPages; }
             if (totalRecords == 0)
-                return new PagedResult<PersistedExceptionLog>
-                {
-                    Data = new List<PersistedExceptionLog>(),
-                    PageNumber = pageNumber,
-                    PageSize = pageSize,
-                    TotalPages = 0,
-                    TotalRecords = 0
-                };
+                return new PagedResult<PersistedExceptionLog>(new List<PersistedExceptionLog>(), pageNumber, pageSize, 0);
 
 
 
@@ -98,35 +91,24 @@ namespace Ubik.Web.EF
                 }
             }
             if (orderedQuaQueryable == null)
-                return new PagedResult<PersistedExceptionLog>
-                {
-                    Data = new List<PersistedExceptionLog>(),
-                    PageNumber = pageNumber,
-                    PageSize = pageSize,
-                    TotalPages = 0,
-                    TotalRecords = 0
-                };
-            return new PagedResult<PersistedExceptionLog>
+                return new PagedResult<PersistedExceptionLog>(new List<PersistedExceptionLog>(), pageNumber, pageSize, 0);
+
+            var rawdata = await orderedQuaQueryable.Skip((pageNumber - 1)*pageSize).Take(pageSize).ToListAsync();
+            var data = rawdata.Select(x => new PersistedExceptionLog()
             {
-                Data =  orderedQuaQueryable.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList().Select(x => new PersistedExceptionLog()
-                {
-                    AllXml = string.Empty,
-                    ErrorId = x.ErrorId,
-                    Application = x.Application,
-                    Host = x.Host,
-                    Message = x.Message,
-                    Sequence = x.Sequence,
-                    Source = x.Source,
-                    StatusCode = x.StatusCode,
-                    TimeUtc = x.TimeUtc,
-                    Type = x.Type,
-                    User = x.User
-                }),
-                PageNumber = pageNumber,
-                PageSize = pageSize,
-                TotalPages = totalPages,
-                TotalRecords = totalRecords
-            };
+                AllXml = string.Empty,
+                ErrorId = x.ErrorId,
+                Application = x.Application,
+                Host = x.Host,
+                Message = x.Message,
+                Sequence = x.Sequence,
+                Source = x.Source,
+                StatusCode = x.StatusCode,
+                TimeUtc = x.TimeUtc,
+                Type = x.Type,
+                User = x.User
+            });
+            return new PagedResult<PersistedExceptionLog>(data, pageNumber, pageSize, totalRecords);
         }
     }
 }

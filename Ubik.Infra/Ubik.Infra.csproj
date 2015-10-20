@@ -60,6 +60,7 @@
     <Compile Include="DataManagement\Group\GroupingHelper.cs" />
     <Compile Include="DataManagement\Group\IGroupingService.cs" />
     <Compile Include="DataManagement\Group\IGroupValidatorService.cs" />
+    <Compile Include="Contracts\IPagedResult.cs" />
     <Compile Include="DataManagement\OrderByInfo.cs" />
     <Compile Include="DataManagement\PagedResult.cs" />
     <Compile Include="Ext\CollectionExtensions.cs" />

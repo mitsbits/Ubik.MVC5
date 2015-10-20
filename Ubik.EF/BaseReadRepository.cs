@@ -134,14 +134,7 @@ namespace Ubik.EF
             var totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
             if (pageNumber > totalPages) { pageNumber = totalPages; }
             if (totalRecords == 0)
-                return new PagedResult<T>
-                {
-                    Data = new List<T>(),
-                    PageNumber = pageNumber,
-                    PageSize = pageSize,
-                    TotalPages = 0,
-                    TotalRecords = 0
-                };
+                return new PagedResult<T>(new List<T>(), pageNumber, pageSize, 0);
 
             if (paths != null && paths.Any())
             {
@@ -166,22 +159,11 @@ namespace Ubik.EF
                 }
             }
             if (orderedQuaQueryable == null)
-                return new PagedResult<T>
-                {
-                        Data = new List<T>(),
-                        PageNumber = pageNumber,
-                        PageSize = pageSize,
-                        TotalPages = 0,
-                        TotalRecords = 0
-                    };
-            return new PagedResult<T>
-            {
-                Data = await orderedQuaQueryable.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync(),
-                PageNumber = pageNumber,
-                PageSize = pageSize,
-                TotalPages = totalPages,
-                TotalRecords = totalRecords
-            };
+                return new PagedResult<T>(new List<T>(), pageNumber, pageSize, 0);
+
+            var data = await orderedQuaQueryable.Skip((pageNumber - 1)*pageSize).Take(pageSize).ToListAsync();
+            return new PagedResult<T>(data, pageNumber, pageSize, totalRecords);
+
         }
 
         #endregion Async

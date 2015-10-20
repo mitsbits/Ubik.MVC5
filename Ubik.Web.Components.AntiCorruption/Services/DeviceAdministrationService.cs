@@ -58,14 +58,10 @@ namespace Ubik.Web.Components.AntiCorruption.Services
                        new[] { new OrderByInfo<PersistedDevice>() { Ascending = true, Property = x => x.FriendlyName } },
                        pageNumber, pageSize);
 
-                var output = new PagedResult<Device<int>>
-                {
-                    PageNumber = result.PageNumber,
-                    PageSize = result.PageSize,
-                    TotalPages = result.TotalPages,
-                    TotalRecords = result.TotalRecords,
-                    Data = new List<Device<int>>(result.Data.Select(Mapper.MapToDomain))
-                };
+                var output = new PagedResult<Device<int>>(
+                    new List<Device<int>>(result.Data.Select(Mapper.MapToDomain)), result.PageNumber, result.PageSize,
+                    result.TotalRecords);
+
                 return output;
             }
         }

@@ -62,14 +62,8 @@ namespace Ubik.Web.Backoffice
                 var data = await _repo.FindAsync(x => true,
                     new[] { new OrderByInfo<PersistedExceptionLog>() { Ascending = false, Property = l => new { l.TimeUtc } } },
                     pageNumer, pageSize);
-                return new PagedResult<ErrorLog>()
-                {
-                    Data = data.Data.Select(MapToDomain),
-                    PageNumber = data.PageNumber,
-                    PageSize = data.PageSize,
-                    TotalPages = data.TotalPages,
-                    TotalRecords = data.TotalRecords
-                };
+                return new PagedResult<ErrorLog>(data.Data.Select(MapToDomain), data.PageNumber, data.PageSize,
+                    data.TotalRecords);
             }
         }
 

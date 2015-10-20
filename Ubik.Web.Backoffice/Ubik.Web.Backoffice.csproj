@@ -178,6 +178,7 @@
     <Compile Include="Controllers\DevicesController.cs" />
     <Compile Include="Controllers\ErrorLogsController.cs" />
     <Compile Include="ErrorLogManager.cs" />
+    <Compile Include="Helpers\Pagination.cs" />
     <Compile Include="ViewModel\DeleteErrorLogViewModel.cs" />
     <Compile Include="XmlBackOfficeMenuProvider.cs" />
     <Compile Include="Controllers\BackOfficeController.cs" />

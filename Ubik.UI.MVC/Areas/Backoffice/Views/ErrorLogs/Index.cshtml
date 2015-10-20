@@ -63,14 +63,6 @@
                                     <tr data-id="@errorlog.Id">
                                         <td>
                                             <input type="checkbox" id="row-selector-@i" data-id="@errorlog.Id" class="selector">
-                                            @*@using (Html.BeginForm("DeleteErrorLog", "ErrorLogs", FormMethod.Post, new { role = "form" }))
-                                                {
-                                                    <input type="hidden" name="ErrorId" value="@errorlog.Id" />
-                                                    <input type="hidden" name="RedirectUrl" value="@Request.RawUrl" />
-                                                    <button type="submit" class="btn btn-sm btn-flat btn-warning">
-                                                        <i class="fa fa-trash-o text-warning"></i>
-                                                    </button>
-                                                }*@
                                         </td>
                                         <td>@errorlog.Host</td>
                                         <td>@errorlog.ErrorType</td>
@@ -84,7 +76,9 @@
                         </table>
                     </div>
                     <div class="box-footer clearfix">
-
+                        <div class="pull-right dataTables_paginate">
+                            @Html.HtmlPager(Model, p => Url.Action(ViewContext.RouteData.Values["Action"].ToString(), ViewContext.RouteData.Values["Controller"].ToString(), new { p }), ViewContext.HttpContext.Request.QueryString, Pagination.PaginationInfo.DefaultPager)
+                        </div>
                     </div>
                 </div>
             </div>
