@@ -173,6 +173,7 @@
     <Compile Include="Contracts\IBackOfficeContentProvider.cs" />
     <Compile Include="Contracts\IBackOfficeMenuProvider.cs" />
     <Compile Include="Controllers\Api\BackofficeOperationsController.cs" />
+    <Compile Include="Controllers\Api\ErrorLogOperationsController.cs" />
     <Compile Include="Controllers\Api\UserOperationsController.cs" />
     <Compile Include="Controllers\DevicesController.cs" />
     <Compile Include="Controllers\ErrorLogsController.cs" />
