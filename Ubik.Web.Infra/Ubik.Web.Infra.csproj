@@ -38,6 +38,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
@@ -73,6 +74,7 @@
     <Compile Include="BasePageHelper.cs" />
     <Compile Include="Contracts\IErrorLogManager.cs" />
     <Compile Include="ErrorLog.cs" />
+    <Compile Include="Helpers\DateTimeLocalizationHelper.cs" />
     <Compile Include="Helpers\ServerResponseHelper.cs" />
     <Compile Include="Helpers\StaticsHelper.cs" />
     <Compile Include="Contracts\IRootPageProvider.cs" />
@@ -91,8 +93,10 @@
     <Compile Include="Navigation\NavigationGroupDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServerResponse.cs" />
+    <Compile Include="Services\TraceLoggingService.cs" />
     <Compile Include="TempDataResponseProvider.cs" />
     <Compile Include="TempDataResponseProviderExtentions.cs" />
+    <Compile Include="Validators\UploadedWebImageValidator.cs" />
     <Compile Include="ViewModels\RedirectViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -104,6 +108,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -3,7 +3,7 @@ using System.Diagnostics;
 using Ubik.Infra;
 using Ubik.Infra.Contracts;
 
-namespace Ubik.Web.Infra.Contracts
+namespace Ubik.Web.Infra.Services
 {
     public class TraceLoggingService : ILoggingService
     {
