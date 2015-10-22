@@ -8,7 +8,7 @@ namespace Ubik.Cache.Runtime
     public class MemoryDefaultCacheProvider : ICacheProvider
     {
         protected static MemoryCache _cache;
-        protected Object _lock = new Object();
+        protected object _lock = new object();
 
         protected virtual MemoryCache CurrentCache
         {

@@ -53,6 +53,7 @@
     <Compile Include="Contracts\IHasParent.cs" />
     <Compile Include="Contracts\ISelectable.cs" />
     <Compile Include="Contracts\IServerResponse.cs" />
+    <Compile Include="Contracts\IServerResponseProvider.cs" />
     <Compile Include="Contracts\IViewModelBuilder.cs" />
     <Compile Include="Contracts\IViewModelCommand.cs" />
     <Compile Include="Contracts\IWeighted.cs" />

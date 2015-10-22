@@ -11,7 +11,6 @@ namespace Ubik.Cache.Runtime
         public MemoryNamedCacheProvider(string name, NameValueCollection config = null)
             : base()
         {
-            //TODO: validate input
             _name = name;
             _config = config;
         }

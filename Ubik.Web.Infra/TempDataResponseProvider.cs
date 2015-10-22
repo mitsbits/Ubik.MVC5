@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Web.Mvc;
 using Ubik.Infra.Contracts;
-using Ubik.Web.Infra.Contracts;
 
 namespace Ubik.Web.Infra
 {
@@ -25,6 +24,7 @@ namespace Ubik.Web.Infra
         {
             return Create(context, Key);
         }
+
         private static TempDataResponseProvider Create(ViewContext context, string key)
         {
             if (context.TempData == null) return Empty();
@@ -39,9 +39,4 @@ namespace Ubik.Web.Infra
             return new TempDataResponseProvider(new List<IServerResponse>());
         }
     }
-
-}
-
-namespace Ubik.Web
-{
 }

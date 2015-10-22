@@ -78,7 +78,6 @@
     <Compile Include="Helpers\ServerResponseHelper.cs" />
     <Compile Include="Helpers\StaticsHelper.cs" />
     <Compile Include="Contracts\IRootPageProvider.cs" />
-    <Compile Include="Contracts\IServerResponseProvider.cs" />
     <Compile Include="Navigation\BaseNavigationElement.cs" />
     <Compile Include="Navigation\BaseNavigationElements.cs" />
     <Compile Include="Navigation\BaseNavigationGroup.cs" />
