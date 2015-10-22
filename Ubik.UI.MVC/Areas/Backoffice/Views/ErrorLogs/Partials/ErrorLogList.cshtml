@@ -1,0 +1,40 @@
+﻿@using Ubik.Web.Infra
+@model ErrorLog[]
+<table class="table table-hover table-condensed table-mailbox no-border table-striped" id="devices-table">
+    <thead>
+        <tr>
+            <th style="width: 40px"><input type="checkbox" id="row-selector"></th>
+            <th><i class="fa fa-calendar"></i></th>
+            <th><i class="fa fa-clock-o"></i></th>
+            <th><i class="fa fa-desktop"></i></th>
+            <th><i class="fa fa-flag-o"></i> </th>
+            <th><i class="fa fa-info"></i>  </th>
+            <th><i class="fa fa-user"></i></th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+        @for (var i = 0; i < Model.Count(); i++)
+        {
+            var errorlog = Model[i];
+            <tr data-id="@errorlog.Id">
+                <td>
+                    <input type="checkbox" id="row-selector-@i" data-id="@errorlog.Id" class="selector">
+                </td>
+                <td>@errorlog.ErrorDatetTimeUtc.ToLocalTime().ToString("d/M/yy")</td>
+                <td>@errorlog.ErrorDatetTimeUtc.ToLocalTime().ToString("HH:mm:ss")</td>
+                <td>@errorlog.Host</td>
+                <td>@errorlog.ErrorCode</td>
+
+                <td>
+                    <span>@errorlog.ErrorMessage</span>
+                    <a href="@Url.Action("detail", "Elmah", null)?id=@errorlog.Id" target="_blank">
+                        <i class="fa fa-info-circle"></i>
+                    </a>
+                </td>
+                <td>@errorlog.User</td>
+            </tr>
+        }
+    </tbody>
+</table>

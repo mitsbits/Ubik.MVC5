@@ -43,37 +43,7 @@
 
                     </div>
                     <div class=" box-body table-responsive table-condensed table-hover">
-                        <table class="table table-hover table-condensed" id="devices-table">
-                            <thead>
-                                <tr>
-                                    <th style="width: 40px"><input type="checkbox" id="row-selector"></th>
-                                    <th>Name</th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @for (var i = 0; i < _model.Count(); i++)
-                                {
-                                    var errorlog = _model[i];
-                                    <tr data-id="@errorlog.Id">
-                                        <td>
-                                            <input type="checkbox" id="row-selector-@i" data-id="@errorlog.Id" class="selector">
-                                        </td>
-                                        <td>@errorlog.Host</td>
-                                        <td>@errorlog.ErrorType</td>
-                                        <td>@errorlog.ErrorCode</td>
-                                        <td>@errorlog.ErrorDatetTimeUtc.ToLocalTime().ToString("d/M/yy HH:mm:ss")</td>
-                                        <td>@errorlog.ErrorMessage</td>
-                                        <td>@errorlog.User</td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
+                            @Html.Partial("Partials/ErrorLogList", _model)
                     </div>
                     <div class="box-footer clearfix">
                         <div class="pull-right dataTables_paginate">
