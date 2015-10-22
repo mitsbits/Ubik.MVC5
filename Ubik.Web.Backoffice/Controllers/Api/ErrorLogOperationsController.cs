@@ -18,10 +18,7 @@ namespace Ubik.Web.Backoffice.Controllers.Api
         [HttpPost]
         public async Task<IHttpActionResult> ClaimsForRoles([FromBody]IEnumerable<string> ids)
         {
-
             await _manager.ClearLogs(ids);
-      
-
             return Ok();
         }
     }
