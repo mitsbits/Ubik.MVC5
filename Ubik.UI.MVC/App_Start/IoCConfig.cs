@@ -53,6 +53,7 @@ namespace Ubik.UI.MVC
             var builder = new ContainerBuilder();
 
             WireUpInternals(builder);
+            WireUoDbContexts(builder);
             WireUpPubSub(builder);
             WireUpSso(builder, app);
             WireUpCms(builder);
@@ -171,17 +172,7 @@ namespace Ubik.UI.MVC
 
         private static void WireUpInternals(ContainerBuilder builder)
         {
-            var cmsConnString = ConfigurationManager.ConnectionStrings["cmsconnectionstring"].ConnectionString;
-            var authConnString = ConfigurationManager.ConnectionStrings["authconnectionstring"].ConnectionString;
 
-            var connectionStrings = new Dictionary<Type, string>
-            {
-                {typeof (AuthDbContext), authConnString},
-                {typeof (ElmahDbContext), cmsConnString},
-                {typeof (ComponentsDbContext), cmsConnString}
-            };
-
-            builder.RegisterType<DbContextFactory>().As<IDbContextFactory>().WithParameter("connectionStrings", connectionStrings);
 
             builder.RegisterType<MemoryDefaultCacheProvider>().As<ICacheProvider>().SingleInstance();
 
@@ -205,6 +196,23 @@ namespace Ubik.UI.MVC
                 .InstancePerRequest();
  
             builder.RegisterType<ErrorLogManager>().As<IErrorLogManager>().InstancePerRequest();
+        }
+
+        private static void WireUoDbContexts(ContainerBuilder builder)
+        {
+            var cmsConnString = ConfigurationManager.ConnectionStrings["cmsconnectionstring"].ConnectionString;
+            var authConnString = ConfigurationManager.ConnectionStrings["authconnectionstring"].ConnectionString;
+
+            var connectionStrings = new Dictionary<Type, string>
+            {
+                {typeof (AuthDbContext), authConnString},
+                {typeof (ElmahDbContext), cmsConnString},
+                {typeof (ComponentsDbContext), cmsConnString}
+            };
+
+            builder.RegisterType<DbContextFactory>()
+                .As<IDbContextFactory>()
+                .WithParameter("connectionStrings", connectionStrings);
         }
 
         private static void WireUpElmahAgents(ContainerBuilder builder)
