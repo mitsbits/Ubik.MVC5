@@ -1,4 +1,6 @@
-﻿using Autofac;
+﻿using System.Collections.Generic;
+using System.Configuration;
+using Autofac;
 using Autofac.Core;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
@@ -13,6 +15,7 @@ using System.Reflection;
 using System.Web;
 using System.Web.Compilation;
 using Ubik.Cache.Runtime;
+using Ubik.EF;
 using Ubik.Infra.Contracts;
 using Ubik.UI.MVC.Models;
 using Ubik.Web.Auth;
@@ -130,13 +133,13 @@ namespace Ubik.UI.MVC
 
         private static void WireUpSso(ContainerBuilder builder, IAppBuilder app)
         {
-            builder.Register(c => new ApplicationUserManager(new ApplicationUserStore(new AuthDbContext())))
+            builder.Register(c => new ApplicationUserManager(new ApplicationUserStore(c.Resolve<AuthDbContext>())))
                     .Named<ApplicationUserManager>("transient");
-            builder.Register(c => new ApplicationRoleManager(new ApplicationRoleStore(new AuthDbContext())))
+            builder.Register(c => new ApplicationRoleManager(new ApplicationRoleStore(c.Resolve<AuthDbContext>())))
                 .Named<ApplicationRoleManager>("transient");
 
             builder.RegisterType<AuthDbContext>().As<AuthDbContext>().InstancePerRequest();
-            builder.RegisterType<ComponentsDbContext>().As<ComponentsDbContext>().InstancePerRequest();
+            //builder.RegisterType<ComponentsDbContext>().As<ComponentsDbContext>().InstancePerRequest();
             builder.RegisterType<ApplicationUserStore>().As<IUserStore<ApplicationUser>>().InstancePerRequest();
             builder.RegisterType<ApplicationRoleStore>().As<IRoleStore<ApplicationRole, string>>().InstancePerRequest();
             builder.RegisterType<ApplicationUserManager>().InstancePerRequest();
@@ -168,6 +171,18 @@ namespace Ubik.UI.MVC
 
         private static void WireUpInternals(ContainerBuilder builder)
         {
+            var cmsConnString = ConfigurationManager.ConnectionStrings["cmsconnectionstring"].ConnectionString;
+            var authConnString = ConfigurationManager.ConnectionStrings["authconnectionstring"].ConnectionString;
+
+            var connectionStrings = new Dictionary<Type, string>
+            {
+                {typeof (AuthDbContext), authConnString},
+                {typeof (ElmahDbContext), cmsConnString},
+                {typeof (ComponentsDbContext), cmsConnString}
+            };
+
+            builder.RegisterType<DbContextFactory>().As<IDbContextFactory>().WithParameter("connectionStrings", connectionStrings);
+
             builder.RegisterType<MemoryDefaultCacheProvider>().As<ICacheProvider>().SingleInstance();
 
             builder.RegisterType<Resident>().As<IResident>().SingleInstance();
@@ -188,7 +203,7 @@ namespace Ubik.UI.MVC
             builder.RegisterType<PersistedExceptionLogRepository>()
                 .As<ICRUDRespoditory<PersistedExceptionLog>>()
                 .InstancePerRequest();
-            builder.RegisterType<ElmahDbContext>().As<ElmahDbContext>().InstancePerRequest();
+ 
             builder.RegisterType<ErrorLogManager>().As<IErrorLogManager>().InstancePerRequest();
         }
 

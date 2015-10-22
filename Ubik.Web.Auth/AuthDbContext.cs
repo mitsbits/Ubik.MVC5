@@ -11,6 +11,11 @@ namespace Ubik.Web.Auth
         {
         }
 
+        public AuthDbContext(string connString)
+            : base(connString, false)
+        {
+        }
+
         public DbSet<ApplicationClaim> RoleClaims { get; set; }
 
         public static AuthDbContext Create()

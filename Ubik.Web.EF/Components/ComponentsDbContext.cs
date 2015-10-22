@@ -22,6 +22,11 @@ namespace Ubik.Web.EF.Components
         {
         }
 
+        public ComponentsDbContext(string connString)
+            : base(connString)
+        {
+        }
+
         public static ComponentsDbContext Create()
         {
             return new ComponentsDbContext();

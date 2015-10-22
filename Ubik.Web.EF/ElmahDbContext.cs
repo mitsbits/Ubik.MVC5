@@ -18,6 +18,11 @@ namespace Ubik.Web.EF
         public ElmahDbContext()
             : base("cmsconnectionstring") { }
 
+        public ElmahDbContext(string connString)
+            : base(connString)
+        {
+        }
+
         public DbSet<PersistedExceptionLog> Logs { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
