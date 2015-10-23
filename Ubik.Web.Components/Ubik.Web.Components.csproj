@@ -40,13 +40,16 @@
     <Compile Include="ComponentBase.cs" />
     <Compile Include="ComponentStateFlavor.cs" />
     <Compile Include="ComponentStateTransitionException.cs" />
+    <Compile Include="Contracts\IContent.cs" />
     <Compile Include="Contracts\IDeviceAdministrationService.cs" />
+    <Compile Include="Contracts\IHasTags.cs" />
     <Compile Include="Contracts\IHtmlHeadInfo.cs" />
     <Compile Include="Contracts\ICanBeDeleted.cs" />
     <Compile Include="Contracts\ICanPublishSuspend.cs" />
     <Compile Include="Contracts\IHtmlMeta.cs" />
     <Compile Include="Contracts\IModuleDescriptor.cs" />
     <Compile Include="Contracts\ITag.cs" />
+    <Compile Include="Contracts\ITaxonomyElement.cs" />
     <Compile Include="Contracts\ITextualInfo.cs" />
     <Compile Include="Domain\HtmlHead.cs" />
     <Compile Include="Domain\Content.cs" />

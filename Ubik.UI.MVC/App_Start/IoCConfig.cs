@@ -30,10 +30,11 @@ using Ubik.Web.Backoffice.Contracts;
 using Ubik.Web.Cms.Contracts;
 using Ubik.Web.Components.AntiCorruption.Contracts;
 using Ubik.Web.Components.AntiCorruption.Services;
-using Ubik.Web.Components.AntiCorruption.ViewModels;
+using Ubik.Web.Components.AntiCorruption.ViewModels.Devices;
 using Ubik.Web.Components.Contracts;
 using Ubik.Web.EF;
 using Ubik.Web.EF.Components;
+using Ubik.Web.EF.Components.Contracts;
 using Ubik.Web.Infra.Contracts;
 using Ubik.Web.Infra.Navigation.Contracts;
 
@@ -125,6 +126,10 @@ namespace Ubik.UI.MVC
         {
             builder.RegisterType<PersistedDeviceRepository>().As<ICRUDRespoditory<PersistedDevice>>().InstancePerRequest();
             builder.RegisterType<PersistedSectionRepository>().As<ICRUDRespoditory<PersistedSection>>().InstancePerRequest();
+
+            builder.RegisterType<PersistedTaxonomyDivisionRepository>().As<IPersistedTaxonomyDivisionRepository>().InstancePerRequest();
+            builder.RegisterType<PersistedTaxonomyElementRepository>().As<ICRUDRespoditory<PersistedTaxonomyElement>>().InstancePerRequest();
+
             builder.RegisterType<DeviceAdministrationService>().As<IDeviceAdministrationService<int>>().InstancePerRequest();
             builder.RegisterType<DeviceAdministrationService>().As<IDeviceAdministrationViewModelService>().InstancePerRequest();
 

@@ -12,15 +12,4 @@ namespace Ubik.Web.Components.Contracts
 
         DeviceRenderFlavor Flavor { get; }
     }
-
-    public interface IContent
-    {
-        ITextualInfo Textual { get; }
-        IHtmlHeadInfo HtmlHeadInfo { get; }
-    }
-
-    public interface IHasTags
-    {
-        IEnumerable<ITag> Tags { get; } 
-    }
 }

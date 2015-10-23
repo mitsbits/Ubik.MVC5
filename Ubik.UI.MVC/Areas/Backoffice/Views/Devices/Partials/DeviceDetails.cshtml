@@ -1,6 +1,7 @@
 ﻿@using Ubik.Web.Components
 @using Ubik.Web.Components.AntiCorruption.ViewModels
-@model DeviceViewModel
+@using Ubik.Web.Components.AntiCorruption.ViewModels.Devices
+@model Ubik.Web.Components.AntiCorruption.ViewModels.Devices.DeviceViewModel
 @{
     var selectedSection = (Request.QueryString["section"] != null) ? int.Parse(Request.QueryString["section"]) : 0;
     var selectedSlotOrdinal = (Request.QueryString["slot"] != null) ? int.Parse(Request.QueryString["slot"]) : 0;

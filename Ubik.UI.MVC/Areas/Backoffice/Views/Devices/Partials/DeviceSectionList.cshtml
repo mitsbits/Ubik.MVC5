@@ -1,5 +1,5 @@
 ﻿@using Ubik.Web.Components.AntiCorruption.ViewModels
-@model IEnumerable<SectionViewModel>
+@model IEnumerable<Ubik.Web.Components.AntiCorruption.ViewModels.Devices.SectionViewModel>
 @{
     var _model = Model.ToArray();
     var selectedSection = (Request.QueryString["section"] != null) ? int.Parse(Request.QueryString["section"]) : 0;

@@ -9,9 +9,9 @@ namespace Ubik.Web.EF.Components
     {
         public DbSet<PersistedDevice> Devices { get; set; }
 
-        //public DbSet<PersistedContent> Contents { get; set; }
+        public DbSet<PersistedTaxonomyDivision> TaxonomyDivisions { get; set; }
 
-        //public DbSet<PersistedTextual> Textuals { get; set; }
+        public DbSet<PersistedTaxonomyElement> TaxonomyElements { get; set; }
 
         //public DbSet<PersistedHtmlHead> HtmlHeads { get; set; }
 
@@ -43,6 +43,9 @@ namespace Ubik.Web.EF.Components
             modelBuilder.Configurations.Add(new HtmlHeadConfig());
             modelBuilder.Configurations.Add(new TagConfig());
             modelBuilder.Configurations.Add(new TextualConfig());
+
+            modelBuilder.Configurations.Add(new TaxonomyDivisionConfig());
+            modelBuilder.Configurations.Add(new TaxonomyElementConfig());
             base.OnModelCreating(modelBuilder);
         }
 
@@ -83,6 +86,25 @@ namespace Ubik.Web.EF.Components
             }
         }
         #endregion
+
+        private class TaxonomyDivisionConfig : EntityTypeConfiguration<PersistedTaxonomyDivision>
+        {
+            public TaxonomyDivisionConfig()
+            {
+                ToTable("TaxonomyDivisions").
+                    HasKey(x => new { x.Id });
+            }
+        }
+
+
+        private class TaxonomyElementConfig : EntityTypeConfiguration<PersistedTaxonomyElement >
+        {
+            public TaxonomyElementConfig()
+            {
+                ToTable("TaxonomyElements").
+                    HasKey(x => new { x.Id });
+            }
+        }
 
         private class HtmlHeadConfig : EntityTypeConfiguration<PersistedHtmlHead>
         {

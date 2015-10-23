@@ -55,9 +55,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\ComponentsDbContext.cs" />
+    <Compile Include="Components\Contracts\IPersistedTaxonomyDivisionRepository.cs" />
     <Compile Include="Components\DeviceRepository.cs" />
     <Compile Include="Components\Mapper.cs" />
     <Compile Include="Components\PersistedComponents.cs" />
+    <Compile Include="Components\PersistedContentRepository.cs" />
+    <Compile Include="Components\PersistedDeviceRepository.cs" />
+    <Compile Include="Components\PersistedSectionRepository.cs" />
+    <Compile Include="Components\PersistedTaxonomyDivision.cs" />
+    <Compile Include="Components\PersistedTaxonomyDivisionRepository.cs" />
+    <Compile Include="Components\PersistedTaxonomyElement.cs" />
+    <Compile Include="Components\PersistedTaxonomyElementRepository.cs" />
     <Compile Include="ElmahDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

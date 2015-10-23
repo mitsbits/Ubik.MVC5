@@ -1,11 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Ubik.Infra.Contracts;
 using Ubik.Web.EF.Components;
 
-namespace Ubik.Web.Components.AntiCorruption.ViewModels
+namespace Ubik.Web.Components.AntiCorruption.ViewModels.Devices
 {
     public class SectionSaveModel
     {

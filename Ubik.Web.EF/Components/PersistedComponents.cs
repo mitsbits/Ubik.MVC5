@@ -1,15 +1,8 @@
-﻿using System.Data.Entity;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
-using System.Xml.Schema;
-using Mehdime.Entity;
-using System;
+﻿using System.Xml.Schema;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Xml.Serialization;
-using Ubik.EF;
-using Ubik.Infra.Contracts;
 using System.Linq;
 using Ubik.Web.Components;
 
@@ -123,42 +116,4 @@ namespace Ubik.Web.EF.Components
 
         public virtual PersistedSection Section { get; set; }
     }
-
-    internal class PersistedContentRepository : ReadWriteRepository<PersistedContent, ComponentsDbContext>
-    {
-        public PersistedContentRepository(IAmbientDbContextLocator ambientDbContextLocator)
-            : base(ambientDbContextLocator)
-        {
-        }
-    }
-
-    public class PersistedDeviceRepository : ReadWriteRepository<PersistedDevice, ComponentsDbContext>, ICRUDRespoditory<PersistedDevice>
-    {
-        public PersistedDeviceRepository(IAmbientDbContextLocator ambientDbContextLocator)
-            : base(ambientDbContextLocator)
-        {
-        }
-
-        public override async Task<PersistedDevice> GetAsync(Expression<Func<PersistedDevice, bool>> predicate)
-        {
-            var db = DbContext.Set<PersistedDevice>();
-            return await db.Include("Sections").Include("Sections.Slots").FirstOrDefaultAsync(predicate);
-        }
-    }
-
-    public class PersistedSectionRepository : ReadWriteRepository<PersistedSection, ComponentsDbContext>, ICRUDRespoditory<PersistedSection>
-    {
-        public PersistedSectionRepository(IAmbientDbContextLocator ambientDbContextLocator)
-            : base(ambientDbContextLocator)
-        {
-        }
-
-        public override async Task<PersistedSection> GetAsync(Expression<Func<PersistedSection, bool>> predicate)
-        {
-            var db = DbContext.Set<PersistedSection>();
-            return await db.Include("Slots").FirstOrDefaultAsync(predicate);
-        }
-    }
-
-
 }

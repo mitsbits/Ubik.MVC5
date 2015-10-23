@@ -58,9 +58,10 @@
     <Compile Include="DeviceAdministrationAuth.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DeviceAdministrationService.cs" />
-    <Compile Include="ViewModels\DeviceViewModel.cs" />
-    <Compile Include="ViewModels\SectionViewModel.cs" />
-    <Compile Include="ViewModels\SlotViewModel.cs" />
+    <Compile Include="ViewModels\Devices\DeviceViewModel.cs" />
+    <Compile Include="ViewModels\Devices\SectionViewModel.cs" />
+    <Compile Include="ViewModels\Devices\SlotViewModel.cs" />
+    <Compile Include="ViewModels\Taxonomies\DivisionViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Ubik.Infra\Ubik.Infra.csproj">

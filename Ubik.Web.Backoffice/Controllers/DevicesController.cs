@@ -6,6 +6,7 @@ using System.Web.Routing;
 using Ubik.Infra;
 using Ubik.Web.Components.AntiCorruption.Contracts;
 using Ubik.Web.Components.AntiCorruption.ViewModels;
+using Ubik.Web.Components.AntiCorruption.ViewModels.Devices;
 using Ubik.Web.Components.Contracts;
 
 namespace Ubik.Web.Backoffice.Controllers

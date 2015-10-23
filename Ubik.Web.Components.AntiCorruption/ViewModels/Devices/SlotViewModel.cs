@@ -1,13 +1,11 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.InteropServices.ComTypes;
 using Ubik.Infra.Contracts;
 using Ubik.Infra.Ext;
 using Ubik.Web.Cms.Contracts;
 using Ubik.Web.Components.Contracts;
-using Ubik.Web.Components.Domain;
 using Ubik.Web.EF.Components;
 
-namespace Ubik.Web.Components.AntiCorruption.ViewModels
+namespace Ubik.Web.Components.AntiCorruption.ViewModels.Devices
 {
     public class SlotSaveModel
     {
