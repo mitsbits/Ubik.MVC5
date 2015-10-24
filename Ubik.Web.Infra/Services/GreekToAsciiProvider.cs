@@ -79,12 +79,25 @@ namespace Ubik.Web.Infra.Services
             {'ς', "s"}
         };
 
-        public IReadOnlyDictionary<char, char[]> Refernce { get { return _reference.ToDictionary(x => x.Key, x => x.Value.ToCharArray()); } }
+        private Dictionary<char, char[]> _referenceCache; 
+        public IReadOnlyDictionary<char, char[]> Reference
+        {
+            get
+            {
+                if (_referenceCache != null) return _referenceCache;
+                _referenceCache = _reference.ToDictionary(x => x.Key, x => x.Value.ToCharArray());
+                foreach (var ticked in _ticksDict.Keys)
+                {
+                    _referenceCache.Add(ticked, _reference[_ticksDict[ticked]].ToCharArray());
+                }
+                return _referenceCache;
+            }
+        }
 
         public char[] Remap(char c)
         {
             c = StripTicksFromGreekVowel(c);
-            return _reference.Keys.Contains(c) ? _reference[c].ToCharArray() : new[] { c };
+            return Reference.Keys.Contains(c) ? _reference[c].ToCharArray() : new[] { c };
         }
 
         private static char StripTicksFromGreekVowel(char c)

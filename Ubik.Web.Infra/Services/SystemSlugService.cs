@@ -85,7 +85,7 @@ namespace Ubik.Web.Infra.Services
 
         private char[] CharToAscii(char source)
         {
-            var hits = _asciiProviders.Where(x => x.Refernce.ContainsKey(source)).ToList();
+            var hits = _asciiProviders.Where(x => x.Reference.ContainsKey(source)).ToList();
             return !hits.Any() ? new[] { source } : hits.Last().Remap(source);
         }
 

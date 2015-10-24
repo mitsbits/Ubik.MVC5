@@ -4,7 +4,7 @@ namespace Ubik.Web.Infra.Contracts
 {
     public interface IInternationalCharToAsciiProvider
     {
-        IReadOnlyDictionary<char, char[]> Refernce { get; }
+        IReadOnlyDictionary<char, char[]> Reference { get; }
 
         char[] Remap(char c);
     }
