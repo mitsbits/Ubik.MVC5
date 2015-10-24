@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Shouldly;
 using Ubik.Web.Infra.Contracts;
 using Ubik.Web.Infra.Services;
 
 namespace Ubik.Tests.Web.Infra
 {
-    [TestClass]
+     [TestFixture]
     public class SystemSlugifierTest
     {
         private  ISlugifier _slugifier;
-        [TestInitialize]
+        [SetUp]
         public void SetUp()
         {
             var asciis = new List<IInternationalCharToAsciiProvider>(new[] {new GreekToAsciiProvider(),});
@@ -22,11 +22,12 @@ namespace Ubik.Tests.Web.Infra
         }
 
 
-        [TestMethod]
-        public void TestMethod1()
+        [TestCase("Hello vanilla face!", "hello-vanilla-face")]
+        [TestCase("No shit!@#@!", "no-shit")]
+        public void test_that_panctuation_is_removed(string source, string result)
         {
             _slugifier.ShouldNotBeNull();
-            _slugifier.SlugifyText("Hello vanilla face!").ShouldBe("hello-vanilla-face");
+            _slugifier.SlugifyText(source).ShouldBe(result);
         }
 
 
