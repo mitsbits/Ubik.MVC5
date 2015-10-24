@@ -73,6 +73,10 @@
   <ItemGroup>
     <Compile Include="BasePageHelper.cs" />
     <Compile Include="Contracts\IErrorLogManager.cs" />
+    <Compile Include="Contracts\IInternationalCharToAsciiProvider.cs" />
+    <Compile Include="Contracts\ISlugCharOmmiter.cs" />
+    <Compile Include="Contracts\ISlugifier.cs" />
+    <Compile Include="Contracts\ISlugWordReplacer.cs" />
     <Compile Include="ErrorLog.cs" />
     <Compile Include="Helpers\DateTimeLocalizationHelper.cs" />
     <Compile Include="Helpers\ServerResponseHelper.cs" />
@@ -92,6 +96,10 @@
     <Compile Include="Navigation\NavigationGroupDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServerResponse.cs" />
+    <Compile Include="Services\GreekToAsciiProvider.cs" />
+    <Compile Include="Services\SystemSlugCharReplacer.cs" />
+    <Compile Include="Services\SystemSlugService.cs" />
+    <Compile Include="Services\SystemSlugWordRplacer.cs" />
     <Compile Include="Services\TraceLoggingService.cs" />
     <Compile Include="TempDataResponseProvider.cs" />
     <Compile Include="TempDataResponseProviderExtentions.cs" />

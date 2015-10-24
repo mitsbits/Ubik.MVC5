@@ -37,6 +37,7 @@ using Ubik.Web.EF.Components;
 using Ubik.Web.EF.Components.Contracts;
 using Ubik.Web.Infra.Contracts;
 using Ubik.Web.Infra.Navigation.Contracts;
+using Ubik.Web.Infra.Services;
 
 namespace Ubik.UI.MVC
 {
@@ -135,6 +136,12 @@ namespace Ubik.UI.MVC
 
             builder.RegisterType<DeviceViewModelCommand>().As<IViewModelCommand<DeviceSaveModel>>().InstancePerRequest();
             builder.RegisterType<SectionViewModelCommand>().As<IViewModelCommand<SectionSaveModel>>().InstancePerRequest();
+
+
+            builder.RegisterType<SystemSlugService>().As<ISlugifier>().SingleInstance();
+            builder.RegisterType<SystemSlugWordRplacer>().As<ISlugWordReplacer>().SingleInstance();
+            builder.RegisterType<SystemSlugCharReplacer>().As<ISlugCharOmmiter>().SingleInstance();
+            builder.RegisterType<GreekToAsciiProvider>().As<IInternationalCharToAsciiProvider>().SingleInstance();
         }
 
         private static void WireUpSso(ContainerBuilder builder, IAppBuilder app)
