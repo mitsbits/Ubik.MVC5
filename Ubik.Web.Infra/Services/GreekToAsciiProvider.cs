@@ -79,7 +79,8 @@ namespace Ubik.Web.Infra.Services
             {'ς', "s"}
         };
 
-        private Dictionary<char, char[]> _referenceCache; 
+        private Dictionary<char, char[]> _referenceCache;
+
         public IReadOnlyDictionary<char, char[]> Reference
         {
             get

@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 //code from: https://github.com/speier/mvcassetshelper
 using System.Web;
@@ -81,8 +79,6 @@ namespace Ubik.Web
 
             return new HtmlString(sb.ToString());
         }
-
-
     }
 
     public class ItemRegistrarFormatters

@@ -312,21 +312,19 @@
         </aside>
 
         @RenderBody()
-
     </div><!-- ./wrapper -->
     @*@Scripts.Render("~/bundles/AdminLTE_Dashboard")*@
-        @Scripts.Render("~/bundles/raphael")
-        @Scripts.Render("~/bundles/morris")
-        @Scripts.Render("~/bundles/sparkline")
-        @Scripts.Render("~/bundles/jvectormap")
-        @Scripts.Render("~/bundles/jqueryKnob")
-        @Scripts.Render("~/bundles/daterangepicker")
-        @Scripts.Render("~/bundles/datepicker")
-        @Scripts.Render("~/bundles/bootstrap-wysihtml5")
-        @Scripts.Render("~/bundles/iCheck")
+    @Scripts.Render("~/bundles/raphael")
+    @Scripts.Render("~/bundles/morris")
+    @Scripts.Render("~/bundles/sparkline")
+    @Scripts.Render("~/bundles/jvectormap")
+    @Scripts.Render("~/bundles/jqueryKnob")
+    @Scripts.Render("~/bundles/daterangepicker")
+    @Scripts.Render("~/bundles/datepicker")
+    @Scripts.Render("~/bundles/bootstrap-wysihtml5")
+    @Scripts.Render("~/bundles/iCheck")
     @Html.Statics().FooterScripts.Render()
     @Html.Statics().InlineScripts.Render()
-
 
     @Html.Partial("~/Areas/Backoffice/Views/Shared/Partials/ServerFeedbackModal.cshtml")
 </body>

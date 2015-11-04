@@ -33,13 +33,15 @@ namespace Ubik.Web.Cms
         {
             _metas = new HashSet<CmsHtmlMeta>();
         }
+
         public ITextualInfo Textual { get; private set; }
         public IHtmlHeadInfo HtmlHeadInfo { get; private set; }
         public string CanonicalURL { get; private set; }
         public string Slug { get; private set; }
+
         //IEnumerable<IHtmlMeta> IContent.Metas { get { return Metas; } }
         internal ICollection<CmsHtmlMeta> Metas { get { return _metas; } }
-        protected IEnumerable<IHtmlMeta> DbMetas { get; set; }
 
+        protected IEnumerable<IHtmlMeta> DbMetas { get; set; }
     }
 }

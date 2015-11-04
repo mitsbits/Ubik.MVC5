@@ -9,7 +9,9 @@ namespace Ubik.Web.Client.System.BuildingBlocks.Partials.Views
     {
         private static PageBody _defaultInstance;
 
-        public PageBody(string viewPath = "") : this("Page Body", viewPath) { }
+        public PageBody(string viewPath = "") : this("Page Body", viewPath)
+        {
+        }
 
         internal PageBody(string friendlyName, string viewPath)
             : base(friendlyName, viewPath)
@@ -25,10 +27,12 @@ namespace Ubik.Web.Client.System.BuildingBlocks.Partials.Views
         {
             get { return @"A partial view for displaying the basic content of a page."; }
         }
+
         public string ModuleGroup
         {
             get { return "System"; }
         }
+
         public BasePartialModule Default()
         {
             if (_defaultInstance != null) return _defaultInstance;

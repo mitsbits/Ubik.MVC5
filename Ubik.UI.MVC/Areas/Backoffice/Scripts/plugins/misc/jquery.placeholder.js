@@ -1,6 +1,5 @@
 /*! http://mths.be/placeholder v2.0.7 by @mathias */
 ;(function(window, document, $) {
-
 	var isInputSupported = 'placeholder' in document.createElement('input');
 	var isTextareaSupported = 'placeholder' in document.createElement('textarea');
 	var prototype = $.fn;
@@ -10,15 +9,12 @@
 	var placeholder;
 
 	if (isInputSupported && isTextareaSupported) {
-
 		placeholder = prototype.placeholder = function() {
 			return this;
 		};
 
 		placeholder.input = placeholder.textarea = true;
-
 	} else {
-
 		placeholder = prototype.placeholder = function() {
 			var $this = this;
 			$this
@@ -101,7 +97,6 @@
 				this.value = '';
 			});
 		});
-
 	}
 
 	function args(elem) {
@@ -179,7 +174,6 @@
 			return document.activeElement;
 		} catch (err) {}
 	}
-
 }(this, document, jQuery));
 
 $(function(){

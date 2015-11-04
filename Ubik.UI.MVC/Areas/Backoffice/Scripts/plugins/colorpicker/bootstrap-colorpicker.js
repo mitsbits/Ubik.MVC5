@@ -510,7 +510,6 @@
         }
     };
 
-
     var defaults = {
         horizontal: false, // horizontal mode layout ?
         inline: false, //forces to show the colorpicker as an inline element
@@ -768,7 +767,6 @@
             }
             this.updatePicker();
             return val;
-
         },
         setValue: function(val) { // set color manually
             this.color = new Color(val);
@@ -945,5 +943,4 @@
     };
 
     $.fn.colorpicker.constructor = Colorpicker;
-
 })(window.jQuery);

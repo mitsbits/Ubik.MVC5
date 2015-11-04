@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Mehdime.Entity;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using Mehdime.Entity;
 using Ubik.EF.Contracts;
 using Ubik.Infra.Contracts;
 
@@ -39,8 +39,8 @@ namespace Ubik.EF
         }
     }
 
-    public abstract class QueryRepository<TEntity, TProjection, TDbContext> : 
-        BaseQueryRepository<TEntity, TProjection, TDbContext>, 
+    public abstract class QueryRepository<TEntity, TProjection, TDbContext> :
+        BaseQueryRepository<TEntity, TProjection, TDbContext>,
         IRepositoryWithContext<TDbContext>
         where TEntity : class
         where TProjection : class

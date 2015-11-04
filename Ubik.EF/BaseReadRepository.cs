@@ -161,9 +161,8 @@ namespace Ubik.EF
             if (orderedQuaQueryable == null)
                 return new PagedResult<T>(new List<T>(), pageNumber, pageSize, 0);
 
-            var data = await orderedQuaQueryable.Skip((pageNumber - 1)*pageSize).Take(pageSize).ToListAsync();
+            var data = await orderedQuaQueryable.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
             return new PagedResult<T>(data, pageNumber, pageSize, totalRecords);
-
         }
 
         #endregion Async

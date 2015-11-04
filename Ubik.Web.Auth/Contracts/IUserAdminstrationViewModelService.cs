@@ -21,8 +21,9 @@ namespace Ubik.Web.Auth.Contracts
         Task Execute(RoleSaveModel model);
 
         Task Execute(NewUserSaveModel model);
+
         Task Execute(UserSaveModel model);
+
         IEnumerable<RoleViewModel> SystemRoleViewModels { get; }
-        
     }
 }

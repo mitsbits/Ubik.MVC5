@@ -10,15 +10,20 @@ namespace Ubik.Web.Components.AntiCorruption.ViewModels.Devices
     {
         [Required]
         public int SectionId { get; set; }
+
         [Required]
         public int DeviceId { get; set; }
+
         [Required]
         public string FriendlyName { get; set; }
+
         [Required]
         public string Identifier { get; set; }
+
         [Required]
         public DeviceRenderFlavor ForFlavor { get; set; }
     }
+
     public class SectionViewModel : SectionSaveModel
     {
         public SectionViewModel()
@@ -29,11 +34,12 @@ namespace Ubik.Web.Components.AntiCorruption.ViewModels.Devices
 
         public ICollection<SlotViewModel> Slots { get; set; }
     }
+
     public class SectionViewModelBuilder : IViewModelBuilder<PersistedSection, SectionViewModel>
     {
         public SectionViewModel CreateFrom(PersistedSection entity)
         {
-            return new SectionViewModel() { ForFlavor = entity.ForFlavor, FriendlyName = entity.FriendlyName, SectionId = entity.Id, DeviceId = entity.DeviceId, Identifier = entity.Identifier};
+            return new SectionViewModel() { ForFlavor = entity.ForFlavor, FriendlyName = entity.FriendlyName, SectionId = entity.Id, DeviceId = entity.DeviceId, Identifier = entity.Identifier };
         }
 
         public void Rebuild(SectionViewModel model)
@@ -59,11 +65,11 @@ namespace Ubik.Web.Components.AntiCorruption.ViewModels.Devices
                 data = await _persistedSectionRepo.GetAsync(x => x.Id == model.SectionId);
                 data.ForFlavor = model.ForFlavor;
                 data.FriendlyName = model.FriendlyName;
-                data.Identifier = model.Identifier;               
+                data.Identifier = model.Identifier;
             }
             else
             {
-                data = new PersistedSection() { FriendlyName = model.FriendlyName, DeviceId = model.DeviceId, ForFlavor = model.ForFlavor, Identifier = model.Identifier};
+                data = new PersistedSection() { FriendlyName = model.FriendlyName, DeviceId = model.DeviceId, ForFlavor = model.ForFlavor, Identifier = model.Identifier };
                 await _persistedSectionRepo.CreateAsync(data);
                 model.SectionId = data.Id;
             }

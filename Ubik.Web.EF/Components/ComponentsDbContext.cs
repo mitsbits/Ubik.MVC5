@@ -35,10 +35,13 @@ namespace Ubik.Web.EF.Components
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             #region Device
+
             modelBuilder.Configurations.Add(new DeviceConfig());
             modelBuilder.Configurations.Add(new SectionConfig());
             modelBuilder.Configurations.Add(new SlotInfoConfig());
-            #endregion
+
+            #endregion Device
+
             modelBuilder.Configurations.Add(new ContentConfig());
             modelBuilder.Configurations.Add(new HtmlHeadConfig());
             modelBuilder.Configurations.Add(new TagConfig());
@@ -50,6 +53,7 @@ namespace Ubik.Web.EF.Components
         }
 
         #region Device
+
         private class DeviceConfig : EntityTypeConfiguration<PersistedDevice>
         {
             public DeviceConfig()
@@ -81,11 +85,11 @@ namespace Ubik.Web.EF.Components
             public SlotInfoConfig()
             {
                 ToTable("Slots").
-                    HasKey(x => new {x.SectionId, x.Ordinal});
-                
+                    HasKey(x => new { x.SectionId, x.Ordinal });
             }
         }
-        #endregion
+
+        #endregion Device
 
         private class TaxonomyDivisionConfig : EntityTypeConfiguration<PersistedTaxonomyDivision>
         {
@@ -96,8 +100,7 @@ namespace Ubik.Web.EF.Components
             }
         }
 
-
-        private class TaxonomyElementConfig : EntityTypeConfiguration<PersistedTaxonomyElement >
+        private class TaxonomyElementConfig : EntityTypeConfiguration<PersistedTaxonomyElement>
         {
             public TaxonomyElementConfig()
             {
@@ -114,6 +117,7 @@ namespace Ubik.Web.EF.Components
                     HasKey(x => new { x.Id });
             }
         }
+
         private class TagConfig : EntityTypeConfiguration<PersistedTag>
         {
             public TagConfig()
@@ -130,6 +134,7 @@ namespace Ubik.Web.EF.Components
                });
             }
         }
+
         private class ContentConfig : EntityTypeConfiguration<PersistedContent>
         {
             public ContentConfig()
@@ -163,6 +168,7 @@ namespace Ubik.Web.EF.Components
     public class ComponentsQueryDbContext : DbContext
     {
         public DbSet<DeviceProjection<int>> Devices { get; set; }
+
         public ComponentsQueryDbContext()
             : base("cmsconnectionstring")
         {

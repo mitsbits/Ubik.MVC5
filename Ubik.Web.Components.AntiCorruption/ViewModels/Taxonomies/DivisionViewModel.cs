@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Ubik.Infra.Contracts;
 using Ubik.Infra.Ext;
@@ -17,6 +14,7 @@ namespace Ubik.Web.Components.AntiCorruption.ViewModels.Taxonomies
         public string Name { get; set; }
         public string Summary { get; set; }
     }
+
     public class DivisionViewModel : DivisionSaveModel
     {
     }

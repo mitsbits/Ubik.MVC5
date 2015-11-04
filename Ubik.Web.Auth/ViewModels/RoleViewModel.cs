@@ -5,9 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Ubik.Infra.Contracts;
-using Ubik.Web.Auth.Contracts;
 using Ubik.Web.Auth.Managers;
-using Ubik.Web.Cms.Contracts;
 
 namespace Ubik.Web.Auth.ViewModels
 {
@@ -68,13 +66,10 @@ namespace Ubik.Web.Auth.ViewModels
 
     public class RoleViewModelCommand : IViewModelCommand<RoleSaveModel>
     {
-
         private readonly ApplicationRoleManager _roleManager;
 
         public RoleViewModelCommand(ApplicationRoleManager roleManager)
         {
-        
-
             _roleManager = roleManager;
         }
 

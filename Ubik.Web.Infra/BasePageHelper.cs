@@ -12,7 +12,6 @@ namespace Ubik.Web.Infra
         private dynamic _viewBag;
         private IDictionary<string, object> _routeData;
 
-
         protected BasePageHelper(ViewContext viewContext)
         {
             _rootViewContext = viewContext;
@@ -40,10 +39,8 @@ namespace Ubik.Web.Infra
 
         private Dictionary<string, object> GetPageRouteData()
         {
-   
             return RootViewContext.RouteData.Values.ToDictionary(x => x.Key, x => x.Value);
         }
-
 
         public ViewContext RootViewContext
         {

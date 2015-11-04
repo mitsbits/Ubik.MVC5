@@ -128,7 +128,6 @@ namespace Ubik.Web.Backoffice
 
         public static IBackOfficeMenuProvider FromInternalConfig()
         {
-
             return new XmlBackOfficeMenuProvider(EmbededContent);
         }
 

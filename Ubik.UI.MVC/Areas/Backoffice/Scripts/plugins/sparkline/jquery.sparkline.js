@@ -487,7 +487,6 @@
             } else { //even
                 vl = (values.length * q + 2) / 4;
                 return vl % 1 ? (values[Math.floor(vl)] + values[Math.floor(vl) - 1]) / 2 :  values[vl-1];
-
             }
         }
     };
@@ -601,7 +600,6 @@
         if ($.fn.sparkline.canvas === false) {
             // We've already determined that neither Canvas nor VML are available
             return false;
-
         } else if ($.fn.sparkline.canvas === undefined) {
             // No function defined yet -- need to see if we support Canvas or VML
             var el = document.createElement('canvas');
@@ -821,7 +819,6 @@
         }
     });
 
-
     Tooltip = createClass({
         sizeStyle: 'position: static !important;' +
             'display: block !important;' +
@@ -897,7 +894,6 @@
                 }
                 x = this.mousex - this.offsetLeft;
                 y = this.mousey - this.offsetTop;
-
             } else {
                 this.mousex = x = x - this.offsetLeft;
                 this.mousey = y = y - this.offsetTop;
@@ -1018,7 +1014,6 @@
 
     $.fn.sparkline.defaults = getDefaults();
 
-
     $.sparkline_display_visible = function () {
         var el, i, pl;
         var done = [];
@@ -1042,7 +1037,6 @@
         }
     };
 
-
     /**
      * User option handler
      */
@@ -1064,7 +1058,6 @@
             }
             this.mergedOptions = $.extend({}, base, extendedOptions, userOptions);
         },
-
 
         getTagSetting: function (key) {
             var prefix = this.tagOptionsPrefix,
@@ -1107,7 +1100,6 @@
             return (result = this.mergedOptions[key]) === undefined ? defaultval : result;
         }
     });
-
 
     $.fn.sparkline._base = createClass({
         disabled: false,
@@ -1287,11 +1279,9 @@
                     }
                     return 'rgb(' + rgbnew.join(',') + ')';
                 }
-
             }
             return color;
         }
-
     });
 
     barHighlightMixin = {
@@ -1470,7 +1460,6 @@
             this.xvalues = xvalues;
             this.yvalues = yvalues;
             this.yminmax = yminmax;
-
         },
 
         processRangeOptions: function () {
@@ -1498,7 +1487,6 @@
             if (options.get('chartRangeMaxX') !== undefined && (options.get('chartRangeClipX') || options.get('chartRangeMaxX') > this.maxx)) {
                 this.maxx = options.get('chartRangeMaxX');
             }
-
         },
 
         drawNormalRange: function (canvasLeft, canvasTop, canvasHeight, canvasWidth, rangey) {
@@ -1568,7 +1556,6 @@
                     canvasWidth -= Math.ceil(spotRadius);
                 }
             }
-
 
             canvasHeight--;
 
@@ -1666,7 +1653,6 @@
                             color).append();
                     }
                 }
-
             }
             if (spotRadius && options.get('spotColor') && yvalues[yvallast] !== null) {
                 target.drawCircle(canvasLeft + Math.round((xvalues[xvalues.length - 1] - this.minx) * (canvasWidth / rangex)),
@@ -2831,7 +2817,6 @@
                 shapeseq.splice(first, 0, shapes[i].id);
                 this.shapes[shapes[i].id] = shapes[i];
             }
-
         },
 
         insertAfterShape: function (shapeid, shape) {
@@ -2883,7 +2868,6 @@
                 this.shapeseq = [];
             }
         }
-
     });
 
     VCanvas_vml = createClass(VCanvas_base, {
@@ -2941,7 +2925,6 @@
                 fill +
                 ' style="position:absolute;top:' + y + 'px; left:' + x + 'px; width:' + (radius * 2) + 'px; height:' + (radius * 2) + 'px"></v:oval>';
             return vel;
-
         },
 
         _drawPieSlice: function (shapeid, x, y, radius, startAngle, endAngle, lineColor, fillColor) {
@@ -3050,5 +3033,4 @@
             }
         }
     });
-
 }))}(document, Math));

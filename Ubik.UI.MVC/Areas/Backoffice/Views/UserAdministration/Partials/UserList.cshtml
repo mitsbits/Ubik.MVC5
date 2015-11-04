@@ -38,7 +38,6 @@
                                     <th style="width: 40px">#</th>
                                     <th>Name</th>
                                     <th></th>
-                                  
                                 </tr>
                             </thead>
                             <tbody>
@@ -59,7 +58,6 @@
                                             <span class="@lockStateClass">
                                                 @Html.ActionLink(user.UserName, "Users", "UserAdministration", new { id = user.UserId, area = "Backoffice" }, null)
                                             </span>
-
                                         </td>
                                         <td>
 
@@ -72,7 +70,6 @@
                                                 @Html.ActionLink("Lock", "LockUser", "UserAdministration", new { id = user.UserId, area = "Backoffice" }, new { @class = "btn btn-sm btn-warning" })
                                             }
                                         </td>
-                                
                                     </tr>
                                 }
                             </tbody>

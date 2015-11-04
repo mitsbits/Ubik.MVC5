@@ -14,52 +14,49 @@
     <div class="box-header">
         <h3 class="box-title">Operations on Resources</h3>
     </div>
-@foreach (var @group in claimGroups)
+    @foreach (var @group in claimGroups)
 {
 
-    <div class="box-body no-padding">
-        <div class="box-header">
-            <h3 class="box-title">@group</h3>
-        </div>
-        <table class="table table-bordered table-striped">
-            <tr>
-                <th>
-
-                </th>
-                @foreach (var operation in operations)
-                {
-                    <th>
-                        <span>@operation</span>
-                    </th>
-                }
-            </tr>
-
-            @foreach (var resource in resourcesForGroup(@group))
-            {
+        <div class="box-body no-padding">
+            <div class="box-header">
+                <h3 class="box-title">@group</h3>
+            </div>
+            <table class="table table-bordered table-striped">
                 <tr>
-                    <td> <strong> @resource</strong></td>
+                    <th>
+                    </th>
                     @foreach (var operation in operations)
+                {
+                        <th>
+                            <span>@operation</span>
+                        </th>
+                }
+                </tr>
+
+                @foreach (var resource in resourcesForGroup(@group))
+            {
+                    <tr>
+                        <td> <strong> @resource</strong></td>
+                        @foreach (var operation in operations)
                     {
                         var claim = Model.AvailableClaims.FirstOrDefault(x => x.Value == string.Format("{0}|{1}", operation, resource));
                         var index = Array.IndexOf(Model.AvailableClaims, claim);
-                        <td data-id="@Model.AvailableClaims[index].Value">
-                            @Html.HiddenFor(m => m.AvailableClaims[index].Value)
-                            @Html.HiddenFor(m => m.AvailableClaims[index].Type)
-                            @if (Model.IsSytemRole)
+                            <td data-id="@Model.AvailableClaims[index].Value">
+                                @Html.HiddenFor(m => m.AvailableClaims[index].Value)
+                                @Html.HiddenFor(m => m.AvailableClaims[index].Type)
+                                @if (Model.IsSytemRole)
                             {
-                                @Html.CheckBoxFor(m => m.AvailableClaims[index].IsSelected, new {disabled = "disabled"})
+                                    @Html.CheckBoxFor(m => m.AvailableClaims[index].IsSelected, new {disabled = "disabled"})
                             }
                             else
                             {
-                                @Html.CheckBoxFor(m => m.AvailableClaims[index].IsSelected)
+                                    @Html.CheckBoxFor(m => m.AvailableClaims[index].IsSelected)
                             }
-                        </td>
+                            </td>
                     }
-
-                </tr>
+                    </tr>
             }
-
-        </table>
-    </div>
+            </table>
+        </div>
 }
 </div>

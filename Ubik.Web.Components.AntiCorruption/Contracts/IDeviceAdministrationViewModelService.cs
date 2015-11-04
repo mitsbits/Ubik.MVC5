@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Ubik.Web.Components.AntiCorruption.ViewModels;
 using Ubik.Web.Components.AntiCorruption.ViewModels.Devices;
 
 namespace Ubik.Web.Components.AntiCorruption.Contracts

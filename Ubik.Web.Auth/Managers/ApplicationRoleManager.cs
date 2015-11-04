@@ -1,9 +1,8 @@
-﻿using System;
-using System.Security;
-using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
+using System;
+using System.Threading.Tasks;
 using Ubik.Web.Auth.Stores;
 
 namespace Ubik.Web.Auth.Managers
@@ -13,9 +12,6 @@ namespace Ubik.Web.Auth.Managers
         public ApplicationRoleManager(IRoleStore<ApplicationRole, string> store)
             : base(store)
         {
-
-
-
         }
 
         public async Task<IdentityResult> ClearClaims(string role)

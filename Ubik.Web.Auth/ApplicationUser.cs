@@ -1,6 +1,6 @@
-﻿using System.Linq;
-using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Ubik.Web.Auth.Managers;
@@ -18,7 +18,7 @@ namespace Ubik.Web.Auth
                 var customClaims = await claimsManager.RoleRelatedClaims(userIdentity.GetUserId());
                 userIdentity.AddClaims(customClaims.ToList());
             }
-        
+
             return userIdentity;
         }
     }

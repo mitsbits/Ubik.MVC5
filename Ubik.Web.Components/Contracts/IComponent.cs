@@ -8,5 +8,6 @@
     }
 
     internal interface IComponentCanPublishSuspend : IComponent, ICanPublishSuspend { }
+
     internal interface IComponentCanBeDeleted : IComponent, ICanBeDeleted { }
 }

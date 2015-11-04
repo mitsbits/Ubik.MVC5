@@ -1,5 +1,4 @@
 ﻿$(function () {
-
     $("#roles-table").dataTable({
         "bPaginate": true,
         "bLengthChange": false,

@@ -22,12 +22,11 @@ namespace Ubik.Web.Infra.Navigation
             _proxy = Data.FirstOrDefault(x => x.Id == id);
             _depth = CalculateDepth();
             _path = CalculatePath();
-
         }
 
         private string CalculatePath()
         {
-            if (Proxy.ParentId == default (int)) return Proxy.Id.ToString(CultureInfo.InvariantCulture);
+            if (Proxy.ParentId == default(int)) return Proxy.Id.ToString(CultureInfo.InvariantCulture);
             var idBucket = new List<int>();
             var i = Proxy.Id;
             var p = Proxy.ParentId;
@@ -53,7 +52,8 @@ namespace Ubik.Web.Infra.Navigation
             return d;
         }
 
-        public NavigationElementRole Role {
+        public NavigationElementRole Role
+        {
             get { return Proxy.Role; }
         }
 
@@ -76,7 +76,7 @@ namespace Ubik.Web.Infra.Navigation
 
         public INavigationGroup Group
         {
-            get { return new BaseNavigationGroup(){Description = Proxy.Group.Description, Display = Proxy.Group.Display, Key = Proxy.Group.Key, Weight = Proxy.Group.Weight};  }
+            get { return new BaseNavigationGroup() { Description = Proxy.Group.Description, Display = Proxy.Group.Display, Key = Proxy.Group.Key, Weight = Proxy.Group.Weight }; }
         }
 
         public string IconCssClass { get { return Proxy.IconCssClass; } }
@@ -103,7 +103,7 @@ namespace Ubik.Web.Infra.Navigation
 
         public virtual IHierarchicalEnumerable GetChildren()
         {
-            var result =  new BaseNavigationElements<BaseNavigationElement>(
+            var result = new BaseNavigationElements<BaseNavigationElement>(
                 Data.Where(x => x.ParentId == Proxy.Id)
                 .OrderBy(x => x.Weight)
                 .Select(x => new BaseNavigationElement(Data, x.Id))

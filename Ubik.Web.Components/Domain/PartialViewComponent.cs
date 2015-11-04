@@ -7,7 +7,7 @@ using Ubik.Web.Components.Ext;
 
 namespace Ubik.Web.Components.Domain
 {
-   public class PartialViewComponent : BasePartialModule, IPartialViewComponent
+    public class PartialViewComponent : BasePartialModule, IPartialViewComponent
     {
         private const string KeyPrefix = "viewcomponent::";
         private readonly string[] _keys = { "className", "typeFullName" };

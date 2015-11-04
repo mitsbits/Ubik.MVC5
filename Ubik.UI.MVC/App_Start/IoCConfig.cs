@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Configuration;
-using Autofac;
+﻿using Autofac;
 using Autofac.Core;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
@@ -10,6 +8,8 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.DataProtection;
 using Owin;
 using System;
+using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Reflection;
 using System.Web;
@@ -137,7 +137,6 @@ namespace Ubik.UI.MVC
             builder.RegisterType<DeviceViewModelCommand>().As<IViewModelCommand<DeviceSaveModel>>().InstancePerRequest();
             builder.RegisterType<SectionViewModelCommand>().As<IViewModelCommand<SectionSaveModel>>().InstancePerRequest();
 
-
             builder.RegisterType<SystemSlugService>().As<ISlugifier>().SingleInstance();
             builder.RegisterType<SystemSlugWordRplacer>().As<ISlugWordReplacer>().SingleInstance();
             builder.RegisterType<SystemSlugCharReplacer>().As<ISlugCharOmmiter>().SingleInstance();
@@ -184,8 +183,6 @@ namespace Ubik.UI.MVC
 
         private static void WireUpInternals(ContainerBuilder builder)
         {
-
-
             builder.RegisterType<MemoryDefaultCacheProvider>().As<ICacheProvider>().SingleInstance();
 
             builder.RegisterType<Resident>().As<IResident>().SingleInstance();
@@ -206,7 +203,7 @@ namespace Ubik.UI.MVC
             builder.RegisterType<PersistedExceptionLogRepository>()
                 .As<ICRUDRespoditory<PersistedExceptionLog>>()
                 .InstancePerRequest();
- 
+
             builder.RegisterType<ErrorLogManager>().As<IErrorLogManager>().InstancePerRequest();
         }
 

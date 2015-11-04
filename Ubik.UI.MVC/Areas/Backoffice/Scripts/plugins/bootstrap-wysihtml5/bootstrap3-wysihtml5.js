@@ -27,7 +27,6 @@
   };
 
   Wysihtml5.prototype = {
-
     constructor: Wysihtml5,
 
     createEditor: function(options) {
@@ -264,7 +263,7 @@
       return methods.init.apply( this, arguments );
     } else {
       $.error( 'Method ' +  method + ' does not exist on jQuery.wysihtml5' );
-    }    
+    }
   };
 
   $.fn.wysihtml5.Constructor = Wysihtml5;

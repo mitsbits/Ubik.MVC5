@@ -4,4 +4,4 @@
     {
         bool IsSelected { get; }
     }
-} 
+}

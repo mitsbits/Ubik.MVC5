@@ -6,16 +6,19 @@ namespace Ubik.Web.Components
     public class ComponentBase<TKey> : EntityBase<TKey>, IComponent, IComponentCanPublishSuspend, IComponentCanBeDeleted
     {
         #region IComponent
+
         protected ComponentBase(TKey id)
         {
             Id = id;
             StateFlavor = ComponentStateFlavor.Empty;
         }
+
         protected ComponentBase()
         {
             Id = default(TKey);
             StateFlavor = ComponentStateFlavor.Empty;
         }
+
         public ComponentStateFlavor StateFlavor { get; private set; }
 
         public void SetState(ComponentStateFlavor flavor)
@@ -24,6 +27,7 @@ namespace Ubik.Web.Components
         }
 
         #endregion IComponent
+
         #region IComponentCanPublishSuspend
 
         public void Publish()
@@ -42,6 +46,7 @@ namespace Ubik.Web.Components
         }
 
         #endregion IComponentCanPublishSuspend
+
         #region IComponentCanBeDeleted
 
         public void Delete()

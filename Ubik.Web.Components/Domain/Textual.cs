@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Ubik.Web.Components.Contracts;
 
 namespace Ubik.Web.Components.Domain
 {
     [Serializable]
-    public class Textual :  ITextualInfo
+    public class Textual : ITextualInfo
     {
         public string Subject { get; private set; }
 

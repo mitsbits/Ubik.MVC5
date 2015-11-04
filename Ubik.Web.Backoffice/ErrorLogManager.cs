@@ -1,11 +1,9 @@
-﻿using System;
+﻿using Mehdime.Entity;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Xml;
-using Mehdime.Entity;
 using Ubik.Infra.Contracts;
 using Ubik.Infra.DataManagement;
 using Ubik.Web.EF;
@@ -18,12 +16,12 @@ namespace Ubik.Web.Backoffice
     {
         private readonly ICRUDRespoditory<PersistedExceptionLog> _repo;
         private readonly IDbContextScopeFactory _dbContextScopeFactory;
+
         public ErrorLogManager(ICRUDRespoditory<PersistedExceptionLog> repo, IDbContextScopeFactory dbContextScopeFactory)
         {
             _repo = repo;
             _dbContextScopeFactory = dbContextScopeFactory;
         }
-
 
         public async Task<int> ClearLogs(DateTime startUtc, DateTime endUtc)
         {
@@ -69,16 +67,13 @@ namespace Ubik.Web.Backoffice
 
         public Task LogException(Exception ex)
         {
-
             Elmah.ErrorSignal.FromCurrentContext().Raise(ex);
             return Task.FromResult(false);
-
         }
 
         private static ErrorLog MapToDomain(PersistedExceptionLog data)
         {
             return new ErrorLog() { ErrorCode = data.StatusCode, ErrorDatetTimeUtc = data.TimeUtc, ErrorMessage = data.Message, ErrorType = data.Type, Host = data.Host, Id = data.ErrorId.ToString(), User = data.User };
-
         }
     }
 }

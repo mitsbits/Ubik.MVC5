@@ -1,5 +1,4 @@
 ﻿using Ubik.Web.Components;
-using Ubik.Web.Components.Contracts;
 using Ubik.Web.Components.Domain;
 
 namespace Ubik.Web.Cms

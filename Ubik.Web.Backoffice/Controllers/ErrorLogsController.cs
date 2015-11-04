@@ -28,6 +28,7 @@ namespace Ubik.Web.Backoffice.Controllers
             await _manager.ClearLog(model.ErrorId.ToString());
             return Redirect(model.RedirectUrl);
         }
+
         [HttpPost]
         public async Task<ActionResult> ClearLogsForRange(DeleteErrorLogRangeViewModel model)
         {

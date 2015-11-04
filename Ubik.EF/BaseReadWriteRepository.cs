@@ -7,20 +7,19 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using Ubik.Infra.Contracts;
 
 namespace Ubik.EF
 {
-    public abstract class BaseReadWriteRepository<T, TDbContext> : BaseReadRepository<T, TDbContext>, 
-        IWriteRepository<T>, IWriteAsyncRepository<T> 
+    public abstract class BaseReadWriteRepository<T, TDbContext> : BaseReadRepository<T, TDbContext>,
+        IWriteRepository<T>, IWriteAsyncRepository<T>
         where TDbContext :
         DbContext
         where T : class
     {
         private readonly List<string> _listOfErrors = new List<string>();
- 
+
         public virtual void CreateOrUpdate(T entity)
         {
             // Define an ObjectStateEntry and EntityKey for the current object.
@@ -51,8 +50,6 @@ namespace Ubik.EF
                 throw new InvalidOperationException(string.Join(", ", _listOfErrors));
             }
         }
-
-
 
         public virtual void Delete(T entity)
         {
@@ -148,6 +145,7 @@ namespace Ubik.EF
         }
 
         #region Async
+
         public Task<T> CreateAsync(T entity)
         {
             DbContext.Set<T>().Add(entity);
@@ -174,7 +172,8 @@ namespace Ubik.EF
             {
                 DbContext.Set<T>().Remove(item);
             }
-        } 
-        #endregion
+        }
+
+        #endregion Async
     }
 }

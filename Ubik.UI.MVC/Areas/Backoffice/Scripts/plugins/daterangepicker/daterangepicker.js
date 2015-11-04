@@ -14,7 +14,6 @@
 * @website: http://www.improvely.com/
 */
 !function ($) {
-
     var DateRangePicker = function (element, options, cb) {
         var hasOptions = typeof options == 'object';
         var localeObject;
@@ -116,7 +115,6 @@
         this.container = $(DRPTemplate).appendTo(this.parentEl);
 
         if (hasOptions) {
-
             if (typeof options.format == 'string')
                 this.format = options.format;
 
@@ -149,7 +147,6 @@
 
             if (typeof options.ranges == 'object') {
                 for (var range in options.ranges) {
-
                     var start = moment(options.ranges[range][0]);
                     var end = moment(options.ranges[range][1]);
 
@@ -186,9 +183,7 @@
 
             // update day names order to firstDay
             if (typeof options.locale == 'object') {
-
                 if (typeof options.locale.daysOfWeek == 'object') {
-
                     // Create a copy of daysOfWeek to avoid modification of original
                     // options object for reusability in multiple daterangepicker instances
                     this.locale.daysOfWeek = options.locale.daysOfWeek.slice();
@@ -234,7 +229,6 @@
             if (typeof options.timePicker12Hour == 'boolean') {
                 this.timePicker12Hour = options.timePicker12Hour;
             }
-
         }
 
         if (!this.timePicker) {
@@ -322,11 +316,9 @@
 
         this.updateView();
         this.updateCalendars();
-
     };
 
     DateRangePicker.prototype = {
-
         constructor: DateRangePicker,
 
         mousedown: function (e) {
@@ -504,7 +496,6 @@
         },
 
         enterDate: function (e) {
-
             var title = $(e.target).attr('data-title');
             var row = title.substr(1, 1);
             var col = title.substr(3, 1);
@@ -515,7 +506,6 @@
             } else {
                 this.container.find('input[name=daterangepicker_end]').val(this.rightCalendar.calendar[row][col].format(this.format));
             }
-
         },
 
         clickDate: function (e) {
@@ -575,7 +565,6 @@
         },
 
         updateMonthYear: function (e) {
-
             var isLeft = $(e.target).closest('.calendar').hasClass('left');
             var cal = this.container.find('.calendar.left');
             if (!isLeft)
@@ -592,11 +581,9 @@
             }
 
             this.updateCalendars();
-
         },
 
         updateTime: function(e) {
-
             var isLeft = $(e.target).closest('.calendar').hasClass('left');
             var cal = this.container.find('.calendar.left');
             if (!isLeft)
@@ -628,7 +615,6 @@
             }
 
             this.updateCalendars();
-
         },
 
         updateCalendars: function () {
@@ -660,7 +646,6 @@
         },
 
         buildCalendar: function (month, year, hour, minute, side) {
-
             var firstDay = moment([year, month, 1]);
             var lastMonth = moment(firstDay).subtract('month', 1).month();
             var lastYear = moment(firstDay).subtract('month', 1).year();
@@ -694,7 +679,6 @@
             }
 
             return calendar;
-
         },
 
         renderDropdowns: function (selected, minDate, maxDate) {
@@ -729,7 +713,6 @@
         },
 
         renderCalendar: function (calendar, selected, minDate, maxDate) {
-
             var html = '<div class="calendar-date">';
             html += '<table class="table-condensed">';
             html += '<thead>';
@@ -811,7 +794,6 @@
             html += '</div>';
 
             if (this.timePicker) {
-
                 html += '<div class="calendar-time">';
                 html += '<select class="hourselect">';
                 var start = 0;
@@ -862,13 +844,10 @@
                 }
 
                 html += '</div>';
-
             }
 
             return html;
-
         }
-
     };
 
     $.fn.daterangepicker = function (options, cb) {
@@ -879,5 +858,4 @@
         });
         return this;
     };
-
 }(window.jQuery);

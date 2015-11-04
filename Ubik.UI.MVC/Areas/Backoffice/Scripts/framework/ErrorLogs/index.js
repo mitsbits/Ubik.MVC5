@@ -5,10 +5,8 @@
 
         if (selected) {
             $('input.selector').iCheck('check');
-
         } else {
             $('input.selector').iCheck('uncheck');
-
         }
     });
 
@@ -24,7 +22,6 @@
     });
 
     $('button#btn-delete-selectd').click(function (event) {
-
         if (!anySelected()) {
             event.preventDefault();
             return false;
@@ -36,7 +33,6 @@
                 window.location.href = redirectUrl;
             });
     });
-
 
     function anySelected() {
         return $('input.selector:checked').length > 0;
@@ -50,7 +46,6 @@
         return ids;
     }
 
-
     $('#deletelogs-range').daterangepicker(
         {
             format: 'DD/MM/YYYY',
@@ -61,7 +56,6 @@
         function (start, end) {
             $('input#RangeStart').val(start.format());
             $('input#RangeEnd').val(end.format());
-
         });
     $('#deletelogs-range').on('cancel.daterangepicker', function (ev, picker) {
         $('input#rangeStart').val('');

@@ -9,7 +9,6 @@
         <h3 class="box-title">
 
             Sections
-
         </h3>
     </div>
     <div class="box-body table-responsive table-hover">
@@ -31,18 +30,17 @@
                     <tr data-id="@sct.SectionId" class="@trClass">
                         <td>
 
-                            <a >@((i + 1).ToString("000"))</a>
+                            <a>@((i + 1).ToString("000"))</a>
                         </td>
                         <td>
 
                             <span class="">
                                 @Html.ActionLink(sct.FriendlyName, "Layouts", "Devices", new { id = sct.DeviceId, section = sct.SectionId, area = "Backoffice" }, null)
                             </span>
-
                         </td>
                         <td>
                             <span class="">
-                                @sct.Identifier  
+                                @sct.Identifier
                             </span>
                         </td>
                         <td>
@@ -58,5 +56,4 @@
             </tbody>
         </table>
     </div>
-
 </div>

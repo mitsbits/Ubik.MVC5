@@ -15,18 +15,19 @@ namespace Ubik.Web.Components.AntiCorruption.ViewModels.Devices
         {
             Sections = new HashSet<SectionViewModel>();
         }
+
         [Required]
         public int Id { get; set; }
+
         [Required]
         public string FriendlyName { get; set; }
+
         [Required]
         public string Path { get; set; }
 
         public DeviceRenderFlavor Flavor { get; set; }
 
         public ICollection<SectionViewModel> Sections { get; set; }
-
-        
     }
 
     public class DeviceViewModel : DeviceSaveModel
@@ -34,10 +35,9 @@ namespace Ubik.Web.Components.AntiCorruption.ViewModels.Devices
         public DeviceViewModel()
             : base()
         {
-
         }
 
-        public IEnumerable<IModuleDescriptor> AvailableModules { get; set; } 
+        public IEnumerable<IModuleDescriptor> AvailableModules { get; set; }
     }
 
     public class DeviceViewModelBuilder : IViewModelBuilder<PersistedDevice, DeviceViewModel>

@@ -20,7 +20,6 @@ namespace Ubik.Web.Components.Domain
             Path = path;
         }
 
-
         public string FriendlyName { get; private set; }
 
         public string Path { get; private set; }
@@ -47,9 +46,10 @@ namespace Ubik.Web.Components.Domain
 
         public void AddSection(Section<TKey> section)
         {
-            if (Sections.Any(s => !s.Id.Equals(section.Id))) throw new InvariantException(
-                string.Format("Device:{0} section with id {1} exists. Add fails.",
-                Id, section.Id));
+            if (Sections.Any(s => !s.Id.Equals(section.Id)))
+                throw new InvariantException(
+string.Format("Device:{0} section with id {1} exists. Add fails.",
+Id, section.Id));
             Sections.Add(section);
         }
 
@@ -59,17 +59,18 @@ namespace Ubik.Web.Components.Domain
             if (existingSection == null) return;
             var sectionIdentifier =
                 existingSection.Identifier;
-            if (Sections.All(s => !s.Id.Equals(sectionId))) throw new InvariantException(
-                string.Format("Device:{0} section with id {1} exists. Slot definition fails.",
-                    Id, sectionId));
+            if (Sections.All(s => !s.Id.Equals(sectionId)))
+                throw new InvariantException(
+string.Format("Device:{0} section with id {1} exists. Slot definition fails.",
+Id, sectionId));
             var section = Sections.Single(s => s.Id.Equals(sectionId));
             if (section != null) section.DefineSlot(new SectionSlotInfo(sectionIdentifier, enabled, index), module);
         }
 
         public void SetFlavor(DeviceRenderFlavor flavor)
         {
-            if (Flavor != flavor) 
-            _flavor = flavor;
+            if (Flavor != flavor)
+                _flavor = flavor;
         }
 
         public void SetPath(string path)
@@ -84,13 +85,15 @@ namespace Ubik.Web.Components.Domain
 
         public void SetSectionFlavor(int sectionId, DeviceRenderFlavor flavor)
         {
-            if (Sections.Any(s => s.Id.Equals(sectionId))) throw new InvariantException(
-               string.Format("Device:{0} section with id {1} exists. Set section flavor fails.",
-               Id, sectionId));
+            if (Sections.Any(s => s.Id.Equals(sectionId)))
+                throw new InvariantException(
+string.Format("Device:{0} section with id {1} exists. Set section flavor fails.",
+Id, sectionId));
             var section = Sections.Single(s => s.Id.Equals(sectionId));
-            if (section != null && section.ForFlavor == flavor) throw new InvariantException(
-                string.Format("Device:{0} flavor already has value of {1} for section with id {2}. Set flavor fails.",
-                Id, flavor, sectionId));
+            if (section != null && section.ForFlavor == flavor)
+                throw new InvariantException(
+string.Format("Device:{0} flavor already has value of {1} for section with id {2}. Set flavor fails.",
+Id, flavor, sectionId));
             if (section != null) section.SetForFlavor(flavor);
         }
     }

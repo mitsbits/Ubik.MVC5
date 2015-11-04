@@ -13,7 +13,6 @@
  * Thanks to vor, eskimoblood, spiffistan, FabrizioC
  */
 (function($) {
-
     /**
      * Kontrol library
      */
@@ -131,7 +130,6 @@
 
             // routing value
             if(this.$.is('fieldset')) {
-
                 // fieldset = array of integer
                 this.v = {};
                 this.i = this.$.find('input')
@@ -150,9 +148,7 @@
                     );
                 });
                 this.$.find('legend').remove();
-
             } else {
-
                 // input = integer
                 this.i = this.$;
                 this.v = this.$.val();
@@ -164,7 +160,6 @@
                         s.val(s._validate(s.$.val()));
                     }
                 );
-
             }
 
             (!this.o.displayInput) && this.$.hide();
@@ -279,7 +274,6 @@
         }
 
         this._draw = function () {
-
             // canvas pre-rendering
             var d = true;
 
@@ -291,13 +285,10 @@
             && (d = s.dH());
 
             (d !== false) && s.draw();
-
         };
 
         this._touch = function (e) {
-
             var touchMove = function (e) {
-
                 var v = s.xy2val(
                             e.originalEvent.touches[s.t].pageX,
                             e.originalEvent.touches[s.t].pageY
@@ -333,7 +324,6 @@
         };
 
         this._mouse = function (e) {
-
             var mouseMove = function (e) {
                 var v = s.xy2val(e.pageX, e.pageY);
                 s.change(s._validate(v));
@@ -387,7 +377,6 @@
         };
 
         this._listen = function () {
-
             if (!this.o.readOnly) {
                 this.$c
                     .bind(
@@ -422,7 +411,6 @@
         };
 
         this._configure = function () {
-
             // Hooks
             if (this.o.draw) this.dH = this.o.draw;
             if (this.o.change) this.cH = this.o.change;
@@ -471,7 +459,6 @@
             for (var i in f) { t[i] = f[i]; }
         };
     };
-
 
     /**
      * k.Dial
@@ -546,7 +533,7 @@
                                     + (deltaX>0 || deltaY>0 ? s.o.step : deltaX<0 || deltaY<0 ? -s.o.step : 0);
 
                             v = max(min(v, s.o.max), s.o.min);
-                            
+
                             s.val(v);
 
                             if(s.rH) {
@@ -582,7 +569,6 @@
                         kval = parseInt(String.fromCharCode(kc));
 
                         if (isNaN(kval)) {
-
                             (kc !== 13)         // enter
                             && (kc !== 8)       // bs
                             && (kc !== 9)       // tab
@@ -625,7 +611,6 @@
                             (s.$.val() > s.o.max && s.$.val(s.o.max))
                             || (s.$.val() < s.o.min && s.$.val(s.o.min));
                         }
-
                     }
                 );
 
@@ -634,7 +619,6 @@
         };
 
         this.init = function () {
-
             if (
                 this.v < this.o.min
                 || this.v > this.o.max
@@ -704,7 +688,6 @@
         };
 
         this.draw = function () {
-
             var c = this.g,                 // context
                 a = this.angle(this.cv)    // Angle
                 , sat = this.startAngle     // Start angle
@@ -760,5 +743,4 @@
             }
         ).parent();
     };
-
 })(jQuery);

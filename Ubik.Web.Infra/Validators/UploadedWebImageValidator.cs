@@ -1,12 +1,12 @@
-﻿using System.Drawing.Imaging;
+﻿using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
-using System.Drawing;
 
 namespace Ubik.Web.Infra.Validators
 {
     /// <summary>
     /// A simple utility class for performing some integrity checks on images uploaded by end-users.
-    /// 
+    ///
     /// Uses GDI+ to determine if the uploaded file is a valid web-friendly format - see the article:
     /// http://www.aaronstannard.com/post/2011/06/24/How-to-Securely-Verify-and-Validate-Image-Uploads-in-ASPNET-and-ASPNET-MVC.aspx
     /// </summary>

@@ -24,8 +24,8 @@ namespace Ubik.Web.Backoffice
 
         public override IHierarchyData GetParent()
         {
-            return Data.Any(x => x.Id == Proxy.ParentId) 
-                ? new BackofficeNavigationElement(Data, Proxy.ParentId) 
+            return Data.Any(x => x.Id == Proxy.ParentId)
+                ? new BackofficeNavigationElement(Data, Proxy.ParentId)
                 : null;
         }
     }

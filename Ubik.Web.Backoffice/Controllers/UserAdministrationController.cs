@@ -251,7 +251,6 @@ namespace Ubik.Web.Backoffice.Controllers
                 AddRedirectMessage(ex);
                 return RedirectToAction("Roles", "UserAdministration", new { id = "" });
             }
-
         }
 
         public async Task<ActionResult> DeleteRole(string id)

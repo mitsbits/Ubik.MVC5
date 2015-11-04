@@ -39,7 +39,6 @@
     };
 
     return EventEmitter;
-
   })();
 
   Morris.commas = function(num) {
@@ -580,7 +579,6 @@
     };
 
     return Grid;
-
   })(Morris.EventEmitter);
 
   Morris.parseDate = function(date) {
@@ -698,7 +696,6 @@
     };
 
     return Hover;
-
   })();
 
   Morris.Line = (function(_super) {
@@ -1135,7 +1132,6 @@
     };
 
     return Line;
-
   })(Morris.Grid);
 
   Morris.labelSeries = function(dmin, dmax, pxwidth, specName, xLabelFormat) {
@@ -1376,7 +1372,6 @@
     };
 
     return Area;
-
   })(Morris.Line);
 
   Morris.Bar = (function(_super) {
@@ -1620,7 +1615,6 @@
     };
 
     return Bar;
-
   })(Morris.Grid);
 
   Morris.Donut = (function(_super) {
@@ -1787,7 +1781,6 @@
     };
 
     return Donut;
-
   })(Morris.EventEmitter);
 
   Morris.DonutSegment = (function(_super) {
@@ -1882,7 +1875,5 @@
     };
 
     return DonutSegment;
-
   })(Morris.EventEmitter);
-
 }).call(this);

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Http;
 using Ubik.Web.Auth.Contracts;
 using Ubik.Web.Auth.ViewModels;
@@ -31,10 +28,6 @@ namespace Ubik.Web.Backoffice.Controllers.Api
                    .SelectMany(x => x.Claims.Select(c => c.Value))
                    .Distinct()
                    .ToArray());
-
         }
-
-
-
     }
 }

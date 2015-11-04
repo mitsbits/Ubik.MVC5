@@ -29,21 +29,17 @@
                         <h3 class="box-title">
                             Error Log
                         </h3>
-
-
                     </div>
                     <div class="box-body clearfix">
                         <div class="col-md-2">
                             <button class="btn btn-warning" id="btn-delete-selectd">Delete selected logs</button>
-
                         </div>
                         <div class="col-md-6">
                             @Html.Partial("Partials/ClearErrorLogsForTimeRange")
                         </div>
-
                     </div>
                     <div class=" box-body table-responsive table-condensed table-hover">
-                            @Html.Partial("Partials/ErrorLogList", _model)
+                        @Html.Partial("Partials/ErrorLogList", _model)
                     </div>
                     <div class="box-footer clearfix">
                         <div class="pull-right dataTables_paginate">

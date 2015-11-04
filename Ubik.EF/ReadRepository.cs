@@ -1,14 +1,7 @@
 ﻿using Mehdime.Entity;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Entity.Core.Metadata.Edm;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
-using System.Linq.Expressions;
 using Ubik.EF.Contracts;
-using Ubik.Infra.Contracts;
-using Ubik.Infra.Ext;
 
 namespace Ubik.EF
 {
@@ -18,7 +11,7 @@ namespace Ubik.EF
         where TDbContext : DbContext
         where T : class
     {
-                private readonly IAmbientDbContextLocator _ambientDbContextLocator;
+        private readonly IAmbientDbContextLocator _ambientDbContextLocator;
 
         public override TDbContext DbContext
         {

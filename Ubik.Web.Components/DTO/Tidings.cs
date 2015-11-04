@@ -77,7 +77,7 @@ namespace Ubik.Web.Components.DTO
             }
             else
             {
-                _bucket.Add(new Tiding() {Key = key, Value = value.ToString()});
+                _bucket.Add(new Tiding() { Key = key, Value = value.ToString() });
             }
         }
 
@@ -130,7 +130,7 @@ namespace Ubik.Web.Components.DTO
                 }
                 else
                 {
-                    _bucket.Add(new Tiding() {Key = key, Value = value.ToString()});
+                    _bucket.Add(new Tiding() { Key = key, Value = value.ToString() });
                 }
             }
         }
@@ -143,7 +143,7 @@ namespace Ubik.Web.Components.DTO
             }
             else
             {
-                _bucket.Add(new Tiding() {Key = item.Key, Value = item.Value.ToString()});
+                _bucket.Add(new Tiding() { Key = item.Key, Value = item.Value.ToString() });
             }
         }
 

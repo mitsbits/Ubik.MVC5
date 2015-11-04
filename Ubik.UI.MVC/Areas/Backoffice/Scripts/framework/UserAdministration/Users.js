@@ -1,6 +1,4 @@
 ﻿$(function () {
-
-
     $("#users-table").dataTable({
         "bPaginate": true,
         "bLengthChange": false,
@@ -10,10 +8,9 @@
         "bAutoWidth": true
     });
 
-    $('input.option-role').on('ifChanged', function (event) {    
+    $('input.option-role').on('ifChanged', function (event) {
         setSelectedClaims();
     });
-
 
     function getSelectedRoles() {
         var bucket = new Array();

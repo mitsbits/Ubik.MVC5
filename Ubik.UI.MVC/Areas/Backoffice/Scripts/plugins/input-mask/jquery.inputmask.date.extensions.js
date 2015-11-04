@@ -395,7 +395,6 @@ Optional extensions on the jquery.inputmask base
                         }
 
                         if (isValid && opts.hourFormat !== "24" && opts.regex.hrs24.test(chrs)) {
-
                             var tmp = parseInt(chrs, 10);
 
                             if (tmp == 24) {

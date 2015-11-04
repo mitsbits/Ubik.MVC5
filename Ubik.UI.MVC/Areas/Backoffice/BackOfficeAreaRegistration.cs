@@ -2,17 +2,17 @@
 
 namespace Ubik.UI.MVC.Areas.Backoffice
 {
-    public class BackofficeAreaRegistration : AreaRegistration 
+    public class BackofficeAreaRegistration : AreaRegistration
     {
-        public override string AreaName 
+        public override string AreaName
         {
-            get 
+            get
             {
                 return "Backoffice";
             }
         }
 
-        public override void RegisterArea(AreaRegistrationContext context) 
+        public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
                 "Backoffice_default",

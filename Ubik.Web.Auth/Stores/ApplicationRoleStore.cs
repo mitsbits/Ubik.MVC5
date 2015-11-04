@@ -1,8 +1,8 @@
-﻿using System.Data.Entity;
-using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -56,10 +56,9 @@ namespace Ubik.Web.Auth.Stores
         public async Task<IEnumerable<Claim>> RoleRelatedClaims(string userId)
         {
             var db = Context as AuthDbContext;
-            var roles  =await  db.Roles.Where(x => x.Users.Any(u => u.UserId == userId)).Select(x=>x.Id).ToListAsync();
+            var roles = await db.Roles.Where(x => x.Users.Any(u => u.UserId == userId)).Select(x => x.Id).ToListAsync();
             var claims = await db.RoleClaims.Where(x => roles.Any(r => r == x.ApplicationRoleId)).Distinct().ToListAsync();
             return claims.Select(appClaim => new Claim(appClaim.ClaimType, appClaim.Value));
-
         }
     }
 

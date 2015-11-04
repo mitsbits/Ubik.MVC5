@@ -1,7 +1,7 @@
-﻿using System;
-using System.Data;
-using Mehdime.Entity;
+﻿using Mehdime.Entity;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,7 +10,6 @@ using Ubik.Infra.Contracts;
 using Ubik.Infra.DataManagement;
 using Ubik.Web.Cms.Contracts;
 using Ubik.Web.Components.AntiCorruption.Contracts;
-using Ubik.Web.Components.AntiCorruption.ViewModels;
 using Ubik.Web.Components.AntiCorruption.ViewModels.Devices;
 using Ubik.Web.Components.Contracts;
 using Ubik.Web.Components.Domain;

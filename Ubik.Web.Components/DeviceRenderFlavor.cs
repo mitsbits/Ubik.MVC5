@@ -1,6 +1,6 @@
 ﻿namespace Ubik.Web.Components
 {
-    public enum DeviceRenderFlavor :int
+    public enum DeviceRenderFlavor : int
     {
         Empty = 0,
         Detail = 1,

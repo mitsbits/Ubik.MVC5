@@ -36,7 +36,6 @@
   };
 
   Timepicker.prototype = {
-
     constructor: Timepicker,
 
     _init: function() {
@@ -46,13 +45,13 @@
 		if (this.$element.parent('.input-append, .input-prepend').find('.add-on').length) {
 			this.$element.parent('.input-append, .input-prepend').find('.add-on').on({
 			  'click.timepicker': $.proxy(this.showWidget, this)
-			});		
+			});
 		} else {
 			this.$element.closest(this.containerClass).find('.add-on').on({
 			  'click.timepicker': $.proxy(this.showWidget, this)
-			});		
+			});
 		}
-		
+
         this.$element.on({
           'focus.timepicker': $.proxy(this.highlightUnit, this),
           'click.timepicker': $.proxy(this.highlightUnit, this),
@@ -248,7 +247,6 @@
       var input = this.$element.get(0);
 
       if ('selectionStart' in input) {// Standard-compliant browsers
-
         return input.selectionStart;
       } else if (document.selection) {// IE fix
         input.focus();
@@ -584,7 +582,6 @@
           this.meridian = meridian;
 
           this.update();
-
         } else if (defaultTime === false) {
           this.hour = 0;
           this.minute = 0;
@@ -861,7 +858,6 @@
     }
   };
 
-
   //TIMEPICKER PLUGIN DEFINITION
   $.fn.timepicker = function(option) {
     var args = Array.apply(null, arguments);
@@ -899,5 +895,4 @@
   };
 
   $.fn.timepicker.Constructor = Timepicker;
-
 })(jQuery, window, document);

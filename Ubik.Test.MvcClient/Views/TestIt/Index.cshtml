@@ -1,5 +1,4 @@
-﻿
-@foreach (var section in Device.ActiveSections)
+﻿@foreach (var section in Device.ActiveSections)
 {
     var proxy = section;
     DefineSection(proxy.Identifier, () => Html.RenderViewSection(proxy));

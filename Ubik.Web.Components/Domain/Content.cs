@@ -36,17 +36,20 @@ namespace Ubik.Web.Components.Domain
             get { return Tags; }
         }
 
-        public ICollection<Tag<TKey>> Tags { get; private set; } 
+        public ICollection<Tag<TKey>> Tags { get; private set; }
     }
 
     public class Tag<TKey> : ComponentBase<TKey>, ITag
     {
-        protected Tag() { }
+        protected Tag()
+        {
+        }
 
         public Tag(TKey id, string value) : base(id)
         {
             Value = value;
-        } 
+        }
+
         public string Value { get; private set; }
     }
 }

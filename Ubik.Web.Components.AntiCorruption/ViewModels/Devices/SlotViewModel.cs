@@ -23,10 +23,9 @@ namespace Ubik.Web.Components.AntiCorruption.ViewModels.Devices
     public class SlotViewModel : SlotSaveModel
     {
         public string SectionIdentifier { get; set; }
-        public IEnumerable<IModuleDescriptor> AvailableModules { get; set; } 
-         
-
+        public IEnumerable<IModuleDescriptor> AvailableModules { get; set; }
     }
+
     public class SlotViewModelBuilder : IViewModelBuilder<PersistedSlot, SlotViewModel>
     {
         private readonly IResident _resident;

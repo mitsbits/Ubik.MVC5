@@ -6,11 +6,11 @@ namespace Ubik.Web.Components.DTO
     [Serializable]
     public abstract class Catalogued : ICatalogued
     {
-        public abstract string Key      { get; set; }
+        public abstract string Key { get; set; }
         public abstract string HumanKey { get; set; }
-        public abstract string Value    { get; set; }
-        public abstract string Hint     { get; set; }
-        public abstract string Flag     { get; set; }
+        public abstract string Value { get; set; }
+        public abstract string Hint { get; set; }
+        public abstract string Flag { get; set; }
 
         public override string ToString()
         {

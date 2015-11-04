@@ -29,7 +29,7 @@ namespace Ubik.Web.Components.AntiCorruption
             {
                 deviceAdminClaims.AddRange(ResourceNames.Select(entityClaim => OperationToResource(actionClaim, entityClaim)));
             }
- 
+
             InternalList.AddRange(deviceAdminClaims);
             _rolesToClaims.Add(SystemRoles.AppAdmin, deviceAdminClaims);
             _rolesToClaims.Add(SystemRoles.SysAdmin, deviceAdminClaims);

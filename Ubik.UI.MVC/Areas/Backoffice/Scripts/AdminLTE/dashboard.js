@@ -113,7 +113,7 @@ $(function() {
         fillColor: "#ebf4f9",
         height: '50',
         width: '80'
-    });    
+    });
 
     //The Calender
     $("#calendar").datepicker();
@@ -213,7 +213,6 @@ $(function() {
         donut.redraw();
     });
 
-
     /* BOX REFRESH PLUGIN EXAMPLE (usage with morris charts) */
     $("#loading-example").boxRefresh({
         source: "ajax/dashboard-boxrefresh-demo.php",
@@ -248,5 +247,4 @@ $(function() {
             //console.log("The element has been unchecked")
         }
     });
-
 });

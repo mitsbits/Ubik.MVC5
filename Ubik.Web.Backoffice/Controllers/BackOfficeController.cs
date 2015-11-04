@@ -9,7 +9,6 @@ using Ubik.Web.Infra;
 
 namespace Ubik.Web.Backoffice.Controllers
 {
-
     [AuthorizeRole(RoleName = SystemRoles.Backoffice)]
     [SessionState(SessionStateBehavior.Required)]
     public abstract class BackofficeController : Controller

@@ -8,6 +8,7 @@ namespace Ubik.Web.EF.Components
         {
             Elements = new HashSet<PersistedTaxonomyElement>();
         }
+
         public int Id { get; set; }
         public virtual ICollection<PersistedTaxonomyElement> Elements { get; set; }
         public int TextualId { get; set; }

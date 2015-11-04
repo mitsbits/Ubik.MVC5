@@ -1,9 +1,4 @@
-﻿using System.Xml.Schema;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using System.Xml.Serialization;
-using System.Linq;
+﻿using System.Collections.Generic;
 using Ubik.Web.Components;
 
 namespace Ubik.Web.EF.Components
@@ -48,8 +43,9 @@ namespace Ubik.Web.EF.Components
         {
             Contents = new HashSet<PersistedContent>();
         }
+
         public virtual string Value { get; set; }
-        public virtual ICollection<PersistedContent> Contents { get; set; } 
+        public virtual ICollection<PersistedContent> Contents { get; set; }
     }
 
     public class PersistedHtmlHead
@@ -71,15 +67,15 @@ namespace Ubik.Web.EF.Components
             Flavor = DeviceRenderFlavor.Empty;
         }
 
-        public  int Id { get; set; }
+        public int Id { get; set; }
 
-        public  string FriendlyName { get; set; }
+        public string FriendlyName { get; set; }
 
-        public  string Path { get; set; }
+        public string Path { get; set; }
 
-        public  DeviceRenderFlavor Flavor { get; set; }
+        public DeviceRenderFlavor Flavor { get; set; }
 
-        public  ICollection<PersistedSection> Sections { get; set; }
+        public ICollection<PersistedSection> Sections { get; set; }
     }
 
     public class PersistedSection
@@ -89,30 +85,30 @@ namespace Ubik.Web.EF.Components
             Slots = new HashSet<PersistedSlot>();
         }
 
-        public  int Id { get; set; }
+        public int Id { get; set; }
 
-        public  int DeviceId { get; set; }
+        public int DeviceId { get; set; }
 
-        public  string Identifier { get; set; }
+        public string Identifier { get; set; }
 
-        public  string FriendlyName { get; set; }
+        public string FriendlyName { get; set; }
 
-        public  DeviceRenderFlavor ForFlavor { get; set; }
+        public DeviceRenderFlavor ForFlavor { get; set; }
 
-        public  ICollection<PersistedSlot> Slots { get; set; }
+        public ICollection<PersistedSlot> Slots { get; set; }
     }
 
     public class PersistedSlot
     {
-        public  int SectionId { get; set; }
+        public int SectionId { get; set; }
 
-        public  bool Enabled { get; set; }
+        public bool Enabled { get; set; }
 
-        public  int Ordinal { get; set; }
+        public int Ordinal { get; set; }
 
-        public  string ModuleType { get; set; }
+        public string ModuleType { get; set; }
 
-        public  string ModuleInfo { get; set; }
+        public string ModuleInfo { get; set; }
 
         public virtual PersistedSection Section { get; set; }
     }

@@ -2,7 +2,7 @@
 
 namespace Ubik.Infra.Contracts
 {
-    public interface IPagedResult<T> : IList<T> 
+    public interface IPagedResult<T> : IList<T>
     {
         /// <summary>
         /// Gets the data.

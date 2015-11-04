@@ -1,10 +1,9 @@
-﻿
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
 using Ubik.UI.MVC.Models;
 using Ubik.Web.Auth.Managers;
 
@@ -12,14 +11,12 @@ namespace Ubik.UI.MVC.Controllers
 {
     public class AccountController : Controller
     {
-
         private readonly SignInHelper _signInHelper;
 
-        public AccountController( SignInHelper signInHelper)
+        public AccountController(SignInHelper signInHelper)
         {
             _signInHelper = signInHelper;
         }
-
 
         //
         // GET: /Account/Login
@@ -42,26 +39,30 @@ namespace Ubik.UI.MVC.Controllers
                 return View(model);
             }
 
-
             var result = await _signInHelper.PasswordSignIn(model.Email, model.Password,
                 model.RememberMe,
                 shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
-                    
+
                     return RedirectToLocal(returnUrl);
+
                 case SignInStatus.LockedOut:
                     return View("Lockout");
+
                 case SignInStatus.RequiresVerification:
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
                     return View(model);
             }
         }
+
         #region Helpers
+
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
@@ -118,6 +119,7 @@ namespace Ubik.UI.MVC.Controllers
                 context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
             }
         }
-        #endregion
+
+        #endregion Helpers
     }
 }

@@ -1,12 +1,11 @@
-﻿using System;
+﻿using Mehdime.Entity;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
-using Mehdime.Entity;
 using Ubik.EF;
 using Ubik.Infra.Contracts;
 using Ubik.Infra.DataManagement;
@@ -16,7 +15,8 @@ namespace Ubik.Web.EF
     public class ElmahDbContext : DbContext
     {
         public ElmahDbContext()
-            : base("cmsconnectionstring") { }
+            : base("cmsconnectionstring")
+        { }
 
         public ElmahDbContext(string connString)
             : base(connString)
@@ -27,19 +27,16 @@ namespace Ubik.Web.EF
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-
             modelBuilder.Configurations.Add(new PersistedExceptionLogConfig());
             base.OnModelCreating(modelBuilder);
         }
-
-
 
         private class PersistedExceptionLogConfig : EntityTypeConfiguration<PersistedExceptionLog>
         {
             public PersistedExceptionLogConfig()
             {
                 ToTable("ELMAH_Error").
-                    HasKey(x => new {x.ErrorId});
+                    HasKey(x => new { x.ErrorId });
             }
         }
     }
@@ -64,7 +61,6 @@ namespace Ubik.Web.EF
         public PersistedExceptionLogRepository(IAmbientDbContextLocator ambientDbContextLocator)
             : base(ambientDbContextLocator)
         {
-
         }
 
         public override async Task<PagedResult<PersistedExceptionLog>> FindAsync(Expression<Func<PersistedExceptionLog, bool>> predicate, IEnumerable<OrderByInfo<PersistedExceptionLog>> orderBy, int pageNumber, int pageSize)
@@ -75,8 +71,6 @@ namespace Ubik.Web.EF
             if (pageNumber > totalPages) { pageNumber = totalPages; }
             if (totalRecords == 0)
                 return new PagedResult<PersistedExceptionLog>(new List<PersistedExceptionLog>(), pageNumber, pageSize, 0);
-
-
 
             IOrderedQueryable<PersistedExceptionLog> orderedQuaQueryable = null;
             var orderByInfos = orderBy as OrderByInfo<PersistedExceptionLog>[] ?? orderBy.ToArray();
@@ -98,7 +92,7 @@ namespace Ubik.Web.EF
             if (orderedQuaQueryable == null)
                 return new PagedResult<PersistedExceptionLog>(new List<PersistedExceptionLog>(), pageNumber, pageSize, 0);
 
-            var rawdata = await orderedQuaQueryable.Skip((pageNumber - 1)*pageSize).Take(pageSize).ToListAsync();
+            var rawdata = await orderedQuaQueryable.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
             var data = rawdata.Select(x => new PersistedExceptionLog()
             {
                 AllXml = string.Empty,

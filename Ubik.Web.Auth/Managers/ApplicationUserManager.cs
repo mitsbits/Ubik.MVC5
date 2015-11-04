@@ -26,10 +26,10 @@ namespace Ubik.Web.Auth.Managers
 
             // Configure validation logic for usernames
             UserValidator = new UserValidator<ApplicationUser>(this)
-              {
-                  AllowOnlyAlphanumericUserNames = false,
-                  RequireUniqueEmail = true
-              };
+            {
+                AllowOnlyAlphanumericUserNames = false,
+                RequireUniqueEmail = true
+            };
 
             // Configure validation logic for passwords
             PasswordValidator = new PasswordValidator

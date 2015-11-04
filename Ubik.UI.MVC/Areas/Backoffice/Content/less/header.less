@@ -5,11 +5,11 @@
 
 body > .header {
     position: relative;
-    max-height: 100px;   
+    max-height: 100px;
     z-index: 1030;
     .navbar {
         height: 50px;
-        margin-bottom: 0;        
+        margin-bottom: 0;
         margin-left: @left-side-width;
     }
 
@@ -36,7 +36,6 @@ body > .header {
         height: 2px;
 
         .border-radius(4px);
-
     }
 
     .navbar .sidebar-toggle .icon-bar + .icon-bar {
@@ -87,16 +86,15 @@ body > .header {
         //For logo imgs or icons
         .icon {
             margin-right: 10px;
-        }        
+        }
     }
-
 }
 
-// Content Header 
+// Content Header
 .right-side > .content-header {
     position: relative;
-    padding: 15px 15px 10px 20px;    
-    // Header Text 
+    padding: 15px 15px 10px 20px;
+    // Header Text
     > h1 {
         margin: 0;
         font-size: 24px;
@@ -124,7 +122,7 @@ body > .header {
             text-decoration: none;
             > .fa, > .glyphicon, > .ion {
                 margin-right: 5px;
-            }            
+            }
         }
         > li + li:before {
             content: '>\00a0';
@@ -164,7 +162,7 @@ body > .header {
     }
 }
 
-// Collapse header 
+// Collapse header
 @media screen and (max-width: @screen-header-collapse) {
     body > .header {
         position: relative;
@@ -176,7 +174,6 @@ body > .header {
         .navbar {
             margin: 0;
         }
-
     }
 
     body.fixed {
@@ -187,5 +184,4 @@ body > .header {
             margin-top: 100px!important;
         }
     }
-
 }

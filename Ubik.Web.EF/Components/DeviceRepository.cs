@@ -1,10 +1,7 @@
-﻿using System;
+﻿using Mehdime.Entity;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Mehdime.Entity;
 using Ubik.EF;
 using Ubik.Infra.Contracts;
 using Ubik.Web.Components.Contracts;
@@ -16,7 +13,7 @@ namespace Ubik.Web.EF.Components
     public class DeviceRepository : IDeviceRepository<int>
     {
         private readonly IDbContextScopeFactory _dbContextScopeFactory;
-        private readonly IReadRepository<PersistedDevice> _readRepo; 
+        private readonly IReadRepository<PersistedDevice> _readRepo;
 
         public DeviceRepository(IDbContextScopeFactory dbContextScopeFactory, IReadRepository<PersistedDevice> readRepo)
         {

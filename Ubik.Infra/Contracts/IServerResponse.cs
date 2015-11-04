@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Ubik.Infra.Contracts
+﻿namespace Ubik.Infra.Contracts
 {
     public interface IServerResponse
     {
@@ -31,6 +25,5 @@ namespace Ubik.Infra.Contracts
         /// The message of the response.
         /// </value>
         string Message { get; set; }
-
     }
 }

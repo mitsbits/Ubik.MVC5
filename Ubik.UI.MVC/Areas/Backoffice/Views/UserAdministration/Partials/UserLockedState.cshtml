@@ -14,12 +14,6 @@
     <button type="submit" class="btn btn-sm btn-warning">Lock</button>
 }
 
-
-
-
-
-
-
 @using (Html.BeginForm(Model.IsLocked ? "UnlockUser" : "LockUser", "UserAdministration", FormMethod.Post, new { role = "form" }))
 {
 

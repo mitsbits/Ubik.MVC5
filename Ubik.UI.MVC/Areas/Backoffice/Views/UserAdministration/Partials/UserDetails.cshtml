@@ -18,7 +18,6 @@
     <section class="content">
         <div class="row">
 
-
             <div class="col-md-6">
                 <div class="box box-primary">
                     @using (Html.BeginForm("UpdateUser", "UserAdministration", FormMethod.Post, new { role = "form" }))
@@ -69,7 +68,6 @@
                 </div>
 
                 @Html.Partial("~/Areas/Backoffice/Views/UserAdministration/Partials/UserChangePassword.cshtml", new UserChangPasswordViewModel() { NewPassword = string.Empty, UserId = Model.UserId, RedirectURL = Request.RawUrl })
-
             </div>
         </div>
     </section><!-- /.content -->

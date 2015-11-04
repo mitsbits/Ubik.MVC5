@@ -11,6 +11,7 @@ namespace Ubik.Web.Auth
         private readonly Dictionary<string, List<Claim>> _rolesToClaims;
         private const string _adminRoleName = "UserAdmin";
         private const string _recourseGroup = "Users";
+
         public UserAdministrationAuth()
             : base()
         {

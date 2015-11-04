@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Ubik.Web.Components.Contracts
 {
-    interface IPartialAction
+    internal interface IPartialAction
     {
         string Area { get; }
 

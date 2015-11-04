@@ -1,8 +1,8 @@
+using Mehdime.Entity;
 using System;
 using System.Data.Entity;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Mehdime.Entity;
 using Ubik.EF;
 using Ubik.Infra.Contracts;
 

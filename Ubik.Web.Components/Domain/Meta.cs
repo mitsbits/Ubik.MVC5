@@ -62,7 +62,7 @@ namespace Ubik.Web.Components.Domain
             }
         }
 
-        public  virtual string TypeIdentifier
+        public virtual string TypeIdentifier
         {
             get
             {

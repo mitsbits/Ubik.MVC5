@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Web;
-using System.Web.Hosting;
-using System.Web.Mvc;
-using Ubik.Web.Backoffice;
-using Ubik.Web;
+﻿using System.Web.Mvc;
 using Ubik.Web.Infra.Helpers;
 
 namespace Ubik.Web.Backoffice
@@ -24,7 +16,6 @@ namespace Ubik.Web.Backoffice
     //        PageContent = new BackofficeContentHelper(ViewContext);
     //    }
 
-
     //}
 
     public abstract class BackofficePage<TModel> : WebViewPage<TModel>
@@ -35,13 +26,15 @@ namespace Ubik.Web.Backoffice
         }
 
         public BackofficeContentHelper PageContent { get; private set; }
-        public  ServerResponseHelper Feedback { get; private set; }
+        public ServerResponseHelper Feedback { get; private set; }
+
         public override void InitHelpers()
         {
             base.InitHelpers();
             PageContent = new BackofficeContentHelper(ViewContext);
             Feedback = new ServerResponseHelper(ViewContext);
         }
+
         public void AddBackofficeBottom(string url)
         {
             const string prefix = @"~/Areas/Backoffice/Scripts/framework/";

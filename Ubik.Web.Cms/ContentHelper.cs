@@ -18,7 +18,5 @@ namespace Ubik.Web.Cms
         {
             get { return _content ?? (_content = RootViewBag.Content as IContent); }
         }
-
-
     }
 }

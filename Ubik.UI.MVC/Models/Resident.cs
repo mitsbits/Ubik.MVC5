@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Ubik.Web.Cms.Contracts;
@@ -12,8 +11,10 @@ namespace Ubik.UI.MVC.Models
     {
         private readonly IResidentAdministration _administration;
         private readonly IResidentSecurity _security;
+
         //private readonly IResidentPubSub _pubSub;
         private readonly IModuleDescovery _modules;
+
         public Resident(IResidentSecurity security, IResidentAdministration administration, IModuleDescovery modules)
         {
             _security = security;

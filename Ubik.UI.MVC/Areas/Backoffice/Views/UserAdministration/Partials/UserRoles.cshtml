@@ -9,7 +9,7 @@
 
     Func<string, IEnumerable<RoleClaimViewModel>> claimsForGroup = (@group) => availableClaims.Where(x => string.Join(" - ", x.ResourceGroups) == @group).ToList();
     Func<string, IEnumerable<string>> resourcesForGroup = (@group) => availableClaims.Where(x => x.Type == SystemClaims.OperationToResourceClaimType && string.Join(" - ", x.ResourceGroups) == @group).Select(x => x.Value.Split(new[] { '|' }).Last()).Distinct().OrderBy(x => x).ToList();
-    
+
     AddBackofficeBottom("UserAdministration/users");
 
     var isCreateNewUser = Model as NewUserViewModel != null;
@@ -50,11 +50,9 @@
             }
         </div>
     </div>
-    
+
     @foreach (var @group in claimGroups)
     {
-
-
 
         <div class="box-body no-padding">
             <div class="box-header">
@@ -88,11 +86,8 @@
                         }
                     </tr>
                 }
-
             </table>
         </div>
 
-
     }
 </div>
-    

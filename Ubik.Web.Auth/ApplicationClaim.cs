@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Security.Claims;
 using Ubik.Web.Auth.Contracts;
 
 namespace Ubik.Web.Auth
@@ -15,11 +10,13 @@ namespace Ubik.Web.Auth
         public virtual ApplicationRole Role { get; set; }
 
         public virtual string ApplicationRoleId { get; set; }
+
         public ApplicationClaim()
         {
             Value = string.Empty;
             ClaimType = string.Empty;
         }
+
         public ApplicationClaim(Claim claim)
         {
             Value = claim.Value;

@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Runtime.Remoting.Messaging;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using System.Web.Routing;
 using Ubik.Infra;
 using Ubik.Web.Components.AntiCorruption.Contracts;
-using Ubik.Web.Components.AntiCorruption.ViewModels;
 using Ubik.Web.Components.AntiCorruption.ViewModels.Devices;
 using Ubik.Web.Components.Contracts;
 
@@ -21,8 +18,6 @@ namespace Ubik.Web.Backoffice.Controllers
             _deviceService = deviceService;
             _deviceViewModels = deviceViewModels;
         }
-
-
 
         public Task<ActionResult> LayOuts(int? id)
         {
@@ -61,7 +56,7 @@ namespace Ubik.Web.Backoffice.Controllers
                 }
                 await _deviceViewModels.Execute(model);
                 AddRedirectMessage(ServerResponseStatus.SUCCESS, string.Format("Device '{0}' {1}!", model.FriendlyName, (isNew) ? "created" : "updated"));
-                return RedirectToAction("Layouts", "Devices", new { id = model.Id});
+                return RedirectToAction("Layouts", "Devices", new { id = model.Id });
             }
             catch (Exception ex)
             {
@@ -69,6 +64,7 @@ namespace Ubik.Web.Backoffice.Controllers
                 return RedirectToAction("Layouts", "Devices", null);
             }
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> UpdateSection(SectionSaveModel model)

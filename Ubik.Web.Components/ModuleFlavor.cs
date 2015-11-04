@@ -8,9 +8,9 @@ namespace Ubik.Web.Components
         private readonly string _flavorDescription = String.Empty;
         private static readonly IDictionary<string, ModuleType> Dict = new Dictionary<string, ModuleType>();
 
-        public static readonly ModuleType Empty         = new ModuleType("Empty");
+        public static readonly ModuleType Empty = new ModuleType("Empty");
         public static readonly ModuleType PartialAction = new ModuleType("Partial Action");
-        public static readonly ModuleType PartialView   = new ModuleType("Partial View");
+        public static readonly ModuleType PartialView = new ModuleType("Partial View");
         public static readonly ModuleType ViewComponent = new ModuleType("Partial View Component");
 
         private ModuleType(string flavorDescription)

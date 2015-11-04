@@ -7,13 +7,13 @@ namespace Ubik.Web.Auth
     public class SystemRoles : IEnumerable<Claim>
     {
         public const string RoleClaimType = ClaimTypes.Role;
-        public const string SysAdmin      = "SysAdmin";
-        public const string AppAdmin      = "AppAdmin";
-        public const string Manager       = "Manager";
-        public const string Editor        = "Editor";
-        public const string Author        = "Author";
-        public const string Backoffice    = "Backoffice";
-        public const string Guest         = "Guest";
+        public const string SysAdmin = "SysAdmin";
+        public const string AppAdmin = "AppAdmin";
+        public const string Manager = "Manager";
+        public const string Editor = "Editor";
+        public const string Author = "Author";
+        public const string Backoffice = "Backoffice";
+        public const string Guest = "Guest";
 
         private static readonly IEnumerable<Claim> _roles;
 

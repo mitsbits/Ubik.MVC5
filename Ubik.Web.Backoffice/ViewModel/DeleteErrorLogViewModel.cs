@@ -7,6 +7,7 @@ namespace Ubik.Web.Backoffice.ViewModel
         public Guid ErrorId { get; set; }
         public string RedirectUrl { get; set; }
     }
+
     public class DeleteErrorLogRangeViewModel
     {
         public Guid ErrorId { get; set; }

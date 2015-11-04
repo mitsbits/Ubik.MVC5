@@ -7,7 +7,7 @@ using Microsoft.Owin;
 using Owin;
 using Ubik.Web.Auth;
 
-[assembly: OwinStartupAttribute(typeof(Ubik.UI.MVC.Startup))]
+[assembly: OwinStartup(typeof(Ubik.UI.MVC.Startup))]
 namespace Ubik.UI.MVC
 {
     public class Startup
