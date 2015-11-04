@@ -20,12 +20,12 @@
 
   <group key="modls" display="Layouts and Modules">
     <icon>
-      <cssclass>fa-file-code-o</cssclass>
+      <cssclass>fa fa-file-code-o</cssclass>
     </icon>
     <elements>
       <element display="Layouts" href="/devices" role="anchor" target="_self">
         <icon>
-          <cssclass>fa-file-code-o</cssclass>
+          <cssclass>fa fa-file-code-o</cssclass>
         </icon>
         <elements>
           <element display="New Layout" href="/devices/new-device" role="anchor" target="_self">
@@ -45,12 +45,12 @@
 
   <group key="mntns" display="Maintenance">
     <icon>
-      <cssclass></cssclass>
+      <cssclass>fa fa-cogs</cssclass>
     </icon>
     <elements>
       <element display="Error Logs" href="/errorlogs" role="anchor" target="_self">
         <icon>
-          <cssclass></cssclass>
+          <cssclass>fa fa fa-angle-double-right</cssclass>
         </icon>
       </element>
     </elements>
