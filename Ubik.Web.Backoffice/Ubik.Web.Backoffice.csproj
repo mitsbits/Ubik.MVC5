@@ -161,9 +161,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\BundleConfig.cs" />
-    <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="AuthorizeOperationToResourceAttribute.cs" />
     <Compile Include="AuthorizeRoleAttribute.cs" />
     <Compile Include="BackofficeContentHelper.cs" />
@@ -178,6 +175,7 @@
     <Compile Include="Controllers\Api\UserOperationsController.cs" />
     <Compile Include="Controllers\DevicesController.cs" />
     <Compile Include="Controllers\ErrorLogsController.cs" />
+    <Compile Include="Controllers\TaxonomiesController.cs" />
     <Compile Include="ErrorLogManager.cs" />
     <Compile Include="Helpers\Pagination.cs" />
     <Compile Include="ViewModel\DeleteErrorLogViewModel.cs" />

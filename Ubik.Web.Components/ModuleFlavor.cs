@@ -40,7 +40,7 @@ namespace Ubik.Web.Components
                 type = Parse(heightDescription);
                 return true;
             }
-            catch (NotImplementedException ex)
+            catch (NotImplementedException )
             {
                 type = null;
                 return false;

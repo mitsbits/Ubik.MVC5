@@ -43,6 +43,19 @@
     </elements>
   </group>
 
+  <group key="txnm" display="Taxonomies">
+    <icon>
+      <cssclass>fa fa-sitemap</cssclass>
+    </icon>
+    <elements>
+      <element display="Divisions" href="/taxonomies/divisions" role="anchor" target="_self">
+        <icon>
+          <cssclass>fa fa fa-angle-double-right</cssclass>
+        </icon>
+      </element>
+    </elements>
+  </group>
+
   <group key="mntns" display="Maintenance">
     <icon>
       <cssclass>fa fa-cogs</cssclass>

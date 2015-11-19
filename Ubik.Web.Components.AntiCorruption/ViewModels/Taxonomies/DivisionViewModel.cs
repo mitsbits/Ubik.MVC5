@@ -36,14 +36,24 @@ namespace Ubik.Web.Components.AntiCorruption.ViewModels.Taxonomies
     {
         private readonly IPersistedTaxonomyDivisionRepository _repo;
 
+
         public DivisionViewModelCommand(IPersistedTaxonomyDivisionRepository repo)
         {
             _repo = repo;
         }
 
-        public Task Execute(DivisionSaveModel model)
+        public async Task Execute(DivisionSaveModel model)
         {
-            throw new NotImplementedException();
+            var isTransient = model.Id == default(int);
+            if (isTransient)
+            {
+                var entity = new PersistedTaxonomyDivision()
+                {
+                    Textual =
+                        new PersistedTextual() { Subject = model.Name, Summary = model.Summary.ConvertUTF8ToBinary() }
+                };
+                await _repo.CreateAsync(entity);
+            }
         }
     }
 }

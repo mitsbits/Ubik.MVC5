@@ -6,6 +6,7 @@ using Ubik.Infra;
 using Ubik.Web.Auth;
 using Ubik.Web.Backoffice.Contracts;
 using Ubik.Web.Infra;
+using Ubik.Web.Infra.Contracts;
 
 namespace Ubik.Web.Backoffice.Controllers
 {
@@ -13,6 +14,15 @@ namespace Ubik.Web.Backoffice.Controllers
     [SessionState(SessionStateBehavior.Required)]
     public abstract class BackofficeController : Controller
     {
+
+        private readonly IErrorLogManager _errorLogManager;
+
+        protected BackofficeController(IErrorLogManager errorLogManager)
+        {
+            _errorLogManager = errorLogManager;
+            
+        }
+
         #region Pager
 
         private const string pageNumerVariableName = "p";
@@ -65,6 +75,7 @@ namespace Ubik.Web.Backoffice.Controllers
 
         protected void AddRedirectMessage(Exception exception)
         {
+            _errorLogManager.LogException(exception);
             this.AddRedirectMessages(new ServerResponse(exception));
         }
 

@@ -45,7 +45,7 @@ namespace Ubik.Web.Components.DTO
                 type = Parse(typeDescription);
                 return true;
             }
-            catch (NotImplementedException ex)
+            catch (NotImplementedException)
             {
                 type = null;
                 return false;

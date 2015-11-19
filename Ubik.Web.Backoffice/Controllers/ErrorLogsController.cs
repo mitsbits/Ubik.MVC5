@@ -11,7 +11,7 @@ namespace Ubik.Web.Backoffice.Controllers
     {
         private readonly IErrorLogManager _manager;
 
-        public ErrorLogsController(IErrorLogManager manager)
+        public ErrorLogsController(IErrorLogManager manager)   :base(manager)
         {
             _manager = manager;
         }

@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using Ubik.Web.Cms.Contracts;
+using Ubik.Web.Infra.Contracts;
 
 namespace Ubik.Web.Backoffice.Controllers
 {
@@ -7,7 +8,7 @@ namespace Ubik.Web.Backoffice.Controllers
     {
         private readonly IResident _resident;
 
-        public NavigationController(IResident resident)
+        public NavigationController(IErrorLogManager errorLogManager, IResident resident)  : base(errorLogManager)
         {
             _resident = resident;
         }

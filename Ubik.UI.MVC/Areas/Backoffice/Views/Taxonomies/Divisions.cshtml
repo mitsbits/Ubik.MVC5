@@ -1,0 +1,25 @@
+﻿@using Ubik.Web.Auth.ViewModels
+@using Ubik.Web.Components.AntiCorruption.ViewModels.Taxonomies
+@{
+
+    if (Model.GetType() == typeof (DivisionViewModel))
+    {
+        var detail = Model as DivisionViewModel;
+        Html.RenderPartial("Partials/DivisionDetails", detail);
+    }
+    else
+    {
+        var rows = Model as IEnumerable<DivisionViewModel>;
+        Html.RenderPartial("Partials/DivisionList", rows);
+    }
+}
+
+<script type="text/javascript">
+            $(function() {
+                // Replace the <textarea id="editor1"> with a CKEditor
+                // instance, using default configuration.
+                //CKEDITOR.replace('editor1');
+                //bootstrap WYSIHTML5 - text editor
+                $(".textarea").wysihtml5();
+            });
+</script>

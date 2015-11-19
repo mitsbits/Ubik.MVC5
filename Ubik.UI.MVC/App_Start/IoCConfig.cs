@@ -31,6 +31,7 @@ using Ubik.Web.Cms.Contracts;
 using Ubik.Web.Components.AntiCorruption.Contracts;
 using Ubik.Web.Components.AntiCorruption.Services;
 using Ubik.Web.Components.AntiCorruption.ViewModels.Devices;
+using Ubik.Web.Components.AntiCorruption.ViewModels.Taxonomies;
 using Ubik.Web.Components.Contracts;
 using Ubik.Web.EF;
 using Ubik.Web.EF.Components;
@@ -125,6 +126,8 @@ namespace Ubik.UI.MVC
 
         private static void WireUpCms(ContainerBuilder builder)
         {
+            builder.RegisterType<PersistedTextualRepository>().As<IPersistedTextualRepository>().InstancePerRequest();
+
             builder.RegisterType<PersistedDeviceRepository>().As<ICRUDRespoditory<PersistedDevice>>().InstancePerRequest();
             builder.RegisterType<PersistedSectionRepository>().As<ICRUDRespoditory<PersistedSection>>().InstancePerRequest();
 
@@ -133,9 +136,11 @@ namespace Ubik.UI.MVC
 
             builder.RegisterType<DeviceAdministrationService>().As<IDeviceAdministrationService<int>>().InstancePerRequest();
             builder.RegisterType<DeviceAdministrationService>().As<IDeviceAdministrationViewModelService>().InstancePerRequest();
+            builder.RegisterType<TaxonomiesViewModelService>().As<ITaxonomiesViewModelService>().InstancePerRequest();
 
             builder.RegisterType<DeviceViewModelCommand>().As<IViewModelCommand<DeviceSaveModel>>().InstancePerRequest();
             builder.RegisterType<SectionViewModelCommand>().As<IViewModelCommand<SectionSaveModel>>().InstancePerRequest();
+            builder.RegisterType<DivisionViewModelCommand>().As<IViewModelCommand<DivisionSaveModel>>().InstancePerRequest();
 
             builder.RegisterType<SystemSlugService>().As<ISlugifier>().SingleInstance();
             builder.RegisterType<SystemSlugWordRplacer>().As<ISlugWordReplacer>().SingleInstance();

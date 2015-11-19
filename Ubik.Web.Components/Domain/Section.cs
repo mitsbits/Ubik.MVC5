@@ -27,7 +27,6 @@ namespace Ubik.Web.Components.Domain
             _forFlavor = flavor;
         }
 
-        public TKey Id { get; private set; }
 
         public string Identifier { get; private set; }
 

@@ -7,6 +7,7 @@ using Ubik.Infra;
 using Ubik.Web.Auth;
 using Ubik.Web.Auth.Contracts;
 using Ubik.Web.Auth.ViewModels;
+using Ubik.Web.Infra.Contracts;
 
 namespace Ubik.Web.Backoffice.Controllers
 {
@@ -17,7 +18,7 @@ namespace Ubik.Web.Backoffice.Controllers
 
         private const int daysToLock = 365 * 200;
 
-        public UserAdministrationController(IUserAdminstrationService userService, IUserAdminstrationViewModelService viewModelsService)
+        public UserAdministrationController( IErrorLogManager errorLogManager,  IUserAdminstrationService userService, IUserAdminstrationViewModelService viewModelsService) : base(errorLogManager)
         {
             _userService = userService;
             _viewModelsService = viewModelsService;
@@ -213,7 +214,7 @@ namespace Ubik.Web.Backoffice.Controllers
         }
 
         [ActionName("new-role")]
-        /*[AuthorizeOperationToResource(OperationKey = SystemClaims.Operations.Create, ResourceKey = UserAdministrationAuth.Resources.Role)]*/
+        [AuthorizeOperationToResource(OperationKey = SystemClaims.Operations.Create, ResourceKey = UserAdministrationAuth.Resources.Role)]
         public ActionResult NewRole()
         {
             SetContentPage(new BackofficeContent() { Title = "Role Administration", Subtitle = "here you can create a new role" });

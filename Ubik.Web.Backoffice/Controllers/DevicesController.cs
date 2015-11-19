@@ -5,6 +5,7 @@ using Ubik.Infra;
 using Ubik.Web.Components.AntiCorruption.Contracts;
 using Ubik.Web.Components.AntiCorruption.ViewModels.Devices;
 using Ubik.Web.Components.Contracts;
+using Ubik.Web.Infra.Contracts;
 
 namespace Ubik.Web.Backoffice.Controllers
 {
@@ -13,7 +14,7 @@ namespace Ubik.Web.Backoffice.Controllers
         private readonly IDeviceAdministrationService<int> _deviceService;
         private readonly IDeviceAdministrationViewModelService _deviceViewModels;
 
-        public DevicesController(IDeviceAdministrationService<int> deviceService, IDeviceAdministrationViewModelService deviceViewModels)
+        public DevicesController(IErrorLogManager errorLogManager, IDeviceAdministrationService<int> deviceService, IDeviceAdministrationViewModelService deviceViewModels) : base(errorLogManager)
         {
             _deviceService = deviceService;
             _deviceViewModels = deviceViewModels;
