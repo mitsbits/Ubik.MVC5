@@ -1,6 +1,8 @@
-﻿namespace Ubik.Web.EF.Components
+﻿using Ubik.EF.Contracts;
+
+namespace Ubik.Web.EF.Components
 {
-    public class PersistedTextual
+    public class PersistedTextual     : ISequenceBase
     {
         public virtual int Id { get; set; }
 

@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using Ubik.EF.Contracts;
 
 namespace Ubik.Web.EF.Components
 {
-    public class PersistedTaxonomyDivision
+    public class PersistedTaxonomyDivision : ISequenceBase
     {
         public PersistedTaxonomyDivision()
         {

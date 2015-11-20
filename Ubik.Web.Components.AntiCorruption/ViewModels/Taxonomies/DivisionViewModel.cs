@@ -35,11 +35,12 @@ namespace Ubik.Web.Components.AntiCorruption.ViewModels.Taxonomies
     public class DivisionViewModelCommand : IViewModelCommand<DivisionSaveModel>
     {
         private readonly IPersistedTaxonomyDivisionRepository _repo;
+        private readonly IPersistedTextualRepository _textualRepo;
 
-
-        public DivisionViewModelCommand(IPersistedTaxonomyDivisionRepository repo)
+        public DivisionViewModelCommand(IPersistedTaxonomyDivisionRepository repo, IPersistedTextualRepository textualRepo)
         {
             _repo = repo;
+            _textualRepo = textualRepo;
         }
 
         public async Task Execute(DivisionSaveModel model)
@@ -47,6 +48,11 @@ namespace Ubik.Web.Components.AntiCorruption.ViewModels.Taxonomies
             var isTransient = model.Id == default(int);
             if (isTransient)
             {
+                var textual = new PersistedTextual()
+                {
+                    Subject = model.Name,
+                    Summary = model.Summary.ConvertUTF8ToBinary()
+                };
                 var entity = new PersistedTaxonomyDivision()
                 {
                     Textual =

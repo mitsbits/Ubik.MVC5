@@ -15,7 +15,7 @@ namespace Ubik.Web.Backoffice.Controllers
     {
         private readonly ITaxonomiesViewModelService _viewModelService;
 
-        public TaxonomiesController(IErrorLogManager errorLogManager, ITaxonomiesViewModelService viewModelService)    : base(errorLogManager)
+        public TaxonomiesController(IErrorLogManager errorLogManager, ITaxonomiesViewModelService viewModelService) : base(errorLogManager)
         {
             _viewModelService = viewModelService;
         }

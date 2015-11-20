@@ -1,11 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration;
+using System.Security.Cryptography;
+using Ubik.EF;
+using Ubik.EF.Contracts;
+using Ubik.Infra.Contracts;
 using Ubik.Web.Components.Query;
 
 namespace Ubik.Web.EF.Components
 {
-    public class ComponentsDbContext : DbContext
+    public class ComponentsDbContext : SequenceProviderDbContext
     {
         public DbSet<PersistedDevice> Devices { get; set; }
 
@@ -31,6 +35,8 @@ namespace Ubik.Web.EF.Components
         {
             return new ComponentsDbContext();
         }
+
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -97,6 +103,7 @@ namespace Ubik.Web.EF.Components
             {
                 ToTable("TaxonomyDivisions").
                     HasKey(x => new { x.Id });
+                Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
             }
         }
 
@@ -160,7 +167,9 @@ namespace Ubik.Web.EF.Components
             {
                 ToTable("Textuals").
                     HasKey(x => new { x.Id }).
-                    Property(x => x.Subject).IsRequired();
+                    Property(x => x.Subject).
+                    IsRequired();
+                Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
             }
         }
     }

@@ -67,6 +67,10 @@
     <Compile Include="ViewModels\Taxonomies\DivisionViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Ubik.EF\Ubik.EF.csproj">
+      <Project>{791FC149-AE57-4DE0-B4DA-12B47216E131}</Project>
+      <Name>Ubik.EF</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Ubik.Infra\Ubik.Infra.csproj">
       <Project>{F7CB1815-5D42-469D-9A35-5C3EF88733E5}</Project>
       <Name>Ubik.Infra</Name>
