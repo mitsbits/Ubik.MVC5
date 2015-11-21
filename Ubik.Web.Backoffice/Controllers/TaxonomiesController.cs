@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Web.Routing;
 using Ubik.Infra;
 using Ubik.Web.Components.AntiCorruption.Contracts;
 using Ubik.Web.Components.AntiCorruption.ViewModels.Taxonomies;
@@ -22,10 +20,19 @@ namespace Ubik.Web.Backoffice.Controllers
 
         public async Task<ActionResult> Divisions(int? id)
         {
-            return !id.HasValue
-                ? View(await _viewModelService.DivisionModels(Pager.Current, Pager.RowCount))
-                : View(await _viewModelService.DivisionModel(id.Value));
+            try
+            {
+                return !id.HasValue
+                 ? View(await _viewModelService.DivisionModels(Pager.Current, Pager.RowCount))
+                 : View(await _viewModelService.DivisionModel(id.Value));
+            }
+            catch (Exception ex)
+            {
+                AddRedirectMessage(ex);
+                return RedirectToRoute(new {Controller = "Home", Action = "Index"});
+            }
         }
+
         [HttpPost]
         [ValidateInput(false)]
         [ValidateAntiForgeryToken]
@@ -33,7 +40,6 @@ namespace Ubik.Web.Backoffice.Controllers
         {
             try
             {
-
                 if (!ModelState.IsValid)
                 {
                     AddRedirectMessage(ModelState);

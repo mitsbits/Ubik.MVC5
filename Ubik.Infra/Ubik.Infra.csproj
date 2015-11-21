@@ -46,6 +46,7 @@
     <Compile Include="Contracts\IHierarchyData.cs" />
     <Compile Include="Contracts\IKeyAdjuster.cs" />
     <Compile Include="Contracts\IKeyAdjusterProvider.cs" />
+    <Compile Include="Contracts\ILog.cs" />
     <Compile Include="Contracts\ILoggingService.cs" />
     <Compile Include="Contracts\IQueryRepository.cs" />
     <Compile Include="Contracts\IReadAsyncRepository.cs" />

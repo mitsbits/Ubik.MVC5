@@ -1,0 +1,40 @@
+﻿@using Ubik.Web.Components.AntiCorruption.ViewModels.Taxonomies
+@model DivisionViewModel[]
+<table class="table table-hover table-condensed table-mailbox no-border table-striped" id="devices-table">
+    <thead>
+        <tr>
+            <th style="width: 40px"><input type="checkbox" id="row-selector"></th>
+            <th><i class="fa fa-calendar"></i></th>
+            <th><i class="fa fa-clock-o"></i></th>
+            <th><i class="fa fa-desktop"></i></th>
+            <th><i class="fa fa-flag-o"></i> </th>
+            <th><i class="fa fa-info"></i>  </th>
+            <th><i class="fa fa-user"></i></th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (var i = 0; i < Model.Count(); i++)
+        {
+            var viewModel = Model[i];
+            <tr data-id="@viewModel.Id">
+                <td>
+                    <input type="checkbox" id="row-selector-@i" data-id="@viewModel.Id" class="selector">
+                </td>
+                <td>
+                    @Html.ActionLink(viewModel.Name, "divisions", "taxonomies", new {id = viewModel.Id}, null)
+                </td>
+                <td>@Html.Raw(viewModel.Summary)</td>
+                <td></td>
+                <td></td>
+
+                <td>
+                    <span></span>
+                    <a href="@Url.Action("detail", "Elmah", null)?id=@viewModel.Id" target="_blank">
+                        <i class="fa fa-info-circle"></i>
+                    </a>
+                </td>
+                <td></td>
+            </tr>
+        }
+    </tbody>
+</table>

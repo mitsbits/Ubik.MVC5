@@ -11,7 +11,7 @@ namespace Ubik.Web
 {
     public static class Pagination
     {
-        #region Zurb Pagination
+        #region Pagination
 
         public static MvcHtmlString HtmlPager<T>(
          this HtmlHelper helper,

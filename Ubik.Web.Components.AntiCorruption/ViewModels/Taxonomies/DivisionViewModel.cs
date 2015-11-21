@@ -48,17 +48,23 @@ namespace Ubik.Web.Components.AntiCorruption.ViewModels.Taxonomies
             var isTransient = model.Id == default(int);
             if (isTransient)
             {
-                var textual = new PersistedTextual()
-                {
-                    Subject = model.Name,
-                    Summary = model.Summary.ConvertUTF8ToBinary()
-                };
+
                 var entity = new PersistedTaxonomyDivision()
                 {
-                    Textual =
-                        new PersistedTextual() { Subject = model.Name, Summary = model.Summary.ConvertUTF8ToBinary() }
+                    Textual = new PersistedTextual()
+                    {
+                        Subject = model.Name,
+                        Summary = model.Summary.ConvertUTF8ToBinary()
+                    }
                 };
                 await _repo.CreateAsync(entity);
+            }
+            else
+            {
+                var entity = await _repo.GetAsync(x => x.Id == model.Id, division => division.Textual);
+                entity.Textual.Subject = model.Name;
+                entity.Textual.Summary = model.Summary.ConvertUTF8ToBinary();
+                await _repo.UpdateAsync(entity);
             }
         }
     }

@@ -1,11 +1,8 @@
-﻿using System;
+﻿using Mehdime.Entity;
+using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
 using System.Threading.Tasks;
-using Mehdime.Entity;
 using Ubik.Infra.Contracts;
 using Ubik.Infra.DataManagement;
 using Ubik.Web.Components.AntiCorruption.Contracts;
@@ -42,12 +39,12 @@ namespace Ubik.Web.Components.AntiCorruption.Services
                 if (id == default(int))
                 {
                     model =
-                        _divisionBuilder.CreateFrom(new PersistedTaxonomyDivision() {Textual = new PersistedTextual()});
+                        _divisionBuilder.CreateFrom(new PersistedTaxonomyDivision() { Textual = new PersistedTextual() });
                     _divisionBuilder.Rebuild(model);
                     return await Task.FromResult(model);
                 }
 
-                var entity = await _divisionRepo.GetAsync(x => x.Id == id);
+                var entity = await _divisionRepo.GetAsync(x => x.Id == id, division => division.Textual);
                 if (entity == null) throw new Exception(string.Format("no taxonomy division with id:{0}", id));
                 model = _divisionBuilder.CreateFrom(entity);
                 _divisionBuilder.Rebuild(model);
@@ -89,7 +86,6 @@ namespace Ubik.Web.Components.AntiCorruption.Services
                 await _divisionCommand.Execute(model);
                 await db.SaveChangesAsync();
             }
-
         }
     }
 }

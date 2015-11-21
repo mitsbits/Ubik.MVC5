@@ -112,12 +112,12 @@ namespace Ubik.EF
 
         public virtual async Task<T> GetAsync(Expression<Func<T, bool>> predicate, params Expression<Func<T, dynamic>>[] paths)
         {
-            var query = DbContext.Set<T>();
-            foreach (var path in paths)
+            var query = DbContext.Set<T>().Where(predicate);
+            if (paths != null && paths.Any())
             {
-                query.Include(path);
+                query = paths.Aggregate(query, (current, path) => current.Include(path));
             }
-            return await query.FirstOrDefaultAsync(predicate);
+            return await query.FirstOrDefaultAsync();
         }
 
         public virtual async Task<PagedResult<T>> FindAsync(Expression<Func<T, bool>> predicate,

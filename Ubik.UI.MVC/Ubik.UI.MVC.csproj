@@ -704,6 +704,7 @@
     <Content Include="Areas\Backoffice\Views\Taxonomies\Divisions.cshtml" />
     <Content Include="Areas\Backoffice\Views\Taxonomies\Partials\DivisionDetails.cshtml" />
     <Content Include="Areas\Backoffice\Views\Taxonomies\Partials\DivisionList.cshtml" />
+    <Content Include="Areas\Backoffice\Views\Taxonomies\Partials\DivisionListGrid.cshtml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
