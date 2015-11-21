@@ -21,10 +21,24 @@ namespace Ubik.EF
         {
         }
 
-        //TODO: http://www.proficiencyconsulting.com/ShowArticle.aspx?ID=23
         public void Next(DbEntityEntry entry)
         {
-            var seqName = entry.Entity.GetType().Name;
+            var entity = entry.Entity;
+            var entityName = entity.GetType().Name;
+
+            var seqName = SeqName(entity);
+            var id = GetNextId(seqName);
+
+            var objectContext = ((IObjectContextAdapter)this).ObjectContext;
+            var wKey =
+                objectContext.MetadataWorkspace.GetEntityContainer(objectContext.DefaultContainerName, DataSpace.CSpace)
+                    .BaseEntitySets.First(meta => meta.ElementType.Name == entityName)
+                    .ElementType.KeyMembers.Select(k => k.Name).FirstOrDefault();
+            entry.Property(wKey).CurrentValue = id;
+        }
+
+        private int GetNextId(string seqName)
+        {
             var sqlText = string.Format("SELECT NEXT VALUE FOR {0};", seqName);
             var id = default(int);
             try
@@ -36,38 +50,43 @@ namespace Ubik.EF
                 if (ex.Source != ".Net SqlClient Data Provider" /* TODO: && ex.*/) throw;
                 var sqlToCreate = string.Format("CREATE SEQUENCE {0} AS INTEGER MINVALUE 1 NO CYCLE; ", seqName);
                 id = Database.SqlQuery<int>(sqlToCreate + sqlText).First();
-
             }
-            var objectContext = ((IObjectContextAdapter)this).ObjectContext;
-            var wKey =
-                objectContext.MetadataWorkspace.GetEntityContainer(objectContext.DefaultContainerName, DataSpace.CSpace)
-                    .BaseEntitySets.First(meta => meta.ElementType.Name == seqName)
-                    .ElementType.KeyMembers.Select(k => k.Name).FirstOrDefault();
-            entry.Property(wKey).CurrentValue = id;
+            return id;
         }
 
+        private static string SeqName(object entity)
+        {
+            var seqName = entity.GetType().Name;
+            var baseType = entity.GetType().BaseType;
+            while (baseType?.GetInterface(typeof(ISequenceBase).Name, false) != null)
+            {
+                seqName = baseType.Name;
+            }
+            return seqName;
+        }
+
+        protected virtual void NextIds()
+        {
+            foreach (var entry in from entry in ChangeTracker.
+                                  Entries().Where(e => e.State == EntityState.Added)
+                                  let entity = entry.Entity as ISequenceBase where entity != null select entry)
+            {
+                Next(entry);
+            }
+        }
+
+        #region Overrides
         public override int SaveChanges()
         {
             NextIds();
             return base.SaveChanges();
         }
 
-        protected virtual void NextIds()
-        {
-            foreach (var entry in ChangeTracker.Entries().Where(e => e.State == EntityState.Added))
-            {
-                var entity = entry.Entity as ISequenceBase;
-                if (entity != null)
-                {
-                    Next(entry);
-                }
-            }
-        }
-
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken)
         {
             NextIds();
             return base.SaveChangesAsync(cancellationToken);
-        }
+        } 
+        #endregion
     }
 }
