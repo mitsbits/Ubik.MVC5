@@ -29,7 +29,7 @@
         return;
     }
     <ul id="grp_@item.Id" class="strip-list-style">
-        @foreach (var child in from object subitem in item.GetChildren() select subitem as BackofficeNavigationElement)
+        @foreach (var child in from object subitem in item.Children select subitem as BackofficeNavigationElement)
         {
             @RenderMenuElement(child, groupDto)
         }

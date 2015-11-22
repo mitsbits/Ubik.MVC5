@@ -12,7 +12,7 @@ namespace Ubik.Web.Backoffice
         {
         }
 
-        public override IHierarchicalEnumerable GetChildren()
+        protected override IHierarchicalEnumerable GetChildren()
         {
             var result = new BackofficeNavigationElements(
                   Data.Where(x => x.ParentId == Proxy.Id)
@@ -22,7 +22,7 @@ namespace Ubik.Web.Backoffice
             return result;
         }
 
-        public override IHierarchyData GetParent()
+        protected override IHierarchyData GetParent()
         {
             return Data.Any(x => x.Id == Proxy.ParentId)
                 ? new BackofficeNavigationElement(Data, Proxy.ParentId)

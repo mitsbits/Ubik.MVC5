@@ -6,4 +6,6 @@ namespace Ubik.Web.EF.Components.Contracts
     {
         
     }
+
+
 }

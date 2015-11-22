@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Ubik.Infra.Contracts;
 using Ubik.Infra.DataManagement;
@@ -16,21 +18,28 @@ namespace Ubik.Web.Components.AntiCorruption.Services
     {
         private readonly IDbContextScopeFactory _dbContextScopeFactory;
         private readonly IPersistedTaxonomyDivisionRepository _divisionRepo;
+        private readonly IPersistedTaxonomyElementRepository _elementRepo;
 
         private readonly IViewModelBuilder<PersistedTaxonomyDivision, DivisionViewModel> _divisionBuilder;
+        private readonly IViewModelBuilder<PersistedTaxonomyElement, ElementViewModel> _elementBuilder;
 
         private readonly IViewModelCommand<DivisionSaveModel> _divisionCommand;
+        private readonly IViewModelCommand<ElementSaveModel> _elementCommand;
 
         public TaxonomiesViewModelService(IDbContextScopeFactory dbContextScopeFactory,
-            IPersistedTaxonomyDivisionRepository divisionRepo, IViewModelCommand<DivisionSaveModel> divisionCommand)
+            IPersistedTaxonomyDivisionRepository divisionRepo, IViewModelCommand<DivisionSaveModel> divisionCommand, IViewModelCommand<ElementSaveModel> elementCommand, IPersistedTaxonomyElementRepository elementRepo)
         {
             _dbContextScopeFactory = dbContextScopeFactory;
             _divisionRepo = divisionRepo;
             _divisionCommand = divisionCommand;
+            _elementCommand = elementCommand;
+            _elementRepo = elementRepo;
 
             _divisionBuilder = new DivisionViewModelBuilder();
+            _elementBuilder = new ElementViewModelBuilder(_divisionRepo);
         }
 
+        #region Divisions
         public async Task<DivisionViewModel> DivisionModel(int id)
         {
             using (_dbContextScopeFactory.CreateReadOnly())
@@ -87,5 +96,143 @@ namespace Ubik.Web.Components.AntiCorruption.Services
                 await db.SaveChangesAsync();
             }
         }
+
+        public async Task<ElementViewModel> ElementModel(int id)
+        {
+            using (_dbContextScopeFactory.CreateReadOnly())
+            {
+                ElementViewModel model;
+                if (id == default(int))
+                {
+                    model =
+                        _elementBuilder.CreateFrom(new PersistedTaxonomyElement()
+                        {
+                            ComponentStateFlavor = ComponentStateFlavor.Empty,
+                            Depth = default(int),
+                            DivisionId = default(int),
+                            Id = default(int),
+                            ParentId = default(int),
+                            TextualId = default(int),
+                            Division = new PersistedTaxonomyDivision()
+                            {
+                                Id = default(int),
+                                TextualId = default(int),
+                                Textual = new PersistedTextual()
+                                {
+                                    Id = default(int),
+                                    Subject = string.Empty,
+                                    Summary = new byte[] { }
+                                }
+                            },
+                            Textual = new PersistedTextual()
+                            {
+                                Id = default(int),
+                                Subject = string.Empty,
+                                Summary = new byte[] { }
+                            }
+                        });
+
+                    _elementBuilder.Rebuild(model);
+                    return await Task.FromResult(model);
+                }
+
+                var entity = await _elementRepo.GetAsync(x => x.Id == id,
+                    element => element.Textual,
+                    element => element.Division,
+                    element => element.Division.Textual);
+                if (entity == null) throw new Exception(string.Format("no taxonomy division with id:{0}", id));
+                model = _elementBuilder.CreateFrom(entity);
+                _elementBuilder.Rebuild(model);
+                return model;
+            }
+        }
+
+        public async Task<IPagedResult<ElementViewModel>> ElementModels(int pageNumber, int pageSize)
+        {
+            var entites = await _elementRepo.FindAsync(x => true,
+                new[]
+                {
+                    new OrderByInfo<PersistedTaxonomyElement>()
+                    {
+                        Ascending = true,
+                        Property = element => element.Division.Textual.Subject
+                    },
+                    new OrderByInfo<PersistedTaxonomyElement>()
+                    {
+                        Ascending = true, Property = element => element.Depth
+                    },
+                    new OrderByInfo<PersistedTaxonomyElement>()
+                    {
+                        Ascending = true,
+                        Property = element => element.Textual.Subject
+                    }
+                }, pageNumber, pageSize,
+                element => element.Textual,
+                element => element.Division,
+                element => element.Division.Textual);
+
+
+            return new PagedResult<ElementViewModel>(entites.Data.Select(x => _elementBuilder.CreateFrom(x)),
+                entites.PageNumber, entites.PageSize, entites.TotalRecords);
+        }
+
+        public async Task<IEnumerable<ElementViewModel>> ElementModelsFragment(int parentId)
+        {
+            var entities = await _elementRepo.ElementsFragment(parentId);
+            entities = SortItemsBasedOnHierarchy<PersistedTaxonomyElement>(entities);
+            return entities.Select(x => _elementBuilder.CreateFrom(x));
+        }
+
+        public async Task<IEnumerable<ElementViewModel>> ElementModelsDivisionFragment(int divisionId)
+        {
+            var entities = await _elementRepo.ElementsForDivisionFragment(divisionId);
+            entities = SortItemsBasedOnHierarchy<PersistedTaxonomyElement>(entities);
+            return entities.Select(x => _elementBuilder.CreateFrom(x));
+        }
+        //TODO: move this to an extension
+        private IEnumerable<TEntity> SortItemsBasedOnHierarchy<TEntity>(IEnumerable<IHasParent<int>> collection) where TEntity : IHasParent<int>
+        {
+            var result = new List<TEntity>();
+            var minDepth = collection.Min(x => x.Depth);
+
+            foreach (var hasParent in collection.Where(x => x.Depth == minDepth).OrderBy(x => (typeof(TEntity).GetInterface(typeof(IWeighted).Name) != null) ? ((IWeighted)x).Weight : x.Id))
+            {
+                Traverse<TEntity>(ref result, hasParent, collection);
+
+            }
+            return result;
+        }
+
+
+        static void Traverse<TEntity>(ref List<TEntity> result, IHasParent<int> hasParent, IEnumerable<IHasParent<int>> collection) where TEntity : IHasParent<int>
+        {
+            result.Add((TEntity)hasParent);
+            foreach (var child in collection.Where(x => x.ParentId == hasParent.ParentId).OrderBy(x => (typeof(TEntity).GetInterface(typeof(IWeighted).Name) != null) ? ((IWeighted)x).Weight : x.Id))
+            {
+                Traverse(ref result, child, collection);
+
+            }
+        }
+
+        public async Task<ElementHierarchy> HierarchicalElementModelsFragment(int parentId)
+        {
+            var entities = await _elementRepo.ElementsFragment(parentId);
+            var hierarchy = new ElementHierarchy(entities);
+            return hierarchy;
+        }
+
+        public async Task<ElementHierarchy> HierarchicalElementModelsDivisionFragment(int divisionId)
+        {
+            var entities = await _elementRepo.ElementsFragment(divisionId);
+            var hierarchy = new ElementHierarchy(entities);
+            return hierarchy;
+        }
+
+        public Task Execute(ElementSaveModel model)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
     }
 }

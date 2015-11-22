@@ -14,14 +14,6 @@
         /// </returns>
         bool HasChildren { get; }
 
-        /// <summary>
-        /// Gets the hierarchical path of the node.
-        /// </summary>
-        ///
-        /// <returns>
-        /// A <see cref="T:System.String"/> that identifies the hierarchical path relative to the current node.
-        /// </returns>
-        string Path { get; }
 
         /// <summary>
         /// Gets the hierarchical data node that the <see cref="T:System.Web.UI.IHierarchyData"/> object represents.
@@ -48,7 +40,7 @@
         /// <returns>
         /// An <see cref="T:System.Web.UI.IHierarchicalEnumerable"/> collection of child nodes of the current hierarchical node.
         /// </returns>
-        IHierarchicalEnumerable GetChildren();
+        IHierarchicalEnumerable Children { get; }
 
         /// <summary>
         /// Gets an <see cref="T:System.Web.UI.IHierarchyData"/> object that represents the parent node of the current hierarchical node.
@@ -57,6 +49,6 @@
         /// <returns>
         /// An <see cref="T:System.Web.UI.IHierarchyData"/> object that represents the parent node of the current hierarchical node.
         /// </returns>
-        IHierarchyData GetParent();
+        IHierarchyData Parent { get; }
     }
 }

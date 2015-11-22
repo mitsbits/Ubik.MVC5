@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="Components\ComponentsDbContext.cs" />
     <Compile Include="Components\Contracts\IPersistedTaxonomyDivisionRepository.cs" />
+    <Compile Include="Components\Contracts\IPersistedTaxonomyElementRepository.cs" />
     <Compile Include="Components\Contracts\IPersistedTextualRepository.cs" />
     <Compile Include="Components\DeviceRepository.cs" />
     <Compile Include="Components\Mapper.cs" />
@@ -67,8 +68,10 @@
     <Compile Include="Components\PersistedTaxonomyDivision.cs" />
     <Compile Include="Components\PersistedTaxonomyDivisionRepository.cs" />
     <Compile Include="Components\PersistedTaxonomyElement.cs" />
+    <Compile Include="Components\PersistedTaxonomyElementRecursion.cs" />
     <Compile Include="Components\PersistedTaxonomyElementRepository.cs" />
     <Compile Include="Components\PersistedTextual.cs" />
+    <Compile Include="Components\PersistedTextualRepository.cs" />
     <Compile Include="ElmahDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -132,7 +132,7 @@ namespace Ubik.UI.MVC
             builder.RegisterType<PersistedSectionRepository>().As<ICRUDRespoditory<PersistedSection>>().InstancePerRequest();
 
             builder.RegisterType<PersistedTaxonomyDivisionRepository>().As<IPersistedTaxonomyDivisionRepository>().InstancePerRequest();
-            builder.RegisterType<PersistedTaxonomyElementRepository>().As<ICRUDRespoditory<PersistedTaxonomyElement>>().InstancePerRequest();
+            builder.RegisterType<PersistedTaxonomyElementRepository>().As<IPersistedTaxonomyElementRepository>().InstancePerRequest();
 
             builder.RegisterType<DeviceAdministrationService>().As<IDeviceAdministrationService<int>>().InstancePerRequest();
             builder.RegisterType<DeviceAdministrationService>().As<IDeviceAdministrationViewModelService>().InstancePerRequest();
@@ -141,6 +141,7 @@ namespace Ubik.UI.MVC
             builder.RegisterType<DeviceViewModelCommand>().As<IViewModelCommand<DeviceSaveModel>>().InstancePerRequest();
             builder.RegisterType<SectionViewModelCommand>().As<IViewModelCommand<SectionSaveModel>>().InstancePerRequest();
             builder.RegisterType<DivisionViewModelCommand>().As<IViewModelCommand<DivisionSaveModel>>().InstancePerRequest();
+            builder.RegisterType<ElementViewModelCommand>().As<IViewModelCommand<ElementSaveModel>>().InstancePerRequest();
 
             builder.RegisterType<SystemSlugService>().As<ISlugifier>().SingleInstance();
             builder.RegisterType<SystemSlugWordRplacer>().As<ISlugWordReplacer>().SingleInstance();
@@ -156,7 +157,6 @@ namespace Ubik.UI.MVC
                 .Named<ApplicationRoleManager>("transient");
 
             builder.RegisterType<AuthDbContext>().As<AuthDbContext>().InstancePerRequest();
-            //builder.RegisterType<ComponentsDbContext>().As<ComponentsDbContext>().InstancePerRequest();
             builder.RegisterType<ApplicationUserStore>().As<IUserStore<ApplicationUser>>().InstancePerRequest();
             builder.RegisterType<ApplicationRoleStore>().As<IRoleStore<ApplicationRole, string>>().InstancePerRequest();
             builder.RegisterType<ApplicationUserManager>().InstancePerRequest();

@@ -570,6 +570,8 @@
     <Content Include="Areas\Backoffice\Scripts\plugins\morris\morris.min.js" />
     <Content Include="Areas\Backoffice\Scripts\plugins\slimScroll\jquery.slimscroll.js" />
     <Content Include="Areas\Backoffice\Scripts\plugins\slimScroll\jquery.slimscroll.min.js" />
+    <Content Include="Areas\Backoffice\Scripts\plugins\sortable-lists\jquery-sortable-lists.js" />
+    <Content Include="Areas\Backoffice\Scripts\plugins\sortable-lists\jquery-sortable-lists.min.js" />
     <Content Include="Areas\Backoffice\Scripts\plugins\sparkline\jquery.sparkline.js" />
     <Content Include="Areas\Backoffice\Scripts\plugins\sparkline\jquery.sparkline.min.js" />
     <Content Include="Areas\Backoffice\Scripts\plugins\timepicker\bootstrap-timepicker.js" />

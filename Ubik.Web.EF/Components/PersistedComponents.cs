@@ -1,16 +1,17 @@
 ﻿using System.Collections.Generic;
+using Ubik.EF.Contracts;
 using Ubik.Web.Components;
 
 namespace Ubik.Web.EF.Components
 {
-    public abstract class PersistedComponent
+    public abstract class PersistedComponent : ISequenceBase
     {
         public virtual int Id { get; set; }
 
-        public virtual long ComponentStateFlavor { get; set; }
+        public virtual ComponentStateFlavor ComponentStateFlavor { get; set; }
     }
 
-    public class PersistedContent : PersistedComponent
+    public class PersistedContent : PersistedComponent, ISequenceBase
     {
         public PersistedContent()
         {
@@ -26,7 +27,7 @@ namespace Ubik.Web.EF.Components
         public virtual ICollection<PersistedTag> Tags { get; set; }
     }
 
-    public class PersistedTag : PersistedComponent
+    public class PersistedTag : PersistedComponent, ISequenceBase
     {
         public PersistedTag()
         {

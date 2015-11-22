@@ -65,6 +65,8 @@
     <Compile Include="ViewModels\Devices\SectionViewModel.cs" />
     <Compile Include="ViewModels\Devices\SlotViewModel.cs" />
     <Compile Include="ViewModels\Taxonomies\DivisionViewModel.cs" />
+    <Compile Include="ViewModels\Taxonomies\ElementHierarchy.cs" />
+    <Compile Include="ViewModels\Taxonomies\ElementViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Ubik.EF\Ubik.EF.csproj">

@@ -69,6 +69,8 @@
     <Compile Include="DataManagement\PagedResult.cs" />
     <Compile Include="Ext\CollectionExtensions.cs" />
     <Compile Include="Ext\SerializationExtensions.cs" />
+    <Compile Include="Hierarchies\BaseHierarchy.cs" />
+    <Compile Include="Hierarchies\BaseHierarchalNode.cs" />
     <Compile Include="LogEntryType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServerResponseStatus.cs" />

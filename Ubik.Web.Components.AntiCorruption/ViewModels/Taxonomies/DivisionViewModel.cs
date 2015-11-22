@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Ubik.Infra.Contracts;
 using Ubik.Infra.Ext;
@@ -9,8 +10,10 @@ namespace Ubik.Web.Components.AntiCorruption.ViewModels.Taxonomies
 {
     public class DivisionSaveModel
     {
+        [Required]
         public int Id { get; set; }
         public int TextualId { get; set; }
+        [Required]
         public string Name { get; set; }
         public string Summary { get; set; }
     }
@@ -23,7 +26,8 @@ namespace Ubik.Web.Components.AntiCorruption.ViewModels.Taxonomies
     {
         public DivisionViewModel CreateFrom(PersistedTaxonomyDivision entity)
         {
-            return new DivisionViewModel() { Id = entity.Id, Name = entity.Textual.Subject, Summary = entity.Textual.Summary.ToUTF8() };
+            return new DivisionViewModel() { Id = entity.Id, Name = entity.Textual.Subject,
+                Summary = (entity.Textual.Summary == null)?string.Empty: entity.Textual.Summary.ToUTF8() };
         }
 
         public void Rebuild(DivisionViewModel model)
@@ -54,7 +58,7 @@ namespace Ubik.Web.Components.AntiCorruption.ViewModels.Taxonomies
                     Textual = new PersistedTextual()
                     {
                         Subject = model.Name,
-                        Summary = model.Summary.ConvertUTF8ToBinary()
+                        Summary = (string.IsNullOrWhiteSpace(model.Summary))? new byte[] {} : model.Summary.ConvertUTF8ToBinary()
                     }
                 };
                 await _repo.CreateAsync(entity);

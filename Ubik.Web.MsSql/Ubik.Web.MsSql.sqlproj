@@ -83,6 +83,7 @@
     <Build Include="dbo\Tables\TaxonomyDivisions.sql" />
     <Build Include="dbo\Sequences\PersistedTextual.sql" />
     <Build Include="dbo\Sequences\PersistedTaxonomyDivision.sql" />
+    <Build Include="dbo\Views\TaxonomyElementRecursions.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Ubik.Web.MsSql.refactorlog" />

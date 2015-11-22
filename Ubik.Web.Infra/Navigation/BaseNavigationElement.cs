@@ -13,7 +13,7 @@ namespace Ubik.Web.Infra.Navigation
         private readonly IEnumerable<NavigationElementDto> _data;
         private readonly NavigationElementDto _proxy;
         private readonly int _depth;
-        private readonly string _path;
+
 
         public BaseNavigationElement(IEnumerable<NavigationElementDto> data, int id)
         {
@@ -21,24 +21,10 @@ namespace Ubik.Web.Infra.Navigation
             if (Data.All(x => x.Id != id)) throw new NullReferenceException("proxy");
             _proxy = Data.FirstOrDefault(x => x.Id == id);
             _depth = CalculateDepth();
-            _path = CalculatePath();
+  
         }
 
-        private string CalculatePath()
-        {
-            if (Proxy.ParentId == default(int)) return Proxy.Id.ToString(CultureInfo.InvariantCulture);
-            var idBucket = new List<int>();
-            var i = Proxy.Id;
-            var p = Proxy.ParentId;
-            while (p > 0)
-            {
-                idBucket.Add(i);
-                i = Data.FirstOrDefault(x => x.Id == p).Id;
-                p = Data.FirstOrDefault(x => x.Id == p).ParentId;
-            }
-            idBucket.Reverse();
-            return string.Join(PathSeperator, idBucket.ToArray());
-        }
+
 
         private int CalculateDepth()
         {
@@ -52,56 +38,30 @@ namespace Ubik.Web.Infra.Navigation
             return d;
         }
 
-        public NavigationElementRole Role
-        {
-            get { return Proxy.Role; }
-        }
+        public NavigationElementRole Role => Proxy.Role;
 
-        public string AnchorTarget
-        {
-            get { return Proxy.AnchorTarget; }
-        }
+        public string AnchorTarget => Proxy.AnchorTarget;
 
-        public string Display
-        {
-            get { return Proxy.Display; }
-        }
+        public string Display => Proxy.Display;
 
-        public string Href
-        {
-            get { return Proxy.Href; }
-        }
+        public string Href => Proxy.Href;
 
-        public int Depth { get { return _depth; } }
+        public int Depth => _depth;
 
-        public INavigationGroup Group
-        {
-            get { return new BaseNavigationGroup() { Description = Proxy.Group.Description, Display = Proxy.Group.Display, Key = Proxy.Group.Key, Weight = Proxy.Group.Weight }; }
-        }
+        public INavigationGroup Group => new BaseNavigationGroup() { Description = Proxy.Group.Description, Display = Proxy.Group.Display, Key = Proxy.Group.Key, Weight = Proxy.Group.Weight };
 
-        public string IconCssClass { get { return Proxy.IconCssClass; } }
+        public string IconCssClass => Proxy.IconCssClass;
 
         public bool HasChildren
         {
             get { return Data.Any(x => x.ParentId == Proxy.Id); }
         }
 
-        public string Path
-        {
-            get { return _path; }
-        }
+        public object Item => this;
 
-        public object Item
-        {
-            get { return this; }
-        }
+        public string Type => GetType().FullName;
 
-        public string Type
-        {
-            get { return GetType().FullName; }
-        }
-
-        public virtual IHierarchicalEnumerable GetChildren()
+        protected virtual IHierarchicalEnumerable GetChildren()
         {
             var result = new BaseNavigationElements<BaseNavigationElement>(
                 Data.Where(x => x.ParentId == Proxy.Id)
@@ -111,34 +71,23 @@ namespace Ubik.Web.Infra.Navigation
             return result;
         }
 
-        public virtual IHierarchyData GetParent()
+        public IHierarchicalEnumerable Children => GetChildren();
+
+        protected virtual IHierarchyData GetParent()
         {
             return Data.Any(x => x.Id == Proxy.ParentId) ? new BaseNavigationElement(Data, Proxy.ParentId) : null;
         }
 
-        public double Weight
-        {
-            get { return Proxy.Weight; }
-        }
+        public IHierarchyData Parent => GetParent();
 
-        public int Id
-        {
-            get { return Proxy.Id; }
-        }
+        public double Weight => Proxy.Weight;
 
-        public int ParentId
-        {
-            get { return Proxy.ParentId; }
-        }
+        public int Id => Proxy.Id;
 
-        protected IEnumerable<NavigationElementDto> Data
-        {
-            get { return _data; }
-        }
+        public int ParentId => Proxy.ParentId;
 
-        protected NavigationElementDto Proxy
-        {
-            get { return _proxy; }
-        }
+        protected IEnumerable<NavigationElementDto> Data => _data;
+
+        protected NavigationElementDto Proxy => _proxy;
     }
 }

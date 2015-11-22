@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using Ubik.EF;
 using Ubik.EF.Contracts;
 using Ubik.Infra.Contracts;
+using Ubik.Web.Components.Ext;
 using Ubik.Web.Components.Query;
 
 namespace Ubik.Web.EF.Components
@@ -16,6 +17,8 @@ namespace Ubik.Web.EF.Components
         public DbSet<PersistedTaxonomyDivision> TaxonomyDivisions { get; set; }
 
         public DbSet<PersistedTaxonomyElement> TaxonomyElements { get; set; }
+
+        public DbSet<PersistedTaxonomyElementRecursion> TaxonomyElementRecursions { get; set; }
 
         //public DbSet<PersistedHtmlHead> HtmlHeads { get; set; }
 
@@ -55,6 +58,7 @@ namespace Ubik.Web.EF.Components
 
             modelBuilder.Configurations.Add(new TaxonomyDivisionConfig());
             modelBuilder.Configurations.Add(new TaxonomyElementConfig());
+            modelBuilder.Configurations.Add(new TaxonomyElementRecursionConfig());
             base.OnModelCreating(modelBuilder);
         }
 
@@ -113,6 +117,20 @@ namespace Ubik.Web.EF.Components
             {
                 ToTable("TaxonomyElements").
                     HasKey(x => new { x.Id });
+                Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+                HasMany(x => x.TaxonomyElementRecursions);
+            }
+        }
+        private class TaxonomyElementRecursionConfig : EntityTypeConfiguration<PersistedTaxonomyElementRecursion>
+        {
+            public TaxonomyElementRecursionConfig()
+            {
+                ToTable("TaxonomyElementRecursions").
+                    HasKey(x => new { x.Id });
+                Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+                HasRequired(x => x.TaxonomyElement)
+                    .WithMany(x => x.TaxonomyElementRecursions)
+                    .HasForeignKey(x => x.AncestorId);
             }
         }
 
