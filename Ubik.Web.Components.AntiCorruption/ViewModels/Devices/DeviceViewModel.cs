@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Ubik.Infra.Contracts;
-using Ubik.Web.Cms.Contracts;
+using Ubik.Web.BuildingBlocks.Contracts;
 using Ubik.Web.Components.Contracts;
 using Ubik.Web.EF.Components;
 

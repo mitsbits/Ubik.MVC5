@@ -1,0 +1,16 @@
+﻿{
+  "version": "1.0.0-*",
+  "description": "Ubik.Web.Client.System Class Library",
+  "authors": [ "mitsbits" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+
+  "frameworks": {
+    "net46": {
+      "dependencies": {
+        "Ubik.Web.Components": "1.0.0-*"
+      }
+    }
+  }
+}

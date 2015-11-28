@@ -1,10 +1,9 @@
-﻿using Mehdime.Entity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Threading.Tasks;
+using Mehdime.Entity;
 using Ubik.Infra.Contracts;
 using Ubik.Infra.DataManagement;
 using Ubik.Web.Components.AntiCorruption.Contracts;
@@ -228,9 +227,14 @@ namespace Ubik.Web.Components.AntiCorruption.Services
             return hierarchy;
         }
 
-        public Task Execute(ElementSaveModel model)
+        public async Task Execute(ElementSaveModel model)
         {
-            throw new NotImplementedException();
+            using (var db = _dbContextScopeFactory.CreateWithTransaction(IsolationLevel.ReadCommitted))
+            {
+                await _elementCommand.Execute(model);
+                await _divisionRepo.UpdateHierarchy(model.DivisionId);
+                await db.SaveChangesAsync();
+            }
         }
 
         #endregion

@@ -1,0 +1,19 @@
+﻿{
+  "version": "1.0.0-*",
+  "description": "Ubik.Web.BuildingBlocks Class Library",
+  "authors": [ "mitsbits" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+  "frameworks": {
+    "net46": {
+      "dependencies": {
+        "Ubik.Infra": "1.0.0-*",
+        "Ubik.Web.Components": "1.0.0-*"
+      }
+    }
+  },
+  "dependencies": {
+    "Ubik.Web.Basis": "1.0.0-*"
+  }
+}

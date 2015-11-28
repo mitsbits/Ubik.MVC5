@@ -23,7 +23,7 @@
     <IISExpressUseClassicPipelineMode />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
-    <TypeScriptToolsVersion>1.0</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>1.6</TypeScriptToolsVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -707,6 +707,7 @@
     <Content Include="Areas\Backoffice\Views\Taxonomies\Partials\DivisionDetails.cshtml" />
     <Content Include="Areas\Backoffice\Views\Taxonomies\Partials\DivisionList.cshtml" />
     <Content Include="Areas\Backoffice\Views\Taxonomies\Partials\DivisionListGrid.cshtml" />
+    <Content Include="Areas\Backoffice\Views\Taxonomies\Partials\ElementDetails.cshtml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -763,14 +764,6 @@
     <ProjectReference Include="..\Ubik.Web.Auth\Ubik.Web.Auth.csproj">
       <Project>{78A78FA0-EC82-45B9-824B-F356A046137F}</Project>
       <Name>Ubik.Web.Auth</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Ubik.Web.Backoffice\Ubik.Web.Backoffice.csproj">
-      <Project>{d67e5cd5-3070-4fed-8fa3-60dea4337732}</Project>
-      <Name>Ubik.Web.Backoffice</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Ubik.Web.Client.System\Ubik.Web.Client.System.csproj">
-      <Project>{bda64df9-5c62-40d1-b368-a74cdd5107e0}</Project>
-      <Name>Ubik.Web.Client.System</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ubik.Web.Cms\Ubik.Web.Cms.csproj">
       <Project>{54a78bf9-ac25-4e8e-9bcf-0628ed0db2af}</Project>

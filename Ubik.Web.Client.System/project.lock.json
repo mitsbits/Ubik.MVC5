@@ -1,0 +1,61 @@
+{
+  "locked": false,
+  "version": 2,
+  "targets": {
+    ".NETFramework,Version=v4.6": {
+      "Ubik.Infra/1.0.0": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.6"
+      },
+      "Ubik.Web.Components/1.0.0": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.6",
+        "dependencies": {
+          "Ubik.Infra": "1.0.0"
+        }
+      }
+    },
+    ".NETFramework,Version=v4.6/win7-x86": {
+      "Ubik.Infra/1.0.0": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.6"
+      },
+      "Ubik.Web.Components/1.0.0": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.6",
+        "dependencies": {
+          "Ubik.Infra": "1.0.0"
+        }
+      }
+    },
+    ".NETFramework,Version=v4.6/win7-x64": {
+      "Ubik.Infra/1.0.0": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.6"
+      },
+      "Ubik.Web.Components/1.0.0": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.6",
+        "dependencies": {
+          "Ubik.Infra": "1.0.0"
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Ubik.Infra/1.0.0": {
+      "type": "project",
+      "path": "../wrap/Ubik.Infra/project.json"
+    },
+    "Ubik.Web.Components/1.0.0": {
+      "type": "project",
+      "path": "../wrap/Ubik.Web.Components/project.json"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "": [],
+    ".NETFramework,Version=v4.6": [
+      "Ubik.Web.Components >= 1.0.0-*"
+    ]
+  }
+}

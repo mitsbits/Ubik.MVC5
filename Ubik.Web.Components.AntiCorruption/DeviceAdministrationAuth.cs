@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using Ubik.Web.Auth;
-using Ubik.Web.Auth.Contracts;
+using Ubik.Web.Membership;
+using Ubik.Web.Membership.Contracts;
 
-namespace Ubik.Web.Components.AntiCorruption
+namespace Ubik.Web.AntiCorruption
 {
     public class DeviceAdministrationAuth : SystemClaims, IResourceAuthProvider
     {
@@ -47,20 +47,14 @@ namespace Ubik.Web.Components.AntiCorruption
             }
         }
 
-        public override string ResourceGroup
-        {
-            get { return _recourseGroup; }
-        }
+        public override string ResourceGroup => _recourseGroup;
 
         public override IEnumerable<Claim> Claims(string role)
         {
             return (_rolesToClaims.ContainsKey(role)) ? new List<Claim>(_rolesToClaims[role]) : new List<Claim>();
         }
 
-        protected override string[] ResourceNames
-        {
-            get { return new Resources().ToArray(); }
-        }
+        protected override string[] ResourceNames => new Resources().ToArray();
 
         public class Resources : IEnumerable<string>
         {

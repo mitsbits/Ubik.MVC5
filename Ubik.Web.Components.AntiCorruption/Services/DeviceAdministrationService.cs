@@ -1,20 +1,20 @@
-﻿using Mehdime.Entity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
+using Mehdime.Entity;
 using Ubik.Infra;
 using Ubik.Infra.Contracts;
 using Ubik.Infra.DataManagement;
-using Ubik.Web.Cms.Contracts;
+using Ubik.Web.Basis;
+using Ubik.Web.BuildingBlocks.Contracts;
 using Ubik.Web.Components.AntiCorruption.Contracts;
 using Ubik.Web.Components.AntiCorruption.ViewModels.Devices;
 using Ubik.Web.Components.Contracts;
 using Ubik.Web.Components.Domain;
 using Ubik.Web.EF.Components;
-using Ubik.Web.Infra;
 
 namespace Ubik.Web.Components.AntiCorruption.Services
 {

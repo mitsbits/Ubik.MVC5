@@ -1,0 +1,21 @@
+﻿{
+  "version": "1.0.0-*",
+  "description": "Ubik.Web.Basis Class Library",
+  "authors": [ "mitsbits" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+
+  "frameworks": {
+    "net46": {
+      "dependencies": {
+        "Microsoft.AspNet.Mvc": "6.0.0-rc1-final",
+        "Microsoft.AspNet.Mvc.ViewFeatures": "6.0.0-rc1-final",
+        "Ubik.Infra": "1.0.0-*"
+      },
+      "frameworkAssemblies": {
+        "System.Drawing": "4.0.0.0"
+      }
+    }
+  }
+}

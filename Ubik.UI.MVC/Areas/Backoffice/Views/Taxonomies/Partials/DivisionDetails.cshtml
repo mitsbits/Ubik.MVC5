@@ -1,6 +1,9 @@
 ﻿@using Ubik.Web.Components.AntiCorruption.ViewModels.Taxonomies
 @model DivisionViewModel
 
+@{
+    var _model = Model;
+}
 
 
 @helper StandardForm()
@@ -49,6 +52,10 @@
 }
 
 
+@helper AddElementToDivision(int divisionId)
+{
+    @Html.Action("AddElementToDivision", "Taxonomies", new  {id = divisionId})
+}
 
 <aside class="right-side">
     <!-- Content Header (Page header) -->
@@ -67,6 +74,7 @@
     <section class="content">
         <div class="row">
             @StandardForm()
+            @AddElementToDivision(Model.Id)
         </div>
     </section><!-- /.content -->
 </aside>

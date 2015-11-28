@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Ubik.Infra.Contracts;
 using Ubik.Infra.Ext;
-using Ubik.Web.Cms.Contracts;
+using Ubik.Web.BuildingBlocks.Contracts;
 using Ubik.Web.Components.Contracts;
 using Ubik.Web.EF.Components;
 
