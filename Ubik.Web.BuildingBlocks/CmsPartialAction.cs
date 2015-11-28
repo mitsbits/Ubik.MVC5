@@ -1,10 +1,8 @@
-﻿
-using Microsoft.AspNet.Mvc.ViewFeatures;
-using Microsoft.AspNet.Routing;
+﻿using Microsoft.AspNet.Mvc.ViewFeatures;
 using Ubik.Web.BuildingBlocks.Contracts;
 using Ubik.Web.Components.Domain;
 
-namespace Ubik.Web.Cms
+namespace Ubik.Web.BuildingBlocks
 {
     public class CmsPartialAction : PartialAction, IHtmlHelperRendersMe
     {

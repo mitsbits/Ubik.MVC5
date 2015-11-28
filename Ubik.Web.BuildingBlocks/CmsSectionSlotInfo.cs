@@ -1,6 +1,6 @@
 ﻿using Ubik.Web.Components.Domain;
 
-namespace Ubik.Web.Cms
+namespace Ubik.Web.BuildingBlocks
 {
     public class CmsSectionSlotInfo : SectionSlotInfo
     {

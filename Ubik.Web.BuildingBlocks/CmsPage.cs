@@ -1,8 +1,4 @@
-﻿
-
-using Microsoft.AspNet.Mvc.Razor;
-using Microsoft.AspNet.Mvc.Rendering;
-using Ubik.Web.Cms;
+﻿using Microsoft.AspNet.Mvc.Razor;
 
 namespace Ubik.Web.BuildingBlocks
 {
@@ -13,10 +9,10 @@ namespace Ubik.Web.BuildingBlocks
             Device = new DeviceHelper(ViewContext);
             Content = new ContentHelper(ViewContext);
         }
+
         public DeviceHelper Device { get; private set; }
 
         public ContentHelper Content { get; private set; }
-
     }
 
     public abstract class CmsPage : RazorPage
@@ -26,9 +22,9 @@ namespace Ubik.Web.BuildingBlocks
             Device = new DeviceHelper(ViewContext);
             Content = new ContentHelper(ViewContext);
         }
+
         public DeviceHelper Device { get; private set; }
 
         public ContentHelper Content { get; private set; }
-     
     }
 }

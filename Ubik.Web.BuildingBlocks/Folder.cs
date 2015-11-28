@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using Ubik.Web.BuildingBlocks.Ext;
 
-namespace Ubik.Web.Cms
+namespace Ubik.Web.BuildingBlocks
 {
     public class Folder
     {

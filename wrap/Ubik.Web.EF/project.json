@@ -1,0 +1,19 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net46": {
+      "wrappedProject": "../../Ubik.Web.EF/Ubik.Web.EF.csproj",
+      "bin": {
+        "assembly": "../../Ubik.Web.EF/obj/{configuration}/Ubik.Web.EF.dll",
+        "pdb": "../../Ubik.Web.EF/obj/{configuration}/Ubik.Web.EF.pdb"
+      },
+      "dependencies": {
+        "EntityFramework": "6.1.3",
+        "Mehdime.Entity": "1.0.0",
+        "Ubik.EF": "1.0.0-*",
+        "Ubik.Infra": "1.0.0-*",
+        "Ubik.Web.Components": "1.0.0-*"
+      }
+    }
+  }
+}

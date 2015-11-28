@@ -6,7 +6,7 @@ using Ubik.Web.BuildingBlocks.Contracts;
 using Ubik.Web.Components;
 using Ubik.Web.Components.Contracts;
 
-namespace Ubik.Web.Cms
+namespace Ubik.Web.BuildingBlocks
 {
     public class DeviceHelper : BasePageHelper, IDevicePageProvider
     {

@@ -1,7 +1,7 @@
 ﻿using Ubik.Web.Components;
 using Ubik.Web.Components.Domain;
 
-namespace Ubik.Web.Cms
+namespace Ubik.Web.BuildingBlocks
 {
     public class CmsSlot : Slot
     {

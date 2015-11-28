@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Ubik.Web.Cms;
 using Ubik.Web.Components;
 using Ubik.Web.Components.Contracts;
 

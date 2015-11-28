@@ -1,7 +1,7 @@
 ﻿using Ubik.Web.Components.Domain;
 using Ubik.Web.Components.DTO;
 
-namespace Ubik.Web.Cms
+namespace Ubik.Web.BuildingBlocks
 {
     public class CmsViewComponent : PartialViewComponent
     {

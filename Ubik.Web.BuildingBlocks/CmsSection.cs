@@ -2,7 +2,7 @@
 using Ubik.Web.Components;
 using Ubik.Web.Components.Contracts;
 
-namespace Ubik.Web.Cms
+namespace Ubik.Web.BuildingBlocks
 {
     public class CmsSection : ISection
     {
