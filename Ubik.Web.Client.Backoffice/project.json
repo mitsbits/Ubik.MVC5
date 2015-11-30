@@ -8,6 +8,7 @@
   "frameworks": {
     "net46": {
       "dependencies": {
+        "Ubik.Cache": "1.0.0-*",
         "Ubik.Infra": "1.0.0-*"
       }
     }

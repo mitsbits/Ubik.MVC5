@@ -1407,6 +1407,13 @@
           "lib/net45/_._": {}
         }
       },
+      "Ubik.Cache/1.0.0": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.6",
+        "dependencies": {
+          "Ubik.Infra": "1.0.0"
+        }
+      },
       "Ubik.EF/1.0.0": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.6",
@@ -2895,6 +2902,13 @@
         },
         "runtime": {
           "lib/net45/_._": {}
+        }
+      },
+      "Ubik.Cache/1.0.0": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.6",
+        "dependencies": {
+          "Ubik.Infra": "1.0.0"
         }
       },
       "Ubik.EF/1.0.0": {
@@ -4387,6 +4401,13 @@
           "lib/net45/_._": {}
         }
       },
+      "Ubik.Cache/1.0.0": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.6",
+        "dependencies": {
+          "Ubik.Infra": "1.0.0"
+        }
+      },
       "Ubik.EF/1.0.0": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.6",
@@ -4474,6 +4495,10 @@
     }
   },
   "libraries": {
+    "Ubik.Cache/1.0.0": {
+      "type": "project",
+      "path": "../wrap/Ubik.Cache/project.json"
+    },
     "Ubik.EF/1.0.0": {
       "type": "project",
       "path": "../wrap/Ubik.EF/project.json"
@@ -6262,6 +6287,7 @@
       "Ubik.Web.Membership >= 1.0.0-*"
     ],
     ".NETFramework,Version=v4.6": [
+      "Ubik.Cache >= 1.0.0-*",
       "Ubik.Infra >= 1.0.0-*"
     ]
   }

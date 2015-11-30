@@ -1,4 +1,4 @@
-﻿{
+{
   "userSecretsId": "aspnet5-WebApplication2-5cd08b4e-954b-4e10-acf0-0c41829267a2",
   "version": "1.0.0-*",
   "compilationOptions": {
@@ -9,8 +9,6 @@
     "Microsoft.AspNet.IISPlatformHandler": "1.0.0-rc1-final",
     "Microsoft.AspNet.Server.Kestrel": "1.0.0-rc1-final",
     "Microsoft.AspNet.Authentication.Cookies": "1.0.0-rc1-final",
-    "Microsoft.AspNet.Diagnostics.Entity": "7.0.0-rc1-final",
-    "Microsoft.AspNet.Identity.EntityFramework": "3.0.0-rc1-final",
     "Microsoft.AspNet.Mvc": "6.0.0-rc1-final",
     "Microsoft.AspNet.Mvc.TagHelpers": "6.0.0-rc1-final",
     "Microsoft.AspNet.StaticFiles": "1.0.0-rc1-final",

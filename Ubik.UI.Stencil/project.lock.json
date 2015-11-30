@@ -45,27 +45,6 @@
           "lib/dnx451/EntityFramework.Core.dll": {}
         }
       },
-      "EntityFramework.Relational/7.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "EntityFramework.Core": "7.0.0-rc1-final",
-          "System.Diagnostics.DiagnosticSource": "4.0.0-beta-23516"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Core",
-          "System.Data",
-          "System.Transactions"
-        ],
-        "compile": {
-          "lib/net451/EntityFramework.Relational.dll": {}
-        },
-        "runtime": {
-          "lib/net451/EntityFramework.Relational.dll": {}
-        }
-      },
       "Ix-Async/1.2.5": {
         "type": "package",
         "frameworkAssemblies": [
@@ -202,24 +181,6 @@
           "lib/net451/Microsoft.AspNet.Cryptography.Internal.dll": {}
         }
       },
-      "Microsoft.AspNet.Cryptography.KeyDerivation/1.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.AspNet.Cryptography.Internal": "1.0.0-rc1-final"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Core"
-        ],
-        "compile": {
-          "lib/net451/Microsoft.AspNet.Cryptography.KeyDerivation.dll": {}
-        },
-        "runtime": {
-          "lib/net451/Microsoft.AspNet.Cryptography.KeyDerivation.dll": {}
-        }
-      },
       "Microsoft.AspNet.DataProtection/1.0.0-rc1-final": {
         "type": "package",
         "dependencies": {
@@ -264,33 +225,6 @@
           "lib/net451/Microsoft.AspNet.DataProtection.Abstractions.dll": {}
         }
       },
-      "Microsoft.AspNet.Diagnostics/1.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.AspNet.Diagnostics.Abstractions": "1.0.0-rc1-final",
-          "Microsoft.AspNet.FileProviders.Physical": "1.0.0-rc1-final",
-          "Microsoft.AspNet.Http.Extensions": "1.0.0-rc1-final",
-          "Microsoft.AspNet.WebUtilities": "1.0.0-rc1-final",
-          "Microsoft.Dnx.Compilation.Abstractions": "1.0.0-rc1-final",
-          "Microsoft.Extensions.Logging.Abstractions": "1.0.0-rc1-final",
-          "Microsoft.Extensions.OptionsModel": "1.0.0-rc1-final",
-          "Microsoft.Extensions.WebEncoders.Core": "1.0.0-rc1-final",
-          "System.Diagnostics.DiagnosticSource": "4.0.0-beta-23516"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Core",
-          "System.Runtime"
-        ],
-        "compile": {
-          "lib/net451/Microsoft.AspNet.Diagnostics.dll": {}
-        },
-        "runtime": {
-          "lib/net451/Microsoft.AspNet.Diagnostics.dll": {}
-        }
-      },
       "Microsoft.AspNet.Diagnostics.Abstractions/1.0.0-rc1-final": {
         "type": "package",
         "frameworkAssemblies": [
@@ -304,27 +238,6 @@
         },
         "runtime": {
           "lib/net451/Microsoft.AspNet.Diagnostics.Abstractions.dll": {}
-        }
-      },
-      "Microsoft.AspNet.Diagnostics.Entity/7.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "EntityFramework.Relational": "7.0.0-rc1-final",
-          "Microsoft.AspNet.Diagnostics": "1.0.0-rc1-final"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Configuration",
-          "System.Core",
-          "System.Threading.Tasks"
-        ],
-        "compile": {
-          "lib/net451/Microsoft.AspNet.Diagnostics.Entity.dll": {}
-        },
-        "runtime": {
-          "lib/net451/Microsoft.AspNet.Diagnostics.Entity.dll": {}
         }
       },
       "Microsoft.AspNet.FileProviders.Abstractions/1.0.0-rc1-final": {
@@ -526,47 +439,6 @@
         },
         "runtime": {
           "lib/net451/Microsoft.AspNet.Http.Features.dll": {}
-        }
-      },
-      "Microsoft.AspNet.Identity/3.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.AspNet.Authentication.Cookies": "1.0.0-rc1-final",
-          "Microsoft.AspNet.Cryptography.KeyDerivation": "1.0.0-rc1-final",
-          "Microsoft.AspNet.Hosting.Abstractions": "1.0.0-rc1-final"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Core"
-        ],
-        "compile": {
-          "lib/net451/Microsoft.AspNet.Identity.dll": {}
-        },
-        "runtime": {
-          "lib/net451/Microsoft.AspNet.Identity.dll": {}
-        }
-      },
-      "Microsoft.AspNet.Identity.EntityFramework/3.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "EntityFramework.Relational": "7.0.0-rc1-final",
-          "Microsoft.AspNet.Identity": "3.0.0-rc1-final"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Core",
-          "System.Runtime",
-          "System.Threading.Tasks"
-        ],
-        "compile": {
-          "lib/net451/Microsoft.AspNet.Identity.EntityFramework.dll": {}
-        },
-        "runtime": {
-          "lib/net451/Microsoft.AspNet.Identity.EntityFramework.dll": {}
         }
       },
       "Microsoft.AspNet.IISPlatformHandler/1.0.0-rc1-final": {
@@ -2047,27 +1919,6 @@
           "lib/dnx451/EntityFramework.Core.dll": {}
         }
       },
-      "EntityFramework.Relational/7.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "EntityFramework.Core": "7.0.0-rc1-final",
-          "System.Diagnostics.DiagnosticSource": "4.0.0-beta-23516"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Core",
-          "System.Data",
-          "System.Transactions"
-        ],
-        "compile": {
-          "lib/net451/EntityFramework.Relational.dll": {}
-        },
-        "runtime": {
-          "lib/net451/EntityFramework.Relational.dll": {}
-        }
-      },
       "Ix-Async/1.2.5": {
         "type": "package",
         "frameworkAssemblies": [
@@ -2204,24 +2055,6 @@
           "lib/net451/Microsoft.AspNet.Cryptography.Internal.dll": {}
         }
       },
-      "Microsoft.AspNet.Cryptography.KeyDerivation/1.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.AspNet.Cryptography.Internal": "1.0.0-rc1-final"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Core"
-        ],
-        "compile": {
-          "lib/net451/Microsoft.AspNet.Cryptography.KeyDerivation.dll": {}
-        },
-        "runtime": {
-          "lib/net451/Microsoft.AspNet.Cryptography.KeyDerivation.dll": {}
-        }
-      },
       "Microsoft.AspNet.DataProtection/1.0.0-rc1-final": {
         "type": "package",
         "dependencies": {
@@ -2266,33 +2099,6 @@
           "lib/net451/Microsoft.AspNet.DataProtection.Abstractions.dll": {}
         }
       },
-      "Microsoft.AspNet.Diagnostics/1.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.AspNet.Diagnostics.Abstractions": "1.0.0-rc1-final",
-          "Microsoft.AspNet.FileProviders.Physical": "1.0.0-rc1-final",
-          "Microsoft.AspNet.Http.Extensions": "1.0.0-rc1-final",
-          "Microsoft.AspNet.WebUtilities": "1.0.0-rc1-final",
-          "Microsoft.Dnx.Compilation.Abstractions": "1.0.0-rc1-final",
-          "Microsoft.Extensions.Logging.Abstractions": "1.0.0-rc1-final",
-          "Microsoft.Extensions.OptionsModel": "1.0.0-rc1-final",
-          "Microsoft.Extensions.WebEncoders.Core": "1.0.0-rc1-final",
-          "System.Diagnostics.DiagnosticSource": "4.0.0-beta-23516"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Core",
-          "System.Runtime"
-        ],
-        "compile": {
-          "lib/net451/Microsoft.AspNet.Diagnostics.dll": {}
-        },
-        "runtime": {
-          "lib/net451/Microsoft.AspNet.Diagnostics.dll": {}
-        }
-      },
       "Microsoft.AspNet.Diagnostics.Abstractions/1.0.0-rc1-final": {
         "type": "package",
         "frameworkAssemblies": [
@@ -2306,27 +2112,6 @@
         },
         "runtime": {
           "lib/net451/Microsoft.AspNet.Diagnostics.Abstractions.dll": {}
-        }
-      },
-      "Microsoft.AspNet.Diagnostics.Entity/7.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "EntityFramework.Relational": "7.0.0-rc1-final",
-          "Microsoft.AspNet.Diagnostics": "1.0.0-rc1-final"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Configuration",
-          "System.Core",
-          "System.Threading.Tasks"
-        ],
-        "compile": {
-          "lib/net451/Microsoft.AspNet.Diagnostics.Entity.dll": {}
-        },
-        "runtime": {
-          "lib/net451/Microsoft.AspNet.Diagnostics.Entity.dll": {}
         }
       },
       "Microsoft.AspNet.FileProviders.Abstractions/1.0.0-rc1-final": {
@@ -2528,47 +2313,6 @@
         },
         "runtime": {
           "lib/net451/Microsoft.AspNet.Http.Features.dll": {}
-        }
-      },
-      "Microsoft.AspNet.Identity/3.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.AspNet.Authentication.Cookies": "1.0.0-rc1-final",
-          "Microsoft.AspNet.Cryptography.KeyDerivation": "1.0.0-rc1-final",
-          "Microsoft.AspNet.Hosting.Abstractions": "1.0.0-rc1-final"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Core"
-        ],
-        "compile": {
-          "lib/net451/Microsoft.AspNet.Identity.dll": {}
-        },
-        "runtime": {
-          "lib/net451/Microsoft.AspNet.Identity.dll": {}
-        }
-      },
-      "Microsoft.AspNet.Identity.EntityFramework/3.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "EntityFramework.Relational": "7.0.0-rc1-final",
-          "Microsoft.AspNet.Identity": "3.0.0-rc1-final"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Core",
-          "System.Runtime",
-          "System.Threading.Tasks"
-        ],
-        "compile": {
-          "lib/net451/Microsoft.AspNet.Identity.EntityFramework.dll": {}
-        },
-        "runtime": {
-          "lib/net451/Microsoft.AspNet.Identity.EntityFramework.dll": {}
         }
       },
       "Microsoft.AspNet.IISPlatformHandler/1.0.0-rc1-final": {
@@ -4052,27 +3796,6 @@
           "lib/dnx451/EntityFramework.Core.dll": {}
         }
       },
-      "EntityFramework.Relational/7.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "EntityFramework.Core": "7.0.0-rc1-final",
-          "System.Diagnostics.DiagnosticSource": "4.0.0-beta-23516"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Core",
-          "System.Data",
-          "System.Transactions"
-        ],
-        "compile": {
-          "lib/net451/EntityFramework.Relational.dll": {}
-        },
-        "runtime": {
-          "lib/net451/EntityFramework.Relational.dll": {}
-        }
-      },
       "Ix-Async/1.2.5": {
         "type": "package",
         "frameworkAssemblies": [
@@ -4209,24 +3932,6 @@
           "lib/net451/Microsoft.AspNet.Cryptography.Internal.dll": {}
         }
       },
-      "Microsoft.AspNet.Cryptography.KeyDerivation/1.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.AspNet.Cryptography.Internal": "1.0.0-rc1-final"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Core"
-        ],
-        "compile": {
-          "lib/net451/Microsoft.AspNet.Cryptography.KeyDerivation.dll": {}
-        },
-        "runtime": {
-          "lib/net451/Microsoft.AspNet.Cryptography.KeyDerivation.dll": {}
-        }
-      },
       "Microsoft.AspNet.DataProtection/1.0.0-rc1-final": {
         "type": "package",
         "dependencies": {
@@ -4271,33 +3976,6 @@
           "lib/net451/Microsoft.AspNet.DataProtection.Abstractions.dll": {}
         }
       },
-      "Microsoft.AspNet.Diagnostics/1.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.AspNet.Diagnostics.Abstractions": "1.0.0-rc1-final",
-          "Microsoft.AspNet.FileProviders.Physical": "1.0.0-rc1-final",
-          "Microsoft.AspNet.Http.Extensions": "1.0.0-rc1-final",
-          "Microsoft.AspNet.WebUtilities": "1.0.0-rc1-final",
-          "Microsoft.Dnx.Compilation.Abstractions": "1.0.0-rc1-final",
-          "Microsoft.Extensions.Logging.Abstractions": "1.0.0-rc1-final",
-          "Microsoft.Extensions.OptionsModel": "1.0.0-rc1-final",
-          "Microsoft.Extensions.WebEncoders.Core": "1.0.0-rc1-final",
-          "System.Diagnostics.DiagnosticSource": "4.0.0-beta-23516"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Core",
-          "System.Runtime"
-        ],
-        "compile": {
-          "lib/net451/Microsoft.AspNet.Diagnostics.dll": {}
-        },
-        "runtime": {
-          "lib/net451/Microsoft.AspNet.Diagnostics.dll": {}
-        }
-      },
       "Microsoft.AspNet.Diagnostics.Abstractions/1.0.0-rc1-final": {
         "type": "package",
         "frameworkAssemblies": [
@@ -4311,27 +3989,6 @@
         },
         "runtime": {
           "lib/net451/Microsoft.AspNet.Diagnostics.Abstractions.dll": {}
-        }
-      },
-      "Microsoft.AspNet.Diagnostics.Entity/7.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "EntityFramework.Relational": "7.0.0-rc1-final",
-          "Microsoft.AspNet.Diagnostics": "1.0.0-rc1-final"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Configuration",
-          "System.Core",
-          "System.Threading.Tasks"
-        ],
-        "compile": {
-          "lib/net451/Microsoft.AspNet.Diagnostics.Entity.dll": {}
-        },
-        "runtime": {
-          "lib/net451/Microsoft.AspNet.Diagnostics.Entity.dll": {}
         }
       },
       "Microsoft.AspNet.FileProviders.Abstractions/1.0.0-rc1-final": {
@@ -4533,47 +4190,6 @@
         },
         "runtime": {
           "lib/net451/Microsoft.AspNet.Http.Features.dll": {}
-        }
-      },
-      "Microsoft.AspNet.Identity/3.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.AspNet.Authentication.Cookies": "1.0.0-rc1-final",
-          "Microsoft.AspNet.Cryptography.KeyDerivation": "1.0.0-rc1-final",
-          "Microsoft.AspNet.Hosting.Abstractions": "1.0.0-rc1-final"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Core"
-        ],
-        "compile": {
-          "lib/net451/Microsoft.AspNet.Identity.dll": {}
-        },
-        "runtime": {
-          "lib/net451/Microsoft.AspNet.Identity.dll": {}
-        }
-      },
-      "Microsoft.AspNet.Identity.EntityFramework/3.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "EntityFramework.Relational": "7.0.0-rc1-final",
-          "Microsoft.AspNet.Identity": "3.0.0-rc1-final"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Core",
-          "System.Runtime",
-          "System.Threading.Tasks"
-        ],
-        "compile": {
-          "lib/net451/Microsoft.AspNet.Identity.EntityFramework.dll": {}
-        },
-        "runtime": {
-          "lib/net451/Microsoft.AspNet.Identity.EntityFramework.dll": {}
         }
       },
       "Microsoft.AspNet.IISPlatformHandler/1.0.0-rc1-final": {
@@ -6034,22 +5650,6 @@
         "lib/netcore50/EntityFramework.Core.xml"
       ]
     },
-    "EntityFramework.Relational/7.0.0-rc1-final": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "0Feoct9mtKOIjovUgfESfVDL/odvxNXsIgK3bdlkx7Fsiqp5/tx8oiMx+qO7oNRYWsXN6XDlGKHLOzWEdUssKA==",
-      "files": [
-        "EntityFramework.Relational.7.0.0-rc1-final.nupkg",
-        "EntityFramework.Relational.7.0.0-rc1-final.nupkg.sha512",
-        "EntityFramework.Relational.nuspec",
-        "lib/dotnet5.4/EntityFramework.Relational.dll",
-        "lib/dotnet5.4/EntityFramework.Relational.xml",
-        "lib/net451/EntityFramework.Relational.dll",
-        "lib/net451/EntityFramework.Relational.xml",
-        "lib/netcore50/EntityFramework.Relational.dll",
-        "lib/netcore50/EntityFramework.Relational.xml"
-      ]
-    },
     "Ix-Async/1.2.5": {
       "type": "package",
       "sha512": "8EXO8q7cpDUH9G2q+UOPOO/6uZ9aN7mx/4xjFIfkp+qLWVJiYuglkRhjY8Ggs2CucXzHR8GHnovJKB5yQoYaJg==",
@@ -6149,20 +5749,6 @@
         "Microsoft.AspNet.Cryptography.Internal.nuspec"
       ]
     },
-    "Microsoft.AspNet.Cryptography.KeyDerivation/1.0.0-rc1-final": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "a0HOA+i0gEY5SIzJZX4QXuj+hY6C7NT3t60EwreWYPAy/rruoxlkarU8H9oHwtatT2/FjC8kdMNQS72y1I/5KQ==",
-      "files": [
-        "lib/dotnet5.4/Microsoft.AspNet.Cryptography.KeyDerivation.dll",
-        "lib/dotnet5.4/Microsoft.AspNet.Cryptography.KeyDerivation.xml",
-        "lib/net451/Microsoft.AspNet.Cryptography.KeyDerivation.dll",
-        "lib/net451/Microsoft.AspNet.Cryptography.KeyDerivation.xml",
-        "Microsoft.AspNet.Cryptography.KeyDerivation.1.0.0-rc1-final.nupkg",
-        "Microsoft.AspNet.Cryptography.KeyDerivation.1.0.0-rc1-final.nupkg.sha512",
-        "Microsoft.AspNet.Cryptography.KeyDerivation.nuspec"
-      ]
-    },
     "Microsoft.AspNet.DataProtection/1.0.0-rc1-final": {
       "type": "package",
       "serviceable": true,
@@ -6191,20 +5777,6 @@
         "Microsoft.AspNet.DataProtection.Abstractions.nuspec"
       ]
     },
-    "Microsoft.AspNet.Diagnostics/1.0.0-rc1-final": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "PlLhXpe74DUMEanyFNvo+A96zD465usPOxu2iAqREnfcpagNJY4dn6uQxDE04BY6XcqPaYAYcrZYyKRfn/pTIg==",
-      "files": [
-        "lib/dotnet5.4/Microsoft.AspNet.Diagnostics.dll",
-        "lib/dotnet5.4/Microsoft.AspNet.Diagnostics.xml",
-        "lib/net451/Microsoft.AspNet.Diagnostics.dll",
-        "lib/net451/Microsoft.AspNet.Diagnostics.xml",
-        "Microsoft.AspNet.Diagnostics.1.0.0-rc1-final.nupkg",
-        "Microsoft.AspNet.Diagnostics.1.0.0-rc1-final.nupkg.sha512",
-        "Microsoft.AspNet.Diagnostics.nuspec"
-      ]
-    },
     "Microsoft.AspNet.Diagnostics.Abstractions/1.0.0-rc1-final": {
       "type": "package",
       "serviceable": true,
@@ -6217,20 +5789,6 @@
         "Microsoft.AspNet.Diagnostics.Abstractions.1.0.0-rc1-final.nupkg",
         "Microsoft.AspNet.Diagnostics.Abstractions.1.0.0-rc1-final.nupkg.sha512",
         "Microsoft.AspNet.Diagnostics.Abstractions.nuspec"
-      ]
-    },
-    "Microsoft.AspNet.Diagnostics.Entity/7.0.0-rc1-final": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "hlOWYlYXpVSEM4wcTzNwZKvJWGUgkZQjOG12FkJFIEMyd8qT8jS20kp92kT2XeU8SBxb1kUAnTBdtOr5VRI+hQ==",
-      "files": [
-        "lib/dotnet5.4/Microsoft.AspNet.Diagnostics.Entity.dll",
-        "lib/dotnet5.4/Microsoft.AspNet.Diagnostics.Entity.xml",
-        "lib/net451/Microsoft.AspNet.Diagnostics.Entity.dll",
-        "lib/net451/Microsoft.AspNet.Diagnostics.Entity.xml",
-        "Microsoft.AspNet.Diagnostics.Entity.7.0.0-rc1-final.nupkg",
-        "Microsoft.AspNet.Diagnostics.Entity.7.0.0-rc1-final.nupkg.sha512",
-        "Microsoft.AspNet.Diagnostics.Entity.nuspec"
       ]
     },
     "Microsoft.AspNet.FileProviders.Abstractions/1.0.0-rc1-final": {
@@ -6375,34 +5933,6 @@
         "Microsoft.AspNet.Http.Features.1.0.0-rc1-final.nupkg",
         "Microsoft.AspNet.Http.Features.1.0.0-rc1-final.nupkg.sha512",
         "Microsoft.AspNet.Http.Features.nuspec"
-      ]
-    },
-    "Microsoft.AspNet.Identity/3.0.0-rc1-final": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "ACPci5zUktgGFqdZ48dWexty24lROTEW/MK3LxIDe88zssLiqMhHrIndp4G/1vafmUfL+9lTw7oda6GRD53cEg==",
-      "files": [
-        "lib/dotnet5.4/Microsoft.AspNet.Identity.dll",
-        "lib/dotnet5.4/Microsoft.AspNet.Identity.xml",
-        "lib/net451/Microsoft.AspNet.Identity.dll",
-        "lib/net451/Microsoft.AspNet.Identity.xml",
-        "Microsoft.AspNet.Identity.3.0.0-rc1-final.nupkg",
-        "Microsoft.AspNet.Identity.3.0.0-rc1-final.nupkg.sha512",
-        "Microsoft.AspNet.Identity.nuspec"
-      ]
-    },
-    "Microsoft.AspNet.Identity.EntityFramework/3.0.0-rc1-final": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "XayUdpI6mRgL4e9kowTxlYURvDGNj7FBhqbOn6uxvQwwD7gltYzKL3T07nCeSzxR5m2sJ+IvrJCMPihKrtuR5w==",
-      "files": [
-        "lib/dotnet5.4/Microsoft.AspNet.Identity.EntityFramework.dll",
-        "lib/dotnet5.4/Microsoft.AspNet.Identity.EntityFramework.xml",
-        "lib/net451/Microsoft.AspNet.Identity.EntityFramework.dll",
-        "lib/net451/Microsoft.AspNet.Identity.EntityFramework.xml",
-        "Microsoft.AspNet.Identity.EntityFramework.3.0.0-rc1-final.nupkg",
-        "Microsoft.AspNet.Identity.EntityFramework.3.0.0-rc1-final.nupkg.sha512",
-        "Microsoft.AspNet.Identity.EntityFramework.nuspec"
       ]
     },
     "Microsoft.AspNet.IISPlatformHandler/1.0.0-rc1-final": {
@@ -8202,8 +7732,6 @@
       "Microsoft.AspNet.IISPlatformHandler >= 1.0.0-rc1-final",
       "Microsoft.AspNet.Server.Kestrel >= 1.0.0-rc1-final",
       "Microsoft.AspNet.Authentication.Cookies >= 1.0.0-rc1-final",
-      "Microsoft.AspNet.Diagnostics.Entity >= 7.0.0-rc1-final",
-      "Microsoft.AspNet.Identity.EntityFramework >= 3.0.0-rc1-final",
       "Microsoft.AspNet.Mvc >= 6.0.0-rc1-final",
       "Microsoft.AspNet.Mvc.TagHelpers >= 6.0.0-rc1-final",
       "Microsoft.AspNet.StaticFiles >= 1.0.0-rc1-final",

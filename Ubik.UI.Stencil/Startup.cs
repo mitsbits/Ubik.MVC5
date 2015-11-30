@@ -50,25 +50,25 @@ namespace Ubik.UI.Stencil
             if (env.IsDevelopment())
             {
                 app.UseBrowserLink();
-                app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
+                //app.UseDeveloperExceptionPage();
+//app.UseDatabaseErrorPage();
             }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
+            //else
+            //{
+            //    app.UseExceptionHandler("/Home/Error");
 
-                // For more details on creating database during deployment see http://go.microsoft.com/fwlink/?LinkID=615859
-                //try
-                //{
-                //    using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>()
-                //        .CreateScope())
-                //    {
-                //        serviceScope.ServiceProvider.GetService<ApplicationDbContext>()
-                //             .Database.Migrate();
-                //    }
-                //}
-                //catch { }
-            }
+            //    // For more details on creating database during deployment see http://go.microsoft.com/fwlink/?LinkID=615859
+            //    //try
+            //    //{
+            //    //    using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>()
+            //    //        .CreateScope())
+            //    //    {
+            //    //        serviceScope.ServiceProvider.GetService<ApplicationDbContext>()
+            //    //             .Database.Migrate();
+            //    //    }
+            //    //}
+            //    //catch { }
+            //}
 
             app.UseIISPlatformHandler(options => options.AuthenticationDescriptions.Clear());
 
