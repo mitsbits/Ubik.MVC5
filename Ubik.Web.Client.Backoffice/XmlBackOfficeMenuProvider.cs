@@ -135,16 +135,20 @@ namespace Ubik.Web.Client.Backoffice
         {
             get
             {
+
                 var content = string.Empty;
 
                 using (var stream = Assembly.GetExecutingAssembly().
-                    GetManifestResourceStream("Ubik.Web.Backoffice.Configuration.MainMenu.xml"))
+                    GetManifestResourceStream(
+                        typeof (XmlBackOfficeMenuProvider).Assembly.GetManifestResourceNames()
+                            .Single(x => x.EndsWith(".compiler.resources.MainMenu.xml"))))
+
                 {
-                    if (stream != null)
-                        using (var sr = new StreamReader(stream))
-                        {
-                            content = sr.ReadToEnd();
-                        }
+                    if (stream == null) throw new ArgumentNullException(@"Main Menu xml file", "no menu xml embeded in assembly");
+                    using (var sr = new StreamReader(stream))
+                    {
+                        content = sr.ReadToEnd();
+                    }
                 }
                 return content;
             }

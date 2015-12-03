@@ -38,7 +38,7 @@ namespace Ubik.Web.Client.Backoffice
     {
         private static readonly Assembly[] _asmbls = AppDomain.CurrentDomain.GetAssemblies();
 
-        public static void ConfigureBackoffice(IServiceCollection services, IConfiguration configuration)
+        public static void ConfigureBackoffice(this IServiceCollection services, IConfiguration configuration)
         {
             WireUpInternals(services);
             WireUpDbContexts(services, configuration);
@@ -70,8 +70,8 @@ namespace Ubik.Web.Client.Backoffice
 
         private static void WireUpDbContexts(IServiceCollection services, IConfiguration configuration)
         {
-            var cmsConnString = configuration["Data:cmsconnectionstring"];
-            var authConnString = configuration["Data:authconnectionstring"]; 
+            var cmsConnString = configuration["Data:cmsconnection:ConnectionString"];
+            var authConnString = configuration["Data:authconnection:ConnectionString"]; 
 
             var connectionStrings = new Dictionary<Type, string>
             {
