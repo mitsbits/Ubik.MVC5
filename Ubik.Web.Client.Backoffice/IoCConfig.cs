@@ -1,14 +1,11 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Mehdime.Entity;
+using Microsoft.AspNet.Identity;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Mehdime.Entity;
-using Microsoft.AspNet.Http;
-using Microsoft.AspNet.Identity;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Owin.Security;
-using Owin;
 using Ubik.Cache.Runtime;
 using Ubik.EF;
 using Ubik.Infra.Contracts;
@@ -71,7 +68,7 @@ namespace Ubik.Web.Client.Backoffice
         private static void WireUpDbContexts(IServiceCollection services, IConfiguration configuration)
         {
             var cmsConnString = configuration["Data:cmsconnection:ConnectionString"];
-            var authConnString = configuration["Data:authconnection:ConnectionString"]; 
+            var authConnString = configuration["Data:authconnection:ConnectionString"];
 
             var connectionStrings = new Dictionary<Type, string>
             {
@@ -79,7 +76,6 @@ namespace Ubik.Web.Client.Backoffice
                 {typeof (ElmahDbContext), cmsConnString},
                 {typeof (ComponentsDbContext), cmsConnString}
             };
-
 
             var serviceDescriptor = new ServiceDescriptor(typeof(IDbContextFactory), new DbContextFactory(connectionStrings));
             services.Add(serviceDescriptor);
@@ -92,7 +88,6 @@ namespace Ubik.Web.Client.Backoffice
         {
             services.AddScoped<AuthDbContext, AuthDbContext>();
 
-    
             services.AddScoped<IUserStore<ApplicationUser>, ApplicationUserStore>();
             services.AddScoped<IRoleStore<ApplicationRole, string>, ApplicationRoleStore>();
             services.AddScoped<ApplicationUserManager, ApplicationUserManager>();
@@ -123,7 +118,6 @@ namespace Ubik.Web.Client.Backoffice
             }
 
             services.AddSingleton<IResidentSecurity, ResidentSecurity>();
-
         }
 
         private static void WireUpCms(IServiceCollection services)

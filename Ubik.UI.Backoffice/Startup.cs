@@ -19,7 +19,7 @@ namespace Ubik.UI.Backoffice
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddJsonFile("appsettings.ubik.json", optional: true);
 
-
+            
 
             builder.AddEnvironmentVariables();
             Configuration = builder.Build();
@@ -44,7 +44,7 @@ namespace Ubik.UI.Backoffice
             {
                 app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
-                //app.UseDatabaseErrorPage();
+                app.UseDatabaseErrorPage();
             }
             else
             {
@@ -74,10 +74,12 @@ namespace Ubik.UI.Backoffice
             //TODO: fix routing http://stephenwalther.com/archive/2015/02/07/asp-net-5-deep-dive-routing
             app.UseMvc(routes =>
             {
-             var defRoute =   routes.MapRoute(
+            
+                routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
-             
+
+
             });
         }
 

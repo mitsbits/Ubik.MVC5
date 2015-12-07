@@ -1,9 +1,10 @@
 {
 	"name": "Ubik",
 	"private": true,
-  "dependencies": {
-    "jquery": "2.1.4",
-    "jquery-validation": "1.14.0",
-    "jquery-validation-unobtrusive": "3.2.4"
-  }
+	"dependencies": {
+		"jquery": "2.1.4",
+		"jquery-validation": "1.14.0",
+		"jquery-validation-unobtrusive": "3.2.4",
+		"admin-lte": "2.3.2"
+	}
 }

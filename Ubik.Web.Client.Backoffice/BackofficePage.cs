@@ -11,12 +11,31 @@ namespace Ubik.Web.Client.Backoffice
         protected BackofficePage()
             : base()
         {
-            PageContent = new BackofficeContentHelper(ViewContext);
-            Feedback = new ServerResponseHelper(ViewContext);
+
         }
 
-        public BackofficeContentHelper PageContent { get; private set; }
-        public ServerResponseHelper Feedback { get; private set; }
+
+
+        private BackofficeContentHelper _pageContent;
+        public BackofficeContentHelper PageContent
+        {
+            get
+            {
+                if (_pageContent == null) _pageContent = new BackofficeContentHelper(ViewContext);
+                return _pageContent;
+
+            }
+        }
+        private ServerResponseHelper _feedback;
+        public ServerResponseHelper Feedback
+        {
+            get
+            {
+                if (_feedback == null) _feedback = new ServerResponseHelper(ViewContext);
+                return _feedback;
+
+            }
+        }
 
         public void AddBackofficeBottom(string urlstring, IUrlHelper url, IHtmlHelper html)
         {

@@ -74,6 +74,27 @@
           "lib/dnx451/EntityFramework.Core.dll": {}
         }
       },
+      "EntityFramework.Relational/7.0.0-rc1-final": {
+        "type": "package",
+        "dependencies": {
+          "EntityFramework.Core": "7.0.0-rc1-final",
+          "System.Diagnostics.DiagnosticSource": "4.0.0-beta-23516"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Core",
+          "System.Data",
+          "System.Transactions"
+        ],
+        "compile": {
+          "lib/net451/EntityFramework.Relational.dll": {}
+        },
+        "runtime": {
+          "lib/net451/EntityFramework.Relational.dll": {}
+        }
+      },
       "Ix-Async/1.2.5": {
         "type": "package",
         "frameworkAssemblies": [
@@ -306,6 +327,27 @@
         },
         "runtime": {
           "lib/net451/Microsoft.AspNet.Diagnostics.Abstractions.dll": {}
+        }
+      },
+      "Microsoft.AspNet.Diagnostics.Entity/7.0.0-rc1-final": {
+        "type": "package",
+        "dependencies": {
+          "EntityFramework.Relational": "7.0.0-rc1-final",
+          "Microsoft.AspNet.Diagnostics": "1.0.0-rc1-final"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Configuration",
+          "System.Core",
+          "System.Threading.Tasks"
+        ],
+        "compile": {
+          "lib/net451/Microsoft.AspNet.Diagnostics.Entity.dll": {}
+        },
+        "runtime": {
+          "lib/net451/Microsoft.AspNet.Diagnostics.Entity.dll": {}
         }
       },
       "Microsoft.AspNet.FileProviders.Abstractions/1.0.0-rc1-final": {
@@ -2089,6 +2131,7 @@
         "framework": ".NETFramework,Version=v4.6",
         "dependencies": {
           "elmah": "1.2.2",
+          "Microsoft.AspNet.Mvc": "6.0.0-rc1-final",
           "Ubik.Cache": "1.0.0",
           "Ubik.Infra": "1.0.0",
           "Ubik.Web.Basis": "1.0.0",
@@ -2217,6 +2260,27 @@
         },
         "runtime": {
           "lib/dnx451/EntityFramework.Core.dll": {}
+        }
+      },
+      "EntityFramework.Relational/7.0.0-rc1-final": {
+        "type": "package",
+        "dependencies": {
+          "EntityFramework.Core": "7.0.0-rc1-final",
+          "System.Diagnostics.DiagnosticSource": "4.0.0-beta-23516"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Core",
+          "System.Data",
+          "System.Transactions"
+        ],
+        "compile": {
+          "lib/net451/EntityFramework.Relational.dll": {}
+        },
+        "runtime": {
+          "lib/net451/EntityFramework.Relational.dll": {}
         }
       },
       "Ix-Async/1.2.5": {
@@ -2451,6 +2515,27 @@
         },
         "runtime": {
           "lib/net451/Microsoft.AspNet.Diagnostics.Abstractions.dll": {}
+        }
+      },
+      "Microsoft.AspNet.Diagnostics.Entity/7.0.0-rc1-final": {
+        "type": "package",
+        "dependencies": {
+          "EntityFramework.Relational": "7.0.0-rc1-final",
+          "Microsoft.AspNet.Diagnostics": "1.0.0-rc1-final"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Configuration",
+          "System.Core",
+          "System.Threading.Tasks"
+        ],
+        "compile": {
+          "lib/net451/Microsoft.AspNet.Diagnostics.Entity.dll": {}
+        },
+        "runtime": {
+          "lib/net451/Microsoft.AspNet.Diagnostics.Entity.dll": {}
         }
       },
       "Microsoft.AspNet.FileProviders.Abstractions/1.0.0-rc1-final": {
@@ -4237,6 +4322,7 @@
         "framework": ".NETFramework,Version=v4.6",
         "dependencies": {
           "elmah": "1.2.2",
+          "Microsoft.AspNet.Mvc": "6.0.0-rc1-final",
           "Ubik.Cache": "1.0.0",
           "Ubik.Infra": "1.0.0",
           "Ubik.Web.Basis": "1.0.0",
@@ -4365,6 +4451,27 @@
         },
         "runtime": {
           "lib/dnx451/EntityFramework.Core.dll": {}
+        }
+      },
+      "EntityFramework.Relational/7.0.0-rc1-final": {
+        "type": "package",
+        "dependencies": {
+          "EntityFramework.Core": "7.0.0-rc1-final",
+          "System.Diagnostics.DiagnosticSource": "4.0.0-beta-23516"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Core",
+          "System.Data",
+          "System.Transactions"
+        ],
+        "compile": {
+          "lib/net451/EntityFramework.Relational.dll": {}
+        },
+        "runtime": {
+          "lib/net451/EntityFramework.Relational.dll": {}
         }
       },
       "Ix-Async/1.2.5": {
@@ -4599,6 +4706,27 @@
         },
         "runtime": {
           "lib/net451/Microsoft.AspNet.Diagnostics.Abstractions.dll": {}
+        }
+      },
+      "Microsoft.AspNet.Diagnostics.Entity/7.0.0-rc1-final": {
+        "type": "package",
+        "dependencies": {
+          "EntityFramework.Relational": "7.0.0-rc1-final",
+          "Microsoft.AspNet.Diagnostics": "1.0.0-rc1-final"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Configuration",
+          "System.Core",
+          "System.Threading.Tasks"
+        ],
+        "compile": {
+          "lib/net451/Microsoft.AspNet.Diagnostics.Entity.dll": {}
+        },
+        "runtime": {
+          "lib/net451/Microsoft.AspNet.Diagnostics.Entity.dll": {}
         }
       },
       "Microsoft.AspNet.FileProviders.Abstractions/1.0.0-rc1-final": {
@@ -6385,6 +6513,7 @@
         "framework": ".NETFramework,Version=v4.6",
         "dependencies": {
           "elmah": "1.2.2",
+          "Microsoft.AspNet.Mvc": "6.0.0-rc1-final",
           "Ubik.Cache": "1.0.0",
           "Ubik.Infra": "1.0.0",
           "Ubik.Web.Basis": "1.0.0",
@@ -6553,6 +6682,22 @@
         "lib/netcore50/EntityFramework.Core.xml"
       ]
     },
+    "EntityFramework.Relational/7.0.0-rc1-final": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "0Feoct9mtKOIjovUgfESfVDL/odvxNXsIgK3bdlkx7Fsiqp5/tx8oiMx+qO7oNRYWsXN6XDlGKHLOzWEdUssKA==",
+      "files": [
+        "EntityFramework.Relational.7.0.0-rc1-final.nupkg",
+        "EntityFramework.Relational.7.0.0-rc1-final.nupkg.sha512",
+        "EntityFramework.Relational.nuspec",
+        "lib/dotnet5.4/EntityFramework.Relational.dll",
+        "lib/dotnet5.4/EntityFramework.Relational.xml",
+        "lib/net451/EntityFramework.Relational.dll",
+        "lib/net451/EntityFramework.Relational.xml",
+        "lib/netcore50/EntityFramework.Relational.dll",
+        "lib/netcore50/EntityFramework.Relational.xml"
+      ]
+    },
     "Ix-Async/1.2.5": {
       "type": "package",
       "sha512": "8EXO8q7cpDUH9G2q+UOPOO/6uZ9aN7mx/4xjFIfkp+qLWVJiYuglkRhjY8Ggs2CucXzHR8GHnovJKB5yQoYaJg==",
@@ -6716,6 +6861,20 @@
         "Microsoft.AspNet.Diagnostics.Abstractions.1.0.0-rc1-final.nupkg",
         "Microsoft.AspNet.Diagnostics.Abstractions.1.0.0-rc1-final.nupkg.sha512",
         "Microsoft.AspNet.Diagnostics.Abstractions.nuspec"
+      ]
+    },
+    "Microsoft.AspNet.Diagnostics.Entity/7.0.0-rc1-final": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "hlOWYlYXpVSEM4wcTzNwZKvJWGUgkZQjOG12FkJFIEMyd8qT8jS20kp92kT2XeU8SBxb1kUAnTBdtOr5VRI+hQ==",
+      "files": [
+        "lib/dotnet5.4/Microsoft.AspNet.Diagnostics.Entity.dll",
+        "lib/dotnet5.4/Microsoft.AspNet.Diagnostics.Entity.xml",
+        "lib/net451/Microsoft.AspNet.Diagnostics.Entity.dll",
+        "lib/net451/Microsoft.AspNet.Diagnostics.Entity.xml",
+        "Microsoft.AspNet.Diagnostics.Entity.7.0.0-rc1-final.nupkg",
+        "Microsoft.AspNet.Diagnostics.Entity.7.0.0-rc1-final.nupkg.sha512",
+        "Microsoft.AspNet.Diagnostics.Entity.nuspec"
       ]
     },
     "Microsoft.AspNet.FileProviders.Abstractions/1.0.0-rc1-final": {
@@ -8765,10 +8924,11 @@
       "Microsoft.Extensions.Logging.Console >= 1.0.0-rc1-final",
       "Microsoft.Extensions.Logging.Debug >= 1.0.0-rc1-final",
       "Microsoft.VisualStudio.Web.BrowserLink.Loader >= 14.0.0-rc1-final",
-      "Microsoft.AspNet.Diagnostics >= 1.0.0-rc1-final"
+      "Microsoft.AspNet.Diagnostics >= 1.0.0-rc1-final",
+      "Microsoft.AspNet.Diagnostics.Entity >= 7.0.0-rc1-final",
+      "Ubik.Web.Client.Backoffice >= 1.0.0-*",
+      "Ubik.Web.Basis >= 1.0.0-*"
     ],
-    "DNX,Version=v4.6": [
-      "Ubik.Web.Client.Backoffice >= 1.0.0-*"
-    ]
+    "DNX,Version=v4.6": []
   }
 }

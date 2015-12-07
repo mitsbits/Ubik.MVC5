@@ -1,4 +1,4 @@
-﻿{
+{
   "version": "1.0.0-*",
   "compilationOptions": {
     "emitEntryPoint": true
@@ -20,7 +20,10 @@
     "Microsoft.Extensions.Logging.Console": "1.0.0-rc1-final",
     "Microsoft.Extensions.Logging.Debug": "1.0.0-rc1-final",
     "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0-rc1-final",
-    "Microsoft.AspNet.Diagnostics": "1.0.0-rc1-final"
+    "Microsoft.AspNet.Diagnostics": "1.0.0-rc1-final",
+    "Microsoft.AspNet.Diagnostics.Entity": "7.0.0-rc1-final",
+    "Ubik.Web.Client.Backoffice": "1.0.0-*",
+    "Ubik.Web.Basis": "1.0.0-*"
   },
 
   "commands": {
@@ -30,7 +33,6 @@
   "frameworks": {
     "dnx46": {
       "dependencies": {
-        "Ubik.Web.Client.Backoffice": "1.0.0-*"
       }
     }
   },

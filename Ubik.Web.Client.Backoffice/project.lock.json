@@ -6282,6 +6282,7 @@
   "projectFileDependencyGroups": {
     "": [
       "elmah >= 1.2.2",
+      "Microsoft.AspNet.Mvc >= 6.0.0-rc1-final",
       "Ubik.Web.Basis >= 1.0.0-*",
       "Ubik.Web.Components.AntiCorruption >= 1.0.0-*",
       "Ubik.Web.Membership >= 1.0.0-*"
