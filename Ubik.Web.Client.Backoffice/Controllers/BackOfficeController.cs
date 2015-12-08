@@ -12,6 +12,7 @@ using Ubik.Web.Membership;
 namespace Ubik.Web.Client.Backoffice.Controllers
 {
     //[Authorize(Policy = "Over18")]
+    [Area("Backoffice")]
     public abstract class BackofficeController : Controller
     {
 

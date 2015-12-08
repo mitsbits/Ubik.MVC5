@@ -74,7 +74,10 @@ namespace Ubik.UI.Backoffice
             //TODO: fix routing http://stephenwalther.com/archive/2015/02/07/asp-net-5-deep-dive-routing
             app.UseMvc(routes =>
             {
-            
+                routes.MapRoute(name: "areaRoute",
+                    template: "{area:exists}/{controller}/{action}",
+                    defaults: new { controller = "Home", action = "Index" });
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
