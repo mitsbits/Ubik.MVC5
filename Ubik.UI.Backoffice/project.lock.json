@@ -2132,6 +2132,7 @@
         "dependencies": {
           "elmah": "1.2.2",
           "Microsoft.AspNet.Mvc": "6.0.0-rc1-final",
+          "Microsoft.AspNet.Mvc.ViewFeatures": "6.0.0-rc1-final",
           "Ubik.Cache": "1.0.0",
           "Ubik.Infra": "1.0.0",
           "Ubik.Web.Basis": "1.0.0",
@@ -4323,6 +4324,7 @@
         "dependencies": {
           "elmah": "1.2.2",
           "Microsoft.AspNet.Mvc": "6.0.0-rc1-final",
+          "Microsoft.AspNet.Mvc.ViewFeatures": "6.0.0-rc1-final",
           "Ubik.Cache": "1.0.0",
           "Ubik.Infra": "1.0.0",
           "Ubik.Web.Basis": "1.0.0",
@@ -6514,6 +6516,7 @@
         "dependencies": {
           "elmah": "1.2.2",
           "Microsoft.AspNet.Mvc": "6.0.0-rc1-final",
+          "Microsoft.AspNet.Mvc.ViewFeatures": "6.0.0-rc1-final",
           "Ubik.Cache": "1.0.0",
           "Ubik.Infra": "1.0.0",
           "Ubik.Web.Basis": "1.0.0",

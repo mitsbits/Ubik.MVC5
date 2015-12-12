@@ -1,0 +1,186 @@
+﻿@*@using Ubik.Web.Client.Backoffice
+@using Ubik.Web.Basis.Navigation
+@using Ubik.Web.Basis.Navigation.Contracts
+@model IMenuProvider<INavigationElements<int>>
+@{
+    var data = this. Model as IMenuProvider<INavigationElements<int>>;
+
+    Func<string> getActiveListItemId = () =>
+    {
+        try
+        {
+
+            var result = string.Empty;
+            //var path = Context.Request.RawUrl.Substring(Request.RawUrl.IndexOf("backoffice", StringComparison.Ordinal));
+            //var item = Model.Raw.FirstOrDefault(x => path.EndsWith(x.Href));
+            //if (item != null) result = string.Format("itm_{0}", item.Id.ToString());
+
+            return result;
+        }
+        catch (Exception)
+        {
+
+            return string.Empty;
+        }
+
+    };
+}
+
+
+@helper RenderChildren(BackofficeNavigationElement item, NavigationGroupDto groupDto)
+{
+    if (!item.HasChildren)
+    {
+        return;
+    }
+    <ul id="grp_@item.Id" class="strip-list-style">
+        @foreach (var child in from object subitem in item.Children select subitem as BackofficeNavigationElement)
+        {
+            @RenderMenuElement(child, groupDto)
+        }
+    </ul>
+}
+@helper RenderMenuElement(BackofficeNavigationElement child, NavigationGroupDto groupDto)
+{
+    var hasChildernClass = (child.HasChildren && child.Depth == 1 && false) ? "treeview" : string.Empty;
+    <li id="itm_@child.Id.ToString()" class="@hasChildernClass">
+        @switch (child.Role)
+        {
+            case NavigationElementRole.Anchor:
+            <a href="@Url.Content("~/backoffice/" + child.Href)" target="@child.AnchorTarget">
+                <i class="@child.IconCssClass"></i>
+                <span>@child.Display</span>
+            </a>
+                break;
+            case NavigationElementRole.Label:
+            <a href="#">
+                <i class="@child.IconCssClass"></i>
+                <span>@child.Display</span>
+            </a>
+                break;
+            default:
+            <span>@child.Display</span>
+                break;
+        }
+
+        @RenderChildren(child, groupDto)
+    </li>
+}
+
+<ul class="sidebar-menu">
+
+    @foreach (var grp in Model.Raw.Cast<BackofficeNavigationElement>.Select(x => x.).Distinct().OrderBy(x => x.Weight))
+    {
+        <li id="@grp.Key" class="treeview">
+            <a href="#">
+                <i class="@grp.IconCssClass"></i>
+                <span>@grp.Display</span>
+                <i class="fa fa-angle-left pull-right"></i>
+            </a>
+            <ul class="treeview-menu" id="@grp.Key">
+                @foreach (var item in Model.Menu.Cast<object>().Select(menuItem => menuItem as BackofficeNavigationElement).Where(item => item.Group.Key == grp.Key))
+                {
+                    @RenderMenuElement(item, grp)
+                }
+            </ul>
+        </li>
+    }
+
+    <li id="dashboard" class="active">
+        <a href="@Url.Action("Index", "Home")">
+            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+        </a>
+    </li>
+    <li id="widgets">
+        <a href="@Url.Action("Widgets", "Widgets")">
+            <i class="fa fa-th"></i> <span>Widgets</span> <small class="badge pull-right bg-green">new</small>
+        </a>
+    </li>
+    <li id="charts" class="treeview">
+        <a href="#">
+            <i class="fa fa-bar-chart-o"></i>
+            <span>Charts</span>
+            <i id="charts_arrow" class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu" id="charts_menu">
+            <li id="charts_morris"><a href="@Url.Action("Morris", "Charts")"><i class="fa fa-angle-double-right"></i> Morris</a></li>
+            <li id="charts_flot"><a href="@Url.Action("Flot", "Charts")"><i class="fa fa-angle-double-right"></i> Flot</a></li>
+            <li id="charts_inline"><a href="@Url.Action("Inline", "Charts")"><i class="fa fa-angle-double-right"></i> Inline charts</a></li>
+        </ul>
+    </li>
+    <li id="uielements" class="treeview">
+        <a href="#">
+            <i class="fa fa-laptop"></i>
+            <span>UI Elements</span>
+            <i id="uielements_arrow" class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu" id="uielements_menu">
+            <li id="uielements_general"><a href="@Url.Action("General", "UI")"><i class="fa fa-angle-double-right"></i> General</a></li>
+            <li id="uielements_icons"><a href="@Url.Action("Icons", "UI")"><i class="fa fa-angle-double-right"></i> Icons</a></li>
+            <li id="uielements_buttons"><a href="@Url.Action("Buttons", "UI")"><i class="fa fa-angle-double-right"></i> Buttons</a></li>
+            <li id="uielements_sliders"><a href="@Url.Action("Sliders", "UI")"><i class="fa fa-angle-double-right"></i> Sliders</a></li>
+            <li id="uielements_timeline"><a href="@Url.Action("Timeline", "UI")"><i class="fa fa-angle-double-right"></i> Timeline</a></li>
+        </ul>
+    </li>
+    <li id="forms" class="treeview">
+        <a href="#">
+            <i class="fa fa-edit"></i> <span>Forms</span>
+            <i id="forms_arrow" class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu" id="forms_menu">
+            <li id="forms_general"><a href="@Url.Action("General", "Forms")"><i class="fa fa-angle-double-right"></i> General Elements</a></li>
+            <li id="forms_advanced"><a href="@Url.Action("Advanced", "Forms")"><i class="fa fa-angle-double-right"></i> Advanced Elements</a></li>
+            <li id="forms_editors"><a href="@Url.Action("Editors", "Forms")"><i class="fa fa-angle-double-right"></i> Editors</a></li>
+        </ul>
+    </li>
+    <li id="tables" class="treeview">
+        <a href="#">
+            <i class="fa fa-table"></i> <span>Tables</span>
+            <i id="tables_arrow" class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu" id="tables_menu">
+            <li id="tables_simple"><a href="@Url.Action("Simple", "Tables")"><i class="fa fa-angle-double-right"></i> Simple tables</a></li>
+            <li id="tables_datatables"><a href="@Url.Action("Data", "Tables")"><i class="fa fa-angle-double-right"></i> Data tables</a></li>
+        </ul>
+    </li>
+    <li id="calendar">
+        <a href="@Url.Action("Calendar", "Calendar")">
+            <i class="fa fa-calendar"></i> <span>Calendar</span>
+            <small class="badge pull-right bg-red">3</small>
+        </a>
+    </li>
+    <li id="mailbox">
+        <a href="@Url.Action("Mailbox", "Mailbox")">
+            <i class="fa fa-envelope"></i> <span>Mailbox</span>
+            <small class="badge pull-right bg-yellow">12</small>
+        </a>
+    </li>
+    <li id="examples" class="treeview">
+        <a href="#">
+            <i class="fa fa-folder"></i> <span>Examples</span>
+            <i id="examples_arrow" class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu" id="examples_menu">
+            <li id="examples_invoice"><a href="@Url.Action("Invoice", "Pages")"><i class="fa fa-angle-double-right"></i> Invoice</a></li>
+            <li id="examples_login"><a href="@Url.Action("Login", "Pages")"><i class="fa fa-angle-double-right"></i> Login</a></li>
+            <li id="examples_register"><a href="@Url.Action("Register", "Pages")"><i class="fa fa-angle-double-right"></i> Register</a></li>
+            <li id="examples_lockscreen"><a href="@Url.Action("Lockscreen", "Pages")"><i class="fa fa-angle-double-right"></i> Lockscreen</a></li>
+            <li id="examples_notfound"><a href="@Url.Action("NotFound", "Pages")"><i class="fa fa-angle-double-right"></i> 404 Error</a></li>
+            <li id="examples_error"><a href="@Url.Action("Error", "Pages")"><i class="fa fa-angle-double-right"></i> 500 Error</a></li>
+            <li id="examples_empty"><a href="@Url.Action("Empty", "Pages")"><i class="fa fa-angle-double-right"></i> Blank Page</a></li>
+        </ul>
+    </li>
+</ul>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("li").removeClass("active");
+        $("#" + '@getActiveListItemId()').addClass("active");
+        $("#" + '@getActiveListItemId()' + "li").css("display", "block");
+        $("#" + '@getActiveListItemId()' + "li").css("display", "block");
+        $("#" + '@getActiveListItemId()').parents("ul.treeview").addClass("active");
+        $("#" + '@getActiveListItemId()').parents("ul").css("display", "block");
+        //$("#charts_menu").css("display", "block");
+        //$("#charts_flot").addClass("active");
+        //$("#charts_arrow").addClass("fa-angle-down");
+    });
+</script>*@
