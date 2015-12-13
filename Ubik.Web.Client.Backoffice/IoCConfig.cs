@@ -1,5 +1,7 @@
 ﻿using Mehdime.Entity;
+using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -141,6 +143,10 @@ namespace Ubik.Web.Client.Backoffice
             services.AddSingleton<ISlugWordReplacer, SystemSlugWordRplacer>();
             services.AddSingleton<ISlugCharOmmiter, SystemSlugCharReplacer>();
             services.AddSingleton<IInternationalCharToAsciiProvider, GreekToAsciiProvider>();
+
+            services.AddTransient<IContentAccessor, ContentAccessor>();
         }
     }
+
+
 }

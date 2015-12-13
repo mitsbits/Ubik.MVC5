@@ -1,8 +1,9 @@
-﻿using Ubik.Web.Client.Backoffice.Contracts;
+﻿using Ubik.Web.Basis.Contracts;
+using Ubik.Web.Client.Backoffice.Contracts;
 
 namespace Ubik.Web.Client.Backoffice
 {
-    internal class BackofficeContent : IBackofficeContent
+    internal class BackofficeContent : IBackofficeContent, IPageContent
     {
         public string Title { get; set; }
 

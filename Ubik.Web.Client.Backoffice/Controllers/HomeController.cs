@@ -7,6 +7,7 @@ namespace Ubik.Web.Client.Backoffice.Controllers
     {
         public ActionResult Index()
         {
+            SetContentPage(new BackofficeContent() { Title = "Hey from back office" });
             return View();
         }
 

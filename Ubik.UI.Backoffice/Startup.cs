@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
-using Microsoft.AspNet.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Ubik.Web.Client.Backoffice;
-
 
 namespace Ubik.UI.Backoffice
 {
@@ -19,11 +17,10 @@ namespace Ubik.UI.Backoffice
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddJsonFile("appsettings.ubik.json", optional: true);
 
-            
-
             builder.AddEnvironmentVariables();
             Configuration = builder.Build();
         }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
@@ -74,15 +71,11 @@ namespace Ubik.UI.Backoffice
             //TODO: fix routing http://stephenwalther.com/archive/2015/02/07/asp-net-5-deep-dive-routing
             app.UseMvc(routes =>
             {
-                routes.MapRoute(name: "areaRoute",
-                    template: "{area:exists}/{controller}/{action}",
-                    defaults: new { controller = "Home", action = "Index" });
+                routes.SetBackofficeRoutes();
 
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
-
-
             });
         }
 
