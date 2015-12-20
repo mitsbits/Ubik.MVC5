@@ -8,7 +8,6 @@
   "frameworks": {
     "net46": {
       "dependencies": {
-        "Ubik.EF": "1.0.0-*",
         "Ubik.Infra": "1.0.0-*"
       },
       "frameworkAssemblies": {
@@ -17,11 +16,7 @@
     }
   },
   "dependencies": {
-    "Microsoft.AspNet.Identity.Core": "2.2.1",
-    "Microsoft.AspNet.Identity.EntityFramework": "2.2.1",
-    "Microsoft.AspNet.Identity.Owin": "2.2.1",
-    "Microsoft.Owin.Security": "3.0.1",
-    "Microsoft.Owin.Security.OAuth": "3.0.1",
+    "Microsoft.AspNet.Identity.EntityFramework": "3.0.0-rc1-final",
     "Ubik.Web.BuildingBlocks": "1.0.0-*"
   }
 }

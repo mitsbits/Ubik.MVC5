@@ -6,8 +6,8 @@
   </PropertyGroup>
   <Import Project="$(VSToolsPath)\DNX\Microsoft.DNX.Props" Condition="'$(VSToolsPath)' != ''" />
   <PropertyGroup Label="Globals">
-    <ProjectGuid>f6f8743b-ad2f-4bc9-922a-745d2cfb199a</ProjectGuid>
-    <RootNamespace>Ubik.Web.Membership</RootNamespace>
+    <ProjectGuid>e71be1d6-9dd4-4e6d-a3ca-f2df0b658e19</ProjectGuid>
+    <RootNamespace>Ubik.Web.SSO</RootNamespace>
     <BaseIntermediateOutputPath Condition="'$(BaseIntermediateOutputPath)'=='' ">..\artifacts\obj\$(MSBuildProjectName)</BaseIntermediateOutputPath>
     <OutputPath Condition="'$(OutputPath)'=='' ">..\artifacts\bin\$(MSBuildProjectName)\</OutputPath>
   </PropertyGroup>
@@ -15,6 +15,7 @@
     <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Ubik.EF\Ubik.EF.csproj" />
     <ProjectReference Include="..\Ubik.Infra\Ubik.Infra.csproj" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\DNX\Microsoft.DNX.targets" Condition="'$(VSToolsPath)' != ''" />

@@ -60,6 +60,8 @@ namespace Ubik.UI.Backoffice
                 //catch { }
             }
 
+            
+
             app.UseIISPlatformHandler(options => options.AuthenticationDescriptions.Clear());
 
             app.UseStaticFiles();

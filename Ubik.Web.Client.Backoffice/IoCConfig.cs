@@ -91,7 +91,7 @@ namespace Ubik.Web.Client.Backoffice
             services.AddScoped<AuthDbContext, AuthDbContext>();
 
             services.AddScoped<IUserStore<ApplicationUser>, ApplicationUserStore>();
-            services.AddScoped<IRoleStore<ApplicationRole, string>, ApplicationRoleStore>();
+            //services.AddScoped<IRoleStore<UbikRole, int>, RoleStore>();
             services.AddScoped<ApplicationUserManager, ApplicationUserManager>();
             services.AddScoped<ApplicationRoleManager, ApplicationRoleManager>();
             //TODO: IDataProtectionProvider
