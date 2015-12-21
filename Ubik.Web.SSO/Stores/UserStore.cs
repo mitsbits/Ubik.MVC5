@@ -385,7 +385,7 @@ namespace Ubik.Web.SSO
             using (var db = _dbContextScopeFactory.CreateWithTransaction(System.Data.IsolationLevel.ReadCommitted))
             {
 
-                var roleEntity = await _roleRepo.GetAsync(x => x.Name.ToLower() == roleName.ToLower() && x.Users.Any(u=> u.UserId == user.Id));
+                var roleEntity = await _roleRepo.GetAsync(x => x.Name.ToLower() == roleName.ToLower() && x.Users.Any(u => u.UserId == user.Id));
 
 
                 if (roleEntity == null)
@@ -417,15 +417,13 @@ namespace Ubik.Web.SSO
             {
                 throw new ArgumentException("Resources.ValueCannotBeNullOrEmpty", nameof(roleName));
             }
-            var roleEntity = await Roles.SingleOrDefaultAsync(r => r.Name.ToUpper() == roleName.ToUpper(), cancellationToken);
-            if (roleEntity != null)
+
+            using (var db = _dbContextScopeFactory.CreateWithTransaction(System.Data.IsolationLevel.ReadCommitted))
             {
-                var userRole = await UserRoles.FirstOrDefaultAsync(r => roleEntity.Id.Equals(r.RoleId) && r.UserId.Equals(user.Id), cancellationToken);
-                if (userRole != null)
-                {
-                    UserRoles.Remove(userRole);
-                }
+                await _userRepo.RemoveFromRole(user.Id, roleName, cancellationToken);
             }
+
+
         }
 
         /// <summary>
@@ -443,11 +441,10 @@ namespace Ubik.Web.SSO
                 throw new ArgumentNullException(nameof(user));
             }
             var userId = user.Id;
-            var query = from userRole in UserRoles
-                        join role in Roles on userRole.RoleId equals role.Id
-                        where userRole.UserId.Equals(userId)
-                        select role.Name;
-            return await query.ToListAsync();
+            using (var db = _dbContextScopeFactory.CreateReadOnly())
+            {
+                return new List<string>(await _userRepo.GetRoleNames(userId, cancellationToken));
+            }
         }
 
         /// <summary>
@@ -470,14 +467,10 @@ namespace Ubik.Web.SSO
             {
                 throw new ArgumentException("Resources.ValueCannotBeNullOrEmpty", nameof(roleName));
             }
-            var role = await Roles.SingleOrDefaultAsync(r => r.Name.ToUpper() == roleName.ToUpper(), cancellationToken);
-            if (role != null)
+            using (var db = _dbContextScopeFactory.CreateReadOnly())
             {
-                var userId = user.Id;
-                var roleId = role.Id;
-                return await UserRoles.AnyAsync(ur => ur.RoleId.Equals(roleId) && ur.UserId.Equals(userId));
+                return await _userRepo.IsInRole(user.Id, roleName, cancellationToken);
             }
-            return false;
         }
 
         private void ThrowIfDisposed()

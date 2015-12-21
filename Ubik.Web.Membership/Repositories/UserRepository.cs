@@ -9,5 +9,7 @@ namespace Ubik.Web.Membership.Repositories
         public UserRepository(IAmbientDbContextLocator ambientDbContextLocator)
             : base(ambientDbContextLocator)
         { }
+
+
     }
 }
