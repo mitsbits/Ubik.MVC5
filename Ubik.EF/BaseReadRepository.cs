@@ -165,6 +165,45 @@ namespace Ubik.EF
             return new PagedResult<T>(data, pageNumber, pageSize, totalRecords);
         }
 
+        public async Task<PagedResult<T>> FindAllAsync(Expression<Func<T, bool>> predicate,
+                    IEnumerable<OrderByInfo<T>> orderBy, params Expression<Func<T, dynamic>>[] paths)
+        {
+            var query = DbContext.Set<T>().Where(predicate);
+
+
+
+
+
+            if (paths != null && paths.Any())
+            {
+                query = paths.Aggregate(query, (current, path) => current.Include(path));
+            }
+
+            IOrderedQueryable<T> orderedQuaQueryable = null;
+            var orderByInfos = orderBy as OrderByInfo<T>[] ?? orderBy.ToArray();
+            for (var i = 0; i < orderByInfos.Count(); i++)
+            {
+                var info = orderByInfos[i];
+                if (i == 0)
+                {
+                    orderedQuaQueryable = info.Ascending ? query.OrderBy(info.Property) : query.OrderByDescending(info.Property);
+                }
+                else
+                {
+                    if (orderedQuaQueryable != null)
+                    {
+                        orderedQuaQueryable = info.Ascending ? orderedQuaQueryable.ThenBy(info.Property) : orderedQuaQueryable.OrderByDescending(info.Property);
+                    }
+                }
+            }
+            if (orderedQuaQueryable == null)
+                return new PagedResult<T>(new List<T>(), 1, 1, 0);
+
+            var data = await orderedQuaQueryable.ToListAsync();
+            var totalRecords = data.Count();
+            return new PagedResult<T>(data, 1, totalRecords, totalRecords);
+        }
+
         #endregion Async
 
 

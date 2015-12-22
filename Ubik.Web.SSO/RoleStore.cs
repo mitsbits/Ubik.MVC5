@@ -1,5 +1,3 @@
-
-
 //using Microsoft.AspNet.Identity;
 //using System;
 //using System.Collections.Generic;
@@ -14,9 +12,6 @@
 
 //namespace Ubik.Web.SSO
 //{
-
-
- 
 //    /// <summary>
 //    /// Creates a new instance of a persistence store for roles.
 //    /// </summary>
@@ -25,7 +20,6 @@
 //        where TRole : UbikRole
 //    {
 //        public RoleStore(DbContext context, IdentityErrorDescriber describer = null) : base(context, describer) { }
-
 
 //        public async Task<IEnumerable<Claim>> RoleRelatedClaims(int userId)
 //        {
@@ -96,7 +90,6 @@
 //        }
 
 //        private bool _disposed;
-
 
 //        /// <summary>
 //        /// Gets the database context for this store.

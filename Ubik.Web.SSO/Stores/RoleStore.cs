@@ -2,7 +2,6 @@
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Security.Claims;
@@ -411,7 +410,6 @@ namespace Ubik.Web.SSO.Stores
         {
             get
             {
-              
                 return _roleRepo.GetQuery();
             }
         }

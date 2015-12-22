@@ -13,12 +13,11 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
+using Ubik.Infra.DataManagement;
 using Ubik.Web.SSO.Contracts;
 
 namespace Ubik.Web.SSO
 {
-
-
     /// <summary>
     /// Represents a new instance of a persistence store for the specified user and role types.
     /// </summary>
@@ -39,7 +38,6 @@ namespace Ubik.Web.SSO
         IUserTwoFactorStore<UbikUser>,
         IUserStoreWithCustomClaims<int>
     {
-
         private readonly IDbContextScopeFactory _dbContextScopeFactory;
         private readonly IUserRepository _userRepo;
         private readonly IRoleRepository _roleRepo;
@@ -56,14 +54,10 @@ namespace Ubik.Web.SSO
 
         private bool _disposed;
 
-
-
         /// <summary>
         /// Gets or sets the <see cref="IdentityErrorDescriber"/> for any error that occurred with the current operation.
         /// </summary>
         public IdentityErrorDescriber ErrorDescriber { get; set; }
-
-
 
         /// <summary>
         /// Gets the user identifier for the specified <paramref name="user"/>.
@@ -170,7 +164,6 @@ namespace Ubik.Web.SSO
             }
             using (var db = _dbContextScopeFactory.CreateWithTransaction(System.Data.IsolationLevel.ReadCommitted))
             {
-
                 await _userRepo.CreateAsync(user);
                 await db.SaveChangesAsync(cancellationToken);
             }
@@ -193,13 +186,11 @@ namespace Ubik.Web.SSO
                 throw new ArgumentNullException(nameof(user));
             }
 
-
             user.ConcurrencyStamp = Guid.NewGuid().ToString();
             try
             {
                 using (var db = _dbContextScopeFactory.CreateWithTransaction(System.Data.IsolationLevel.ReadCommitted))
                 {
-
                     await _userRepo.UpdateAsync(user);
                     await db.SaveChangesAsync(cancellationToken);
                 }
@@ -226,12 +217,10 @@ namespace Ubik.Web.SSO
                 throw new ArgumentNullException(nameof(user));
             }
 
-
             try
             {
                 using (var db = _dbContextScopeFactory.CreateWithTransaction(System.Data.IsolationLevel.ReadCommitted))
                 {
-
                     await _userRepo.DeleteAsync(x => x.Id == user.Id);
                     await db.SaveChangesAsync(cancellationToken);
                 }
@@ -354,7 +343,7 @@ namespace Ubik.Web.SSO
         /// </summary>
         /// <param name="user">The user to retrieve the password hash for.</param>
         /// <param name="cancellationToken">The <see cref="CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
-        /// <returns>A <see cref="Task{TResult}"/> containing a flag indicating if the specified user has a password. If the 
+        /// <returns>A <see cref="Task{TResult}"/> containing a flag indicating if the specified user has a password. If the
         /// user has a password the returned value with be true, otherwise it will be false.</returns>
         public virtual Task<bool> HasPasswordAsync(UbikUser user, CancellationToken cancellationToken = default(CancellationToken))
         {
@@ -384,9 +373,7 @@ namespace Ubik.Web.SSO
 
             using (var db = _dbContextScopeFactory.CreateWithTransaction(System.Data.IsolationLevel.ReadCommitted))
             {
-
                 var roleEntity = await _roleRepo.GetAsync(x => x.Name.ToLower() == roleName.ToLower() && x.Users.Any(u => u.UserId == user.Id));
-
 
                 if (roleEntity == null)
                 {
@@ -422,8 +409,6 @@ namespace Ubik.Web.SSO
             {
                 await _userRepo.RemoveFromRole(user.Id, roleName, cancellationToken);
             }
-
-
         }
 
         /// <summary>
@@ -453,7 +438,7 @@ namespace Ubik.Web.SSO
         /// <param name="user">The user whose role membership should be checked.</param>
         /// <param name="roleName">The role to check membership of</param>
         /// <param name="cancellationToken">The <see cref="CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
-        /// <returns>A <see cref="Task{TResult}"/> containing a flag indicating if the specified user is a member of the given group. If the 
+        /// <returns>A <see cref="Task{TResult}"/> containing a flag indicating if the specified user is a member of the given group. If the
         /// user is a member of the group the returned value with be true, otherwise it will be false.</returns>
         public virtual async Task<bool> IsInRoleAsync(UbikUser user, string roleName, CancellationToken cancellationToken = default(CancellationToken))
         {
@@ -489,8 +474,6 @@ namespace Ubik.Web.SSO
             _disposed = true;
         }
 
-
-
         /// <summary>
         /// Get the claims associated with the specified <paramref name="user"/> as an asynchronous operation.
         /// </summary>
@@ -505,7 +488,10 @@ namespace Ubik.Web.SSO
                 throw new ArgumentNullException(nameof(user));
             }
 
-            return await UserClaims.Where(uc => uc.UserId.Equals(user.Id)).Select(c => new Claim(c.ClaimType, c.ClaimValue)).ToListAsync(cancellationToken);
+            using (var db = _dbContextScopeFactory.CreateReadOnly())
+            {
+                return (await _userRepo.GetUserClaims(user.Id, cancellationToken)).Select(x => new Claim(x.ClaimType, x.ClaimValue)).ToList();
+            }
         }
 
         /// <summary>
@@ -515,7 +501,7 @@ namespace Ubik.Web.SSO
         /// <param name="claim">The claim to add to the user.</param>
         /// <param name="cancellationToken">The <see cref="CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
         /// <returns>The <see cref="Task"/> that represents the asynchronous operation.</returns>
-        public virtual Task AddClaimsAsync(UbikUser user, IEnumerable<Claim> claims, CancellationToken cancellationToken = default(CancellationToken))
+        public virtual async Task AddClaimsAsync(UbikUser user, IEnumerable<Claim> claims, CancellationToken cancellationToken = default(CancellationToken))
         {
             ThrowIfDisposed();
             if (user == null)
@@ -526,11 +512,18 @@ namespace Ubik.Web.SSO
             {
                 throw new ArgumentNullException(nameof(claims));
             }
-            foreach (var claim in claims)
+
+            using (var db = _dbContextScopeFactory.CreateWithTransaction(System.Data.IsolationLevel.ReadCommitted))
             {
-                UserClaims.Add(new IdentityUserClaim<TKey> { UserId = user.Id, ClaimType = claim.Type, ClaimValue = claim.Value });
+                user = await _userRepo.GetAsync(x => x.Id == user.Id, x => x.Claims);
+                foreach (var claim in claims)
+                {
+                    user.Claims.Add(new IdentityUserClaim<int> { UserId = user.Id, ClaimType = claim.Type, ClaimValue = claim.Value });
+                }
+                await _userRepo.UpdateAsync(user);
+
+                await db.SaveChangesAsync(cancellationToken);
             }
-            return Task.FromResult(false);
         }
 
         /// <summary>
@@ -557,12 +550,21 @@ namespace Ubik.Web.SSO
                 throw new ArgumentNullException(nameof(newClaim));
             }
 
-            var matchedClaims = await UserClaims.Where(uc => uc.UserId.Equals(user.Id) && uc.ClaimValue == claim.Value && uc.ClaimType == claim.Type).ToListAsync(cancellationToken);
-            foreach (var matchedClaim in matchedClaims)
+            using (var db = _dbContextScopeFactory.CreateWithTransaction(System.Data.IsolationLevel.ReadCommitted))
             {
-                matchedClaim.ClaimValue = newClaim.Value;
-                matchedClaim.ClaimType = newClaim.Type;
+                user = await _userRepo.GetAsync(x => x.Id == user.Id, x => x.Claims);
+                var matchedClaims = user.Claims.Where(uc => uc.ClaimValue == claim.Value && uc.ClaimType == claim.Type);
+                foreach (var matchedClaim in matchedClaims)
+                {
+                    matchedClaim.ClaimValue = newClaim.Value;
+                    matchedClaim.ClaimType = newClaim.Type;
+                }
+                await _userRepo.UpdateAsync(user);
+
+                await db.SaveChangesAsync(cancellationToken);
             }
+
+            // var matchedClaims = await UserClaims.Where(uc => uc.UserId.Equals(user.Id) && uc.ClaimValue == claim.Value && uc.ClaimType == claim.Type).ToListAsync(cancellationToken);
         }
 
         /// <summary>
@@ -583,13 +585,21 @@ namespace Ubik.Web.SSO
             {
                 throw new ArgumentNullException(nameof(claims));
             }
-            foreach (var claim in claims)
+
+            using (var db = _dbContextScopeFactory.CreateWithTransaction(System.Data.IsolationLevel.ReadCommitted))
             {
-                var matchedClaims = await UserClaims.Where(uc => uc.UserId.Equals(user.Id) && uc.ClaimValue == claim.Value && uc.ClaimType == claim.Type).ToListAsync(cancellationToken);
-                foreach (var c in matchedClaims)
+                user = await _userRepo.GetAsync(x => x.Id == user.Id, x => x.Claims);
+                foreach (var claim in claims)
                 {
-                    UserClaims.Remove(c);
+                    var matchedClaims = user.Claims.Where(uc => uc.ClaimValue == claim.Value && uc.ClaimType == claim.Type);
+                    foreach (var c in matchedClaims)
+                    {
+                        user.Claims.Remove(c);
+                    }
                 }
+                await _userRepo.UpdateAsync(user);
+
+                await db.SaveChangesAsync(cancellationToken);
             }
         }
 
@@ -600,7 +610,7 @@ namespace Ubik.Web.SSO
         /// <param name="login">The login to add to the user.</param>
         /// <param name="cancellationToken">The <see cref="CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
         /// <returns>The <see cref="Task"/> that represents the asynchronous operation.</returns>
-        public virtual Task AddLoginAsync(UbikUser user, UserLoginInfo login,
+        public virtual async Task AddLoginAsync(UbikUser user, UserLoginInfo login,
             CancellationToken cancellationToken = default(CancellationToken))
         {
             cancellationToken.ThrowIfCancellationRequested();
@@ -613,16 +623,22 @@ namespace Ubik.Web.SSO
             {
                 throw new ArgumentNullException(nameof(login));
             }
-            var l = new IdentityUserLogin<TKey>
+
+            using (var db = _dbContextScopeFactory.CreateWithTransaction(System.Data.IsolationLevel.ReadCommitted))
             {
-                UserId = user.Id,
-                ProviderKey = login.ProviderKey,
-                LoginProvider = login.LoginProvider,
-                ProviderDisplayName = login.ProviderDisplayName
-            };
-            // TODO: fixup so we don't have to update both
-            UserLogins.Add(l);
-            return Task.FromResult(false);
+                user = await _userRepo.GetAsync(x => x.Id == user.Id, x => x.Logins);
+
+                user.Logins.Add(new IdentityUserLogin<int>
+                {
+                    UserId = user.Id,
+                    ProviderKey = login.ProviderKey,
+                    LoginProvider = login.LoginProvider,
+                    ProviderDisplayName = login.ProviderDisplayName
+                });
+                await _userRepo.UpdateAsync(user);
+
+                await db.SaveChangesAsync(cancellationToken);
+            }
         }
 
         /// <summary>
@@ -642,10 +658,16 @@ namespace Ubik.Web.SSO
                 throw new ArgumentNullException(nameof(user));
             }
             var userId = user.Id;
-            var entry = await UserLogins.SingleOrDefaultAsync(l => l.UserId.Equals(userId) && l.LoginProvider == loginProvider && l.ProviderKey == providerKey, cancellationToken);
-            if (entry != null)
+            using (var db = _dbContextScopeFactory.CreateWithTransaction(System.Data.IsolationLevel.ReadCommitted))
             {
-                UserLogins.Remove(entry);
+                user = await _userRepo.GetAsync(x => x.Id == userId, x => x.Logins);
+
+                var login = user.Logins.FirstOrDefault(x => x.LoginProvider == loginProvider);
+                if (login != null) user.Logins.Remove(login);
+
+                await _userRepo.UpdateAsync(user);
+
+                await db.SaveChangesAsync(cancellationToken);
             }
         }
 
@@ -666,8 +688,12 @@ namespace Ubik.Web.SSO
                 throw new ArgumentNullException(nameof(user));
             }
             var userId = user.Id;
-            return await UserLogins.Where(l => l.UserId.Equals(userId))
-                .Select(l => new UserLoginInfo(l.LoginProvider, l.ProviderKey, l.ProviderDisplayName)).ToListAsync(cancellationToken);
+            using (_dbContextScopeFactory.CreateReadOnly())
+            {
+                user = await _userRepo.GetAsync(x => x.Id == userId, x => x.Logins);
+
+                return user.Logins.Select(l => new UserLoginInfo(l.LoginProvider, l.ProviderKey, l.ProviderDisplayName)).ToList();
+            }
         }
 
         /// <summary>
@@ -684,13 +710,7 @@ namespace Ubik.Web.SSO
         {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
-            var userLogin = await
-                UserLogins.FirstOrDefaultAsync(l => l.LoginProvider == loginProvider && l.ProviderKey == providerKey, cancellationToken);
-            if (userLogin != null)
-            {
-                return await Users.FirstOrDefaultAsync(u => u.Id.Equals(userLogin.UserId), cancellationToken);
-            }
-            return null;
+            return await _userRepo.GetAsync(x => x.Logins.Any(l => l.LoginProvider == loginProvider && l.ProviderKey == providerKey));
         }
 
         /// <summary>
@@ -815,11 +835,14 @@ namespace Ubik.Web.SSO
         /// <returns>
         /// The task object containing the results of the asynchronous lookup operation, the user if any associated with the specified normalized email address.
         /// </returns>
-        public virtual Task<UbikUser> FindByEmailAsync(string normalizedEmail, CancellationToken cancellationToken = default(CancellationToken))
+        public virtual async Task<UbikUser> FindByEmailAsync(string normalizedEmail, CancellationToken cancellationToken = default(CancellationToken))
         {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
-            return Users.FirstOrDefaultAsync(u => u.NormalizedEmail == normalizedEmail, cancellationToken);
+            using (_dbContextScopeFactory.CreateReadOnly())
+            {
+                return await _userRepo.GetAsync(u => u.NormalizedEmail == normalizedEmail);
+            }
         }
 
         /// <summary>
@@ -1092,7 +1115,7 @@ namespace Ubik.Web.SSO
         /// <param name="user">The user whose two factor authentication enabled status should be set.</param>
         /// <param name="cancellationToken">The <see cref="CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
         /// <returns>
-        /// The <see cref="Task"/> that represents the asynchronous operation, containing a flag indicating whether the specified 
+        /// The <see cref="Task"/> that represents the asynchronous operation, containing a flag indicating whether the specified
         /// <paramref name="user "/>has two factor authentication enabled or not.
         /// </returns>
         public virtual Task<bool> GetTwoFactorEnabledAsync(UbikUser user, CancellationToken cancellationToken = default(CancellationToken))
@@ -1112,7 +1135,7 @@ namespace Ubik.Web.SSO
         /// <param name="claim">The claim whose users should be retrieved.</param>
         /// <param name="cancellationToken">The <see cref="CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
         /// <returns>
-        /// The <see cref="Task"/> contains a list of users, if any, that contain the specified claim. 
+        /// The <see cref="Task"/> contains a list of users, if any, that contain the specified claim.
         /// </returns>
         public async virtual Task<IList<UbikUser>> GetUsersForClaimAsync(Claim claim, CancellationToken cancellationToken = default(CancellationToken))
         {
@@ -1122,14 +1145,11 @@ namespace Ubik.Web.SSO
             {
                 throw new ArgumentNullException(nameof(claim));
             }
-
-            var query = from userclaims in UserClaims
-                        join user in Users on userclaims.UserId equals user.Id
-                        where userclaims.ClaimValue == claim.Value
-                        && userclaims.ClaimType == claim.Type
-                        select user;
-
-            return await query.ToListAsync(cancellationToken);
+            using (_dbContextScopeFactory.CreateReadOnly())
+            {
+                var data = await _userRepo.FindAllAsync(x => x.Claims.Any(c => c.ClaimType == claim.Type && c.ClaimValue == claim.Value), null);
+                return data;
+            }
         }
 
         /// <summary>
@@ -1138,7 +1158,7 @@ namespace Ubik.Web.SSO
         /// <param name="roleName">The role whose users should be retrieved.</param>
         /// <param name="cancellationToken">The <see cref="CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
         /// <returns>
-        /// The <see cref="Task"/> contains a list of users, if any, that are in the specified role. 
+        /// The <see cref="Task"/> contains a list of users, if any, that are in the specified role.
         /// </returns>
         public async virtual Task<IList<UbikUser>> GetUsersInRoleAsync(string roleName, CancellationToken cancellationToken = default(CancellationToken))
         {
@@ -1149,18 +1169,12 @@ namespace Ubik.Web.SSO
                 throw new ArgumentNullException(nameof(roleName));
             }
 
-            var role = await Roles.Where(x => x.Name.Equals(roleName)).FirstOrDefaultAsync(cancellationToken);
-
-            if (role != null)
+            using (_dbContextScopeFactory.CreateReadOnly())
             {
-                var query = from userrole in UserRoles
-                            join user in Users on userrole.UserId equals user.Id
-                            where userrole.RoleId.Equals(role.Id)
-                            select user;
-
-                return await query.ToListAsync(cancellationToken);
+                var role = await _roleRepo.GetAsync(x => x.Name == roleName);
+                var data = await _userRepo.FindAllAsync(x => x.Roles.Any(r => r.RoleId == role.Id), new[] { OrderByInfo<UbikUser>.SortAscending<UbikUser>(u => u.NormalizedUserName) });
+                return data;
             }
-            return new List<UbikUser>();
         }
 
         public Task<IEnumerable<Claim>> RoleRelatedClaims(int userId)

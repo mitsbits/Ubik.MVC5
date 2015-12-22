@@ -1,6 +1,4 @@
-﻿
-
-using Ubik.Infra.Contracts;
+﻿using Ubik.Infra.Contracts;
 
 namespace Ubik.Web.SSO.Contracts
 {

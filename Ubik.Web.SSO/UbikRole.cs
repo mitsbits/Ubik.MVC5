@@ -12,6 +12,7 @@ namespace Ubik.Web.SSO
     public class UbikRole : IdentityRole<int>
     {
         private readonly ICollection<ApplicationClaim> _roleClaims;
+
         /// <summary>
         /// Initializes a new instance of <see cref="IdentityRole"/>.
         /// </summary>

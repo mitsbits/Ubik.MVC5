@@ -1,12 +1,11 @@
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
-using System;
 using Microsoft.AspNet.Identity;
-
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using System.Data.Entity;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using System;
+using System.Data.Entity;
 using Ubik.Web.SSO.Stores;
 
 namespace Ubik.Web.SSO
@@ -47,12 +46,12 @@ namespace Ubik.Web.SSO
             Type roleStoreType;
             if (keyType != null)
             {
-                userStoreType = typeof(UserStore<,,,>).MakeGenericType(userType, roleType, contextType, keyType);
+                userStoreType = typeof(UserStore).MakeGenericType(userType, roleType, contextType, keyType);
                 roleStoreType = typeof(RoleStore).MakeGenericType(roleType, contextType, keyType);
             }
             else
             {
-                userStoreType = typeof(UserStore<,,>).MakeGenericType(userType, roleType, contextType);
+                userStoreType = typeof(UserStore).MakeGenericType(userType, roleType, contextType);
                 roleStoreType = typeof(RoleStore).MakeGenericType(roleType, contextType);
             }
 
