@@ -30,6 +30,9 @@ using Ubik.Web.Membership.Repositories;
 using Ubik.Web.Membership.Services;
 using Ubik.Web.Membership.Stores;
 using Ubik.Web.Membership.ViewModels;
+using Ubik.Web.SSO;
+using Ubik.Web.SSO.Contracts;
+using Ubik.Web.SSO.Stores;
 
 namespace Ubik.Web.Client.Backoffice
 {
@@ -90,8 +93,8 @@ namespace Ubik.Web.Client.Backoffice
         {
             services.AddScoped<AuthDbContext, AuthDbContext>();
 
-            services.AddScoped<IUserStore<ApplicationUser>, ApplicationUserStore>();
-            //services.AddScoped<IRoleStore<UbikRole, int>, RoleStore>();
+            services.AddScoped<IUserStore<UbikUser>, UserStore>();
+            services.AddScoped<IRoleStore<UbikRole>, RoleStore>();
             services.AddScoped<ApplicationUserManager, ApplicationUserManager>();
             services.AddScoped<ApplicationRoleManager, ApplicationRoleManager>();
             //TODO: IDataProtectionProvider

@@ -23,7 +23,8 @@
     "Microsoft.AspNet.Diagnostics": "1.0.0-rc1-final",
     "Microsoft.AspNet.Diagnostics.Entity": "7.0.0-rc1-final",
     "Ubik.Web.Client.Backoffice": "1.0.0-*",
-    "Ubik.Web.Basis": "1.0.0-*"
+    "Ubik.Web.Basis": "1.0.0-*",
+    "Ubik.Web.SSO": "1.0.0-*"
   },
 
   "commands": {

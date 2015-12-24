@@ -21,6 +21,6 @@
   "dependencies": {
     "Mehdime.Entity": "1.0.0",
     "Ubik.Web.BuildingBlocks": "1.0.0-*",
-    "Ubik.Web.Membership": "1.0.0-*"
+    "Ubik.Web.SSO": "1.0.0-*"
   }
 }

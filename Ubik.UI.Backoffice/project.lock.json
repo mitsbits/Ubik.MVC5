@@ -589,27 +589,6 @@
           "lib/net451/Microsoft.AspNet.Identity.dll": {}
         }
       },
-      "Microsoft.AspNet.Identity.EntityFramework/3.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "EntityFramework.Relational": "7.0.0-rc1-final",
-          "Microsoft.AspNet.Identity": "3.0.0-rc1-final"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Core",
-          "System.Runtime",
-          "System.Threading.Tasks"
-        ],
-        "compile": {
-          "lib/net451/Microsoft.AspNet.Identity.EntityFramework.dll": {}
-        },
-        "runtime": {
-          "lib/net451/Microsoft.AspNet.Identity.EntityFramework.dll": {}
-        }
-      },
       "Microsoft.AspNet.IISPlatformHandler/1.0.0-rc1-final": {
         "type": "package",
         "dependencies": {
@@ -1501,10 +1480,10 @@
           "lib/net451/Microsoft.Extensions.Configuration.UserSecrets.dll": {}
         }
       },
-      "Microsoft.Extensions.DependencyInjection/1.0.0-rc1-final": {
+      "Microsoft.Extensions.DependencyInjection/1.0.0-rc2-15888": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0-rc1-final"
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0-rc2-15888"
         },
         "frameworkAssemblies": [
           "Microsoft.CSharp",
@@ -1519,7 +1498,7 @@
           "lib/net451/Microsoft.Extensions.DependencyInjection.dll": {}
         }
       },
-      "Microsoft.Extensions.DependencyInjection.Abstractions/1.0.0-rc1-final": {
+      "Microsoft.Extensions.DependencyInjection.Abstractions/1.0.0-rc2-15888": {
         "type": "package",
         "frameworkAssemblies": [
           "Microsoft.CSharp",
@@ -2095,8 +2074,7 @@
           "Ubik.Cache": "1.0.0",
           "Ubik.Infra": "1.0.0",
           "Ubik.Web.Basis": "1.0.0",
-          "Ubik.Web.Components.AntiCorruption": "1.0.0",
-          "Ubik.Web.Membership": "1.0.0"
+          "Ubik.Web.Components.AntiCorruption": "1.0.0"
         }
       },
       "Ubik.Web.Components/1.0.0": {
@@ -2115,7 +2093,7 @@
           "Ubik.Web.BuildingBlocks": "1.0.0",
           "Ubik.Web.Components": "1.0.0",
           "Ubik.Web.EF": "1.0.0",
-          "Ubik.Web.Membership": "1.0.0"
+          "Ubik.Web.SSO": "1.0.0"
         },
         "frameworkAssemblies": [
           "System.Data"
@@ -2132,13 +2110,15 @@
           "Ubik.Web.Components": "1.0.0"
         }
       },
-      "Ubik.Web.Membership/1.0.0": {
+      "Ubik.Web.SSO/1.0.0": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.6",
         "dependencies": {
-          "Microsoft.AspNet.Identity.EntityFramework": "3.0.0-rc1-final",
-          "Ubik.Infra": "1.0.0",
-          "Ubik.Web.BuildingBlocks": "1.0.0"
+          "EntityFramework": "6.1.3",
+          "Microsoft.AspNet.Identity": "3.0.0-rc1-final",
+          "Microsoft.Extensions.DependencyInjection": "1.0.0-rc2-15888",
+          "Ubik.EF": "1.0.0",
+          "Ubik.Infra": "1.0.0"
         },
         "frameworkAssemblies": [
           "System.Data"
@@ -2730,27 +2710,6 @@
         },
         "runtime": {
           "lib/net451/Microsoft.AspNet.Identity.dll": {}
-        }
-      },
-      "Microsoft.AspNet.Identity.EntityFramework/3.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "EntityFramework.Relational": "7.0.0-rc1-final",
-          "Microsoft.AspNet.Identity": "3.0.0-rc1-final"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Core",
-          "System.Runtime",
-          "System.Threading.Tasks"
-        ],
-        "compile": {
-          "lib/net451/Microsoft.AspNet.Identity.EntityFramework.dll": {}
-        },
-        "runtime": {
-          "lib/net451/Microsoft.AspNet.Identity.EntityFramework.dll": {}
         }
       },
       "Microsoft.AspNet.IISPlatformHandler/1.0.0-rc1-final": {
@@ -3647,10 +3606,10 @@
           "lib/net451/Microsoft.Extensions.Configuration.UserSecrets.dll": {}
         }
       },
-      "Microsoft.Extensions.DependencyInjection/1.0.0-rc1-final": {
+      "Microsoft.Extensions.DependencyInjection/1.0.0-rc2-15888": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0-rc1-final"
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0-rc2-15888"
         },
         "frameworkAssemblies": [
           "Microsoft.CSharp",
@@ -3665,7 +3624,7 @@
           "lib/net451/Microsoft.Extensions.DependencyInjection.dll": {}
         }
       },
-      "Microsoft.Extensions.DependencyInjection.Abstractions/1.0.0-rc1-final": {
+      "Microsoft.Extensions.DependencyInjection.Abstractions/1.0.0-rc2-15888": {
         "type": "package",
         "frameworkAssemblies": [
           "Microsoft.CSharp",
@@ -4241,8 +4200,7 @@
           "Ubik.Cache": "1.0.0",
           "Ubik.Infra": "1.0.0",
           "Ubik.Web.Basis": "1.0.0",
-          "Ubik.Web.Components.AntiCorruption": "1.0.0",
-          "Ubik.Web.Membership": "1.0.0"
+          "Ubik.Web.Components.AntiCorruption": "1.0.0"
         }
       },
       "Ubik.Web.Components/1.0.0": {
@@ -4261,7 +4219,7 @@
           "Ubik.Web.BuildingBlocks": "1.0.0",
           "Ubik.Web.Components": "1.0.0",
           "Ubik.Web.EF": "1.0.0",
-          "Ubik.Web.Membership": "1.0.0"
+          "Ubik.Web.SSO": "1.0.0"
         },
         "frameworkAssemblies": [
           "System.Data"
@@ -4278,13 +4236,15 @@
           "Ubik.Web.Components": "1.0.0"
         }
       },
-      "Ubik.Web.Membership/1.0.0": {
+      "Ubik.Web.SSO/1.0.0": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.6",
         "dependencies": {
-          "Microsoft.AspNet.Identity.EntityFramework": "3.0.0-rc1-final",
-          "Ubik.Infra": "1.0.0",
-          "Ubik.Web.BuildingBlocks": "1.0.0"
+          "EntityFramework": "6.1.3",
+          "Microsoft.AspNet.Identity": "3.0.0-rc1-final",
+          "Microsoft.Extensions.DependencyInjection": "1.0.0-rc2-15888",
+          "Ubik.EF": "1.0.0",
+          "Ubik.Infra": "1.0.0"
         },
         "frameworkAssemblies": [
           "System.Data"
@@ -4876,27 +4836,6 @@
         },
         "runtime": {
           "lib/net451/Microsoft.AspNet.Identity.dll": {}
-        }
-      },
-      "Microsoft.AspNet.Identity.EntityFramework/3.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "EntityFramework.Relational": "7.0.0-rc1-final",
-          "Microsoft.AspNet.Identity": "3.0.0-rc1-final"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Core",
-          "System.Runtime",
-          "System.Threading.Tasks"
-        ],
-        "compile": {
-          "lib/net451/Microsoft.AspNet.Identity.EntityFramework.dll": {}
-        },
-        "runtime": {
-          "lib/net451/Microsoft.AspNet.Identity.EntityFramework.dll": {}
         }
       },
       "Microsoft.AspNet.IISPlatformHandler/1.0.0-rc1-final": {
@@ -5793,10 +5732,10 @@
           "lib/net451/Microsoft.Extensions.Configuration.UserSecrets.dll": {}
         }
       },
-      "Microsoft.Extensions.DependencyInjection/1.0.0-rc1-final": {
+      "Microsoft.Extensions.DependencyInjection/1.0.0-rc2-15888": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0-rc1-final"
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0-rc2-15888"
         },
         "frameworkAssemblies": [
           "Microsoft.CSharp",
@@ -5811,7 +5750,7 @@
           "lib/net451/Microsoft.Extensions.DependencyInjection.dll": {}
         }
       },
-      "Microsoft.Extensions.DependencyInjection.Abstractions/1.0.0-rc1-final": {
+      "Microsoft.Extensions.DependencyInjection.Abstractions/1.0.0-rc2-15888": {
         "type": "package",
         "frameworkAssemblies": [
           "Microsoft.CSharp",
@@ -6387,8 +6326,7 @@
           "Ubik.Cache": "1.0.0",
           "Ubik.Infra": "1.0.0",
           "Ubik.Web.Basis": "1.0.0",
-          "Ubik.Web.Components.AntiCorruption": "1.0.0",
-          "Ubik.Web.Membership": "1.0.0"
+          "Ubik.Web.Components.AntiCorruption": "1.0.0"
         }
       },
       "Ubik.Web.Components/1.0.0": {
@@ -6407,7 +6345,7 @@
           "Ubik.Web.BuildingBlocks": "1.0.0",
           "Ubik.Web.Components": "1.0.0",
           "Ubik.Web.EF": "1.0.0",
-          "Ubik.Web.Membership": "1.0.0"
+          "Ubik.Web.SSO": "1.0.0"
         },
         "frameworkAssemblies": [
           "System.Data"
@@ -6424,13 +6362,15 @@
           "Ubik.Web.Components": "1.0.0"
         }
       },
-      "Ubik.Web.Membership/1.0.0": {
+      "Ubik.Web.SSO/1.0.0": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.6",
         "dependencies": {
-          "Microsoft.AspNet.Identity.EntityFramework": "3.0.0-rc1-final",
-          "Ubik.Infra": "1.0.0",
-          "Ubik.Web.BuildingBlocks": "1.0.0"
+          "EntityFramework": "6.1.3",
+          "Microsoft.AspNet.Identity": "3.0.0-rc1-final",
+          "Microsoft.Extensions.DependencyInjection": "1.0.0-rc2-15888",
+          "Ubik.EF": "1.0.0",
+          "Ubik.Infra": "1.0.0"
         },
         "frameworkAssemblies": [
           "System.Data"
@@ -6475,9 +6415,9 @@
       "type": "project",
       "path": "../wrap/Ubik.Web.EF/project.json"
     },
-    "Ubik.Web.Membership/1.0.0": {
+    "Ubik.Web.SSO/1.0.0": {
       "type": "project",
-      "path": "../Ubik.Web.Membership/project.json"
+      "path": "../Ubik.Web.SSO/project.json"
     },
     "elmah/1.2.2": {
       "type": "package",
@@ -6912,20 +6852,6 @@
         "Microsoft.AspNet.Identity.3.0.0-rc1-final.nupkg",
         "Microsoft.AspNet.Identity.3.0.0-rc1-final.nupkg.sha512",
         "Microsoft.AspNet.Identity.nuspec"
-      ]
-    },
-    "Microsoft.AspNet.Identity.EntityFramework/3.0.0-rc1-final": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "XayUdpI6mRgL4e9kowTxlYURvDGNj7FBhqbOn6uxvQwwD7gltYzKL3T07nCeSzxR5m2sJ+IvrJCMPihKrtuR5w==",
-      "files": [
-        "lib/dotnet5.4/Microsoft.AspNet.Identity.EntityFramework.dll",
-        "lib/dotnet5.4/Microsoft.AspNet.Identity.EntityFramework.xml",
-        "lib/net451/Microsoft.AspNet.Identity.EntityFramework.dll",
-        "lib/net451/Microsoft.AspNet.Identity.EntityFramework.xml",
-        "Microsoft.AspNet.Identity.EntityFramework.3.0.0-rc1-final.nupkg",
-        "Microsoft.AspNet.Identity.EntityFramework.3.0.0-rc1-final.nupkg.sha512",
-        "Microsoft.AspNet.Identity.EntityFramework.nuspec"
       ]
     },
     "Microsoft.AspNet.IISPlatformHandler/1.0.0-rc1-final": {
@@ -7637,10 +7563,10 @@
         "Microsoft.Extensions.Configuration.UserSecrets.nuspec"
       ]
     },
-    "Microsoft.Extensions.DependencyInjection/1.0.0-rc1-final": {
+    "Microsoft.Extensions.DependencyInjection/1.0.0-rc2-15888": {
       "type": "package",
       "serviceable": true,
-      "sha512": "S/+s3fq85j21H5nYOvh1fIt1arl8F5lZ7Ryiw/qend83yHQwIQbBs+dip9FhqiPmAn6Dz3UhW0likQQurfEsLQ==",
+      "sha512": "ImlMb8+RR4iUnKSx+bOsoWPQvKjWzii5Sm8EAFgFpO13QJ1xmTrgjb9MIDhfRUJdkCdasy9BA8jJ1lTB2BrAhA==",
       "files": [
         "lib/dotnet5.4/Microsoft.Extensions.DependencyInjection.dll",
         "lib/dotnet5.4/Microsoft.Extensions.DependencyInjection.xml",
@@ -7648,15 +7574,15 @@
         "lib/net451/Microsoft.Extensions.DependencyInjection.xml",
         "lib/netcore50/Microsoft.Extensions.DependencyInjection.dll",
         "lib/netcore50/Microsoft.Extensions.DependencyInjection.xml",
-        "Microsoft.Extensions.DependencyInjection.1.0.0-rc1-final.nupkg",
-        "Microsoft.Extensions.DependencyInjection.1.0.0-rc1-final.nupkg.sha512",
+        "Microsoft.Extensions.DependencyInjection.1.0.0-rc2-15888.nupkg",
+        "Microsoft.Extensions.DependencyInjection.1.0.0-rc2-15888.nupkg.sha512",
         "Microsoft.Extensions.DependencyInjection.nuspec"
       ]
     },
-    "Microsoft.Extensions.DependencyInjection.Abstractions/1.0.0-rc1-final": {
+    "Microsoft.Extensions.DependencyInjection.Abstractions/1.0.0-rc2-15888": {
       "type": "package",
       "serviceable": true,
-      "sha512": "MUKexXAsRZ55C7YZ26ShePZgBeW+6FbasxeIVmZ/BZIgiG4uw6yPOdfl9WvTaUL9SFK2sEPcYLatWmLfTpsOAA==",
+      "sha512": "wgDqdX18VsGPxfgsHD1DpMl1cbtL4E/GKY7DCDd0T5p6HeKtakBzdecSepzYacIYaGmNuvUkDn0eE75+nTGZDA==",
       "files": [
         "lib/dotnet5.4/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
         "lib/dotnet5.4/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
@@ -7664,8 +7590,8 @@
         "lib/net451/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
         "lib/netcore50/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
         "lib/netcore50/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
-        "Microsoft.Extensions.DependencyInjection.Abstractions.1.0.0-rc1-final.nupkg",
-        "Microsoft.Extensions.DependencyInjection.Abstractions.1.0.0-rc1-final.nupkg.sha512",
+        "Microsoft.Extensions.DependencyInjection.Abstractions.1.0.0-rc2-15888.nupkg",
+        "Microsoft.Extensions.DependencyInjection.Abstractions.1.0.0-rc2-15888.nupkg.sha512",
         "Microsoft.Extensions.DependencyInjection.Abstractions.nuspec"
       ]
     },
@@ -8740,7 +8666,8 @@
       "Microsoft.AspNet.Diagnostics >= 1.0.0-rc1-final",
       "Microsoft.AspNet.Diagnostics.Entity >= 7.0.0-rc1-final",
       "Ubik.Web.Client.Backoffice >= 1.0.0-*",
-      "Ubik.Web.Basis >= 1.0.0-*"
+      "Ubik.Web.Basis >= 1.0.0-*",
+      "Ubik.Web.SSO >= 1.0.0-*"
     ],
     "DNX,Version=v4.6": []
   }

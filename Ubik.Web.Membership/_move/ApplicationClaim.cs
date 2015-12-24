@@ -1,9 +1,10 @@
-﻿using System.Security.Claims;
-using Ubik.Web.SSO.Contracts;
+﻿using System;
+using System.Security.Claims;
 
 namespace Ubik.Web.SSO
 {
-    public class ApplicationClaim : IApplicationClaim
+    [Obsolete("use IdentityRoleClaim instead", true)]
+    public class ApplicationClaim //: IApplicationClaim
     {
         public virtual UbikRole Role { get; set; }
 

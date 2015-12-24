@@ -5,8 +5,7 @@
     "Microsoft.AspNet.Mvc": "6.0.0-rc1-final",
     "Microsoft.AspNet.Mvc.ViewFeatures": "6.0.0-rc1-final",
     "Ubik.Web.Basis": "1.0.0-*",
-    "Ubik.Web.Components.AntiCorruption": "1.0.0-*",
-    "Ubik.Web.Membership": "1.0.0-*"
+    "Ubik.Web.Components.AntiCorruption": "1.0.0-*"
   },
   "description": "Ubik.Web.Client.Backoffice Class Library",
   "frameworks": {

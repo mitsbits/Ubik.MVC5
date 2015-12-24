@@ -1,38 +1,23 @@
-// Copyright (c) .NET Foundation. All rights reserved.
-// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
-
 using Microsoft.AspNet.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
 using System.Data.Entity;
+using Ubik.Web.SSO.Contracts;
 using Ubik.Web.SSO.Stores;
 
 namespace Ubik.Web.SSO
 {
     public static class IdentityEntityFrameworkBuilderExtensions
     {
-        /// <summary>
-        /// Adds an Entity Framework implementation of identity information stores.
-        /// </summary>
-        /// <typeparam name="TContext">The Entity Framework database context to use.</typeparam>
-        /// <param name="builder">The <see cref="IdentityBuilder"/> instance this method extends.</param>
-        /// <returns>The <see cref="IdentityBuilder"/> instance this method extends.</returns>
-        public static IdentityBuilder AddEntityFrameworkStores<TContext>(this IdentityBuilder builder)
-            where TContext : DbContext
+
+
+        public static IdentityBuilder AddUbikStores(this IdentityBuilder builder)
         {
-            builder.Services.TryAdd(GetDefaultServices(builder.UserType, builder.RoleType, typeof(TContext)));
-            return builder;
+            return builder.AddEntityFrameworkStores<AuthDbContext, int>();
         }
 
-        /// <summary>
-        /// Adds an Entity Framework implementation of identity information stores.
-        /// </summary>
-        /// <typeparam name="TContext">The Entity Framework database context to use.</typeparam>
-        /// <typeparam name="TKey">The type of the primary key used for the users and roles.</typeparam>
-        /// <param name="builder">The <see cref="IdentityBuilder"/> instance this method extends.</param>
-        /// <returns>The <see cref="IdentityBuilder"/> instance this method extends.</returns>
-        public static IdentityBuilder AddEntityFrameworkStores<TContext, TKey>(this IdentityBuilder builder)
+        private static IdentityBuilder AddEntityFrameworkStores<TContext, TKey>(this IdentityBuilder builder)
             where TContext : DbContext
             where TKey : IEquatable<TKey>
         {
@@ -62,7 +47,18 @@ namespace Ubik.Web.SSO
             services.AddScoped(
                 typeof(IRoleStore<>).MakeGenericType(roleType),
                 roleStoreType);
+            services.AddScoped(
+                typeof(IUserStoreWithCustomClaims<int>), userStoreType);
+            services.AddScoped(
+                typeof(IRoleStoreWithCustomClaims), roleStoreType);
             return services;
+        }
+
+        private static IdentityBuilder AddEntityFrameworkStores<TContext>(this IdentityBuilder builder)
+            where TContext : DbContext
+        {
+            builder.Services.TryAdd(GetDefaultServices(builder.UserType, builder.RoleType, typeof(TContext)));
+            return builder;
         }
     }
 }

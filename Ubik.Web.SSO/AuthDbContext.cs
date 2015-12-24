@@ -13,7 +13,7 @@ namespace Ubik.Web.SSO
     /// Base class for the Entity Framework database context used for identity.
     /// </summary>
     /// <typeparam name="TUser">The type of the user objects.</typeparam>
-    public class IdentityDbContext<TUser> : IdentityDbContext<TUser, UbikRole, int> where TUser : UbikUser { }
+    public abstract class IdentityDbContext<TUser> : IdentityDbContext<TUser, UbikRole, int> where TUser : UbikUser { }
 
     /// <summary>
     /// Base class for the Entity Framework database context used for identity.
@@ -21,7 +21,7 @@ namespace Ubik.Web.SSO
     /// <typeparam name="TUser">The type of user objects.</typeparam>
     /// <typeparam name="TRole">The type of role objects.</typeparam>
     /// <typeparam name="TKey">The type of the primary key for users and roles.</typeparam>
-    public class IdentityDbContext<TUser, TRole, TKey> : DbContext
+    public abstract class IdentityDbContext<TUser, TRole, TKey> : DbContext
         where TUser : IdentityUser<TKey>
         where TRole : IdentityRole<TKey>
         where TKey : IEquatable<TKey>
@@ -70,7 +70,7 @@ namespace Ubik.Web.SSO
         {
             builder.Configurations.Add(new UserConfig());
             builder.Configurations.Add(new RoleConfig());
-            builder.Configurations.Add(new ApplicationClaimConfig());
+            //builder.Configurations.Add(new ApplicationClaimConfig());
             builder.Configurations.Add(new IdentityUserClaimConfig());
             builder.Configurations.Add(new IdentityRoleClaimConfig());
             builder.Configurations.Add(new IdentityUserRoleConfig());
@@ -109,17 +109,17 @@ namespace Ubik.Web.SSO
             }
         }
 
-        internal class ApplicationClaimConfig : EntityTypeConfiguration<ApplicationClaim>
-        {
-            public ApplicationClaimConfig()
-            {
-                ToTable("UbikRoleClaims");
-                HasKey(x => new { x.ApplicationRoleId, x.ClaimType, x.Value });
-                HasRequired(x => x.Role)
-                    .WithMany(r => r.RoleClaims)
-                    .HasForeignKey(x => x.ApplicationRoleId);
-            }
-        }
+        //internal class ApplicationClaimConfig : EntityTypeConfiguration<ApplicationClaim>
+        //{
+        //    public ApplicationClaimConfig()
+        //    {
+        //        ToTable("UbikRoleClaims");
+        //        HasKey(x => new { x.ApplicationRoleId, x.ClaimType, x.Value });
+        //        HasRequired(x => x.Role)
+        //            .WithMany(r => r.RoleClaims)
+        //            .HasForeignKey(x => x.ApplicationRoleId);
+        //    }
+        //}
 
         internal class IdentityUserClaimConfig : EntityTypeConfiguration<IdentityUserClaim<TKey>>
         {

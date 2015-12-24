@@ -17,68 +17,6 @@
           "lib/net45/EntityFramework.SqlServer.dll": {}
         }
       },
-      "EntityFramework.Core/7.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "Ix-Async": "1.2.5",
-          "Microsoft.Extensions.Caching.Abstractions": "1.0.0-rc1-final",
-          "Microsoft.Extensions.Caching.Memory": "1.0.0-rc1-final",
-          "Microsoft.Extensions.DependencyInjection": "1.0.0-rc1-final",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0-rc1-final",
-          "Microsoft.Extensions.Logging": "1.0.0-rc1-final",
-          "Microsoft.Extensions.Logging.Abstractions": "1.0.0-rc1-final",
-          "Microsoft.Extensions.OptionsModel": "1.0.0-rc1-final",
-          "Remotion.Linq": "2.0.1",
-          "System.Collections.Immutable": "1.1.36"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.ComponentModel.DataAnnotations",
-          "System.Core"
-        ],
-        "compile": {
-          "lib/net451/EntityFramework.Core.dll": {}
-        },
-        "runtime": {
-          "lib/net451/EntityFramework.Core.dll": {}
-        }
-      },
-      "EntityFramework.Relational/7.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "EntityFramework.Core": "7.0.0-rc1-final",
-          "System.Diagnostics.DiagnosticSource": "4.0.0-beta-23516"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Core",
-          "System.Data",
-          "System.Transactions"
-        ],
-        "compile": {
-          "lib/net451/EntityFramework.Relational.dll": {}
-        },
-        "runtime": {
-          "lib/net451/EntityFramework.Relational.dll": {}
-        }
-      },
-      "Ix-Async/1.2.5": {
-        "type": "package",
-        "frameworkAssemblies": [
-          "System",
-          "System.Core"
-        ],
-        "compile": {
-          "lib/net45/System.Interactive.Async.dll": {}
-        },
-        "runtime": {
-          "lib/net45/System.Interactive.Async.dll": {}
-        }
-      },
       "Mehdime.Entity/1.0.0": {
         "type": "package",
         "dependencies": {
@@ -459,27 +397,6 @@
         },
         "runtime": {
           "lib/net451/Microsoft.AspNet.Identity.dll": {}
-        }
-      },
-      "Microsoft.AspNet.Identity.EntityFramework/3.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "EntityFramework.Relational": "7.0.0-rc1-final",
-          "Microsoft.AspNet.Identity": "3.0.0-rc1-final"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Core",
-          "System.Runtime",
-          "System.Threading.Tasks"
-        ],
-        "compile": {
-          "lib/net451/Microsoft.AspNet.Identity.EntityFramework.dll": {}
-        },
-        "runtime": {
-          "lib/net451/Microsoft.AspNet.Identity.EntityFramework.dll": {}
         }
       },
       "Microsoft.AspNet.JsonPatch/1.0.0-rc1-final": {
@@ -1052,10 +969,10 @@
           "lib/net451/Microsoft.Extensions.Configuration.Binder.dll": {}
         }
       },
-      "Microsoft.Extensions.DependencyInjection/1.0.0-rc1-final": {
+      "Microsoft.Extensions.DependencyInjection/1.0.0-rc2-15888": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0-rc1-final"
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0-rc2-15888"
         },
         "frameworkAssemblies": [
           "Microsoft.CSharp",
@@ -1070,7 +987,7 @@
           "lib/net451/Microsoft.Extensions.DependencyInjection.dll": {}
         }
       },
-      "Microsoft.Extensions.DependencyInjection.Abstractions/1.0.0-rc1-final": {
+      "Microsoft.Extensions.DependencyInjection.Abstractions/1.0.0-rc2-15888": {
         "type": "package",
         "frameworkAssemblies": [
           "Microsoft.CSharp",
@@ -1134,26 +1051,6 @@
         },
         "runtime": {
           "lib/net451/Microsoft.Extensions.Localization.Abstractions.dll": {}
-        }
-      },
-      "Microsoft.Extensions.Logging/1.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0-rc1-final",
-          "Microsoft.Extensions.Logging.Abstractions": "1.0.0-rc1-final"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Collections.Concurrent",
-          "System.Core"
-        ],
-        "compile": {
-          "lib/net451/Microsoft.Extensions.Logging.dll": {}
-        },
-        "runtime": {
-          "lib/net451/Microsoft.Extensions.Logging.dll": {}
         }
       },
       "Microsoft.Extensions.Logging.Abstractions/1.0.0-rc1-final": {
@@ -1293,15 +1190,6 @@
         },
         "runtime": {
           "lib/net45/Newtonsoft.Json.dll": {}
-        }
-      },
-      "Remotion.Linq/2.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net45/Remotion.Linq.dll": {}
-        },
-        "runtime": {
-          "lib/net45/Remotion.Linq.dll": {}
         }
       },
       "System.Collections/4.0.0": {
@@ -1558,13 +1446,15 @@
           "Ubik.Web.Components": "1.0.0"
         }
       },
-      "Ubik.Web.Membership/1.0.0": {
+      "Ubik.Web.SSO/1.0.0": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.6",
         "dependencies": {
-          "Microsoft.AspNet.Identity.EntityFramework": "3.0.0-rc1-final",
-          "Ubik.Infra": "1.0.0",
-          "Ubik.Web.BuildingBlocks": "1.0.0"
+          "EntityFramework": "6.1.3",
+          "Microsoft.AspNet.Identity": "3.0.0-rc1-final",
+          "Microsoft.Extensions.DependencyInjection": "1.0.0-rc2-15888",
+          "Ubik.EF": "1.0.0",
+          "Ubik.Infra": "1.0.0"
         },
         "frameworkAssemblies": [
           "System.Data"
@@ -1586,68 +1476,6 @@
           "lib/net45/EntityFramework.SqlServer.dll": {}
         }
       },
-      "EntityFramework.Core/7.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "Ix-Async": "1.2.5",
-          "Microsoft.Extensions.Caching.Abstractions": "1.0.0-rc1-final",
-          "Microsoft.Extensions.Caching.Memory": "1.0.0-rc1-final",
-          "Microsoft.Extensions.DependencyInjection": "1.0.0-rc1-final",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0-rc1-final",
-          "Microsoft.Extensions.Logging": "1.0.0-rc1-final",
-          "Microsoft.Extensions.Logging.Abstractions": "1.0.0-rc1-final",
-          "Microsoft.Extensions.OptionsModel": "1.0.0-rc1-final",
-          "Remotion.Linq": "2.0.1",
-          "System.Collections.Immutable": "1.1.36"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.ComponentModel.DataAnnotations",
-          "System.Core"
-        ],
-        "compile": {
-          "lib/net451/EntityFramework.Core.dll": {}
-        },
-        "runtime": {
-          "lib/net451/EntityFramework.Core.dll": {}
-        }
-      },
-      "EntityFramework.Relational/7.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "EntityFramework.Core": "7.0.0-rc1-final",
-          "System.Diagnostics.DiagnosticSource": "4.0.0-beta-23516"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Core",
-          "System.Data",
-          "System.Transactions"
-        ],
-        "compile": {
-          "lib/net451/EntityFramework.Relational.dll": {}
-        },
-        "runtime": {
-          "lib/net451/EntityFramework.Relational.dll": {}
-        }
-      },
-      "Ix-Async/1.2.5": {
-        "type": "package",
-        "frameworkAssemblies": [
-          "System",
-          "System.Core"
-        ],
-        "compile": {
-          "lib/net45/System.Interactive.Async.dll": {}
-        },
-        "runtime": {
-          "lib/net45/System.Interactive.Async.dll": {}
-        }
-      },
       "Mehdime.Entity/1.0.0": {
         "type": "package",
         "dependencies": {
@@ -2028,27 +1856,6 @@
         },
         "runtime": {
           "lib/net451/Microsoft.AspNet.Identity.dll": {}
-        }
-      },
-      "Microsoft.AspNet.Identity.EntityFramework/3.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "EntityFramework.Relational": "7.0.0-rc1-final",
-          "Microsoft.AspNet.Identity": "3.0.0-rc1-final"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Core",
-          "System.Runtime",
-          "System.Threading.Tasks"
-        ],
-        "compile": {
-          "lib/net451/Microsoft.AspNet.Identity.EntityFramework.dll": {}
-        },
-        "runtime": {
-          "lib/net451/Microsoft.AspNet.Identity.EntityFramework.dll": {}
         }
       },
       "Microsoft.AspNet.JsonPatch/1.0.0-rc1-final": {
@@ -2621,10 +2428,10 @@
           "lib/net451/Microsoft.Extensions.Configuration.Binder.dll": {}
         }
       },
-      "Microsoft.Extensions.DependencyInjection/1.0.0-rc1-final": {
+      "Microsoft.Extensions.DependencyInjection/1.0.0-rc2-15888": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0-rc1-final"
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0-rc2-15888"
         },
         "frameworkAssemblies": [
           "Microsoft.CSharp",
@@ -2639,7 +2446,7 @@
           "lib/net451/Microsoft.Extensions.DependencyInjection.dll": {}
         }
       },
-      "Microsoft.Extensions.DependencyInjection.Abstractions/1.0.0-rc1-final": {
+      "Microsoft.Extensions.DependencyInjection.Abstractions/1.0.0-rc2-15888": {
         "type": "package",
         "frameworkAssemblies": [
           "Microsoft.CSharp",
@@ -2703,26 +2510,6 @@
         },
         "runtime": {
           "lib/net451/Microsoft.Extensions.Localization.Abstractions.dll": {}
-        }
-      },
-      "Microsoft.Extensions.Logging/1.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0-rc1-final",
-          "Microsoft.Extensions.Logging.Abstractions": "1.0.0-rc1-final"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Collections.Concurrent",
-          "System.Core"
-        ],
-        "compile": {
-          "lib/net451/Microsoft.Extensions.Logging.dll": {}
-        },
-        "runtime": {
-          "lib/net451/Microsoft.Extensions.Logging.dll": {}
         }
       },
       "Microsoft.Extensions.Logging.Abstractions/1.0.0-rc1-final": {
@@ -2862,15 +2649,6 @@
         },
         "runtime": {
           "lib/net45/Newtonsoft.Json.dll": {}
-        }
-      },
-      "Remotion.Linq/2.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net45/Remotion.Linq.dll": {}
-        },
-        "runtime": {
-          "lib/net45/Remotion.Linq.dll": {}
         }
       },
       "System.Collections/4.0.0": {
@@ -3127,13 +2905,15 @@
           "Ubik.Web.Components": "1.0.0"
         }
       },
-      "Ubik.Web.Membership/1.0.0": {
+      "Ubik.Web.SSO/1.0.0": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.6",
         "dependencies": {
-          "Microsoft.AspNet.Identity.EntityFramework": "3.0.0-rc1-final",
-          "Ubik.Infra": "1.0.0",
-          "Ubik.Web.BuildingBlocks": "1.0.0"
+          "EntityFramework": "6.1.3",
+          "Microsoft.AspNet.Identity": "3.0.0-rc1-final",
+          "Microsoft.Extensions.DependencyInjection": "1.0.0-rc2-15888",
+          "Ubik.EF": "1.0.0",
+          "Ubik.Infra": "1.0.0"
         },
         "frameworkAssemblies": [
           "System.Data"
@@ -3155,68 +2935,6 @@
           "lib/net45/EntityFramework.SqlServer.dll": {}
         }
       },
-      "EntityFramework.Core/7.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "Ix-Async": "1.2.5",
-          "Microsoft.Extensions.Caching.Abstractions": "1.0.0-rc1-final",
-          "Microsoft.Extensions.Caching.Memory": "1.0.0-rc1-final",
-          "Microsoft.Extensions.DependencyInjection": "1.0.0-rc1-final",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0-rc1-final",
-          "Microsoft.Extensions.Logging": "1.0.0-rc1-final",
-          "Microsoft.Extensions.Logging.Abstractions": "1.0.0-rc1-final",
-          "Microsoft.Extensions.OptionsModel": "1.0.0-rc1-final",
-          "Remotion.Linq": "2.0.1",
-          "System.Collections.Immutable": "1.1.36"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.ComponentModel.DataAnnotations",
-          "System.Core"
-        ],
-        "compile": {
-          "lib/net451/EntityFramework.Core.dll": {}
-        },
-        "runtime": {
-          "lib/net451/EntityFramework.Core.dll": {}
-        }
-      },
-      "EntityFramework.Relational/7.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "EntityFramework.Core": "7.0.0-rc1-final",
-          "System.Diagnostics.DiagnosticSource": "4.0.0-beta-23516"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Core",
-          "System.Data",
-          "System.Transactions"
-        ],
-        "compile": {
-          "lib/net451/EntityFramework.Relational.dll": {}
-        },
-        "runtime": {
-          "lib/net451/EntityFramework.Relational.dll": {}
-        }
-      },
-      "Ix-Async/1.2.5": {
-        "type": "package",
-        "frameworkAssemblies": [
-          "System",
-          "System.Core"
-        ],
-        "compile": {
-          "lib/net45/System.Interactive.Async.dll": {}
-        },
-        "runtime": {
-          "lib/net45/System.Interactive.Async.dll": {}
-        }
-      },
       "Mehdime.Entity/1.0.0": {
         "type": "package",
         "dependencies": {
@@ -3597,27 +3315,6 @@
         },
         "runtime": {
           "lib/net451/Microsoft.AspNet.Identity.dll": {}
-        }
-      },
-      "Microsoft.AspNet.Identity.EntityFramework/3.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "EntityFramework.Relational": "7.0.0-rc1-final",
-          "Microsoft.AspNet.Identity": "3.0.0-rc1-final"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Core",
-          "System.Runtime",
-          "System.Threading.Tasks"
-        ],
-        "compile": {
-          "lib/net451/Microsoft.AspNet.Identity.EntityFramework.dll": {}
-        },
-        "runtime": {
-          "lib/net451/Microsoft.AspNet.Identity.EntityFramework.dll": {}
         }
       },
       "Microsoft.AspNet.JsonPatch/1.0.0-rc1-final": {
@@ -4190,10 +3887,10 @@
           "lib/net451/Microsoft.Extensions.Configuration.Binder.dll": {}
         }
       },
-      "Microsoft.Extensions.DependencyInjection/1.0.0-rc1-final": {
+      "Microsoft.Extensions.DependencyInjection/1.0.0-rc2-15888": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0-rc1-final"
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0-rc2-15888"
         },
         "frameworkAssemblies": [
           "Microsoft.CSharp",
@@ -4208,7 +3905,7 @@
           "lib/net451/Microsoft.Extensions.DependencyInjection.dll": {}
         }
       },
-      "Microsoft.Extensions.DependencyInjection.Abstractions/1.0.0-rc1-final": {
+      "Microsoft.Extensions.DependencyInjection.Abstractions/1.0.0-rc2-15888": {
         "type": "package",
         "frameworkAssemblies": [
           "Microsoft.CSharp",
@@ -4272,26 +3969,6 @@
         },
         "runtime": {
           "lib/net451/Microsoft.Extensions.Localization.Abstractions.dll": {}
-        }
-      },
-      "Microsoft.Extensions.Logging/1.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0-rc1-final",
-          "Microsoft.Extensions.Logging.Abstractions": "1.0.0-rc1-final"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Collections.Concurrent",
-          "System.Core"
-        ],
-        "compile": {
-          "lib/net451/Microsoft.Extensions.Logging.dll": {}
-        },
-        "runtime": {
-          "lib/net451/Microsoft.Extensions.Logging.dll": {}
         }
       },
       "Microsoft.Extensions.Logging.Abstractions/1.0.0-rc1-final": {
@@ -4431,15 +4108,6 @@
         },
         "runtime": {
           "lib/net45/Newtonsoft.Json.dll": {}
-        }
-      },
-      "Remotion.Linq/2.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net45/Remotion.Linq.dll": {}
-        },
-        "runtime": {
-          "lib/net45/Remotion.Linq.dll": {}
         }
       },
       "System.Collections/4.0.0": {
@@ -4696,13 +4364,15 @@
           "Ubik.Web.Components": "1.0.0"
         }
       },
-      "Ubik.Web.Membership/1.0.0": {
+      "Ubik.Web.SSO/1.0.0": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.6",
         "dependencies": {
-          "Microsoft.AspNet.Identity.EntityFramework": "3.0.0-rc1-final",
-          "Ubik.Infra": "1.0.0",
-          "Ubik.Web.BuildingBlocks": "1.0.0"
+          "EntityFramework": "6.1.3",
+          "Microsoft.AspNet.Identity": "3.0.0-rc1-final",
+          "Microsoft.Extensions.DependencyInjection": "1.0.0-rc2-15888",
+          "Ubik.EF": "1.0.0",
+          "Ubik.Infra": "1.0.0"
         },
         "frameworkAssemblies": [
           "System.Data"
@@ -4735,9 +4405,9 @@
       "type": "project",
       "path": "../wrap/Ubik.Web.EF/project.json"
     },
-    "Ubik.Web.Membership/1.0.0": {
+    "Ubik.Web.SSO/1.0.0": {
       "type": "project",
-      "path": "../Ubik.Web.Membership/project.json"
+      "path": "../Ubik.Web.SSO/project.json"
     },
     "EntityFramework/6.1.3": {
       "type": "package",
@@ -4765,55 +4435,6 @@
         "tools/init.ps1",
         "tools/install.ps1",
         "tools/migrate.exe"
-      ]
-    },
-    "EntityFramework.Core/7.0.0-rc1-final": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "afwsjOF4xM5KiwAxKMz9R0H8TigWE/jX0FwGBO/QtuA1ElEVLqlQVH4+7PyZaA35HguYRm0wOCmUq9RVTmiAfA==",
-      "files": [
-        "EntityFramework.Core.7.0.0-rc1-final.nupkg",
-        "EntityFramework.Core.7.0.0-rc1-final.nupkg.sha512",
-        "EntityFramework.Core.nuspec",
-        "lib/dnx451/EntityFramework.Core.dll",
-        "lib/dnx451/EntityFramework.Core.xml",
-        "lib/dotnet5.4/EntityFramework.Core.dll",
-        "lib/dotnet5.4/EntityFramework.Core.xml",
-        "lib/net451/EntityFramework.Core.dll",
-        "lib/net451/EntityFramework.Core.xml",
-        "lib/netcore50/EntityFramework.Core.dll",
-        "lib/netcore50/EntityFramework.Core.xml"
-      ]
-    },
-    "EntityFramework.Relational/7.0.0-rc1-final": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "0Feoct9mtKOIjovUgfESfVDL/odvxNXsIgK3bdlkx7Fsiqp5/tx8oiMx+qO7oNRYWsXN6XDlGKHLOzWEdUssKA==",
-      "files": [
-        "EntityFramework.Relational.7.0.0-rc1-final.nupkg",
-        "EntityFramework.Relational.7.0.0-rc1-final.nupkg.sha512",
-        "EntityFramework.Relational.nuspec",
-        "lib/dotnet5.4/EntityFramework.Relational.dll",
-        "lib/dotnet5.4/EntityFramework.Relational.xml",
-        "lib/net451/EntityFramework.Relational.dll",
-        "lib/net451/EntityFramework.Relational.xml",
-        "lib/netcore50/EntityFramework.Relational.dll",
-        "lib/netcore50/EntityFramework.Relational.xml"
-      ]
-    },
-    "Ix-Async/1.2.5": {
-      "type": "package",
-      "sha512": "8EXO8q7cpDUH9G2q+UOPOO/6uZ9aN7mx/4xjFIfkp+qLWVJiYuglkRhjY8Ggs2CucXzHR8GHnovJKB5yQoYaJg==",
-      "files": [
-        "Ix-Async.1.2.5.nupkg",
-        "Ix-Async.1.2.5.nupkg.sha512",
-        "Ix-Async.nuspec",
-        "lib/net40/System.Interactive.Async.dll",
-        "lib/net40/System.Interactive.Async.XML",
-        "lib/net45/System.Interactive.Async.dll",
-        "lib/net45/System.Interactive.Async.XML",
-        "lib/portable-windows8+net45+wp8/System.Interactive.Async.dll",
-        "lib/portable-windows8+net45+wp8/System.Interactive.Async.XML"
       ]
     },
     "Mehdime.Entity/1.0.0": {
@@ -5090,20 +4711,6 @@
         "Microsoft.AspNet.Identity.3.0.0-rc1-final.nupkg",
         "Microsoft.AspNet.Identity.3.0.0-rc1-final.nupkg.sha512",
         "Microsoft.AspNet.Identity.nuspec"
-      ]
-    },
-    "Microsoft.AspNet.Identity.EntityFramework/3.0.0-rc1-final": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "XayUdpI6mRgL4e9kowTxlYURvDGNj7FBhqbOn6uxvQwwD7gltYzKL3T07nCeSzxR5m2sJ+IvrJCMPihKrtuR5w==",
-      "files": [
-        "lib/dotnet5.4/Microsoft.AspNet.Identity.EntityFramework.dll",
-        "lib/dotnet5.4/Microsoft.AspNet.Identity.EntityFramework.xml",
-        "lib/net451/Microsoft.AspNet.Identity.EntityFramework.dll",
-        "lib/net451/Microsoft.AspNet.Identity.EntityFramework.xml",
-        "Microsoft.AspNet.Identity.EntityFramework.3.0.0-rc1-final.nupkg",
-        "Microsoft.AspNet.Identity.EntityFramework.3.0.0-rc1-final.nupkg.sha512",
-        "Microsoft.AspNet.Identity.EntityFramework.nuspec"
       ]
     },
     "Microsoft.AspNet.JsonPatch/1.0.0-rc1-final": {
@@ -5538,10 +5145,10 @@
         "Microsoft.Extensions.Configuration.Binder.nuspec"
       ]
     },
-    "Microsoft.Extensions.DependencyInjection/1.0.0-rc1-final": {
+    "Microsoft.Extensions.DependencyInjection/1.0.0-rc2-15888": {
       "type": "package",
       "serviceable": true,
-      "sha512": "S/+s3fq85j21H5nYOvh1fIt1arl8F5lZ7Ryiw/qend83yHQwIQbBs+dip9FhqiPmAn6Dz3UhW0likQQurfEsLQ==",
+      "sha512": "ImlMb8+RR4iUnKSx+bOsoWPQvKjWzii5Sm8EAFgFpO13QJ1xmTrgjb9MIDhfRUJdkCdasy9BA8jJ1lTB2BrAhA==",
       "files": [
         "lib/dotnet5.4/Microsoft.Extensions.DependencyInjection.dll",
         "lib/dotnet5.4/Microsoft.Extensions.DependencyInjection.xml",
@@ -5549,15 +5156,15 @@
         "lib/net451/Microsoft.Extensions.DependencyInjection.xml",
         "lib/netcore50/Microsoft.Extensions.DependencyInjection.dll",
         "lib/netcore50/Microsoft.Extensions.DependencyInjection.xml",
-        "Microsoft.Extensions.DependencyInjection.1.0.0-rc1-final.nupkg",
-        "Microsoft.Extensions.DependencyInjection.1.0.0-rc1-final.nupkg.sha512",
+        "Microsoft.Extensions.DependencyInjection.1.0.0-rc2-15888.nupkg",
+        "Microsoft.Extensions.DependencyInjection.1.0.0-rc2-15888.nupkg.sha512",
         "Microsoft.Extensions.DependencyInjection.nuspec"
       ]
     },
-    "Microsoft.Extensions.DependencyInjection.Abstractions/1.0.0-rc1-final": {
+    "Microsoft.Extensions.DependencyInjection.Abstractions/1.0.0-rc2-15888": {
       "type": "package",
       "serviceable": true,
-      "sha512": "MUKexXAsRZ55C7YZ26ShePZgBeW+6FbasxeIVmZ/BZIgiG4uw6yPOdfl9WvTaUL9SFK2sEPcYLatWmLfTpsOAA==",
+      "sha512": "wgDqdX18VsGPxfgsHD1DpMl1cbtL4E/GKY7DCDd0T5p6HeKtakBzdecSepzYacIYaGmNuvUkDn0eE75+nTGZDA==",
       "files": [
         "lib/dotnet5.4/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
         "lib/dotnet5.4/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
@@ -5565,8 +5172,8 @@
         "lib/net451/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
         "lib/netcore50/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
         "lib/netcore50/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
-        "Microsoft.Extensions.DependencyInjection.Abstractions.1.0.0-rc1-final.nupkg",
-        "Microsoft.Extensions.DependencyInjection.Abstractions.1.0.0-rc1-final.nupkg.sha512",
+        "Microsoft.Extensions.DependencyInjection.Abstractions.1.0.0-rc2-15888.nupkg",
+        "Microsoft.Extensions.DependencyInjection.Abstractions.1.0.0-rc2-15888.nupkg.sha512",
         "Microsoft.Extensions.DependencyInjection.Abstractions.nuspec"
       ]
     },
@@ -5610,22 +5217,6 @@
         "Microsoft.Extensions.Localization.Abstractions.1.0.0-rc1-final.nupkg",
         "Microsoft.Extensions.Localization.Abstractions.1.0.0-rc1-final.nupkg.sha512",
         "Microsoft.Extensions.Localization.Abstractions.nuspec"
-      ]
-    },
-    "Microsoft.Extensions.Logging/1.0.0-rc1-final": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "anegHH4XHjaCmC557A0uvnJzprT44MOKr669yfiQLtITA+lQrM3aMijxjjdCREnxE8ftXuSz+6wViCvkgcAOhA==",
-      "files": [
-        "lib/dotnet5.4/Microsoft.Extensions.Logging.dll",
-        "lib/dotnet5.4/Microsoft.Extensions.Logging.xml",
-        "lib/net451/Microsoft.Extensions.Logging.dll",
-        "lib/net451/Microsoft.Extensions.Logging.xml",
-        "lib/netcore50/Microsoft.Extensions.Logging.dll",
-        "lib/netcore50/Microsoft.Extensions.Logging.xml",
-        "Microsoft.Extensions.Logging.1.0.0-rc1-final.nupkg",
-        "Microsoft.Extensions.Logging.1.0.0-rc1-final.nupkg.sha512",
-        "Microsoft.Extensions.Logging.nuspec"
       ]
     },
     "Microsoft.Extensions.Logging.Abstractions/1.0.0-rc1-final": {
@@ -5768,23 +5359,6 @@
         "Newtonsoft.Json.6.0.6.nupkg.sha512",
         "Newtonsoft.Json.nuspec",
         "tools/install.ps1"
-      ]
-    },
-    "Remotion.Linq/2.0.1": {
-      "type": "package",
-      "sha512": "SIO6HDH6CU9GC2IZGBrc6q5X5vRhfatXrg9cVavCEG9W6v5e88b+vXjmLGQEorch4sYEIImRr+ODyUMyrmrqAg==",
-      "files": [
-        "lib/net35/Remotion.Linq.dll",
-        "lib/net35/Remotion.Linq.XML",
-        "lib/net40/Remotion.Linq.dll",
-        "lib/net40/Remotion.Linq.XML",
-        "lib/net45/Remotion.Linq.dll",
-        "lib/net45/Remotion.Linq.xml",
-        "lib/portable-net45+win+wpa81+wp80/Remotion.Linq.dll",
-        "lib/portable-net45+win+wpa81+wp80/Remotion.Linq.xml",
-        "Remotion.Linq.2.0.1.nupkg",
-        "Remotion.Linq.2.0.1.nupkg.sha512",
-        "Remotion.Linq.nuspec"
       ]
     },
     "System.Collections/4.0.0": {
@@ -6541,7 +6115,7 @@
     "": [
       "Mehdime.Entity >= 1.0.0",
       "Ubik.Web.BuildingBlocks >= 1.0.0-*",
-      "Ubik.Web.Membership >= 1.0.0-*"
+      "Ubik.Web.SSO >= 1.0.0-*"
     ],
     ".NETFramework,Version=v4.6": [
       "Ubik.Infra >= 1.0.0-*",

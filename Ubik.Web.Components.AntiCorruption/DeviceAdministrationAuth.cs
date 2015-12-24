@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using Ubik.Web.Membership;
-using Ubik.Web.Membership.Contracts;
+
 
 namespace Ubik.Web.AntiCorruption
 {

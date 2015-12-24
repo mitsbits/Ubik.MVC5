@@ -11,7 +11,7 @@ namespace Ubik.Web.SSO
     /// </summary>
     public class UbikRole : IdentityRole<int>
     {
-        private readonly ICollection<ApplicationClaim> _roleClaims;
+        //private readonly ICollection<ApplicationClaim> _roleClaims;
 
         /// <summary>
         /// Initializes a new instance of <see cref="IdentityRole"/>.
@@ -22,7 +22,7 @@ namespace Ubik.Web.SSO
         public UbikRole()
         {
             Id = default(int);
-            _roleClaims = new HashSet<ApplicationClaim>();
+            //_roleClaims = new HashSet<ApplicationClaim>();
         }
 
         /// <summary>
@@ -37,10 +37,10 @@ namespace Ubik.Web.SSO
             Name = roleName;
         }
 
-        public ICollection<ApplicationClaim> RoleClaims
-        {
-            get { return _roleClaims; }
-        }
+        //public ICollection<ApplicationClaim> RoleClaims
+        //{
+        //    get { return _roleClaims; }
+        //}
     }
 
     /// <summary>
